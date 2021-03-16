@@ -1,7 +1,7 @@
 <cfinclude template="../functions/user_functions.cfm" runonce="true" />
 <cfset currentUser = getFYMUser(REQUEST.authUser) />
 <cfset current_inst = getFocus(currentUser.username).focus /> 
-<!--- ALLFEES HEADER  --->
+<!--- 5YM HEADER  --->
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -15,8 +15,8 @@
 		<meta http-equiv="expires" content="-1">
 		<meta http-equiv="pragma" content="no-cache">
 
-		<meta name="Copyright" content="Copyright 2020, The Trustees of Indiana University">
-		<meta name="last-modified" content="2021-01-21" >
+		<meta name="Copyright" content="Copyright 2021, The Trustees of Indiana University">
+		<meta name="last-modified" content="2021-03-16" >
 		<meta name="audiences" content="default" >
 		<meta name="owner-group" content="budu" >
 		<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- insure page width and zoom on any device -->
@@ -36,7 +36,7 @@
 
 	<body>
 		<cfoutput>
-		<!-- BEGIN INDIANA UNIVERSITY BRANDING BAR in the ALLFEES HEADER -->
+		<!-- BEGIN INDIANA UNIVERSITY BRANDING BAR in the FYM HEADER -->
 	    <div id="branding-bar">
 	    	<div class="bar">
 	        	<div class="wrapper">
@@ -63,19 +63,7 @@
 						<span class="link_hilight"><a href="params.cfm">Parameters</a></span>
 						<span class="link_hilight"><a href="fym_excel.cfm">FYM Data (#current_inst#)</a></span>
 						<span class="link_hilight"><a href="uploads.cfm">Uploads</a></span>
-						<cfif ListFindNoCase(REQUEST.adminUsernames, REQUEST.authUser)>
-							<!---<span class="link_hilight"><a href="fym_param_excel.cfm">FYM Params (Table)</a></span>--->
-							<!---<span class="link_hilight"><a href="fym_interface_excel.cfm">FYM Model (Interface)</a></span>--->
-						</cfif>
 	                </p>
-	                <cfif ListFindNoCase(REQUEST.adminUsernames,REQUEST.authUser) OR ListFindNoCase(REQUEST.regionalUsernames, REQUEST.authUser)>
-	                	 <!---<span class="headerFarRight">
-	                	 <form id="emulationForm" action="..\emulate_user.cfm" method="post">
-	                	 	<input id="emulateInput" class="emu" type="text" name="usernameInput" size="15" width="30" maxlength="8" alt="input for username you wish to emulate" placeholder="Enter campus code" />
-	                	 	<input id="emulateBtn" class="emu" type="submit" name="emulateBtn" value="Shazam!" />
-	                	 </form>
-	                	 </span>--->
-	                </cfif>
 	            </div>
 	        </div>
 	    </div>
