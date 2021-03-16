@@ -1,0 +1,16 @@
+jburgoon August 2016
+DUO implem,entation for BUDU ColdFusion tools.
+
+Registration information passed to UITS:
+
+Our implementation will be ColdFusion. 
+Integration type: Duo Web integration
+Integration name: IU Budget Office Tools 
+Group email: budu@iu.edu 
+
+Their response:
+Integration Key:	DI2QSD75EX33GF5KZRNA
+Secret Key:		zxqpKb954ZeSr8sqDYIQh5UY7cGLr84OyjLX0SkN
+API Hostname:		api-cd22e904.duosecurity.com
+
+See https://duo.com/docs/duoweb for implementation instructions.

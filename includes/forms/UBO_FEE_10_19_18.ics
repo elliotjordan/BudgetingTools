@@ -1,0 +1,54 @@
+BEGIN:VCALENDAR
+PRODID:-//zoom.us//iCalendar Event//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+CLASS:PUBLIC
+BEGIN:VTIMEZONE
+TZID:America/Indiana/Indianapolis
+TZURL:http://tzurl.org/zoneinfo-outlook/America/Indiana/Indianapolis
+X-LIC-LOCATION:America/Indiana/Indianapolis
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+TZNAME:EDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+TZNAME:EST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTAMP:20181003T144122Z
+DTSTART;TZID=America/Indiana/Indianapolis:20181019T083000
+DTEND;TZID=America/Indiana/Indianapolis:20181019T163000
+SUMMARY:New UBO Fee Website Training
+UID:20181003T144122Z-202027588@fe80:0:0:0:c40:e3ff:fe04:364b%eth0
+TZID:America/Indiana/Indianapolis
+DESCRIPTION:The University Budget Office is inviting you to a scheduled Zoom@IU meetin
+ g. \n\nJoin from PC\, Mac\, Linux\, iOS or Android: https://iu.zoom.us/j
+ /202027588\n\nOr Telephone:\n    Dial: +1 646 558 8656 (US Toll) or +1 6
+ 69 900 6833 (US Toll)\n    Meeting ID: 202 027 588 \n    International n
+ umbers available: https://zoom.us/u/awfyBeEvv \n\n\nOr connecting from I
+ U videoconferencing equipment:\n    Video Bridge: 26 202 027 588\n\nOr c
+ onnecting from videoconferencing equipment outside of IU:\n    H.323: \n
+         162.255.37.11 (US West)\n        162.255.36.11 (US East)\n      
+   221.122.88.195 (China)\n        115.114.131.7 (India)\n        213.19.
+ 144.110 (EMEA)\n        202.177.207.158 (Australia)\n        209.9.211.1
+ 10 (Hong Kong)\n        64.211.144.160 (Brazil)\n        69.174.57.160 (
+ Canada)\n    Meeting ID: 202 027 588\n\n    SIP: 202027588@zoomcrc.com\n
+ \nOr Skype for Business (Lync):\n    https://iu.zoom.us/skype/202027588\
+ n\n\nZoom@IU Team | cthelp@iu.edu | https://kb.iu.edu/d/bfqu
+LOCATION:https://iu.zoom.us/j/202027588
+BEGIN:VALARM
+TRIGGER:-PT10M
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+END:VCALENDAR

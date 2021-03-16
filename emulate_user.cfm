@@ -1,0 +1,14 @@
+<cfinclude template="includes/functions/user_functions.cfm" />
+<cfoutput>
+<cfif StructKeyExists(form,"usernameinput") AND LEN(form.usernameinput) lte 8>
+	<cfset testUser = emulateUser(form.usernameinput)>
+	<cflocation url="#cgi.HTTP_REFERER#" addtoken="false" />
+<cfelseif StructKeyExists(url,"target")>
+	<cfset testUser = setFocus(url.target)> 
+	<cflocation url="#cgi.HTTP_REFERER#" addtoken="false" />
+<cfelse>
+	<cfdump var="#form#">
+	You are #REQUEST.authUser#. <br />
+	That was not a valid username. Please try again.
+</cfif>
+</cfoutput>
