@@ -14,7 +14,6 @@
 		<meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate, post-check=0, pre-check=0">  <!--- Always get a fresh version, needed for CAS --->
 		<meta http-equiv="expires" content="-1">
 		<meta http-equiv="pragma" content="no-cache">
-
 		<meta name="Copyright" content="Copyright 2021, The Trustees of Indiana University">
 		<meta name="last-modified" content="2021-03-16" >
 		<meta name="audiences" content="default" >
