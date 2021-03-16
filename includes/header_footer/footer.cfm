@@ -19,7 +19,10 @@
 <!--- NOTE: The table headers will not appear unless they are included this way.  The HTML headers in the form are there in case javascript fails --->
 <!--- NOTE SOME MORE: If the number of aoColumns defined does not match the number in the table, you will get an error --->
 <script>
+
 $(document).ready(function(){
+ 
+//
 //	calcVisibleSubTotal();
 	//var stepCounter = 1;
 	//console.log(" --- stepCounter: " + stepCounter + "\n");

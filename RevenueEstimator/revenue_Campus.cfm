@@ -1,4 +1,4 @@
-f<cfinclude template="../includes/header_footer/header.cfm">
+<cfinclude template="../includes/header_footer/header.cfm">
 <cfinclude template="../includes/functions/bi_revenue_functions.cfm">
 <cfset authUser = getUser(REQUEST.authuser)>
 <cfparam name="getCampus" type="string" default="" >
@@ -31,13 +31,13 @@ f<cfinclude template="../includes/header_footer/header.cfm">
 	<cfset userCampus = "IU" & authUser.chart & "A" />
 	<cflocation url="UIRR_report.cfm?Campus=#userCampus#" addtoken="false">
 <cfelseif IsDefined("form") AND StructKeyExists(form,"dwnldBtn")>
-	<cfset ExcelSelect = getProjectinatorData(urlCampus,"NONE",application.rateStatus)>
+	<cfset ExcelSelect = getProjectinatorData(urlCampus,"NONE",application.rateStatus,"excel")>
 	<cfinclude template="export_to_excel.cfm" runonce="true" />
 <!--- User has asked for a V1 report. --->
 <cfelseif IsDefined("form") AND StructKeyExists(form,"reportBtn")>
 	<cfsetting enablecfoutputonly="Yes"> 
-	<cfset reportLevel = "_" & urlCampus & "_Campus" />
-	<cfset reportSelect = getB325_V1_Campus_data(urlCampus, "ALL", false)>
+	<cfset reportLevel = "_" & urlCampus & "_Campus" />  
+	<cfset reportSelect = getB325_V1_Campus_data(urlCampus, "ALL", false)> <!---<cfdump var="#reportSelect.recordCount#"><cfabort>--->
 	<!---<cfdump var="#reportSelect.recordcount#"><cfabort>--->
    	<cfif IsDefined("reportSelect") AND reportSelect.recordcount GT 0>
 		<cfinclude template="V1_creation.cfm" runonce="true" />
@@ -92,7 +92,7 @@ f<cfinclude template="../includes/header_footer/header.cfm">
 							<input disabled id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate #application.rateStatus# Report" <cfif !dssIsOpen >disabled</cfif> /> 
 							<br><span class="sm-blue"><i>Available only when IUIE is open</i></span>
 						<cfelse>
-							<input disabled id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate #application.rateStatus# Report" />
+							<input id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate #application.rateStatus# Report" />
 						</cfif>
 					</div>
 					<!-- End div controlBinTC --> 

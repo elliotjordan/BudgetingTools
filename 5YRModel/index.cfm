@@ -4,37 +4,22 @@
 
 <!--- if user has more than one fym-inst, offer a selector  --->
 <!---<cfset current_inst = ListFirst(currentUser.fym_inst) />--->
-<cfset current_inst = getFocus(currentUser.username).focus /> 
+<!---<cfset current_inst = getFocus(currentUser.username).focus /> --->
 
-<!---<cfset fymRevSums = getFymRevSums(currentUser.fym_inst) />
-<cfset fymRevDelta = getFymRevDelta(currentUser.fym_inst) />
-<cfset fymExpSums = getFymExpSums(currentUser.fym_inst) />
-<cfset fymExpDelta = getFymExpDelta(currentUser.fym_inst) />
-<cfset fymSurplus = getFymSurplus(currentUser.fym_inst) />
-<cfset crHrTotals = getCrHrSums(currentUser.fym_inst) />--->
 <cfset fymRevSums = getFymRevSums(current_inst) />
 <cfset fymRevDelta = getFymRevDelta(current_inst) />
 <cfset fymExpSums = getFymExpSums(current_inst) />
 <cfset fymExpDelta = getFymExpDelta(current_inst) />
 <cfset fymSurplus = getFymSurplus(current_inst) />
 <cfset crHrTotals = getCrHrSums(current_inst) />
+<cfset compDetails = getCompDetails(current_inst) />
 <cfset commentBucket = convertQueryToStruct(getFYMcomments()) />
-
+<!---<cfdump var="#compDetails.columnList#" >--->
 <cfset editcy = true /><cfset edityr1 = true /><cfset edityr2 = true /><cfset edityr3 = true /><cfset edityr4 = true /><cfset edityr5 = true />
 <cfoutput>
 <div class="full_content">
 <!---<h2>5-Year Model for #getDistinctChartDesc(currentUser.fym_inst)# FY#application.shortfiscalyear#</h2>--->
 <h2>5-Year Model for #getDistinctChartDesc(current_inst)# FY#application.shortfiscalyear#</h2>
-<!--- selector for which campus to view --->
-<div id="chartSelector">  
-	<cfloop list="#currentUser.fym_inst#" index="choice">
-		<cfset currentSel = ""><cfif current_inst eq choice><cfset currentSel = "checked"></cfif>
-		<a href="../emulate_user.cfm?target=#choice#">	
-			<input type="radio" id="sel_#choice#" name="curr_choice" value="#choice#" #currentSel# />
-			<label for="sel_#choice#"> #choice# </label>
-		</a>
-	</cfloop>
-</div>
 
 <cfif fymRevSums.recordCount neq 0>
 	<h3>Summary</h3>
@@ -58,8 +43,8 @@
 <form id="fymForm" action="fym_submit.cfm" method="post" >
 <cfloop query="fundTypes" >
 	<cfif grp1_cd gt 0>
-	<!---<cfset campusInfo = getFYMdataByFnd(currentUser.fym_inst, grp1_cd) />--->
-	<cfset campusInfo = getFYMdataByFnd(current_inst, grp1_cd) />
+	<!---<cfset ci = getFYMdataByFnd(currentUser.fym_inst, grp1_cd) />--->
+	<cfset ci = getFYMdataByFnd(current_inst, grp1_cd) />
 	<!---<cfset campusSubTotal = getFymSums(currentUser.fym_inst, grp1_cd) />--->	<!---  fee_user.calc_fym_subtotal_grp1  --->
 	<cfset campusSubTotal = getFymSums(current_inst, grp1_cd) />
 	<!---<cfset revSubTotals = getFymSubTotals(currentUser.fym_inst,grp1_cd,1) />--->  <!--- fee_user.calc_fym_subtotal_grp2 --->
@@ -75,7 +60,7 @@
 		<thead>
 		  <tr>
 			<th>Fund Group<br>Revenue/Expense</th>
-			<th>FY#application.shortfiscalyear# Adj Base Budget</th>
+			<th>FY#application.shortfiscalyear# Adj Base Budget<br><span class="sm-blue"><i>as of Jan 21</i></span></th>
 			<th>FY#application.shortfiscalyear# Projection</th>
 			<th>FY#application.shortfiscalyear + 1# Projection</th>
 			<th>FY#application.shortfiscalyear + 2# Projection</th>
@@ -87,8 +72,8 @@
 	    </thead>
 	    <tbody>
 	 <!--- Dynamic content --->
-	  <cfset group_counter = 0>
-	  <cfloop query="#campusInfo#">  <!--- <cfset revExpTotals = getFYMdata(currentUser.fym_inst, grp1_cd,grp2_cd) />  --->
+	  <cfset group_counter = 0><!--- <cfdump var="#compDetails#" />---> <!--- <cfdump var="#fundTypes#" />--->
+	  <cfloop query="#ci#">  <!--- <cfset revExpTotals = getFYMdata(currentUser.fym_inst, grp1_cd,grp2_cd) />  --->
 	  	<cfif grp1_desc neq 'PARAM' and grp2_cd eq 1>
 			<cfinclude template="5yrmodel_table_rows.cfm" runonce="false" />
 		</cfif>
@@ -111,7 +96,7 @@
 	  	</tr>
 	  </cfloop>
 	  <!--- Expense main rows  --->
-	  <cfloop query="#campusInfo#">
+	  <cfloop query="#ci#">
 	  	<cfif grp1_desc neq 'PARAM' and grp2_cd eq 2>
 			<cfinclude template="5yrmodel_table_rows.cfm" runonce="false" />
 		</cfif>

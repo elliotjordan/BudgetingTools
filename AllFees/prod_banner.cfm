@@ -3,5 +3,5 @@
 	</div>--->
 
 	<div class="prod_banner">
-		<p>The portal is now open only for campus fiscal officers. Remember, we can "mass update" or "bulk OK" your fees from our office if it makes things easier. Just let us know how we can help. If we can save you a little time we are happy to do it. Thanks!</p>
+		<p>Changes to non-instructional fees are now closed. Please let us know if you need some help correcting an error. Thanks!</p>
 	</div>

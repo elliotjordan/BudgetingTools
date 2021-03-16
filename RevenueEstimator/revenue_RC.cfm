@@ -11,11 +11,14 @@
 <cfset userLanding = getUserLandingPage() />
 <cfset userAccessList = getUserAccessList() />
 <cfset dssIsOpen = checkDSSavailability() />
+<cfset projStatus = "open" />  <!--- valid settings are "open" and "closed" - NOTE: see REQUEST.specialAccess below --->
 
 <cfif isDefined("Url") AND StructKeyExists(Url, "Campus") AND StructKeyExists(Url, "RC")>
 	<cfset urlCampus = url.Campus>
+	<cfif urlCampus eq 'IN' and !ListFindNoCase("adaniels,srastogi",REQUEST.authUser)><cfset projStatus = "closed" /></cfif>
 	<cfset urlRC = url.RC>
 	<cfset DataSelect = getProjectinatorData(urlCampus, urlRC,application.rateStatus)>
+	<cfif ListFindNocase("77,80,81",urlRc)> <cfset noFCPSelect = getNoFCPRows("IU"&urlCampus&"A",urlRC)> </cfif>
 	<cfset getCampus = getCampusAndRC(urlcampus)>
 	<cfset totProjCount = getProjCount()>
 	<cfset ptg = getUBO_TOOL_SETTINGS(urlCampus,urlRC)>
@@ -80,7 +83,7 @@
 					<div class="controlBinTC">
 						<input id="dwnldBtn" type="submit" name="dwnldBtn" class="dwnldBtn" value="Export All To Excel">
 						<cfif urlCampus neq 'BL'>
-							<input disabled id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate #application.rateStatus# Report for your RC"
+							<input id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate #application.rateStatus# Report for your RC"
 					<cfif !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser) OR !dssIsOpen >
 						#application.disabled#</cfif> /><br><span class="sm-blue">
 									<a href="https://kb.iu.edu/d/alkh"><i>Available only when IUIE is open</i></a>
@@ -89,7 +92,7 @@
 					</div>
 					<!-- End div controlBinTC -->
 					<div class="controlBinTRC">
-						<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" <cfif !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif> />
+						<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" <cfif request.authuser eq 'jburgoon' or (projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser))>#application.disabled#</cfif> />
 					</div>
 					<!-- End div controlBinTR -->
 
@@ -128,7 +131,7 @@
 					<div class="controlBar">
 						<div class="controlBinTRC">
 							<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work"
-				<cfif !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif> />
+				<cfif projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif> />
 						</div>
 					</div>
 
@@ -140,7 +143,7 @@
 						<div class="controlBar">
 							<div class="controlBinTRC">
 								<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work"
-					<cfif !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif>  />
+					<cfif projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif>  />
 							</div>
 						</div>
 
@@ -151,10 +154,22 @@
 						<div class="controlBar">
 							<div class="controlBinTRC">
 								<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work"
-					<cfif !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif> />
+					<cfif projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif> />
 							</div>
 						</div>
+
+						<div class="controlBar">
+							<div class="controlBinTRC">
+								<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work"
+					<cfif projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif> />
+							</div>
+						</div>						
 					</cfif>
+					<!--- No FCP conditional include --->
+					<cfif ListFindNocase("77,80,81",urlRc)>
+						<cfinclude template="no_fcp.cfm" >
+					</cfif>
+					<!--- end No FCP section --->
 				<cfelse>
 					<!--- TODO: Set this so it fails gracefully back to the RC selection dropdown --->
 					<!---<cfdump var="#DataSelect#" ><cfabort>--->

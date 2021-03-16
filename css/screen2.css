@@ -144,7 +144,9 @@ div.full_content {		/* To use when the sidelink bar is not included. */
 /****************************************
  * Branding Bar
  ****************************************/
-
+.targetLink, .targetLink a, .targetLink text {
+	padding: 0 !important;
+}
 #identity {
 	background-color: #7d120c;
 	width: auto;

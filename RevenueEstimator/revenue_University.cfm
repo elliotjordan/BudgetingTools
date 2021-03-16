@@ -57,9 +57,15 @@
 		<cfform action="revenue_University.cfm">	
 			<div class="controlBar">
 				<div class="controlBinTC">
-					<input id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate V1 Report">
-					<br>
-					<input id="sqlBtn" type="submit" name="sqlBtn" class="sqlBtn" value="Show V1 Report SQL"><br>
+					<cfif application.rateStatus eq 'Vc'>
+						<input id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate Vc Report" />
+						<br>
+						<input id="sqlBtn" type="submit" name="sqlBtn" class="sqlBtn" value="Show Vc Report SQL"><br>
+					<cfelse>
+						<input id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate V1 Report" />
+						<br>
+						<input id="sqlBtn" type="submit" name="sqlBtn" class="sqlBtn" value="Show V1 Report SQL"><br>
+					</cfif>
 				</div>
 				<!-- End div controlBinTR -->
 			

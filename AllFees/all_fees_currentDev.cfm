@@ -1,3 +1,4 @@
+
 <cfinclude template="../includes/header_footer/allfees_header.cfm" runonce="true" />
 <cfinclude template="../includes/functions/fee_rate_functions.cfm" runonce="true" />
 
@@ -7,27 +8,26 @@
 <cfelse>
 	<cfset currentlyActive = application.allFeeStatus />
 </cfif>
-<cfif REQUEST.authUser eq 'jopadams' or currentlyActive != 'Non-instructional' AND (ListFindNoCase(REQUEST.campusFOusernames, REQUEST.authUser) OR ListFindNoCase(REQUEST.Approver_list, REQUEST.authUser) OR ListFindNoCase(REQUEST.regionalUsernames,REQUEST.authUser) OR REQUEST.authUser eq "coback" OR REQUEST.authUser eq "atronc01")>
+<cfif currentlyActive != 'Non-instructional' AND (ListFindNoCase(REQUEST.campusFOusernames, REQUEST.authUser) OR ListFindNoCase(REQUEST.Approver_list, REQUEST.authUser) OR ListFindNoCase(REQUEST.regionalUsernames,REQUEST.authUser) OR REQUEST.authUser eq "coback" OR REQUEST.authUser eq "atronc01")>
 	<cfset editingEnabled = true />
 <cfelse><cfset editingEnabled = false /></cfif>
 <cfset feeTypeList = getPreparedTypeCategories() />
 <cfset role = getUserRole(session.access_level) />
 <cfset roleFeestatus = getDistinctFeeStatus() />
 <cfoutput>
-
 <div class="full_content">
 	<cfset AllFeeData = getMergedFees('ALL',#session.inst#,#session.allfees_rcs#)>
 	<cfinclude template="nav_links.cfm" runonce="true" >
 	<!---<cfinclude template="approvals_summary.cfm">--->
 	<!---<cfinclude template="tuition_request_panel.cfm">--->
 
-	<h3>Master List of All Fees</h3>
+	<h3>Master List of All Fees</h3>#currentlyActive#
 	<p>Big searchable table of ALL "active" fees in the merged database (latest version as of October 1, 2020).  The Excel download includes more columns not shown here.</p>
 	 	<form action = "downloadExcel.cfm" id = "excelForm" format = "html" method = "POST" >
 	 		<input type="submit" id="submitExcel" name="submitMaster" value="Excel Download">
 	 	</form>
 	 	<hr width="100%">
- 		<h3>Fee List for #AllFeeData.INST_CD#</h3>
+ 		<h3>Fee List <cfif StructKeyExists(session,"inst")>for #session.INST#</cfif></h3>
 	 	<form action = "fee_rate_update.cfm" id = "AllFeesFormV9" method = "POST" >
 	 		<cfloop list="#StructKeyList(feeTypeList)#" index="i">
 		 		<input type="radio" id="radioBtn#i#" name="feetypechoice" value="#i#" <cfif LCase(i) eq LCase(currentlyActive)>checked="checked"</cfif>> <label for="radioBtn#i#">#i#</label>
@@ -84,10 +84,10 @@
 										</cfif>
 									</td>
 									<td>
-		<cfif editingEnabled>
+		<cfif editingEnabled> <cfdump var="#session.access_level#" > <cfdump var="#role#" >  <cfdump var="#roleFeeStatus#" >
 			<select id="fee_status-#AllFeeData.ALLFEE_ID#" name="fee_status-#AllFeeData.ALLFEE_ID#" class="approval_dropdown target">
 		 		<cfloop list="#roleFeestatus[LCase(role)]#" index="fs">
-		  			<option value="#fs#" <cfif LCase(AllFeeData.FEE_STATUS) eq LCase(fs)>selected</cfif>>#fs#</option>
+		  			<option value="#fs#" <cfif LCase(AllFeeData.FEE_STATUS) eq LCase(fs)>selected</cfif>#fs#</option>
 			  	</cfloop>
 			</select>
 			<input id="fee_status-#AllFeeData.ALLFEE_ID#DELTA" name="fee_status-#AllFeeData.ALLFEE_ID#DELTA" type="hidden" value="NO" />

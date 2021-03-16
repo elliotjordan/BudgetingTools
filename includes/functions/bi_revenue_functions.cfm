@@ -1,3 +1,72 @@
+  <cffunction name="getNoFCPRows">
+  	<cfargument name="selectedCampus" required="true" />
+	<cfargument name="clearingRC" />
+	<cfquery name="noFCProws" datasource="#application.datasource#">
+		SELECT h.OID,h.INST, h.CHART,
+		<cfif application.budget_year eq "YR1">
+			h.b1_RC, h.b1_TERM as TERM,h.SESN as TRMLABEL,
+			h.FEECODE, h.FEEDESCR, h.note, h.SELGROUP, TRIM(h.ACAD_CAREER) as ACAD_CAREER, h.RES, h.ACCOUNT, h.ACCOUNT_NM,
+			h.b1_OBJCD as OBJCD, h.b1_FIN_OBJ_CD_NM as FIN_OBJ_CD_NM, '' as spacer1, h.b1_headcount as HEADCOUNT, h.b1_hours as HOURS, h.b1_adj_rate as ADJ_RATE,
+			CASE h.b1_MACHHRS_YR1
+	    		WHEN 0 THEN '0'
+	    		ELSE TO_CHAR(h.b1_MACHHRS_YR1,'9999999.9')
+	   		END AS MACHHRS_YR1,
+			CASE h.b1_MACHHRS_YR2
+	     		WHEN 0 THEN '0'
+	     		ELSE TO_CHAR(h.b1_MACHHRS_YR2,'9999999.9')
+	   		END AS MACHHRS_YR2,
+	   		'' as spacer2, h.b1_ADJ_RATE, h.b1_PROJHRS_YR1 as PROJHOURS_YR1,
+	   		<cfif application.rateStatus eq 'Vc'>
+		    	h.b1_ADJ_RATE * h.b1_PROJHRS_YR1 ESTREV_YR1,
+			<cfelseif application.rateStatus eq 'V1'>
+		    	h.b1_ADJ_ESCL_RATE_YR1 *h.b1_PROJHRS_YR1 ESTREV_YR1,
+	    	</cfif>
+	   		'' as spacer3, h.b2_adj_rate, h.b1_projhrs_yr2 as PROJHOURS_YR2,
+	   		<cfif application.rateStatus eq 'Vc'>
+    	    	h.b1_ADJ_RATE * h.b1_PROJHRS_YR2 ESTREV_YR2,
+			<cfelseif application.rateStatus eq 'V1'>
+		    	h.b1_ADJ_ESCL_RATE_YR2 * h.b1_PROJHRS_YR2 ESTREV_YR2,
+	    	</cfif>
+		<cfelse>
+			h.b2_RC, h.b2_TERM as TERM,
+			h.SESN as TRMLABEL,
+	    	h.FEECODE, h.FEEDESCR, h.note, h.SELGROUP, TRIM(h.ACAD_CAREER) as ACAD_CAREER, h.RES, h.ACCOUNT, h.ACCOUNT_NM,
+			h.b2_OBJCD as OBJCD, h.b2_FIN_OBJ_CD_NM as FIN_OBJ_CD_NM, '' as spacer1, h.b2_headcount as HEADCOUNT, h.b2_hours as HOURS, h.b1_adj_escl_rate_yr1 as ADJ_RATE,
+			CASE h.b1_MACHHRS_YR1
+	    		WHEN 0 THEN '0'
+	    		ELSE TO_CHAR(h.b1_MACHHRS_YR1,'9999999.9')
+	   		END AS MACHHRS_YR1,
+		    CASE h.b2_MACHHRS_YR2
+		    	WHEN 0 THEN '0'
+		    	ELSE TO_CHAR(h.b2_MACHHRS_YR2,'9999999.9')
+		   	END AS MACHHRS_YR2,
+		   	'' as spacer2, h.b1_ADJ_RATE, h.b1_PROJHRS_YR1 as PROJHOURS_YR1,
+		   	h.b1_ADJ_ESCL_RATE_YR1 * h.b1_PROJHRS_YR1 ESTREV_YR1,
+		   	<!--- unchanged from before when it ended using adj escl rate --->
+		   	'' as spacer3, h.b2_adj_escl_rate_yr2, h.b2_projhrs_yr2 as PROJHOURS_YR2,
+    	    h.b2_ADJ_ESCL_RATE_YR2 * h.b2_PROJHRS_YR2 ESTREV_YR2,
+    	    <!--- unchanged escalated rate, 2nd-year projhrs - how we left it end of YR1 --->
+		</cfif>
+		 h.SESN, '('||h.SELGROUP||', '||h.FEECODE||')' FEEKEY,
+	    <cfif application.budget_year eq "YR1">
+	    	h.b1_fee_id as FEE_ID
+	    <cfelse>  <!--- YR2 is the only other possibility --->
+	    	h.b2_fee_id as FEE_ID
+	    </cfif>
+	 	    , h.b1_ADJ_ESCL_RATE_YR1, h.b1_ADJ_ESCL_RATE_YR2, h.b1_fee_residency, h.b1_ADJ_RATE,
+		    h.b2_fee_id, h.b2_objcd, h.b2_fin_obj_cd_nm, h.b2_projhrs_yr2, h.b2_hours, h.b2_adj_rate, h.b2_adj_escl_rate_yr2,
+		    h.fee_current, h.fee_lowyear, h.fee_highyear, h.RES, h.b1_projhrs_yr2, h.b1_RC, s.gl_sub_acct_cd
+	FROM #application.hours_to_project# h LEFT JOIN ch_user.htp_subaccount s
+    ON h.inst = s.bursar_bsns_unit_cd and h.b2_term = s.sf_trm_cd and h.feecode = s.sf_trm_fee_cd and h.selgroup = s.sf_tuit_grp_ind and h.account = s.gl_acct_nbr 
+		where selgroup = 'NO FCP'
+		  and inst = <cfqueryparam cfsqltype="cf_sql_varchar" value="#selectedCampus#" />
+		  <cfif application.budget_year eq 'YR1'>AND h.b1_RC
+		  <cfelse>AND h.b2_RC
+		  </cfif> = <cfqueryparam cfsqltype="cf_sql_varchar" value="#clearingRC#" />
+	</cfquery>
+  	<cfreturn noFCProws />
+  </cffunction>
+  
   <cffunction name="dismantleError">
   	<cfargument name="e" type="any" required="true">
   	<cfscript>
@@ -145,6 +214,7 @@
 		WHERE biennium = '#application.biennium#'
         <cfif givenCampus neq 'NONE'>AND chart = <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenCampus#"></cfif>
 		  AND #activeYrRC# IS NOT NULL
+		  AND FEECODE NOT LIKE ('BAN%')
 		ORDER BY #activeYrRC# ASC
 	</cfquery>
 	<cfreturn distinctRCs>
@@ -274,7 +344,13 @@
 		SELECT h.OID,h.INST, h.CHART,
 		<cfif application.budget_year eq "YR1">
 			h.b1_RC, h.b1_TERM as TERM,h.SESN as TRMLABEL,
-			h.FEECODE, h.FEEDESCR, h.note, h.SELGROUP, TRIM(h.ACAD_CAREER) as ACAD_CAREER, h.RES, h.ACCOUNT, h.ACCOUNT_NM,
+			h.FEECODE, h.FEEDESCR, h.note, 
+			CASE 
+			  WHEN h.SELGROUP IS NULL THEN '--n'
+			  WHEN h.SELGROUP = '' THEN '--e'
+			  WHEN h.SELGROUP = ' ' THEN '--s'
+			  ELSE h.SELGROUP END,
+			TRIM(h.ACAD_CAREER) as ACAD_CAREER, h.RES, h.ACCOUNT, h.ACCOUNT_NM,
 			h.b1_OBJCD as OBJCD, h.b1_FIN_OBJ_CD_NM as FIN_OBJ_CD_NM, '' as spacer1, h.b1_headcount as HEADCOUNT, h.b1_hours as HOURS, h.b1_adj_rate as ADJ_RATE,
 			CASE h.b1_MACHHRS_YR1
 	    		WHEN 0 THEN '0'
@@ -284,13 +360,25 @@
 	     		WHEN 0 THEN '0'
 	     		ELSE TO_CHAR(h.b1_MACHHRS_YR2,'9999999.9')
 	   		END AS MACHHRS_YR2,
-	   		'' as spacer2, h.b1_ADJ_RATE, h.b1_PROJHRS_YR1 as PROJHOURS_YR1,
+	   		'' as spacer2, 
+	   		<cfif application.rateStatus eq 'Vc'>
+	   			h.b1_adj_rate, 
+	   		<cfelseif application.rateStatus eq 'V1'>
+	   			h.b1_ADJ_ESCL_RATE_YR1,
+	   		</cfif>
+	   		 h.b1_PROJHRS_YR1 as PROJHOURS_YR1,
 	   		<cfif application.rateStatus eq 'Vc'>
 		    	h.b1_ADJ_RATE * h.b1_PROJHRS_YR1 ESTREV_YR1,
 			<cfelseif application.rateStatus eq 'V1'>
 		    	h.b1_ADJ_ESCL_RATE_YR1 *h.b1_PROJHRS_YR1 ESTREV_YR1,
-	    	</cfif>
-	   		'' as spacer3, h.b2_adj_rate, h.b1_projhrs_yr2 as PROJHOURS_YR2,
+	    	</cfif>  
+	   		'' as spacer3, 
+	   		<cfif application.rateStatus eq 'Vc'>
+	   			h.b1_adj_rate, 
+	   		<cfelseif application.rateStatus eq 'V1'>
+	   			h.b1_ADJ_ESCL_RATE_YR2,
+	   		</cfif>
+	   		h.b1_projhrs_yr2 as PROJHOURS_YR2,
 	   		<cfif application.rateStatus eq 'Vc'>
     	    	h.b1_ADJ_RATE * h.b1_PROJHRS_YR2 ESTREV_YR2,
 			<cfelseif application.rateStatus eq 'V1'>
@@ -337,7 +425,9 @@
 		  </cfif>
 	  </cfif>
 	  AND h.FEECODE NOT LIKE 'G901%$'
-	  AND h.FEECODE NOT LIKE 'LWA%$'
+	  AND h.FEECODE NOT LIKE 'LWA%$' 
+	  ---AND h.FEECODE NOT LIKE 'BAN%'
+	  and h.selgroup != 'NO FCP'
 	ORDER BY h.b1_RC ASC, h.FEECODE ASC, h.b1_TERM ASC
 	</cfquery>
 	<cfreturn DataSelect>
@@ -801,8 +891,8 @@ GROUP BY sesn) t
 	<cfquery datasource="#application.datasource2#" name="B325_V1_Campus_data">
 SELECT h.BIENNIUM as "Biennium", h.INST as "Bus Unit", h.CHART as "KFS Chart",
     CAST(CASE
-      WHEN h.INST = 'IUINA' AND h.b2_rc = '10' THEN 'IM'
-      WHEN h.INST = 'IUINA' AND h.b2_rc <> '10' THEN 'IN'
+      WHEN h.INST = 'IUINA' AND h.b1_rc = '10' THEN 'IM'
+      WHEN h.INST = 'IUINA' AND h.b1_rc <> '10' THEN 'IN'
       WHEN h.INST = 'IUBLA' THEN 'BL'
       WHEN h.INST = 'IUEAA' THEN 'EA'
       WHEN h.INST = 'IUKOA' THEN 'KO'
@@ -812,16 +902,19 @@ SELECT h.BIENNIUM as "Biennium", h.INST as "Bus Unit", h.CHART as "KFS Chart",
       WHEN h.INST = 'IUUAA' THEN 'UA'
       ELSE 'n/a'
     END as character varying(3)) AS "Rptg Chrt",
-h.B2_RC as "RC Code",
-rcb2.RC_NM as "RC Name",
+h.B1_RC as "RC Code",
+CAST(CASE WHEN rcb.RC_NM IS NULL THEN ' ' ELSE rcb.RC_NM END as character varying(64)) as "RC Name",
 h.ACCOUNT as "Account Number", h.ACCOUNT_NM as "Account Name",
-rcb2.RCB_EXCL as "RCB Excl", rcb2.SCHOOL  as "School",
+CAST(CASE WHEN rcb.RCB_EXCL IS NULL THEN 'N' ELSE rcb.RCB_EXCL END as character varying(26)) as "RCB Excl",
+CAST(CASE WHEN rcb.SCHOOL IS NULL THEN ' ' ELSE rcb.SCHOOL END as character varying(64)) as "School",
 h.SELGROUP as "Tuition Group",
-sg.DESCR as "Tuition Group Descr",
+CAST(CASE WHEN sg.DESCR IS NULL THEN ' ' ELSE sg.DESCR END as character varying(64)) as "Tuition Group Descr",
 CAST(CASE WHEN (h.CHART IN ('FT', 'IN') AND h.FEECODE IN ('BANR$', 'BANN$')) THEN 'N'
-		  WHEN h.FEECODE IN ('BANR$', 'BANN$', 'OVSTN$', 'OVSTR$', 'OVST', 'ACPR$', 'ACPNR$', 'G901N$', 'G901R$', 'LWARN$', 'LWARR$', 'MUSX', 'OTHER', 'RHSR$') THEN 'Y' ELSE 'N'
+		  WHEN h.FEECODE IN ('BANR$', 'BANN$', 'OVSTN$', 'OVSTR$', 'OVST', 'ACPR$', 'ACPNR$', 'G901N$', 'G901R$', 'LWARN$', 'LWARR$', 'MUSX', 'OTHER', 'RHSR$') 
+		  THEN 'Y' ELSE 'N'
   	 END as character varying(1)) as "TG Excl",
-h.FEECODE as "Fee Code", h.FEEDESCR as "Fee Code Descr", h.B2_FEE_DISTANCE as "Distance",
+h.FEECODE as "Fee Code", h.FEEDESCR as "Fee Code Descr", 
+CAST(CASE WHEN h.B1_FEE_DISTANCE IS NULL THEN ' ' ELSE h.B1_FEE_DISTANCE END as character varying(1)) as "Distance",
 ac.LEVEL_CD as "Career Categ", ac.SLEVEL as "Level",
 h.SESN as "Term Code",
 DECODE (h.SESN, 'FL', 'Fall',
@@ -830,18 +923,19 @@ DECODE (h.SESN, 'FL', 'Fall',
               'SS2', 'Summer 2',
               'WN', 'Winter',
               '') as "Acad Term",
-t2.Expanded_Descr as "Term Long Descr", t2.DESCRSHORT as "Term Shrt Descr",
+CAST(CASE WHEN t.Expanded_Descr IS NULL THEN ' ' ELSE t.Expanded_Descr END as character varying(128)) as "Term Long Descr",
+CAST(CASE WHEN t.DESCRSHORT IS NULL THEN ' ' ELSE t.DESCRSHORT END as character varying(26)) as "Term Shrt Descr", 
 h.res as "Projector Residency",
 r.res_grp as "Resdcy Desc",
-h.b2_objcd as "Object Code",
-ob2.FIN_OBJ_CD_SHRT_NM as "Object Code Shrt Name",
+h.b1_objcd as "Object Code",
+ob.FIN_OBJ_CD_SHRT_NM as "Object Code Shrt Name",
 CAST(CASE WHEN h.b1_objcd IN ('0701','0801','0901','1001') THEN '09de'
 		  WHEN h.b1_objcd IN ('0808','0908','0802','0803','0902','0903') THEN '10ms'
-		  ELSE pf2.PROFORMA_CD
+		  ELSE pf.PROFORMA_CD
 	 END as character varying(4)) as "ProForma Cd",
 CASE WHEN h.b1_objcd IN ('0701','0801','0901','1001') THEN 'Undifferentiated Dist Ed'
 	WHEN h.b1_objcd IN ('0808','0908','0802','0803','0902','0903') THEN 'Campus Mkt Share'
-	ELSE pf2.PROFORMA_NAME
+	ELSE pf.PROFORMA_NAME
 END as "ProForma Nm",
 CAST(CASE WHEN h.FEECODE IN ('ACPR$', 'ACPNR$', 'BCN$', 'BCR$', 'NTDLR$', 'RHSR$') THEN 'DUAL'
   		  WHEN h.FEECODE IN ('OVSTR$', 'OVSTN$') THEN 'OVST'
@@ -852,44 +946,51 @@ CAST(CASE WHEN h.FEECODE IN ('ACPR$', 'ACPNR$', 'BCN$', 'BCR$', 'NTDLR$', 'RHSR$
 h.b1_projhrs_yr2 as "Camp Proj Hrs_Yr2 Orig", h.b1_adj_escl_rate_yr2 as "Escltd Eff Rt_Yr2 Orig",
 CASE WHEN ( h.CHART IN ('FT', 'IN') AND h.FEECODE IN ('BANR$', 'BANN$')
 			  OR
-			h.FEECODE NOT IN ('BANR$', 'BANN$', 'OVSTN$', 'OVSTR$', 'OVST', 'ACPR$', 'ACPNR$', 'G901N$', 'G901R$', 'LWARN$', 'LWARR$', 'MUSX', 'OTHER')) THEN ROUND(h.b1_adj_escl_rate_yr2 * h.b1_projhrs_yr2, 2)
+			h.FEECODE NOT IN ('BANR$', 'BANN$', 'OVSTN$', 'OVSTR$', 'OVST', 'ACPR$', 'ACPNR$', 'G901N$', 'G901R$', 'LWARN$', 'LWARR$', 'MUSX', 'OTHER')) 
+			  THEN ROUND(h.b1_adj_escl_rate_yr2 * h.b1_projhrs_yr2, 2)
 	 ELSE 0
 END as "Tuit Rev Yr2 Orig",
-h.B2_HEADCOUNT as "Heads Yr2", h.B2_HOURS as "Act CH Yr2", h.b2_machhrs_yr2 as "UBO Proj Hrs_Yr2 Revsd", h.b2_projhrs_yr2 as "Camp Proj Hrs_Yr2 Revsd", h.b2_adj_rate as "Const Eff Rt Yr2 Revsd", h.b2_adj_escl_rate_yr2 as "Escltd Eff Rt_Yr2 Revsd",
+h.B1_HEADCOUNT as "Heads Yr1", h.B1_HOURS as "Act CH Yr1", 
+h.b1_machhrs_yr2 as "UBO Proj Hrs_Yr2 Revsd", h.b1_projhrs_yr2 as "Camp Proj Hrs_Yr2 Revsd", 
+h.b1_adj_rate as "Const Eff Rt Yr2 Revsd", h.b1_adj_escl_rate_yr2 as "Escltd Eff Rt_Yr2 Revsd",
 CASE WHEN (h.CHART IN ('FT', 'IN') AND h.FEECODE IN ('BANR$', 'BANN$')
   		    OR
-  		   h.FEECODE NOT IN ('BANR$', 'BANN$', 'OVSTN$', 'OVSTR$', 'OVST', 'ACPR$', 'ACPNR$', 'G901N$', 'G901R$', 'LWARN$', 'LWARR$', 'MUSX', 'OTHER')) THEN ROUND(h.b2_adj_escl_rate_yr2 * h.b2_machhrs_yr2, 2)
+  		   h.FEECODE NOT IN ('BANR$', 'BANN$', 'OVSTN$', 'OVSTR$', 'OVST', 'ACPR$', 'ACPNR$', 'G901N$', 'G901R$', 'LWARN$', 'LWARR$', 'MUSX', 'OTHER')) 
+  		     THEN ROUND(h.b1_adj_escl_rate_yr2 * h.b1_machhrs_yr2, 2)
 	 ELSE 0
 END as "UBO Tuit Rev Yr2",
 CASE WHEN (h.CHART IN ('FT', 'IN') AND h.FEECODE IN ('BANR$', 'BANN$')
 			 OR
-		   h.FEECODE NOT IN ('BANR$', 'BANN$', 'OVSTN$', 'OVSTR$', 'OVST', 'ACPR$', 'ACPNR$', 'G901N$', 'G901R$', 'LWARN$', 'LWARR$', 'MUSX', 'OTHER')) THEN ROUND(h.b2_adj_rate * h.b2_projhrs_yr2, 2)
+		   h.FEECODE NOT IN ('BANR$', 'BANN$', 'OVSTN$', 'OVSTR$', 'OVST', 'ACPR$', 'ACPNR$', 'G901N$', 'G901R$', 'LWARN$', 'LWARR$', 'MUSX', 'OTHER')) 
+		     THEN ROUND(h.b1_adj_rate * h.b1_projhrs_yr2, 2)
 	 ELSE 0
 END as "Const Tuit Rev Yr2 Revised",
 CASE WHEN (h.CHART IN ('FT', 'IN') AND h.FEECODE IN ('BANR$', 'BANN$')
 			 OR
-		   h.FEECODE NOT IN ('BANR$', 'BANN$', 'OVSTN$', 'OVSTR$', 'OVST', 'ACPR$', 'ACPNR$', 'G901N$', 'G901R$', 'LWARN$', 'LWARR$', 'MUSX', 'OTHER')) THEN ROUND(h.b2_adj_escl_rate_yr2 * h.b2_projhrs_yr2, 2)
+		   h.FEECODE NOT IN ('BANR$', 'BANN$', 'OVSTN$', 'OVSTR$', 'OVST', 'ACPR$', 'ACPNR$', 'G901N$', 'G901R$', 'LWARN$', 'LWARR$', 'MUSX', 'OTHER')) 
+		     THEN ROUND(h.b1_adj_escl_rate_yr2 * h.b1_projhrs_yr2, 2)
 	 ELSE 0
 END as "Tuit Rev Yr2 Revisd",
 CASE WHEN (h.CHART IN ('FT', 'IN') AND h.FEECODE IN ('BANR$', 'BANN$')
 			 OR
-		   h.FEECODE NOT IN ('BANR$', 'BANN$', 'OVSTN$', 'OVSTR$', 'OVST', 'ACPR$', 'ACPNR$', 'G901N$', 'G901R$', 'LWARN$', 'LWARR$', 'MUSX', 'OTHER')) THEN ROUND( (h.b2_adj_escl_rate_yr2 * h.b2_projhrs_yr2) - h.b1_projhrs_yr2, 2)
+		   h.FEECODE NOT IN ('BANR$', 'BANN$', 'OVSTN$', 'OVSTR$', 'OVST', 'ACPR$', 'ACPNR$', 'G901N$', 'G901R$', 'LWARN$', 'LWARR$', 'MUSX', 'OTHER')) 
+		     THEN ROUND( (h.b1_adj_escl_rate_yr2 * h.b1_projhrs_yr2) - h.b1_projhrs_yr2, 2)
 	 ELSE 0
 END as "YR2_REV_CHG",
 h.B1_RC as "RC Code2",
-rcb2.RC_NM as "RC Name2",
+CAST(CASE WHEN rcb.RC_NM IS NULL THEN ' ' ELSE rcb.RC_NM END as character varying(64)) as "RC Name",
 h.ACCOUNT_NM as "Account Name2"
 FROM #application.hours_to_project# h
     LEFT OUTER JOIN BUDU001.BCN_OBJ_CD_ROLLUP_GV@dss_link pf ON pf.FIN_OBJECT_CD = h.b1_objcd
-    LEFT OUTER JOIN BUDU001.BCN_OBJ_CD_ROLLUP_GV@dss_link pf2 ON pf2.FIN_OBJECT_CD = h.b2_objcd
+    <!---LEFT OUTER JOIN BUDU001.BCN_OBJ_CD_ROLLUP_GV@dss_link pf2 ON pf2.FIN_OBJECT_CD = h.b2_objcd--->
     LEFT OUTER JOIN BUDU001.CHP_RCB_MATRIX_T@dss_link rcb ON rcb.CHART = h.CHART AND rcb.RC_CD = h.b1_rc AND rcb.ACCOUNT = h.ACCOUNT
-    LEFT OUTER JOIN BUDU001.CHP_RCB_MATRIX_T@dss_link rcb2 ON rcb2.CHART = h.CHART AND rcb2.RC_CD = h.b2_rc AND rcb2.ACCOUNT = h.ACCOUNT
+    <!---LEFT OUTER JOIN BUDU001.CHP_RCB_MATRIX_T@dss_link rcb2 ON rcb2.CHART = h.CHART AND rcb.RC_CD = h.b2_rc AND rcb.ACCOUNT = h.ACCOUNT--->
     LEFT OUTER JOIN BUDU001.CHP_OBJ_MTRX_T@dss_link ob ON ob.FIN_OBJECT_CD = h.b1_objcd
-    LEFT OUTER JOIN BUDU001.CHP_OBJ_MTRX_T@dss_link ob2 ON ob2.FIN_OBJECT_CD = h.b2_objcd
+    <!---LEFT OUTER JOIN BUDU001.CHP_OBJ_MTRX_T@dss_link ob2 ON ob2.FIN_OBJECT_CD = h.b2_objcd--->
     LEFT OUTER JOIN BUDU001.CHP_ACAD_CAREER_T@dss_link ac ON ac.ACADEMIC_CAREER = h.ACAD_CAREER
     LEFT OUTER JOIN BUDU001.CHP_SEL_GRP_T@dss_link sg ON sg.BUSINESS_UNIT = h.INST AND sg.SEL_GROUP = h.SELGROUP
     LEFT OUTER JOIN BUDU001.CHP_TERM_T@dss_link t ON t.SESN = h.SESN AND t.STRM = h.b1_term
-    LEFT OUTER JOIN BUDU001.CHP_TERM_T@dss_link  t2 ON t2.SESN = h.SESN AND t2.STRM = h.b2_term
+    <!---LEFT OUTER JOIN BUDU001.CHP_TERM_T@dss_link  t2 ON t2.SESN = h.SESN AND t2.STRM = h.b2_term--->
     LEFT OUTER JOIN BUDU001.CHP_RESIDENCY_T@dss_link r ON r.res = h.res
     WHERE h.biennium = '#application.biennium#'
 	  <cfif university_user eq 'N'>

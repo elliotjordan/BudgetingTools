@@ -1,3 +1,29 @@
+<cffunction name="getCompDetails">
+	<cfargument name="givenChart" type="string" required="true">
+	<cfquery name="compDetailList" datasource="#application.datasource#">
+		select * from calc_fym_param_display_rows() where chart_cd = 
+		<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">
+	</cfquery>
+	<cfreturn compDetailList>	
+</cffunction>
+
+<cffunction name="calcsRunningTotals">
+	<cfargument name="givenChart" type="string" required="true">
+	<cfset compDetails = getCompDetails(givenChart) />
+	<cfset fundTypes = getFundTypes() />  
+	<cfloop query="fundTypes" >
+		<cfif grp1_cd gt 0>
+			<cfset campusInfo = getFYMdataByFnd(current_inst, grp1_cd) />
+		</cfif>
+	</cfloop>
+	<cfset rt = new Struct() />
+	<!--- loop through the campus info and calculate the running total for all years for each line --->
+	
+	<!--- find any comp adjustment values and add them in as needed --->
+
+	<cfreturn rt>
+</cffunction>
+
 <cffunction name="getMultiRoles">
 	<cfargument name="givenUser" type="string" required="true">
 	<cfquery name="roleList" datasource="#application.datasource#">
@@ -230,9 +256,10 @@
 <cffunction name="getFymExpSums">
 	<cfargument name="givenChart" type="string" required="false" default="currentUser.fym_inst">
 	<cfquery name="fymExpSums" datasource="#application.datasource#">
-		SELECT * FROM fee_user.calc_fym_exp_sums(
-			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#"> )
-	</cfquery>
+		SELECT pr_total, cy_old_sum, cy_total, yr1_old_sum, yr1_total, yr2_old_sum, yr2_total,
+	yr3_old_sum, yr3_total, yr4_old_sum, yr4_total, yr5_old_sum, yr5_total
+		FROM fee_user.calc_fym_subtotal_chart_rev_exp_tot('#givenChart#',2)
+	</cfquery> 
 	<cfreturn fymExpSums />
 </cffunction>
 
@@ -283,11 +310,13 @@
 
 <cffunction name="getFYM_CrHrdata" >
 	<cfargument name="givenChart" required="false" default="ALL">
-	<cfquery name="crHrData" datasource="#application.datasource#">
-		SELECT OID, cur_fis_yr, inst_cd, inst_desc, chart_cd, chart_desc, acad_career, res, sort, cur_yr_orig_hrs, cur_yr_orig_rt,cur_yr_orig_hrs*cur_yr_orig_rt as prv_yr_rev, cur_yr_hrs, cur_yr_hrs_new, cur_yr_rt, cur_yr_rt*cur_yr_hrs_new as cur_yr_rev, yr1_hrs, yr1_hrs_new, yr1_rt, yr1_rt*yr1_hrs_new as yr1_rev, yr2_hrs, yr2_hrs_new,yr2_rt, yr2_rt*yr2_hrs_new as yr2_rev, yr3_hrs, yr3_hrs_new, yr3_rt, yr3_rt*yr3_hrs_new as yr3_rev, yr4_hrs, yr4_hrs_new, yr4_rt,yr4_hrs_new*yr4_rt as yr4_rev, yr5_hrs, yr5_hrs_new, yr5_rt,yr5_hrs_new*yr5_rt as yr5_rev
-	FROM fee_user.fym_crhr
-	<cfif givenChart neq 'ALL'>WHERE chart_cd = <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#"></cfif>
-	ORDER BY sort ASC
+		<cfquery name="crHrData" datasource="#application.datasource#">
+			<cfif givenChart eq 'ALL'>	
+				select * from fee_user.rpt_fym_report_credit_hours()
+		<cfelse>
+			select * from fee_user.rpt_fym_report_credit_hours(<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">)
+		</cfif>
+		ORDER BY sort ASC
 	</cfquery>
 	<cfreturn crHrData>
 </cffunction>

@@ -140,3 +140,16 @@
 	</cfquery>
 	<cfreturn true />	
 </cffunction>
+
+<cffunction name="trackUserAction" output="false">
+	<cfargument name="loginId" required="true" default="#REQUEST.AuthUser#" />
+	<cfargument name="campusId" required="false" default="--" />
+	<cfargument name="actionId" required="true" />
+	<cfargument name="description" required="false" default="" />
+	<cfquery datasource="#application.datasource#" name="makeMeta">
+		INSERT INTO FEE_USER.METADATA
+		(USER_ID,CAMPUS_ID,ACTION_ID,DESCRIPTION)
+		VALUES
+		('#loginId#','#campusId#','#actionId#','#description#')
+	</cfquery>
+</cffunction>

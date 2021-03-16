@@ -51,7 +51,7 @@
 						</thead>
 						<tbody>
 							<cfloop query="DataSelect">
-								<cfif ACAD_CAREER eq "UGRD" and !(urlCampus eq "IN" AND urlRC eq "80" AND (MID(FEECODE,1,3) eq "OCC" OR MID(FEECODE,1,3) eq "BAN") )>
+<cfif ACAD_CAREER eq "UGRD" AND SELGROUP neq "NO FCP" and !(urlCampus eq "IN" and urlRC eq "80" AND (MID(FEECODE,1,3) eq "OCC" OR MID(FEECODE,1,3) eq "BAN") )>
 								<tr>
 									<td>
 										<cfif ListFindNoCase(REQUEST.adminUsernames,trim(REQUEST.AuthUser))><span class="sm-blue">#FEE_ID#</span></cfif>

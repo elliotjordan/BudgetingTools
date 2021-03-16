@@ -12,11 +12,6 @@ $.fn.colTotal = function (e) {
 		$('#'+value).find('[id ^="yr1_new"]').not('[name $="DELTA"]').each(function(){
 			//console.log('colTotal sending '+$(this).attr("id")+'\n');
 			var rowDictResult = $.fn.rTotal(this); 
-				for (var z in rowDictResult) {
-					if (z.split("OID")[0] == "cur_yr_new"){
-						//console.log(" rowDictResult key is " +z+ ' and rowDictResult value is ' + rowDictResult[z] +'\n');
-					}
-				}
 			//rTotal updates running totals on the page and also returns the amounts for each row in a dictionary keyed by column names
 			for(var k in rowDictResult) { 
 				var sumKey = k.split("OID")[0];                        //console.log('key '+k+'  value '+rowDictResult[k]+'  sumKey: ' + sumKey + '\n');
@@ -25,7 +20,7 @@ $.fn.colTotal = function (e) {
 						colTotalRevDict[sumKey] += rowDictResult[k];   //console.log('REV REV REV - '  + colTotalRevDict[sumKey] + '\n');
 						stRevDict[sumKey] += rowDictResult[k];
 					} else if( typeof reLabel != 'undefined' & reLabel == 2) {
-						colTotalExpDict[sumKey] += rowDictResult[k];   //console.log('EXP EXP EXP - '  + colTotalRevDict[sumKey] + '\n');
+						colTotalExpDict[sumKey] += rowDictResult[k];  //console.log('EXP EXP EXP - '  + colTotalRevDict[sumKey] + '\n');
 						stExpDict[sumKey] += rowDictResult[k];
 					} else {console.log('    element named ' +$(this).attr('name')+ ' is unknown type.\n');}
 			};
@@ -107,6 +102,9 @@ $.fn.colTotal = function (e) {
 } //end of colTotal
 
 $.fn.rTotal = function (e) {
+	$.fn.getCompID = function (givenID){
+		console.log("compID: "+givenID+"\n");
+	}
 	//console.log('rTotal firing off');
 	// first, given a particular element, identify all the other elements in the same row using the OID scheme
 	var targetArray = [];
@@ -116,19 +114,27 @@ $.fn.rTotal = function (e) {
 	targetArray.push(targetOrig);
 	//console.log('TargetOrig type:' + $('#'+targetOrig).prop('nodeName') + '\n');
 
-	var targetNew = 'cur_yr_newOID'+currentID;   //console.log('targetNew type:' + $('#'+targetNew).prop('nodeName') + '\n');
+	
+	var targetNew = 'cur_yr_newOID'+currentID;
+	//console.log('targetNew type:' + $('#'+targetNew).prop('nodeName') + '\n');
 	targetArray.push(targetNew);
-	var target1 = 'yr1_newOID'+currentID;   //console.log('target1 '+target1+' type:' + $('#'+target1).prop('nodeName') + '\n');
+	var target1 = 'yr1_newOID'+currentID;
+	//console.log('target1 '+target1+' type:' + $('#'+target1).prop('nodeName') + '\n');
 	targetArray.push(target1);
-	var target2 = 'yr2_newOID'+currentID;   //console.log('target2 type:' + $('#'+target2).prop('nodeName') + '\n');
+	var target2 = 'yr2_newOID'+currentID;
+	//console.log('target2 type:' + $('#'+target2).prop('nodeName') + '\n');
 	targetArray.push(target2);
-	var target3 = 'yr3_newOID'+currentID;   //console.log('target3 type:' + $('#'+target3).prop('nodeName') + '\n');
+	var target3 = 'yr3_newOID'+currentID;
+	//console.log('target3 type:' + $('#'+target3).prop('nodeName') + '\n');
 	targetArray.push(target3);
-	var target4 = 'yr4_newOID'+currentID;   //console.log('target4 type:' + $('#'+target4).prop('nodeName') + '\n');
+	var target4 = 'yr4_newOID'+currentID;
+	//console.log('target4 type:' + $('#'+target4).prop('nodeName') + '\n');
 	targetArray.push(target4);
-	var target5 = 'yr5_newOID'+currentID;   //console.log('target5 type:' + $('#'+target5).prop('nodeName') + '\n');
+	var target5 = 'yr5_newOID'+currentID;
+	//console.log('target5 type:' + $('#'+target5).prop('nodeName') + '\n');
 	targetArray.push(target5);
 	// OK, good, we have found each element in our target row and added its ID to our targetArray
+	
 	//now, make a dictionary of running totals for each row element by ID
 	var rowSum = 0;
 	var rowDict = {};
@@ -141,33 +147,22 @@ $.fn.rTotal = function (e) {
 			rowDict[value] = rowSum;
 			colDict[value] = parseInt( $('#'+value).text().replace(/[^0-9\-.]/g,'') );;			
 		}
-		else */ if ( $('#'+value).prop('nodeName').toLowerCase() == 'input' ) { 
+		else */ 
+		if ( $('#'+value).prop('nodeName').toLowerCase() == 'input' ) { 
 			// check for running total and use it instead
-
 			rowSum += parseInt( $('#'+value).val().replace(/[^0-9\-.]/g,'') );
 			rowDict[value] = rowSum;
 			if (value.split("OID")[0] == "cur_yr_new"){
-				//$('#rtc'+currentID).text('Running total: $ '+rowDict[targetNew].toLocaleString());
+				//if ( $('#comp_OID'+currentID).val() >= 0 ) {
+			//		$.fn.getCompID("compID currentID: "+$('#comp_OID'+currentID).text+"\n");
+				//}				
+				//find the comp_ elements from the database - there are up to four for any given fund group code
+				//if ( $('#rtc'+value.split("OID")[1]).id() == "ASAL") {console.log("FOUND IT");}
+				$('#rtc'+currentID).text('Running total: $ '+rowDict[targetNew].toLocaleString());
 				//console.log('FOUND '+value+' - RTC ' +$('#rtc'+value.split("OID")[1]).attr("id")+ ' value is '+$('#rtc'+value.split("OID")[1]).text().replace(/[^0-9\-.]/g,'')+' -- \n')
-				colDict[value] = parseInt( $('#rtc'+value.split("OID")[1]).text().replace(/[^0-9\-.]/g,'') );
+				colDict[value] = parseInt( c.text().replace(/[^0-9\-.]/g,'') );
 			} else {
-				if ( 
-					$('#comp_yr1OID'+ value.split("OID")[1]).val() !== null && 
-					typeof($('#comp_yr1OID'+ value.split("OID")[1]).val()) != 'undefined' && 
-					$('#comp_yr1OID'+ value.split("OID")[1]).val() != 0
-					) 
-				  {
-				  	if (value.split("OID")[0] == "yr1_new") {
-					  var comp_amt = parseInt( $('#comp_yr1OID'+ value.split("OID")[1]).val() );
-					  console.log( "FOUND: " + value.split("OID")[0] + " " + $('#comp_yr1OID'+ value.split("OID")[1]).attr('id') + " comp_amt: " + comp_amt );
-					}
-				}
-				//console.log( "FOUND: " + value.split("OID")[1] + " - " + $('#comp_yr1OID8062').val() );
-				if (comp_amt > 0) {
-					colDict[value] = parseInt( $('#'+value).val().replace(/[^0-9\-.]/g,'') ) + comp_amt;					
-				} else {
-					colDict[value] = parseInt( $('#'+value).val().replace(/[^0-9\-.]/g,'') );
-				}
+				colDict[value] = parseInt( $('#'+value).val().replace(/[^0-9\-.]/g,'') );
 			}
 		} else {
 			rowSum += parseInt( $('#'+value).text().replace(/[^0-9\-.]/g,'') )
@@ -204,7 +199,20 @@ $.fn.rTotal = function (e) {
 			$.fn.colTotal();
 		//}
 	});
-		
+
+	//update the CDELTA hidden element if the user changes a COMMENT field in the params form
+	// onchange() in any COMMENT field, take the name of the field and change the <name>DELTA value to COMMENT
+	$("form :input[id^='comm_']").change(function() {
+		console.log('Keypress has changed ' + this.name + '\n');
+  		$(this).closest('form').data('changed', true);
+  		var change_element = this.name+'CDELTA'; 
+  		console.log('change_element: ' + change_element+'\n');
+		$('[name="'+ change_element+ '"]' ).val('COMMENT');
+		$('.change_warning').show();
+		//if ($('#fymForm') == "") {
+			$.fn.colTotal();
+		//}
+	});		
 	// prevent RETURN/ENTER key from submitting form
     $(document).on("keypress", function(event) {
     	if (event.keyCode == 13) {

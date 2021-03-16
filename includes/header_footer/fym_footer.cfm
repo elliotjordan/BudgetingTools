@@ -28,8 +28,8 @@ $(document).ready(function(){
    		}
 	});
 	// Calculate all the running totals when the page loads
-	$(' input[id ^="cur_yr_newOID"]').not('input[id $="DELTA"]').each(  function() {$(this).rTotal(this)  }  );
-	$.fn.colTotal();
+//	$(' input[id ^="cur_yr_newOID"]').not('input[id $="DELTA"]').each(  function() {$(this).rTotal(this)  }  );
+//	$.fn.colTotal();
 	/** 5YR Model dataTables ******* */
     if ($('#fymMainTable1').length > 0) {
 	    var table1 = $('#fymMainTable1').DataTable( { "order": [], "paging": false });

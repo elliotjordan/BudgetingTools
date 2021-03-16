@@ -2,16 +2,16 @@
 <cfinclude template="../includes/functions/fym_functions.cfm" runonce="true" />
 <!---<cfinclude template="../includes/functions/user_functions.cfm" runonce="true" />--->
 <cfset userDetails = getFeeUser(REQUEST.authUser) />
-<cfset crHrInfo = getFYM_CrHrdata(userDetails.fym_inst) />
-<cfset crHrSums = getCrHrSums_OLD(userDetails.fym_inst,'NO') />  <!--- CF logic, not a function in Postgres --->
+<cfset crHrInfo = getFYM_CrHrdata(current_inst) />
+<cfset crHrSums = getCrHrSums_OLD(current_inst,'NO') />  <!--- CF logic, not a function in Postgres --->
 <cfset campusStruct = convertQueryToStruct(crHrInfo) />
 <cfset userDetails = getFeeUser(REQUEST.authUser) />
 <cfset campusRateEditors = "aheeter,freemanr,kcwalsh,garobe,jbdimond" />
 <cfset editcy = true /><cfset edityr1 = true /><cfset edityr2 = true /><cfset edityr3 = true /><cfset edityr4 = true /><cfset edityr5 = true />
 <cfoutput>
 <div class="full_content">
-<h2>#getDistinctChartDesc(currentUser.fym_inst)# Credit Hours - FY#application.shortfiscalyear#</h2>
-<!---<p>Need to provide whatever text you want here, if any. I recommend some more rows of sample data.</p>--->
+<h2>#getDistinctChartDesc(current_inst)# Credit Hours - FY#application.shortfiscalyear#</h2>
+<form id="fymCrHrBtn" name="fymCrHrBtn" action="CrHrDownload.cfm"><input type="submit" value="Donwload 5Yr Model Cr Hrs" /></form>
 <h3>Summary</h3>
 	<table class="summaryTable">
 	  <tr>
