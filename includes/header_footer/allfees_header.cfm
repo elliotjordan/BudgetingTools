@@ -109,8 +109,6 @@ END HIDING ALL OTHER LINKS	--->
 	--->
 	<span class="link_hilight"><a href="mailto:budu@iu.edu?subject=Request for Fee Solicitation Training">Training</a></span>
 	<span class="link_hilight"><a href="../includes/forms/Student and Other University Fees Quick Guide.pdf" target="_blank">Fee Quick Guide</a> </span>
-	<!---<span class="link_hilight"><a href="../includes/forms/Fee Request Portal User Guide.docx">Fee Request Portal User Guide</a> </span>--->
-
 	                </p>
 
 	                <cfif ListFindNoCase(REQUEST.adminUsernames,REQUEST.authUser)>
