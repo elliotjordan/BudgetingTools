@@ -33,7 +33,7 @@
 		<script src="../js/UBOvalidations.js"></script>
 	</head>
 <cfoutput>
-	<body>
+	<body>	
 		<!-- BEGIN INDIANA UNIVERSITY BRANDING BAR in the ALLFEES HEADER -->
 	    <div id="branding-bar">
 	    	<div class="bar">
@@ -110,7 +110,6 @@ END HIDING ALL OTHER LINKS	--->
 	<span class="link_hilight"><a href="mailto:budu@iu.edu?subject=Request for Fee Solicitation Training">Training</a></span>
 	<span class="link_hilight"><a href="../includes/forms/Student and Other University Fees Quick Guide.pdf" target="_blank">Fee Quick Guide</a> </span>
 	                </p>
-
 	                <cfif ListFindNoCase(REQUEST.adminUsernames,REQUEST.authUser)>
 	                	<span class="headerFarRight">
 	                	 <form id="emulationForm" action="..\emulate_user.cfm" method="post">
