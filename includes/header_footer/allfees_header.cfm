@@ -1,4 +1,5 @@
 <!--- ALLFEES HEADER  --->
+<cfinclude template="../../AllFees/loadUser.cfm" runonce="true" >
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -11,7 +12,7 @@
 		<meta http-equiv="expires" content="-1">
 		<meta http-equiv="pragma" content="no-cache">
 
-		<meta name="Copyright" content="Copyright 2020, The Trustees of Indiana University">
+		<meta name="Copyright" content="Copyright 2021, The Trustees of Indiana University">
 		<meta name="last-modified" content="2020-12-03" >
 		<meta name="audiences" content="default" >
 		<meta name="owner-group" content="budu" >
@@ -31,7 +32,7 @@
         <script src="../js/all_fees.js"></script>
 		<script src="../js/UBOvalidations.js"></script>
 	</head>
-
+<cfoutput>
 	<body>
 		<!-- BEGIN INDIANA UNIVERSITY BRANDING BAR in the ALLFEES HEADER -->
 	    <div id="branding-bar">
@@ -64,6 +65,20 @@
 
 	<cfif REQUEST.authUser neq imposter AND (FindNoCase(REQUEST.authUser,REQUEST.regionalUsernames) OR FindNoCase(REQUEST.authUser,REQUEST.adminUsernames))>
 		<span class="link_hilight"><a href="regional_controls.cfm">Regional Controls</a></span>
+	</cfif>
+	
+	<cfif REQUEST.authUser eq 'jburgoon'>
+		<span class="link_hilight targetLink">
+			<a href="index.cfm">#session.allfees_rcs#</a> 
+			<cfif Len(session.allfees_rcs) neq 1>
+				<cfset CurrentURL = 'https://' & cgi.HTTP_HOST & CGI.SCRIPT_NAME>
+				<cfloop list="#session.allfees_rcs#" index="choice">
+					<cfif choice neq session.current_focus>
+						<a href="../emulate_user.cfm?target=#choice#&url=#CurrentURL#">| #choice#</a> 
+					</cfif>
+				</cfloop>
+			</cfif>
+		</span>
 	</cfif>
 
 <!---	<cfif REQUEST.authUser neq imposter AND (FindNoCase(REQUEST.authUser,REQUEST.bursarUsernames) OR FindNoCase(REQUEST.authUser,REQUEST.adminUsernames))>
@@ -109,7 +124,7 @@ END HIDING ALL OTHER LINKS	--->
 	            </div>
 	        </div>
 	    </div>
-
+</cfoutput>
 	    <!-- END INDIANA UNIVERSITY BRANDING BAR -->
 		<cfinclude template="top_menu.cfm">
 

@@ -1,7 +1,6 @@
 <cfinclude template="../includes/header_footer/allfees_header.cfm" runonce="true" />
 <cfinclude template="../includes/functions/fee_rate_functions.cfm" runonce="true" />
 
-<cfinclude template="loadUser.cfm" runonce="true" >
 <cfif IsDefined("url") and StructKeyExists(url,"fee_type")>
 	<cfset currentlyActive = url.fee_type />
 <cfelse>

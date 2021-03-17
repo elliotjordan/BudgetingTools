@@ -1,7 +1,8 @@
   <cffunction name="getFeeUser" output="true">
   	<cfargument name="username" required="true">
   	<cfquery datasource="#application.datasource#" name="authUserData">
-  		SELECT *
+  		SELECT oid, id, empl_id, username, first_last_name, email, phone, created_on, description, access_level, 
+  		  chart, active, projector_rc, allfees_rcs, proj_updt, fym_inst, role_code
   		FROM FEE_USER.USERS
   		WHERE ACTIVE = 'Y' AND USERNAME = <cfqueryparam value="#username#" cfsqltype="cf_sql_varchar">
   	</cfquery>

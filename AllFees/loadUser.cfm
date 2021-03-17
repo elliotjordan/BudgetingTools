@@ -1,8 +1,9 @@
 <!--- pull the user data from the system and set the salient details in session  --->
-<cfinclude template="../includes/functions/user_functions.cfm" />
+<cfinclude template="../includes/functions/user_functions.cfm" runonce="true" />
 <cfset userData = getFeeUser(#request.authuser#) />  
 <CFLOCK SCOPE="SESSION" TYPE="READONLY" TIMEOUT="5">
 	<cfset session.inst = 'IU'&#userData.chart#&'A' />
+	<cfset session.current_focus = userData.chart />
 	<cfset session.curr_proj_chart = #userData.chart# & " Campus" />
 	<cfset session.curr_proj_RC = #userData.projector_rc# />
 	<cfset session.access_level = #userData.access_level# />
