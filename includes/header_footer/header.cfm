@@ -3,7 +3,7 @@
 	author:	John Burgoon jburgoon
 	ver.:	v0.1
 	date:	11-11-14
-	update:	08-25-16
+	update:	03-17-21
 	note:	Standard head element with contents; assumes some tags will be closed in the footer.
  --->
 
