@@ -35,7 +35,8 @@
 							<option>-- Date --</option>
 						</select>
 					</td>
-					<td><input name="newCalItem" type="text" placeholder="New calendar item"</td>
+					<td><input name="newCalItem" type="text" placeholder="New calendar item"
+					</td>
 					<td><input name="newResponsible" type="text" placeholder="Responsible party"></td>
 					<td><input name="newCalNote" type="text" placeholder="Notes"></td>
 					<td>
@@ -45,7 +46,11 @@
 				<cfloop query="#calItems#">
 					<tr>
 						<td>#cal_date#</td>
-						<td>#cal_item#</td>
+						<td>
+							<cfif cal_sub_item eq 0>#id# - #cal_item#<cfelse> -- #cal_item#</cfif>
+							<br>
+							<cfif cal_sub_item gt 0>Sub-item for #cal_sub_item#</cfif>	
+						</td>
 						<td>#cal_responsible#</td>
 						<td>#cal_note#</td>
 						<td><input name="calEdit" type="button" value="Edit"></td>
