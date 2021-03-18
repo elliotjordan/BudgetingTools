@@ -8,3 +8,12 @@
 	</cfquery>
 	<cfreturn calItems />
 </cffunction>
+
+<cffunction name="insertNewCalItem">
+	<cfargument name="givenForm" type="struct" required="true" />
+	<!--- passing the entire form and then writing the update query is one way to do it --->
+	<!--- another way to do this is to specify individual fields as args, which is what I usually do --->
+	<!--- I tend to put the form validation logic in the submission page, then push clean individual values to a function for addition to the db --->
+	<!--- Either way is valid, we can discuss in a code review/design session  --->
+	<cfreturn true />
+</cffunction>

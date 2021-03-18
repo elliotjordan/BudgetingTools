@@ -39,7 +39,7 @@
 					<td><input name="newResponsible" type="text" placeholder="Responsible party"></td>
 					<td><input name="newCalNote" type="text" placeholder="Notes"></td>
 					<td>
-						<input name="newCalSubmit" type="button" value="Save">
+						<input name="newCalSubmit" type="submit" value="Save">
 					</td>
 				</tr>
 				<cfloop query="#calItems#">
