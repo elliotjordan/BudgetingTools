@@ -96,7 +96,6 @@
    <cfargument name="givenUsername" required="false" default="#REQUEST.authUser#">
    <cfswitch expression="#givenUsername#">
    	<cfcase value="BL"><cfset givenUsername = "aheeter"></cfcase>
-   	<cfcase value="BL-ATHL"><cfset givenUsername = "mssimpso"></cfcase>
    	<cfcase value="BA-ATHL"><cfset givenUsername = "mssimpso"></cfcase>
    	<cfcase value="IH"><cfset givenUsername = "garobe"></cfcase>
    	<cfcase value="MED"><cfset givenUsername = "garobe"></cfcase>

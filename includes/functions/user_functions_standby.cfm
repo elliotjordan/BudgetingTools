@@ -105,7 +105,7 @@
    	<cfcase value="NW"><cfset givenUsername = "tschance"></cfcase>
    	<cfcase value="SB"><cfset givenUsername = "ltschler"></cfcase>
    	<cfcase value="SE"><cfset givenUsername = "dwavle"></cfcase>
-   	<cfcase value="BL-ATHL"><cfset givenUsername = "mssimpso"></cfcase>
+   	<cfcase value="BA-ATHL"><cfset givenUsername = "mssimpso"></cfcase>
    	<cfdefaultcase><cfset givenUsername = "#givenUsername#"></cfdefaultcase>
    </cfswitch>
    <cfquery datasource="#application.datasource#" name="emulatee">

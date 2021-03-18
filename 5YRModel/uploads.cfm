@@ -13,7 +13,7 @@
 href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/BL_Submission_BudgetOffice/5-Year%20Projections/2020-21?csf=1&web=1&e=dZOmZa">here</a>
 			</cfcase>
 
-    		<cfcase value="BL-ATHL">
+    		<cfcase value="BA-ATHL">
 				<a target="_blank" alt="Link to BL Athletics uploads folder"
 href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/BL_Submission_BudgetOffice/5-Year%20Projections/2020-21?csf=1&web=1&e=dZOmZa">here</a>
     		</cfcase>
