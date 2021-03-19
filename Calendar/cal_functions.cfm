@@ -4,7 +4,7 @@
 		  cal_item, cal_sub_item, 
 		  cal_responsible, cal_accountable, cal_consulted, cal_informed, 
 		  cal_note, cal_meta, cal_sort
-	FROM fee_user.pm_calendar2;
+	FROM fee_user.pm_calendar;
 	</cfquery>
 	<cfreturn calItems />
 </cffunction>
