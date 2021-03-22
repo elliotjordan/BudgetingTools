@@ -155,7 +155,7 @@
 	  <cfelse><tr><td colspan = '10'>Sorry, no records found for your campus.</td></tr></cfif>
 	</table>
   	<input name="authUser" type="hidden" value="#REQUEST.authUser#" />
-  	<input name="fymSubmitBtn" type="submit" value="Update CrHr Model" />
+  	<input name="fymCrHrSubmitBtn" type="submit" value="Update CrHr Model" />
 </form>
 <hr />
 <!---<cfdump var="#campusStruct#" >--->
