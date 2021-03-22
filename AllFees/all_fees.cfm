@@ -6,7 +6,9 @@
 <cfelse>
 	<cfset currentlyActive = application.allFeeStatus />
 </cfif>
-<cfif REQUEST.authUser eq 'jopadams' or currentlyActive != 'Non-instructional' AND (ListFindNoCase(REQUEST.campusFOusernames, REQUEST.authUser) OR ListFindNoCase(REQUEST.Approver_list, REQUEST.authUser) OR ListFindNoCase(REQUEST.regionalUsernames,REQUEST.authUser) OR REQUEST.authUser eq "coback" OR REQUEST.authUser eq "atronc01")>
+<!---<cfif REQUEST.authUser eq 'jopadams' or currentlyActive != 'Non-instructional' AND (ListFindNoCase(REQUEST.campusFOusernames, REQUEST.authUser) OR ListFindNoCase(REQUEST.Approver_list, REQUEST.authUser) OR ListFindNoCase(REQUEST.regionalUsernames,REQUEST.authUser) OR REQUEST.authUser eq "coback" OR REQUEST.authUser eq "atronc01")>
+--->
+<cfif currentlyActive != 'Non-instructional'>
 	<cfset editingEnabled = true />
 <cfelse><cfset editingEnabled = false /></cfif>
 <cfset feeTypeList = getPreparedTypeCategories() />
