@@ -4,7 +4,8 @@
 <cfif IsDefined("url") and StructKeyExists(url,"fee_type")>
 	<cfset currentlyActive = url.fee_type />
 <cfelse>
-	<cfset currentlyActive = application.allFeeStatus />
+	<!---<cfset currentlyActive = application.allFeeStatus />--->
+	<cfset currentlyActive = 'Tuition and Mandatory' />
 </cfif>
 <!---<cfif REQUEST.authUser eq 'jopadams' or currentlyActive != 'Non-instructional' AND (ListFindNoCase(REQUEST.campusFOusernames, REQUEST.authUser) OR ListFindNoCase(REQUEST.Approver_list, REQUEST.authUser) OR ListFindNoCase(REQUEST.regionalUsernames,REQUEST.authUser) OR REQUEST.authUser eq "coback" OR REQUEST.authUser eq "atronc01")>
 --->
@@ -88,7 +89,8 @@
 		<cfif editingEnabled>
 			<select id="fee_status-#AllFeeData.ALLFEE_ID#" name="fee_status-#AllFeeData.ALLFEE_ID#" class="approval_dropdown target">
 		 		<cfloop list="#roleFeestatus[LCase(role)]#" index="fs">
-		  			<option value="#fs#" <cfif LCase(AllFeeData.FEE_STATUS) eq LCase(fs)>selected</cfif>>#fs#</option>
+		 			<cfif LCase(AllFeeData.FEE_STATUS) eq LCase(fs)><cfset option_sel = "selected" /><cfelse><cfset option_sel = "" /></cfif>
+		  			<option value="#fs#" "#option_sel#">#fs#</option>
 			  	</cfloop>
 			</select>
 			<input id="fee_status-#AllFeeData.ALLFEE_ID#DELTA" name="fee_status-#AllFeeData.ALLFEE_ID#DELTA" type="hidden" value="NO" />
