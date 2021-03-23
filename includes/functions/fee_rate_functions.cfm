@@ -675,7 +675,8 @@
 			'Tuition and Mandatory' = 'TUI,MAN',
 			'Distance Ed' = '_DE',
 			'Housing' = 'HOU',
-			'Campus' = 'CMP'
+			'Campus' = 'CMP',
+			'Program' = 'PRO'
 		};
 	</cfscript>
 	<cfreturn feeCatStruct />
