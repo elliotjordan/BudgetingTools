@@ -1,3 +1,6 @@
+<!--- deprecated --->
+<cflocation url="index.cfm" addtoken="false" />
+
 <cfinclude template="../includes/header_footer/allfees_header.cfm"> 
 <cfinclude template="../includes/functions/tuition_functions.cfm" />
 <cfinclude template="loadUser.cfm">  
