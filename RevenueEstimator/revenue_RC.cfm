@@ -15,7 +15,7 @@
 
 <cfif isDefined("Url") AND StructKeyExists(Url, "Campus") AND StructKeyExists(Url, "RC")>
 	<cfset urlCampus = url.Campus>
-	<cfif urlCampus eq 'IN' and !ListFindNoCase("adaniels,srastogi",REQUEST.authUser)><cfset projStatus = "closed" /></cfif>
+	<cfif urlCampus eq 'IN' and !ListFindNoCase("adaniels,srastogi,cfrye",REQUEST.authUser)><cfset projStatus = "closed" /></cfif>
 	<cfset urlRC = url.RC>
 	<cfset DataSelect = getProjectinatorData(urlCampus, urlRC,application.rateStatus)>
 	<cfif ListFindNocase("77,80,81",urlRc)> <cfset noFCPSelect = getNoFCPRows("IU"&urlCampus&"A",urlRC)> </cfif>
