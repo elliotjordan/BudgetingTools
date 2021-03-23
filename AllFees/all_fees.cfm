@@ -103,8 +103,8 @@
 									</td>
 					    		</tr>
 					    		<!---<input type="hidden" name="ALLFEE_ID" value="#AllFeeData.ALLFEE_ID#" />--->
-					    	</cfif>
-			    		</cfloop>
+		</cfif>
+			    	</cfloop>  <!--- End of main query loop --->
 			    	</tbody>
 				</table>
 				<input id="save_btn" type="submit" name="save_btn" value="Save"></input>

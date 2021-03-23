@@ -180,7 +180,7 @@
 		             FROM #application.allFeesTable#
 		             GROUP BY ALLFEE_MASTERID) v9b
 		   ON v9.ALLFEE_MASTERID = v9b.ALLFEE_MASTERID
-		 WHERE v9.FEE_TYPE = ''ADM'' AND v9.ACTIVE = ''Y'' AND v9.ALLFEE_MASTERID IS NOT NULL AND LENGTH(v9.ALLFEE_MASTERID) = 11
+		 WHERE v9.FEE_TYPE = ''ADM'' AND v9.ACTIVE = ''Y'' AND v9.ALLFEE_MASTERID IS NOT NULL AND LENGTH(v9.ALLFEE_MASTERID) = 11 and fiscal_year = ''#application.fiscalyear#''
 		 ORDER BY v9b.FEE_DESC_LONG ASC',
 		 'SELECT DISTINCT INST_CD FROM #application.allFeesTable# WHERE ACTIVE =''Y'' ORDER BY 1 ASC')
 		AS
