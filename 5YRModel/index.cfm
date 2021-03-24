@@ -14,10 +14,15 @@
 <cfset crHrTotals = getCrHrSums(current_inst) />
 <cfset compDetails = getCompDetails(current_inst) />
 <cfset commentBucket = convertQueryToStruct(getFYMcomments()) />
-<!---<cfdump var="#compDetails.columnList#" >--->
-<cfset editcy = true /><cfset edityr1 = true /><cfset edityr2 = true /><cfset edityr3 = true /><cfset edityr4 = true /><cfset edityr5 = true />
 <cfoutput>
 <div class="full_content">
+<cfif ListFindNoCase('IM',current_inst)>
+	<cfset editcy = true /><cfset edityr1 = true /><cfset edityr2 = true /><cfset edityr3 = true /><cfset edityr4 = true /><cfset edityr5 = true />
+<cfelse>
+	<cfset editcy = false /><cfset edityr1 = false /><cfset edityr2 = false /><cfset edityr3 = false /><cfset edityr4 = false /><cfset edityr5 = false />
+	<cfinclude template="prod_banner.cfm" runonce="true" />
+</cfif>
+
 <!---<h2>5-Year Model for #getDistinctChartDesc(currentUser.fym_inst)# FY#application.shortfiscalyear#</h2>--->
 <h2>5-Year Model for #getDistinctChartDesc(current_inst)# FY#application.shortfiscalyear#</h2>
 
