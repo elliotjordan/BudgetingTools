@@ -191,7 +191,7 @@ $(document).ready(function(){
 		        } );
 	        }
 	    } );
-	    var rptable = $('#regionalGridTable').DataTable( { orderCellsTop: true, fixedHeader: true });
+	    var rptable = $('#regionalGridTable').DataTable( { orderCellsTop: true, fixedHeader: true, "pageLength": -1 });
 	}
 
 /** cfoApprovalTableUnder2Pct ********/
