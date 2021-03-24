@@ -55,12 +55,14 @@
 					    		<tr>
 					    			<td>#AllFeeData.ALLFEE_ID#<br>
 										<span class="sm-blue">
-	<!---<a href="fee_change_request.cfm?ALLFEE_ID=#AllFeeData.ALLFEE_ID#">Update</a><br>---> #AllFeeData.FEE_TYP_DESC#
+	<!---<a href="fee_change_request.cfm?ALLFEE_ID=#AllFeeData.ALLFEE_ID#">Update</a><br>---> #AllFeeData.FEE_TYP_DESC# 
 										</span>
 					    		</td>
 									<td>
 										#AllFeeData.FEE_DESC_LONG#<br>
-										<span class="sm-blue">(#AllFeeData.UNIT_BASIS#)</span>
+										<span class="sm-blue">(#AllFeeData.UNIT_BASIS#)
+											<cfif Len(cohort) gt 0> - #cohort# cohort</cfif>
+										</span>
 									</td>
 									<td class="right-justify">#DollarFormat(AllFeeData.fee_current)#</td>
 									<td><cfif editingEnabled>
