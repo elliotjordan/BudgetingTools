@@ -1,4 +1,0 @@
-	<div class="prod_banner">
-		<b>Credit Hour Projector Training Schedule</b><br>
-		<p>John and Nate are always available in Zoom (by appointment): <a href="https://iu.zoom.us/j/6541448177">https://iu.zoom.us/j/6541448177</a>. To make an appointment, call either of us, or send an email to <a href="mailto:jburgoon@indiana.edu?subject=%20John%20and%20Nate%20-Projector%20Help&cc=nschrode@iu.edu&body=I%20could%20use%20a%20hand%20with%20the%20Revenue%20Projector.">the Revenue Projector Team</a> to request some quick ad hoc help. We can jump into a Zoom session, share screens, and help you with whatever ails you.  We are here to help, please call us if you need us. Thanks!</p>
-	</div>
