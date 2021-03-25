@@ -325,6 +325,10 @@
 		  TO_NUMBER(fee_lowyear) "FY20 Amount",
 		  TO_NUMBER(fee_highyear) "FY21 Amount",
 		  FEE_DESC_BILLING "Fee Desc Billing",
+		  CASE
+		    WHEN LENGTH(COHORT) > 0 THEN COHORT || ' cohort'
+		    ELSE COHORT
+		  END as "Cohort",
 		  FEE_TYPE "Type",
 		  UNIT_BASIS "Unit",
 		  APPROVAL_LVL "Approval Level",
@@ -441,12 +445,12 @@
 	<cfargument name="sheetTitle" type="any" required="true" hint="Title appearing at the top of the sheet">
 	<!--- Add Excel title row 1 --->
 	<cfset SpreadsheetAddRow(givenSheet,sheetTitle)>
-	<cfset SpreadsheetMergeCells(givenSheet,1,1,1,24)>
+	<cfset SpreadsheetMergeCells(givenSheet,1,1,1,25)>
 	<cfset SpreadsheetSetRowHeight(givenSheet,1,40)>
 	<!--- Add Excel title row 2 --->
 	<cfset SpreadsheetAddRow(givenSheet,"#application.latestApprovedFeeYear#")>
     <!--- Add column headers  --->
-	<cfset SpreadsheetAddRow(givenSheet, "ID, MASTER ID, OWNER, FY, Campus, FY21 Amount, FY22 Amount, FY23 Amount, Fee Desc Billing, Type, Unit, Approval Level, SIS Item Type, SIS Type, Revenue Acct, Sub Acct, Object Code, Status,  Bad Debt Acct,  Local ID, Fee Desc Long, Fee Desc Web, Need for Fee, Addl Justification")>
+	<cfset SpreadsheetAddRow(givenSheet, "ID, MASTER ID, OWNER, FY, Campus, FY21 Amount, FY22 Amount, FY23 Amount, Fee Desc Billing, Cohort, Type, Unit, Approval Level, SIS Item Type, SIS Type, Revenue Acct, Sub Acct, Object Code, Status,  Bad Debt Acct,  Local ID, Fee Desc Long, Fee Desc Web, Need for Fee, Addl Justification")>
 	<!---<cfset SpreadsheetFormatRow(sheet, setExcelTitleFormatting(),3)>--->
 	<cfset SpreadsheetSetRowHeight(givenSheet,1,30)>
 	<!--- Set up columns - widths are determined manually by adjusting the column titles.  If you change the titles, then you may need to change the widths. --->
