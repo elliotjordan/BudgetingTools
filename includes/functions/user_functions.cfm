@@ -74,7 +74,7 @@
 		<cfcase value="cfouser"><cfset userRole = "cfo"></cfcase>
 		<cfcase value="bduser"><cfset userRole = "ubo"></cfcase>
 		<cfcase value="GUEST"><cfset userRole = "GUEST"></cfcase>
-		<cfdefaultcase><cfset userRole = "#request.authuser#"></cfdefaultcase>
+		<cfdefaultcase><cfset userRole = "campus"></cfdefaultcase>
 	</cfswitch>
   	<cfreturn userRole>
   </cffunction>
