@@ -362,6 +362,10 @@
 		  TO_NUMBER(FEE_LOWYEAR) "FY20 Amount",
 		  TO_NUMBER(FEE_HIGHYEAR) "FY21 Amount",
 		  FEE_DESC_BILLING "Fee Desc Billing",
+		  CASE
+		    WHEN LENGTH(COHORT) > 0 THEN COHORT || ' cohort'
+		    ELSE COHORT
+		   END as "Cohort",
 		  FEE_TYPE "Type",
 		  UNIT_BASIS "Unit",
 		  APPROVAL_LVL "Approval Level",
@@ -455,21 +459,22 @@
 	<cfset SpreadsheetSetColumnWidth(givenSheet,7,15)>  <!--- fee_lowyear  --->
 	<cfset SpreadsheetSetColumnWidth(givenSheet,8,15)>  <!--- fee_highyear  --->
 	<cfset SpreadsheetSetColumnWidth(givenSheet,9,24)>   <!--- FEE_DESC_BILLING --->
-	<cfset SpreadsheetSetColumnWidth(givenSheet,10,9)>  <!--- FEE_TYPE --->
-	<cfset SpreadsheetSetColumnWidth(givenSheet,11,9)>  <!--- UNIT_BASIS --->
-	<cfset SpreadsheetSetColumnWidth(givenSheet,12,15)>  <!--- APPROVAL_LVL --->
-	<cfset SpreadsheetSetColumnWidth(givenSheet,13,12)>  <!--- SIS_ITEMTYPE --->
-	<cfset SpreadsheetSetColumnWidth(givenSheet,14,12)>  <!--- SIS_TYPE --->
-	<cfset SpreadsheetSetColumnWidth(givenSheet,15,16)>  <!--- REVENUE ACCOUNT_NBR --->
-	<cfset SpreadsheetSetColumnWidth(givenSheet,16,15)>  <!--- SUB ACCOUNT_NBR --->
-	<cfset SpreadsheetSetColumnWidth(givenSheet,17,12)>   <!--- OBJ_CD --->
-	<cfset SpreadsheetSetColumnWidth(givenSheet,18,12)>  <!--- FEE_STATUS --->
-	<cfset SpreadsheetSetColumnWidth(givenSheet,19,16)>  <!--- BAD DEBT ACCOUNT --->
-	<cfset SpreadsheetSetColumnWidth(givenSheet,20,12)>  <!--- LOCAL_ID --->
-	<cfset SpreadsheetSetColumnWidth(givenSheet,21,24)>  <!--- FEE_DESC_LONG  --->
-	<cfset SpreadsheetSetColumnWidth(givenSheet,22,24)>  <!--- FEE_DESC_WEB  --->
-	<cfset SpreadsheetSetColumnWidth(givenSheet,23,15)>  <!--- NEED_FOR_FEE  --->
-	<cfset SpreadsheetSetColumnWidth(givenSheet,24,15)>  <!--- FURTHER_JUSTIFY  --->
+	<cfset SpreadsheetSetColumnWidth(givenSheet,10,15)>   <!--- COHORT --->
+	<cfset SpreadsheetSetColumnWidth(givenSheet,11,9)>  <!--- FEE_TYPE --->
+	<cfset SpreadsheetSetColumnWidth(givenSheet,12,9)>  <!--- UNIT_BASIS --->
+	<cfset SpreadsheetSetColumnWidth(givenSheet,13,15)>  <!--- APPROVAL_LVL --->
+	<cfset SpreadsheetSetColumnWidth(givenSheet,14,12)>  <!--- SIS_ITEMTYPE --->
+	<cfset SpreadsheetSetColumnWidth(givenSheet,15,12)>  <!--- SIS_TYPE --->
+	<cfset SpreadsheetSetColumnWidth(givenSheet,16,16)>  <!--- REVENUE ACCOUNT_NBR --->
+	<cfset SpreadsheetSetColumnWidth(givenSheet,17,15)>  <!--- SUB ACCOUNT_NBR --->
+	<cfset SpreadsheetSetColumnWidth(givenSheet,18,12)>   <!--- OBJ_CD --->
+	<cfset SpreadsheetSetColumnWidth(givenSheet,19,12)>  <!--- FEE_STATUS --->
+	<cfset SpreadsheetSetColumnWidth(givenSheet,20,16)>  <!--- BAD DEBT ACCOUNT --->
+	<cfset SpreadsheetSetColumnWidth(givenSheet,21,12)>  <!--- LOCAL_ID --->
+	<cfset SpreadsheetSetColumnWidth(givenSheet,22,24)>  <!--- FEE_DESC_LONG  --->
+	<cfset SpreadsheetSetColumnWidth(givenSheet,23,24)>  <!--- FEE_DESC_WEB  --->
+	<cfset SpreadsheetSetColumnWidth(givenSheet,24,15)>  <!--- NEED_FOR_FEE  --->
+	<cfset SpreadsheetSetColumnWidth(givenSheet,25,15)>  <!--- FURTHER_JUSTIFY  --->
 
 	<!--- formatting columns --->
 	<!---<cfset SpreadsheetFormatColumn(sObj, {dataformat="$00000.00"}, 4)>  example of formatting a column as currency --->
