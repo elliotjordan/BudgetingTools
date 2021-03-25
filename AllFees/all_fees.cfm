@@ -92,7 +92,7 @@
 			<select id="fee_status-#AllFeeData.ALLFEE_ID#" name="fee_status-#AllFeeData.ALLFEE_ID#" class="approval_dropdown target">
 		 		<cfloop list="#roleFeestatus[LCase(role)]#" index="fs">
 		 			<cfif LCase(AllFeeData.FEE_STATUS) eq LCase(fs)><cfset option_sel = "selected" /><cfelse><cfset option_sel = "" /></cfif>
-		  			<option value="#fs#" "#option_sel#">#fs#</option>
+		  			<option value="#fs#" selected="#option_sel#">#fs#</option>
 			  	</cfloop>
 			</select>
 			<input id="fee_status-#AllFeeData.ALLFEE_ID#DELTA" name="fee_status-#AllFeeData.ALLFEE_ID#DELTA" type="hidden" value="NO" />

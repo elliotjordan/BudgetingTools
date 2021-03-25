@@ -661,12 +661,12 @@
 <cffunction name="getDistinctFeeStatus">
 	<cfscript>
 		roleTypeStruct = StructNew();
-		roleTypeStruct.Bursar = "BursarOK,Bursar Returned";
-		roleTypeStruct.Campus = "CampusOK,Campus Returned,Campus Denied,Campus Approved,Pending";
-		roleTypeStruct.CFO = "CFO Returned,CFO Approved,CFO Denied,Trustee Approved";
-		roleTypeStruct.All = "Pending,Submitted New,Submitted Change";
-		roleTypeStruct.Regional = "RegionalOK,Regional Returned";
-		roleTypeStruct.UBO = "UBO Returned,UBO Approved,UBO Denied,Pending";
+		roleTypeStruct.bursar = "BursarOK,Bursar Returned";
+		roleTypeStruct.campus = "CampusOK,Campus Returned,Campus Denied,Campus Approved,Pending";
+		roleTypeStruct.cfo = "CFO Returned,CFO Approved,CFO Denied,Trustee Approved";
+		roleTypeStruct.all = "Pending,Submitted New,Submitted Change";
+		roleTypeStruct.regional = "RegionalOK,Regional Returned";
+		roleTypeStruct.ubo = "UBO Returned,UBO Approved,UBO Denied,Pending";
 	</cfscript>
 	<cfreturn roleTypeStruct>
 </cffunction>
