@@ -1,11 +1,6 @@
 <cfinclude template="../includes/header_footer/fym_header.cfm" runonce="true" />
 <cfinclude template="../includes/functions/fym_functions.cfm" runonce="true" />
 <cfset fundTypes = getFundTypes() />  
-
-<!--- if user has more than one fym-inst, offer a selector  --->
-<!---<cfset current_inst = ListFirst(currentUser.fym_inst) />--->
-<!---<cfset current_inst = getFocus(currentUser.username).focus /> --->
-
 <cfset fymRevSums = getFymRevSums(current_inst) />
 <cfset fymRevDelta = getFymRevDelta(current_inst) />
 <cfset fymExpSums = getFymExpSums(current_inst) />
@@ -23,7 +18,6 @@
 	<cfinclude template="prod_banner.cfm" runonce="true" />
 </cfif>
 
-<!---<h2>5-Year Model for #getDistinctChartDesc(currentUser.fym_inst)# FY#application.shortfiscalyear#</h2>--->
 <h2>5-Year Model for #getDistinctChartDesc(current_inst)# FY#application.shortfiscalyear#</h2>
 
 <cfif fymRevSums.recordCount neq 0>
@@ -48,13 +42,9 @@
 <form id="fymForm" action="fym_submit.cfm" method="post" >
 <cfloop query="fundTypes" >
 	<cfif grp1_cd gt 0>
-	<!---<cfset ci = getFYMdataByFnd(currentUser.fym_inst, grp1_cd) />--->
 	<cfset ci = getFYMdataByFnd(current_inst, grp1_cd) />
-	<!---<cfset campusSubTotal = getFymSums(currentUser.fym_inst, grp1_cd) />--->	<!---  fee_user.calc_fym_subtotal_grp1  --->
 	<cfset campusSubTotal = getFymSums(current_inst, grp1_cd) />
-	<!---<cfset revSubTotals = getFymSubTotals(currentUser.fym_inst,grp1_cd,1) />--->  <!--- fee_user.calc_fym_subtotal_grp2 --->
 	<cfset revSubTotals = getFymSubTotals(current_inst,grp1_cd,1) />
-	<!---<cfset expSubTotals = getFymSubTotals(currentUser.fym_inst,grp1_cd,2) />--->  <!--- fee_user.calc_fym_subtotal_grp2 --->
 	<cfset expSubTotals = getFymSubTotals(current_inst,grp1_cd,2) />
 	<h3>#grp1_desc#</h3>
   	<input name="fymExcelBtn" type="submit" value="Export to Excel" />
@@ -77,8 +67,8 @@
 	    </thead>
 	    <tbody>
 	 <!--- Dynamic content --->
-	  <cfset group_counter = 0><!--- <cfdump var="#compDetails#" />---> <!--- <cfdump var="#fundTypes#" />--->
-	  <cfloop query="#ci#">  <!--- <cfset revExpTotals = getFYMdata(currentUser.fym_inst, grp1_cd,grp2_cd) />  --->
+	  <cfset group_counter = 0>
+	  <cfloop query="#ci#">
 	  	<cfif grp1_desc neq 'PARAM' and grp2_cd eq 1>
 			<cfinclude template="5yrmodel_table_rows.cfm" runonce="false" />
 		</cfif>
@@ -87,7 +77,6 @@
 	  <cfloop query="#revSubTotals#">
 	  	<tr>
 	  		<td id="rtst_label" class="subTotal_bold">
-	  			<!---<span class="sm-blue">#grp1_desc#</span>--->
 	  			Revenue Sub-totals
 	  		</td>
 	  		<td id="rtblst_pr" class="subTotal_bold">$ #NumberFormat(pr_total,'999,999,999')#</td>
@@ -109,7 +98,7 @@
 	  <!--- Expense sub-totals  --->
 	  <cfloop query="#expSubTotals#">
 	  	<tr>
-	  		<td id="exstbl_label" class="subTotal_bold"><!---#grp1_desc#<br/>--->Expense Sub-totals</b></td>
+	  		<td id="exstbl_label" class="subTotal_bold">Expense Sub-totals</b></td>
 	  		<td id="exstbl_pr" class="subTotal_bold">$ #NumberFormat(pr_total,'999,999,999')#</b></td>
 	  		<td id="exstbl_cy" class="subTotal_bold">$ #NumberFormat(cy_total,'999,999,999')#</b></td>
 	  		<td id="exstbl_yr1" class="subTotal_bold">$ #NumberFormat(yr1_total,'999,999,999')#</b></td>
@@ -123,7 +112,7 @@
 	  <!--- Hard-coded row to show campus sub-total at bottom of each fund group table  --->
 	  	  	<cfif campusSubTotal.recordCount eq 1>
 	  			<tr>
-	  				<td id="sdstbl_label" class="subTotal_gray"><!---#grp1_desc#<br/>--->Surplus/Deficit</td>
+	  				<td id="sdstbl_label" class="subTotal_gray">Surplus/Deficit</td>
 					<td id="sdstbl_pr" class="subTotal_gray">$ #NumberFormat(campusSubTotal.pr_total,'999,999,999')#</td>
 					<td id="sdstbl_cy" class="subTotal_gray">$ #NumberFormat(campusSubTotal.cy_total,'999,999,999')#</td>
 					<td id="sdstbl_yr1" class="subTotal_gray">$ #NumberFormat(campusSubTotal.yr1_total,'999,999,999')#</td>
@@ -142,8 +131,6 @@
   </cfloop>
 </form>
 <hr />
-<!---<cfdump var="#campusStruct#" >--->
-
 </div>  <!-- End div class full-content -->
 </cfoutput>
 <cfinclude template="../includes/header_footer/fym_footer.cfm" runonce="true" />

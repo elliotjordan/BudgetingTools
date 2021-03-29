@@ -1,6 +1,5 @@
 <cfinclude template="../includes/header_footer/fym_header.cfm" runonce="true" />
 <cfinclude template="../includes/functions/fym_functions.cfm" runonce="true" />
-<!---<cfinclude template="../includes/functions/user_functions.cfm" runonce="true" />--->
 <cfset userDetails = getFeeUser(REQUEST.authUser) />
 <cfset crHrInfo = getFYM_CrHrdata(current_inst) />
 <cfset crHrSums = getCrHrSums_OLD(current_inst,'NO') />  <!--- CF logic, not a function in Postgres --->
@@ -21,9 +20,6 @@
 <h3>Summary</h3>
 	<table class="summaryTable">
 	  <tr>
-		<!---<th>Chart</th>
-		<th>Residency</th>
-		<th>Academic Career</th>--->
 		<th>Item</th>
 		<th>FY#application.shortfiscalyear#</th>
 		<th>FY#application.shortfiscalyear + 1#</th>
@@ -31,7 +27,6 @@
 		<th>FY#application.shortfiscalyear + 3#</th>
 		<th>FY#application.shortfiscalyear + 4#</th>
 		<th>FY#application.shortfiscalyear + 5#</th>
-
 	  </tr>
 	  <cfif crHrSums.recordcount gt 0>
 	  <cfloop query="crHrSums">
@@ -164,8 +159,6 @@
   	<input name="fymCrHrSubmitBtn" type="submit" value="Update CrHr Model" />
 </form>
 <hr />
-<!---<cfdump var="#campusStruct#" >--->
-
 </div>  <!-- End div class full-content -->
 </cfoutput>
 <cfinclude template="../includes/header_footer/fym_footer.cfm" runonce="true" />
