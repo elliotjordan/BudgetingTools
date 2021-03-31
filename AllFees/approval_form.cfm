@@ -6,8 +6,10 @@
 <cfset setid = "IU" & MID(session.curr_proj_chart,1,2) & "A">
 
 	<cfscript>
-		 roleList = 'regional,bursar,ubo,cfo';
+		roleList = 'regional,bursar,ubo,cfo';
+		role = 'NONE';
 	</cfscript>
+	
 <cfset approvalList = getApprovalList(role,setid) />
 
 <cfoutput>
