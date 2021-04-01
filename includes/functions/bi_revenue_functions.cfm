@@ -1332,9 +1332,12 @@ FROM #application.hours_to_project# h
 
 <cffunction name="getUIRRdata">
 	<cfargument name="givenInst" type="string" required="true" hint="Institution name in the IUxxA format" />
-	<cfquery name="e0175data" datasource="#application.datasource#">
+	<!---<cfquery name="e0175data" datasource="#application.datasource#">
 		SELECT inst, acad_career, sem, res, acp_count, occ_count, ovst_count, dual_count, total_count, budgeted_for_fy
 		FROM ch_user.getE0175data_fn(<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenInst#">)
+	</cfquery>--->
+	<cfquery name="e0175data" datasource="#application.datasource#">
+		select * from ch_user.rpt_hours_used_in_budget()
 	</cfquery>
 	<cfreturn e0175data />
 </cffunction>
