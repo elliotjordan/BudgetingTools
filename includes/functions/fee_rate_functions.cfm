@@ -178,7 +178,7 @@
 		 FROM #application.allFeesTable# v9
 		 INNER JOIN (SELECT DISTINCT ALLFEE_MASTERID, MAX(FEE_DESC_LONG) AS FEE_DESC_LONG
 		             FROM #application.allFeesTable#
-		             WHERE fiscal_year = '#application.fiscalyear#'
+		             WHERE fiscal_year = ''#application.fiscalyear#''
 		             GROUP BY ALLFEE_MASTERID) v9b
 		   ON v9.ALLFEE_MASTERID = v9b.ALLFEE_MASTERID
 		 WHERE v9.FEE_TYPE IN (''ADM'',''CRS'') AND v9.ACTIVE = ''Y'' AND v9.ALLFEE_MASTERID IS NOT NULL AND LENGTH(v9.ALLFEE_MASTERID) = 11 and fiscal_year = ''#application.fiscalyear#''
