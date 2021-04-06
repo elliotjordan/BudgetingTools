@@ -1,6 +1,7 @@
 <cfinclude template="../includes/header_footer/allfees_header.cfm" runonce="true" />
 <cfinclude template="../includes/functions/fee_rate_functions.cfm" runonce="true" />
 
+<cfset closedList = 'CRS,ADM' />
 <cfif IsDefined("url") and StructKeyExists(url,"fee_type")>
 	<cfset currentlyActive = url.fee_type />
 <cfelse>
@@ -65,7 +66,7 @@
 										</span>
 									</td>
 									<td class="right-justify">#DollarFormat(AllFeeData.fee_current)#</td>
-									<td><cfif editingEnabled>
+									<td><cfif editingEnabled and !ListFindNoCase(closedList, fee_type)>
 										<input id="fee_lowyear-#AllFeeData.ALLFEE_ID#"
 										   name="fee_lowyear-#AllFeeData.ALLFEE_ID#"
 										   class="right-justify" value="#AllFeeData.fee_lowyear#" />
@@ -76,7 +77,7 @@
 										   #AllFeeData.fee_lowyear#
 										</cfif>
 									</td>
-									<td><cfif editingEnabled>
+									<td><cfif editingEnabled and !ListFindNoCase(closedList, fee_type)>
 										<input id="fee_highyear-#AllFeeData.ALLFEE_ID#"
 										   name="fee_highyear-#AllFeeData.ALLFEE_ID#"
 										   class="right-justify" value="#AllFeeData.fee_highyear#" />
@@ -88,7 +89,7 @@
 										</cfif>
 									</td>
 									<td>
-		<cfif editingEnabled>
+		<cfif editingEnabled and !ListFindNoCase(closedList, fee_type)>
 			<select id="fee_status-#AllFeeData.ALLFEE_ID#" name="fee_status-#AllFeeData.ALLFEE_ID#" class="approval_dropdown target">
 		 		<cfloop list="#roleFeestatus[LCase(role)]#" index="fs">
 		 			<cfif LCase(AllFeeData.FEE_STATUS) eq LCase(fs)><cfset option_sel = "selected" /><cfelse><cfset option_sel = "" /></cfif>
