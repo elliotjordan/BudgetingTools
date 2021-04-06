@@ -1,6 +1,6 @@
 <cfinclude template="../includes/header_footer/allfees_header.cfm" runonce="true" />
 <cfinclude template="../includes/functions/fee_rate_functions.cfm" runonce="true" />
-<cfdump var="#session#" />
+
 <cfif session.inst eq 'IUBLA'>
 	<cfset closedList = 'CRS,ADM,CMP' />
 <cfelse>
