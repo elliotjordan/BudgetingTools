@@ -1,7 +1,11 @@
 <cfinclude template="../includes/header_footer/allfees_header.cfm" runonce="true" />
 <cfinclude template="../includes/functions/fee_rate_functions.cfm" runonce="true" />
-
-<cfset closedList = 'CRS,ADM' />
+<cfdump var="#session#" />
+<cfif session.inst eq 'IUBLA'>
+	<cfset closedList = 'CRS,ADM,CMP' />
+<cfelse>
+	<cfset closedList = 'CRS,ADM' />
+</cfif>
 <cfif IsDefined("url") and StructKeyExists(url,"fee_type")>
 	<cfset currentlyActive = url.fee_type />
 <cfelse>
