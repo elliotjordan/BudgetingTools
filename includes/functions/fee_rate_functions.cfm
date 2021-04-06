@@ -28,6 +28,22 @@
 	<cfreturn afm_params />
 </cffunction>
 
+<cffunction name="getDEchangeReport">
+	<cfquery name="de_delta" datasource="#application.datasource#">
+		select d.de_afid as DE_AFID, a.inst_cd, a.fee_desc_billing, d.base_afid, d.asso_desc, d.fn_name, a.fee_desc_billing, to_number(a.fee_current) as current,  to_number(a.fee_lowyear) as low, 
+		  round((to_number(a.fee_lowyear)-to_number(a.fee_current))/to_number(a.fee_current),3)*100 as delta_percent, c.param_desc
+		from fee_user.afm_de_asso d
+		INNER JOIN afm a ON a.allfee_id = d.de_afid
+		LEFT OUTER JOIN fee_user.afm_params c ON d.param_id = c.param_id
+		where a.fiscal_year = '2021'
+		and a.active = 'Y'
+		and a.fee_type = '_DE'
+		and to_number(a.fee_current) <> to_number(a.fee_lowyear)
+		and to_number(a.fee_current) <> 0 and a.fee_current IS NOT NULL
+	</cfquery>
+	<cfreturn de_delta />
+</cffunction>
+
 <cffunction name="saveNewFee">
 	<cfargument name="givenForm" type="struct" required="true" />
 	<cfargument name="givenCol" type="string" required="true" />
