@@ -12,11 +12,11 @@
 		where a.fiscal_year  = '2021' and a.active = 'Y' and c.active = 'Y'
 	</pre>
 	
-	<h5>afm_de_asso</h5>
-	<cfdump var="#afm_de_asso#" />
-	
 	<h5>afm_params</h5>
 	<cfdump var="#afm_params#" />
+	
+	<h5>afm_de_asso</h5>
+	<cfdump var="#afm_de_asso#" />
 	
 	<h5>JOIN result</h5>	
 	<cfdump var="#fee_params#" />
