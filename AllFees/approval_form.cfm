@@ -1,5 +1,5 @@
 <cfif !StructKeyExists(session,"curr_proj_rc")>
-	<cfinclude template="loadUser.cfm">
+	<cfinclude template="loadUser.cfm" runonce="true" />
 </cfif>
 
 <cfset roleFeestatus = getDistinctFeeStatus() />
@@ -7,9 +7,9 @@
 
 	<cfscript>
 		roleList = 'regional,bursar,ubo,cfo';
-		role = 'NONE';
+		role = 'ubo'; 
 	</cfscript>
-	
+	 <!--- TODO: make roles dynamic --->
 <cfset approvalList = getApprovalList(role,setid) />
 
 <cfoutput>
@@ -94,7 +94,9 @@
 								<td>
 					<select id="approval_select" name="FEE_STATUS" class="approval_dropdown" onchange="approvalButton()">
 				  		<cfloop list="#roleFeestatus[LCase(role)]#" index="fs">
-				  			<option value="#fs#" <cfif LCase(approvalList.FEE_STATUS) eq LCase(fs)>selected</cfif>>#fs#</option>
+				  			 <cfif LCase(approvalList.FEE_STATUS) eq LCase(fs)><cfset sel = "selected" />
+				  			 <cfelse><cfset sel = "" /></cfif>
+				  			<option value="#fs#" selected="#sel#">#fs#</option>
 				  		</cfloop>
 					</select>
 								</td>

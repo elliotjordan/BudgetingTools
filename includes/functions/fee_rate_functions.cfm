@@ -14,6 +14,20 @@
 	<cfreturn feeParamData />
 </cffunction>
 
+<cffunction name="getAFM_DE_asso" >
+	<cfquery name="afm_de_asso" datasource="#application.datasource#">
+		select * from fee_user.afm_de_asso
+	</cfquery>
+	<cfreturn afm_de_asso />
+</cffunction>
+
+<cffunction name="getAFMparams" >
+	<cfquery name="afm_params" datasource="#application.datasource#">
+		select * from afm_params
+	</cfquery>
+	<cfreturn afm_params />
+</cffunction>
+
 <cffunction name="saveNewFee">
 	<cfargument name="givenForm" type="struct" required="true" />
 	<cfargument name="givenCol" type="string" required="true" />
