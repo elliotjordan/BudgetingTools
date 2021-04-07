@@ -1,3 +1,4 @@
+<!-- Chrome sucks -->
 <cfinclude template="../includes/header_footer/allfees_header.cfm" />
 <cfinclude template="../includes/functions/fee_rate_functions.cfm" />
 <cfif !StructKeyExists(session,"curr_proj_rc")>
