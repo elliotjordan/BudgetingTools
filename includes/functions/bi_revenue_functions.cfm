@@ -891,6 +891,15 @@ GROUP BY sesn) t
 </cffunction>
 
 <cffunction name="getB325_V1_Campus_data" output="true">
+	<cfargument name="givenCampus" type="string" default="ALL" required="false" />
+	<cfargument name="givenRC" type="string" default="ALL" required="false" />
+	<cfif givenRC neq 'ALL'>
+		<cfset querystring = "select * from ch_user.rpt_chp_report_v1(givenCampus,givenRC)">
+	<cfelseif givenRC eq 'ALL' and givenCampus neq 'ALL'>
+		<cfset querystring = "select * from ch_user.rpt_chp_report_v1(givenCampus)">
+	<cfelse>
+		<cfset querystring = "select * from ch_user.rpt_chp_report_v1()">
+	</cfif>
 	<cfquery name="rpt_chp_report" datasource="#application.datasource#">
 		select * from ch_user.rpt_chp_report_v1();
 	</cfquery>
