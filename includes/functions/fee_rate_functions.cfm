@@ -1,3 +1,46 @@
+<cffunction name="getFeeParamData">
+	<cfargument name="givenInst" type="string" default="ALL" required="false" />
+	<cfquery name="feeParamData" datasource="#application.datasource#" >
+		select a.allfee_id, a.fiscal_year, a.inst_cd, a.fee_desc_billing, a.unit_basis, a.fee_current,
+		  b.asso_desc, b.fn_name, c.param_desc
+		from fee_user.afm a
+		inner join afm_de_asso b on a.allfee_id = b.de_afid
+		inner join afm_params c on b.param_id = c.param_id
+		where a.fiscal_year  = '#application.fiscalyear#' and a.active = 'Y' and c.active = 'Y'
+		<cfif givenInst neq 'ALL'>
+			and a.inst_cd = <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenInst#">
+		</cfif>
+	</cfquery>
+	<cfreturn feeParamData />
+</cffunction>
+
+<cffunction name="getAFM_DE_asso" >
+	<cfquery name="afm_de_asso" datasource="#application.datasource#">
+		select * from fee_user.afm_de_asso
+	</cfquery>
+	<cfreturn afm_de_asso />
+</cffunction>
+
+<cffunction name="getAFMparams" >
+	<cfquery name="afm_params" datasource="#application.datasource#">
+		select * from afm_params
+	</cfquery>
+	<cfreturn afm_params />
+</cffunction>
+
+<cffunction name="getDEchangeReport">
+	<cfquery name="de_delta" datasource="#application.datasource#">
+		select a.allfee_id as "DE_Rate", a.inst_cd, a.fee_desc_billing, a.unit_basis, a.fee_current,a.fee_lowyear,
+	      round((to_number(a.fee_lowyear)-to_number(a.fee_current))/to_number(a.fee_current),3)*100 as delta_percent,
+		  b.base_afid as "Base_Rate", b.asso_desc, b.fn_name, c.param_desc
+		from fee_user.afm a
+		inner join afm_de_asso b on a.allfee_id = b.de_afid
+		inner join afm_params c on b.param_id = c.param_id
+		where a.fiscal_year  = '2021' and a.active = 'Y' and c.active = 'Y'
+	</cfquery>
+	<cfreturn de_delta />
+</cffunction>
+
 <cffunction name="saveNewFee">
 	<cfargument name="givenForm" type="struct" required="true" />
 	<cfargument name="givenCol" type="string" required="true" />
@@ -944,7 +987,7 @@
 </cffunction>
 
 <cffunction name="getApprovalList">
-	<cfargument name="givenRole" required="true" type="string">
+	<cfargument name="givenRole" required="false" type="string" default="NONE">
 	<cfargument name="givenCampus" required="true" type="string">
 	<cfargument name="campusSplit" required="false" type="string" default="false">
 	<cfquery name="approvalList" datasource="#application.datasource#">

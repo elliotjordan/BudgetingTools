@@ -98,7 +98,7 @@
 					<!-- End div controlBinTC --> 
 
 					<div class="controlBinTRC">
-						<input disabled id="uirrBtn" type="submit" name="uirrBtn" class="reportBtn" value="Credit Hours Used in Budget"> <br><a href="CH_Projector_Crosswalk.xlsx">Credit Hour Projector Crosswalk</a>
+						<input id="uirrBtn" type="submit" name="uirrBtn" class="reportBtn" value="Credit Hours Used in Budget"> <br><a href="CH_Projector_Crosswalk.xlsx">Credit Hour Projector Crosswalk</a>
 					</div>
 					<!-- End div controlBinTRC --> 
 				</div>
