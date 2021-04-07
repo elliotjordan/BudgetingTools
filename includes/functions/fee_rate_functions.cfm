@@ -30,16 +30,13 @@
 
 <cffunction name="getDEchangeReport">
 	<cfquery name="de_delta" datasource="#application.datasource#">
-		select d.de_afid as DE_AFID, a.inst_cd, a.fee_desc_billing, d.base_afid, d.asso_desc, d.fn_name, a.fee_desc_billing, to_number(a.fee_current) as current,  to_number(a.fee_lowyear) as low, 
-		  round((to_number(a.fee_lowyear)-to_number(a.fee_current))/to_number(a.fee_current),3)*100 as delta_percent, c.param_desc
-		from fee_user.afm_de_asso d
-		INNER JOIN afm a ON a.allfee_id = d.de_afid
-		LEFT OUTER JOIN fee_user.afm_params c ON d.param_id = c.param_id
-		where a.fiscal_year = '2021'
-		and a.active = 'Y'
-		and a.fee_type = '_DE'
-		and to_number(a.fee_current) <> to_number(a.fee_lowyear)
-		and to_number(a.fee_current) <> 0 and a.fee_current IS NOT NULL
+		select a.allfee_id as "DE_Rate", a.inst_cd, a.fee_desc_billing, a.unit_basis, a.fee_current,a.fee_lowyear,
+	      round((to_number(a.fee_lowyear)-to_number(a.fee_current))/to_number(a.fee_current),3)*100 as delta_percent,
+		  b.base_afid as "Base_Rate", b.asso_desc, b.fn_name, c.param_desc
+		from fee_user.afm a
+		inner join afm_de_asso b on a.allfee_id = b.de_afid
+		inner join afm_params c on b.param_id = c.param_id
+		where a.fiscal_year  = '2021' and a.active = 'Y' and c.active = 'Y'
 	</cfquery>
 	<cfreturn de_delta />
 </cffunction>
