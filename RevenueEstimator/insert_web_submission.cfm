@@ -26,7 +26,12 @@
 		<cfsetting enablecfoutputonly="Yes">  <!--- <cfdump var="#form#" >--->
 		<!---<cfset reportLevel = "_" & urlCampus & "_RC" & currentRC />--->    
 		<cfset reportLevel = "_" & urlCampus & "_RC" & form.urlrc />
-		<cfset reportSelect = getB325_V1_Campus_data(urlCampus, urlRC, true)>  
+		 <cfif application.rateStatus eq "Vc">
+		  	<cfset reportSelect = getB325_Vc_Campus_data(urlCampus, urlRC, true)> 
+		  <cfelse>
+		    <cfset reportSelect = getB325_V1_Campus_data(urlCampus, urlRC, true)> 
+		  </cfif>
+		 
 		<!---<cfdump var="#reportSelect#"><cfabort>--->
 	   	<cfif IsDefined("reportSelect") AND reportSelect.recordcount GT 0>
 			<cfinclude template="V1_creation.cfm" runonce="true" />
