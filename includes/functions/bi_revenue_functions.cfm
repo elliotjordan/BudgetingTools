@@ -885,15 +885,33 @@ GROUP BY sesn) t
 
 
 <cffunction name="getB325_Vc_Campus_data" output="true">
+	<cfargument name="givenCampus" type="string" required="false" default="ALL" />
+	<cfargument name="givenRC" type="string" required="false" default="ALL" />
+	<cfargument name="givenBoolean" type="boolean" required="false" default="true">
 	<cfquery name="rpt_chp_report" datasource="#application.datasource#">
-		select * from ch_user.rpt_chp_report_vc();
+		<cfif givenCampus neq 'ALL' and givenRC eq 'ALL'>
+			select * from ch_user.rpt_chp_report_vc(givenCampus)
+		<cfelseif givenCampus neq 'ALL' and givenRC neq 'ALL'>
+			select * from ch_user.rpt_chp_report_vc(givenCampus,givenRC)
+		<cfelse>
+			select * from ch_user.rpt_chp_report_vc()
+		</cfif>
 	</cfquery>
 	<cfreturn rpt_chp_report />
 </cffunction>
 
 <cffunction name="getB325_V1_Campus_data" output="true">
+	<cfargument name="givenCampus" type="string" required="false" default="ALL" />
+	<cfargument name="givenRC" type="string" required="false" default="ALL" />
+	<cfargument name="givenBoolean" type="boolean" required="false" default="true">	
 	<cfquery name="rpt_chp_report" datasource="#application.datasource#">
-		select * from ch_user.rpt_chp_report_v1();
+		<cfif givenCampus neq 'ALL' and givenRC eq 'ALL'>
+			select * from ch_user.rpt_chp_report_v1(givenCampus)
+		<cfelseif givenCampus neq 'ALL' and givenRC neq 'ALL'>
+			select * from ch_user.rpt_chp_report_v1(givenCampus,givenRC)
+		<cfelse>
+			select * from ch_user.rpt_chp_report_v1()
+		</cfif>
 	</cfquery>
 	<cfreturn rpt_chp_report />
 </cffunction>
