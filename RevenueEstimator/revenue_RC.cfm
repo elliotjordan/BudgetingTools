@@ -29,6 +29,10 @@
 		<cflocation url="#userLanding#" addtoken="false">
 	</cfif>
 </cfif>
+<!--- Turn off SAVE button for Indy   --->
+<cfif ListFindNoCase('IN',urlCampus)>
+	<cfset projstatus = "closed" />
+</cfif>
 
 <cfif getUserActiveSetting(REQUEST.authuser) eq 'N'>
 	<cflocation url="no_access.cfm" addtoken="false" >
@@ -92,7 +96,7 @@
 					</div>
 					<!-- End div controlBinTC -->
 					<div class="controlBinTRC">
-						<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" <cfif request.authuser eq 'jburgoon' or (projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser))>#application.disabled#</cfif> />
+						<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" <cfif (projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser))>#application.disabled#</cfif> />
 					</div>
 					<!-- End div controlBinTR -->
 
