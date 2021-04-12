@@ -883,7 +883,22 @@ GROUP BY sesn) t
 	</cfif>
 </cffunction>
 
+
+<cffunction name="getB325_Vc_Campus_data" output="true">
+	<cfquery name="rpt_chp_report" datasource="#application.datasource#">
+		select * from ch_user.rpt_chp_report_vc();
+	</cfquery>
+	<cfreturn rpt_chp_report />
+</cffunction>
+
 <cffunction name="getB325_V1_Campus_data" output="true">
+	<cfquery name="rpt_chp_report" datasource="#application.datasource#">
+		select * from ch_user.rpt_chp_report_v1();
+	</cfquery>
+	<cfreturn rpt_chp_report />
+</cffunction>
+
+<cffunction name="getB325_V1_Campus_data_old" output="true">
 	<cfargument name="campus" type="string" default="">
 	<cfargument name="fee_RC" type="string" default="">
 	<cfargument name="RC_only" type="string">
