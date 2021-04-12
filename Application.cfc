@@ -48,6 +48,7 @@
 			<cfset application.homepage = "https://bl-budu-gondor.ads.iu.edu/BudgetingTools/AllFees/index.cfm">
 			<cfset this.sessioncookie.domain = ".iu.edu" />
 			<cfset this.dsn="fee_pg">
+			<cfset application.rateStatus = "Vc">  <!--- valid values are either Vc or V1; ovderrides global setting above --->
 			<cfif not structkeyexists(application,"datasource")>
 				<cflock name="application.datasource" timeout="5" type="readonly" throwontimeout="no">
 					<cfset application.datasource="fee_pg">
@@ -74,6 +75,7 @@
 			<cfset application.currentState = 'TEST' />
 			<cfset application.homepage = "https://bl-budu-rohan.ads.iu.edu/BudgetingTools/AllFees/index.cfm">
 			<cfset this.sessioncookie.domain = ".iu.edu" />
+			<cfset application.rateStatus = "V1">  <!--- valid values are either Vc or V1; ovderrides global setting above --->
 			<cfif not structkeyexists(application,"datasource")>
 				<cflock name="application.datasource" timeout="5" type="readonly" throwontimeout="no">
 					<cfset application.datasource="fee_pg">
@@ -99,6 +101,7 @@
 <!--- LOCALHOST --->
 			<cfset application.currentState = 'LOCAL' />
 			<cfset application.homepage = "https://bl-budu-cobalt.bry.indiana.edu:8443/BudgetingTools/AllFees/index.cfm">
+			<cfset application.rateStatus = "Vc">  <!--- valid values are either Vc or V1; ovderrides global setting above --->
 			<cfif not structkeyexists(application,"datasource")>
 				<cflock name="application.datasource" timeout="5" type="readonly" throwontimeout="no">
 					<cfset application.datasource="fee_pg">

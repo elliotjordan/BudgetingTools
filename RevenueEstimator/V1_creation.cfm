@@ -4,7 +4,7 @@
 	<p>If you see this message, something has gone wrong.  If you would, please send us a screen capture and let us know right away.  Thank you!  Sorry for the trouble.</p>	
 	<cfset actionEntry = trackProjectinatorAction(#REQUEST.AuthUser#,"--",9,"#REQUEST.AuthUser# began V1 download") />
 	<!--- <cfset VcTemplate = ExpandPath('templates\B325_Student_Fee_Revenue_Vc_template.xlsx') />	--->
-	<cfset VcTemplate = ExpandPath('templates\old\B325_StudentFeeRevenueTemplateFY20v1Campusv4distrib.xlsx') />
+	<cfset VcTemplate = ExpandPath('templates\B325_Student_Fee_Revenue_Vc_template.xlsx') />
 	<cfset V1Template = ExpandPath('templates\B325_Student_Fee_Revenue_V1_template.xlsx') />	
 		<h4>#application.rateStatus# PATH: 
 		  <cfif application.rateStatus eq "Vc">
@@ -24,8 +24,8 @@
 				jwb = SpreadSheetRead(V1Template)
 			}
 		    SpreadSheetSetActiveSheet(jwb,"RawData");
-		    SpreadsheetDeleteRows(jwb,"2-4000");
-		    SpreadsheetAddRows(jwb, reportSelect,2,1,true);
+		    SpreadsheetDeleteRows(jwb,"4-4000");
+		    SpreadsheetAddRows(jwb, reportSelect,4,1,true);
 		    SpreadSheetSetActiveSheet(jwb,"Title");
 		} catch (any e) {
 			dismantleError(e);
