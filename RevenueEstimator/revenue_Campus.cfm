@@ -89,7 +89,7 @@
 					
 					<div class="controlBinTC">
 						<cfif application.reportBtnEnabled>
-							<input disabled id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate #application.rateStatus# Report" <cfif !dssIsOpen >disabled</cfif> /> 
+							<input id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate #application.rateStatus# Report" <cfif !dssIsOpen >disabled</cfif> /> 
 							<br><span class="sm-blue"><i>Available only when IUIE is open</i></span>
 						<cfelse>
 							<input id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate #application.rateStatus# Report" />
