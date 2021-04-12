@@ -6,9 +6,6 @@
 <cfparam name="UrlRC" type="string" default="">
 <cfparam name="DataSelect" type="query" default="#QueryNew('ID','integer')#">
 <cfset urlCampus = authUser['chart'][1]>
-<!---<cfset campusTargets = getAllCampusTargets(urlCampus) />
-<cfset campusEstRev = getAllRC_EstRev(urlCampus) />
-<cfset campusGrands = getCampusGrandTotals2(urlCampus) />--->
 <cfset distinctRCs = getDistinctRCs(urlCampus) />
 <cfset subTots = createSubTotalsStruct('#urlCampus#') />
 <cfset sesnTots = createSesnTotalsStruct('#urlCampus#') />
@@ -37,8 +34,11 @@
 <cfelseif IsDefined("form") AND StructKeyExists(form,"reportBtn")>
 	<cfsetting enablecfoutputonly="Yes"> 
 	<cfset reportLevel = "_" & urlCampus & "_Campus" />  
-	<cfset reportSelect = getB325_V1_Campus_data(urlCampus, "ALL", false)> <!---<cfdump var="#reportSelect.recordCount#"><cfabort>--->
-	<!---<cfdump var="#reportSelect.recordcount#"><cfabort>--->
+		<cfif application.rateStatus eq "Vc">
+			<cfset reportSelect = getB325_Vc_Campus_data(urlCampus, 'ALL', true)> 
+		<cfelse>
+		    <cfset reportSelect = getB325_V1_Campus_data(urlCampus, 'ALL', true)> 
+		 </cfif>
    	<cfif IsDefined("reportSelect") AND reportSelect.recordcount GT 0>
 		<cfinclude template="V1_creation.cfm" runonce="true" />
 	<cfelse>
