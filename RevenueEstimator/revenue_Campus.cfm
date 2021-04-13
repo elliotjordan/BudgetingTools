@@ -81,7 +81,7 @@
 					<div class="controlBinTC">
 						<cfif application.reportBtnEnabled>
 							<input id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate #application.rateStatus# Report" <cfif !dssIsOpen >disabled</cfif> /> 
-							<br><span class="sm-blue"><i>Available only when IUIE is open</i></span>
+							<!---<br><span class="sm-blue"><i>Available only when IUIE is open</i></span>--->
 						<cfelse>
 							<input id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate #application.rateStatus# Report" />
 						</cfif>
@@ -107,7 +107,7 @@
 								<th>SP CrHrs</th>
 								<th>SS1 CrHrs</th>
 								<th>SS2 CrHrs</th>
-								<th>Total RC Projected Credit Hours #application.budget_year#</th>
+								<th>Total RC Projected Credit Hours #application.firstyear#</th>
 								<th>Total #application.firstyear# Estimated Revenue</th>
 							</tr>
 						</thead>
