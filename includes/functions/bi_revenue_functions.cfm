@@ -1372,7 +1372,7 @@ FROM #application.hours_to_project# h
 		FROM ch_user.getE0175data_fn(<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenInst#">)
 	</cfquery>--->
 	<cfquery name="e0175data" datasource="#application.datasource#">
-		select * from ch_user.rpt_hours_used_in_budget()
+		select * from ch_user.rpt_hours_used_in_budget('#givenInst#')
 	</cfquery>
 	<cfreturn e0175data />
 </cffunction>
