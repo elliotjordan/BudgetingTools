@@ -8,28 +8,21 @@
 <cfdump var="#testList#">  --->
 <cfoutput>
 <!--- User has asked for a V1 report. --->
+	<cfif application.rateStatus eq "Vc">
+		<cfset reportSelect = getB325_Vc_Campus_data()> 
+	<cfelse>
+	    <cfset reportSelect = getB325_V1_Campus_data()> 
+	 </cfif>
 <cfif IsDefined("form") AND StructKeyExists(form,"reportBtn")>
 	<cfsetting enablecfoutputonly="Yes"> 
 	<cfset reportLevel = "_ALL_Campus" />
-	<cfset reportSelect = getB325_V1_Campus_data("ALL","99",false,"Y")>  
-   		<cfif IsDefined("reportSelect") AND reportSelect.recordcount GT 0>
-   			<!---<cfdump var="#reportSelect#" ><cfabort>--->
-			<cfinclude template="V1_creation.cfm" runonce="true" />
-		<cfelse>
-			<h3>We are sorry, but no records were returned.</h3>
-   		</cfif>
-<cfelseif IsDefined("form") AND StructKeyExists(form,"reportBtn2")>
-	<cfsetting enablecfoutputonly="Yes"> 
-	<cfset reportLevel = "_ALL_Campus" />
-	<cfset reportSelect = getB325_V1_Campus_data2("ALL","99",false,"Y")>  
-   		<cfif IsDefined("reportSelect") AND reportSelect.recordcount GT 0>
-   			<!---<cfdump var="#reportSelect#" ><cfabort>--->
-			<cfinclude template="V1_creation.cfm" runonce="true" />
-		<cfelse>
-			<h3>We are sorry, but no records were returned.</h3>
-   		</cfif>
+	<cfif IsDefined("reportSelect") AND reportSelect.recordcount GT 0>
+		<!---<cfdump var="#reportSelect#" ><cfabort>--->
+		<cfinclude template="V1_creation.cfm" runonce="true" />
+	<cfelse>
+		<h3>We are sorry, but no records were returned.</h3>
+	</cfif>
 <cfelseif IsDefined("form") AND StructKeyExists(form,"sqlBtn")>
-	<cfset reportSelect = getB325_V1_Campus_data("ALL","99",false,"Y")>  
 	<cfset reportSelectSQL = reportSelect.getMetadata().getExtendedMetaData().sql />
 	<p>#reportSelectSQL#</p>
 <cfelseif IsDefined("form") AND StructKeyExists(form,"dwnldBtn")>

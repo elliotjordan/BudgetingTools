@@ -21,7 +21,7 @@
 		<cfinclude template="export_to_excel.cfm" runonce="true" />
 		<cfabort>
 	
-	<!--- User has asked for a V1 report. --->
+	<!--- User has asked for a Vc/V1 report. --->
 	<cfelseif IsDefined("form") AND StructKeyExists(form,"reportBtn")>
 		<cfsetting enablecfoutputonly="Yes">  <!--- <cfdump var="#form#" >--->
 		<!---<cfset reportLevel = "_" & urlCampus & "_RC" & currentRC />--->    
