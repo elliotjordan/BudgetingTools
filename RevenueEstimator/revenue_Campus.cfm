@@ -65,11 +65,6 @@
 		</p>
 		<h3>#urlCampus# Campus Summary</h3>		
 
-
-<cfif ListFindNoCase(REQUEST.adminUsernames, authUser.username)>		
-	<!--- 	<cfdump var="#sesnTots#" > --->
-
-</cfif>
 			<cfform action="revenue_Campus.cfm">
 				<div class="controlBar">
 					<div class="controlBinTL">
@@ -112,8 +107,8 @@
 								<th>SP CrHrs</th>
 								<th>SS1 CrHrs</th>
 								<th>SS2 CrHrs</th>
-								<th>Total RC Projected Credit Hours YR2</th>
-								<th>Total #application.secondyear# Estimated Revenue</th>
+								<th>Total RC Projected Credit Hours #application.budget_year#</th>
+								<th>Total #application.firstyear# Estimated Revenue</th>
 							</tr>
 						</thead>
 						<tbody>
