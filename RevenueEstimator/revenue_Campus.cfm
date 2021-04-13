@@ -48,10 +48,6 @@
 
     <!--- Main page  --->
 	<div class="full_content">
-		<!---<div id="prefs">
-			<cfinclude template="preferences.cfm" >
-		</div>--->
-		
 		<h2><a href="revenue_RC.cfm">Credit Hour Revenue Projector</a> 
 			<span class="sm-blue"> 
 				<i>Currently set to <b>

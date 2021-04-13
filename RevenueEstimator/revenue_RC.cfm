@@ -15,7 +15,6 @@
 
 <cfif isDefined("Url") AND StructKeyExists(Url, "Campus") AND StructKeyExists(Url, "RC")>
 	<cfset urlCampus = url.Campus>
-	<!---<cfif urlCampus eq 'IN' and !ListFindNoCase("adaniels,srastogi,cfrye",REQUEST.authUser)><cfset projStatus = "closed" /></cfif>--->
 	<cfset urlRC = url.RC>
 	<cfset DataSelect = getProjectinatorData(urlCampus, urlRC,application.rateStatus)>
 	<cfif ListFindNocase("77,80,81",urlRc)> <cfset noFCPSelect = getNoFCPRows("IU"&urlCampus&"A",urlRC)> </cfif>
@@ -29,7 +28,7 @@
 		<cflocation url="#userLanding#" addtoken="false">
 	</cfif>
 </cfif>
-<!--- Turn off SAVE button for Indy   --->
+<!--- Turn off SAVE button for specific campuses   --->
 <cfif ListFindNoCase('IN',urlCampus)>
 	<cfset projstatus = "closed" />
 </cfif>
