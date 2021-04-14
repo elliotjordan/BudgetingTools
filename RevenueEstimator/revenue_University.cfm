@@ -1,11 +1,6 @@
 <cfinclude template="../includes/header_footer/header.cfm">
 <cfinclude template="../includes/functions/bi_revenue_functions.cfm">
 <cfset authUser = getUser(REQUEST.authuser)>
-<!--- <cfparam name="DataSelect" type="query" default="#QueryNew('ID','integer')#">  --->
-<!---<cfset allCampusEstRev = getAllCampus_EstRev() />
-<cfset allCampusEstRevByRC = getAllCampus_EstRev_byRC() />--->
-<!--- <cfset testList = getSpecialAccessList() />
-<cfdump var="#testList#">  --->
 <cfoutput>
 <!--- User has asked for a V1 report. --->
 	<cfif application.rateStatus eq "Vc">
@@ -17,7 +12,6 @@
 	<cfsetting enablecfoutputonly="Yes"> 
 	<cfset reportLevel = "_ALL_Campus" />
 	<cfif IsDefined("reportSelect") AND reportSelect.recordcount GT 0>
-		<!---<cfdump var="#reportSelect#" ><cfabort>--->
 		<cfinclude template="V1_creation.cfm" runonce="true" />
 	<cfelse>
 		<h3>We are sorry, but no records were returned.</h3>
@@ -53,11 +47,15 @@
 					<cfif application.rateStatus eq 'Vc'>
 						<input id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate Vc Report" />
 						<br>
-						<input id="sqlBtn" type="submit" name="sqlBtn" class="sqlBtn" value="Show Vc Report SQL"><br>
+						<input id="sqlBtn" type="submit" name="sqlBtn" class="sqlBtn" value="Show Vc Report SQL" /><br>
+						<cfset vc_path = 'templates\B325_Student_Fee_Revenue_Vc_template.xlsx' />
+						<a href="#vc_path#">Vc Template</a>
 					<cfelse>
 						<input id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate V1 Report" />
 						<br>
-						<input id="sqlBtn" type="submit" name="sqlBtn" class="sqlBtn" value="Show V1 Report SQL"><br>
+						<input id="sqlBtn" type="submit" name="sqlBtn" class="sqlBtn" value="Show V1 Report SQL" /><br>
+						<cfset v1_path = 'templates\B325_Student_Fee_Revenue_V1_template.xlsx' />
+						<a href="#v1_path#">V1 Template</a>
 					</cfif>
 				</div>
 				<!-- End div controlBinTR -->
@@ -82,22 +80,6 @@
 						<th>Estimated Revenue YR2</th>
 					</tr>
 				</thead>
-<!---				<tbody>
-					<cfloop query="allCampusEstRev">
-						<tr>
-							<td>#CHART#</td>
-							<td>#NumberFormat(ACTUAL,'999,999,999')#</td>
-							<td>#NumberFormat(MACHINEHOURS_YR1,'999,999,999')#</td>
-							<td>#DollarFormat(UBO_ESTREV_YR1)#</td>
-							<td>#NumberFormat(PROJHOURS_YR1,'999,999,999')#</td>
-							<td>#DollarFormat(ESTREV_YR1)#</td>
-							<td>#NumberFormat(MACHINEHOURS_YR2,'999,999,999')#</td>
-							<td>#DollarFormat(UBO_ESTREV_YR2)#</td>
-							<td>#NumberFormat(PROJHOURS_YR2,'999,999,999')#</td>
-							<td>#DollarFormat(ESTREV_YR2)#</td>
-						</tr>
-					</cfloop>
-				</tbody>--->
 			</table>
 
 			<p>Running totals for each Campus broken out by RC.</p>

@@ -95,7 +95,7 @@
 					</div>
 					<!-- End div controlBinTC -->
 					<div class="controlBinTRC">
-						<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" <cfif (projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser))>#application.disabled#</cfif> />
+						<input disabled="disabled"  id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" <cfif (projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser))>#application.disabled#</cfif> />
 					</div>
 					<!-- End div controlBinTR -->
 
@@ -133,7 +133,7 @@
 					</cfif>
 					<div class="controlBar">
 						<div class="controlBinTRC">
-							<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work"
+							<input  disabled="disabled" id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work"
 				<cfif projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif> />
 						</div>
 					</div>
@@ -145,7 +145,7 @@
 
 						<div class="controlBar">
 							<div class="controlBinTRC">
-								<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work"
+								<input  disabled="disabled" id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work"
 					<cfif projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif>  />
 							</div>
 						</div>
@@ -156,14 +156,14 @@
 
 						<div class="controlBar">
 							<div class="controlBinTRC">
-								<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work"
+								<input  disabled="disabled" id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work"
 					<cfif projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif> />
 							</div>
 						</div>
 
 						<div class="controlBar">
 							<div class="controlBinTRC">
-								<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work"
+								<input  disabled="disabled" id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work"
 					<cfif projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif> />
 							</div>
 						</div>						

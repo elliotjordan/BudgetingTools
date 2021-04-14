@@ -1,6 +1,6 @@
 <cfoutput>
 					<div class="workSaver">
-						<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" 
+						<input  disabled="disabled" id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" 
 <cfif !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif> />
 					</div>					
 					<table id="otherFeesTable" class="feeCodeTable">
