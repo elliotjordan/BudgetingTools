@@ -25,6 +25,7 @@
 <div class="full_content">
 	<cfif currentlyActive eq 'All' and ListFindNoCase('campus,regional,ubo,bursar,cfo',role)>
 		<cfset AllFeeData = getMergedFees()>
+		<cfset editingEnabled = false />
 	<cfelse>
 		<cfset AllFeeData = getMergedFees('ALL',#session.inst#,#session.allfees_rcs#)>
 	</cfif>
