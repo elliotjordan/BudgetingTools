@@ -45,7 +45,9 @@ $(document).ready(function(){
 
 /** AllFeesTable ********/
     if ($('#approvalTable').length > 0) {
-	    var table = $('#approvalTable').DataTable( { orderCellsTop: true, fixedHeader: true, iDisplayLength: -1,paging:false });
+	    var table = $('#approvalTable').DataTable( { orderCellsTop: true, fixedHeader: true, iDisplayLength: -1,paging:false, info:true });
+	    $("#masterTable_info").detach().prependTo('#masterTable_wrapper');
+	    $("#masterTable_paginate").detach().prependTo('#masterTable_wrapper');
 	}
 
 /** masterTable ********/

@@ -111,7 +111,7 @@
 
 <cffunction name="getMergedFees">
 	<cfargument name="given_AllFeeID" required="false" type="string" default="ALL">
-	<cfargument name="given_homeChart" required="false" type="string" default="ALL">
+	<cfargument name="given_homeChart" required="false" type="string" default="IUALLA">
 	<cfargument name="given_RC" required="false" type="string" default="ALL">
 	<cfquery name="getMergedFees" datasource="#application.datasource#">
 		SELECT allfee_id, allfee_masterid, allfee_groupid, local_id, local_masterid, fiscal_year, inst_cd, fee_type,
@@ -723,7 +723,8 @@
 	<!--- Group the distinct fee types into their fee solicitation categories --->
 	<cfscript>
 		var feeCatStruct = {
-			'All' = getDistinctFeeTypes(),
+			'All' = '',
+			'All Fees - My Campus' = getDistinctFeeTypes(),
 			'Non-instructional' = 'CRS,ADM',
 			'Tuition and Mandatory' = 'TUI,MAN',
 			'Distance Ed' = '_DE',

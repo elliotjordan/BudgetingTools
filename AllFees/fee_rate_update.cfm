@@ -4,7 +4,6 @@
 </cfif>
 
 <cfoutput>
-	<!---<cfdump var="#form#"><cfabort>--->
 <cfif IsDefined("form") and StructKeyExists(form,"save_btn") and StructKeyExists(form,"fieldnames")>
 	<cfloop index="i" list="#Form.FieldNames#" delimiters=",">
 		<cfif Form[i] eq true>
@@ -19,7 +18,7 @@
 	<cflocation url="list_campusOutstanding.cfm" addToken="no" />
 <cfelse>
 	<h2>The Fee Portal Has Fleas</h2>
-		<p>The form you tried to update did not contain an fieldnames element. We are sorry but your changes are not saved, something is broken.</p>
+		<p>The form you tried to update did not contain any fieldnames element. We are sorry but your changes are not saved, something is broken.</p>
 		<p>Please contact John Burgoon at UBO and say "hi". While you have him on the line, tell him the fee portal has a bug and it might be fleas.</p>
 		<cfabort>
 </cfif>

@@ -14,7 +14,7 @@
 </cfif>
 <!---<cfif REQUEST.authUser eq 'jopadams' or currentlyActive != 'Non-instructional' AND (ListFindNoCase(REQUEST.campusFOusernames, REQUEST.authUser) OR ListFindNoCase(REQUEST.Approver_list, REQUEST.authUser) OR ListFindNoCase(REQUEST.regionalUsernames,REQUEST.authUser) OR REQUEST.authUser eq "coback" OR REQUEST.authUser eq "atronc01")>
 --->
-<cfif currentlyActive != 'Non-instructional'>
+<cfif !ListFindNoCase(currentlyActive,'Non-instructional')>
 	<cfset editingEnabled = true />
 <cfelse><cfset editingEnabled = false /></cfif>
 <cfset feeTypeList = getPreparedTypeCategories() />
@@ -23,21 +23,28 @@
 <cfoutput>
 
 <div class="full_content">
-	<cfset AllFeeData = getMergedFees('ALL',#session.inst#,#session.allfees_rcs#)>
+	<cfif currentlyActive eq 'All' and ListFindNoCase('campus,regional,ubo,bursar,cfo',role)>
+		<cfset AllFeeData = getMergedFees()>
+	<cfelse>
+		<cfset AllFeeData = getMergedFees('ALL',#session.inst#,#session.allfees_rcs#)>
+	</cfif>
+	
 	<cfinclude template="nav_links.cfm" runonce="true" >
 	<!---<cfinclude template="approvals_summary.cfm">--->
 	<!---<cfinclude template="tuition_request_panel.cfm">--->
 
-	<h3>Master List of All Fees</h3>
+	<h3>Master List of All Fees</h3>  
 	<p>Big searchable table of ALL "active" fees in the merged database (latest version as of October 1, 2020).  The Excel download includes more columns not shown here.</p>
 	 	<form action = "downloadExcel.cfm" id = "excelForm" format = "html" method = "POST" >
 	 		<input type="submit" id="submitExcel" name="submitMaster" value="Excel Download">
 	 	</form>
 	 	<hr width="100%">
- 		<h3>Fee List for #AllFeeData.INST_CD#</h3>
+ 		<h3>Fee List <cfif currentlyActive neq 'All'> for #AllFeeData.INST_CD#</cfif></h3>
 	 	<form action = "fee_rate_update.cfm" id = "AllFeesFormV9" method = "POST" >
 	 		<cfloop list="#StructKeyList(feeTypeList)#" index="i">
+	 			<cfif (i eq 'All' and role eq 'campus') or i neq 'All'>
 		 		<input type="radio" id="radioBtn#i#" name="feetypechoice" value="#i#" <cfif LCase(i) eq LCase(currentlyActive)>checked="checked"</cfif>> <label for="radioBtn#i#">#i#</label>
+		 		</cfif>
  			</cfloop><br>
  			<input id="save_btn" type="submit" name="save_btn" value="Save"></input>
 	 		<span class="change_warning">You have unsaved changes. Be sure to "Save" your work!</span>
@@ -56,7 +63,7 @@
 					</thead>
 					<tbody>
 						<cfloop query="#AllFeeData#">
-							<cfif ListFindNoCase(feeTypeList[currentlyActive],fee_type)>
+							<cfif ListFindNoCase(feeTypeList[currentlyActive],fee_type) OR currentlyActive eq 'All'>
 					    		<tr>
 					    			<td>#AllFeeData.ALLFEE_ID#<br>
 										<span class="sm-blue">

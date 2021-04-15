@@ -754,6 +754,9 @@ tr:hover {background-color: #a9a9a9}
 	border:#44697D 1px solid;
 }
 
+#masterTable_info {
+    clear: none;
+}
 /* *****  status table ***** */
 .statusTable {
 	width: 100% !important;
