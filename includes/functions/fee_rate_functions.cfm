@@ -722,7 +722,7 @@
 <cffunction name="getPreparedTypeCategories">
 	<!--- Group the distinct fee types into their fee solicitation categories --->
 	<cfscript>
-		var feeCatStruct = {
+		var feeCatStruct = [
 			'All' = '',
 			'All Fees - My Campus' = getDistinctFeeTypes(),
 			'Non-instructional' = 'CRS,ADM',
@@ -731,7 +731,7 @@
 			'Housing' = 'HOU',
 			'Campus' = 'CMP',
 			'Program' = 'PRO'
-		};
+		];
 	</cfscript>
 	<cfreturn feeCatStruct />
 </cffunction>
