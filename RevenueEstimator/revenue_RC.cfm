@@ -95,7 +95,11 @@
 					</div>
 					<!-- End div controlBinTC -->
 					<div class="controlBinTRC">
-						<input disabled="disabled"  id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" <cfif (projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser))>#application.disabled#</cfif> />
+						<cfif request.authuser eq 'blork'> <!--- allow a specific user back in to make some adjustment ; blork is a placeholder or you can use blank --->
+							<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
+						<cfelse>
+							<input disabled="disabled"  id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" <cfif (projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser))>#application.disabled#</cfif> />
+						</cfif>
 					</div>
 					<!-- End div controlBinTR -->
 
