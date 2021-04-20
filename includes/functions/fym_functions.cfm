@@ -24,15 +24,6 @@
 	<cfreturn rt>
 </cffunction>
 
-<cffunction name="getMultiRoles">
-	<cfargument name="givenUser" type="string" required="true">
-	<cfquery name="roleList" datasource="#application.datasource#">
-		Select username, fym_inst from users_b where username =
-		<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenUser#">
-	</cfquery>
-	<cfreturn roleList>
-</cffunction>
-
 <cffunction name="getFYMcomments" returntype="query">
 	<cfargument name="givenOID" type="numeric" required="false" default= 0>
 	<cfquery datasource="#application.datasource#" name="commentList">
