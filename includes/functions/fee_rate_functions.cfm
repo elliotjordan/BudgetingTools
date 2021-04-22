@@ -1003,7 +1003,7 @@
 		FROM #application.allFeesTable#
 		WHERE ACTIVE = 'Y'
 		  and fiscal_year = '#application.fiscalyear#'
-		  AND FEE_TYPE NOT IN ('TUI','MAN','HOU')
+		  AND FEE_TYPE IN ('CRS','ADM') -- ('TUI','MAN','HOU')
 		<cfif givenRole eq 'campus'>
 	  		AND INST_CD = <cfqueryparam cfsqltype="cf_sql_char" value="#givenCampus#">
 			AND fee_type in ('CRS','ADM')

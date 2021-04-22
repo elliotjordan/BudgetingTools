@@ -15,7 +15,7 @@
 		<cfset role = 'cfo'>
 	</cfif>	
 
-<cfset al = getApprovalList(role,setid) />
+<cfset al = getApprovalList("cfo",setid) />
 <cfoutput>
 	<cfif REQUEST.authUser eq 'blork'>
 		<h2>#REQUEST.authUser# - #imposter# - #ROLE# - #cgi.SCRIPT_NAME#</h2>
