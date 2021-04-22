@@ -1064,8 +1064,8 @@
 		<cfelse>
 			AND INST_CD = '#instCdString#'
 		</cfif>
-		  AND FEE_STATUS NOT IN ('CampusOK','Campus Approved','Campus Denied','RegionalOK','BursarOK')
-		  AND FEE_TYPE IN ('CMP','CRS','ADM','PUR')
+		  AND FEE_STATUS IN ('CampusOK','Campus Approved','RegionalOK','BursarOK')
+		  AND FEE_TYPE IN ('CRS','ADM')
 		  /*AND FEE_TYPE IN ('TUI','MAN','PRO','_DE','CRS','ADM','HOU') */
 		GROUP BY INST_CD, FEE_STATUS, FEE_TYP_DESC
 		ORDER BY INST_CD ASC, FEE_STATUS ASC
