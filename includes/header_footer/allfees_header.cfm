@@ -84,11 +84,11 @@
 <!---	<cfif REQUEST.authUser neq imposter AND (FindNoCase(REQUEST.authUser,REQUEST.bursarUsernames) OR FindNoCase(REQUEST.authUser,REQUEST.adminUsernames))>
 		<span class="link_hilight"><a href="bursar_controls.cfm">Bursar Controls</a></span>
 	</cfif>--->
-<!---
+
 	<cfif REQUEST.authUser neq imposter AND (FindNoCase(REQUEST.authUser,REQUEST.cfoUsernames) OR FindNoCase(REQUEST.authUser,REQUEST.adminUsernames))>
 		<span class="link_hilight"><a href="cfo_controls.cfm">CFO Controls</a> </span>
 	</cfif>
-
+<!---
 	<cfif REQUEST.authUser neq imposter AND FindNoCase(REQUEST.authUser,REQUEST.adminUsernames)>
 		<span class="link_hilight"><a href="fee_controls.cfm">UBO Controls</a> </span>
 	</cfif>
