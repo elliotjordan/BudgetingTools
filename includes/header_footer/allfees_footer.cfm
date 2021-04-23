@@ -211,7 +211,7 @@ $(document).ready(function(){
 		        } );
 	        }
 	    } );
-	    var cfoUtable = $('#cfoApprovalTableUnder2Pct').DataTable( { orderCellsTop: true, fixedHeader: true });
+	    var cfoUtable = $('#cfoApprovalTableUnder2Pct').DataTable( { orderCellsTop: true, fixedHeader: true,  "pageLength": -1  });
 	}
 
 

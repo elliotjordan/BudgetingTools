@@ -31,10 +31,10 @@
 			<table id="allFeesTableV9" class="approvalTable">
 				<thead>
 					<tr class="newFee">
-						<th><span class="sm-blue">Unique ID</span></th>
-						<cfif role neq 'campus'>
-							<th><span class="sm-blue">Campus</span></th>
-						</cfif>
+						<th>
+							<cfif role neq 'campus'><span class="sm-blue">Campus</span><br></cfif>
+							<span class="sm-blue">Unique ID</span>
+						</th>
 						<th><span class="sm-blue">Fee Description</span></th>
 						<th><span class="sm-blue">Owner</span></th>
 						<th><span class="sm-blue">Fee Type</span></th>
@@ -68,10 +68,10 @@
 							<cfif FY20_pct gt 2.00 OR FY21_pct gt 2.00>	<cfset tr_string = '<tr name="overage"'>
 							<cfif al.FEE_BEGIN_TERM gt application.current_term><cfset tr_string = tr_string & ' class="newFee">'> <cfelse> <cfset tr_string = tr_string & '>'> </cfif>
 							#tr_string#
-				    			<td>#al.ALLFEE_ID# <span><a href="fee_change_request.cfm?ALLFEE_ID=#al.ALLFEE_ID#&PRESERVE_STATUS=true">Update</a></span></td>
-								<cfif role neq 'campus'>
-									<td>#al.INST_CD#</td>
-								</cfif>
+				    			<td>
+				    				<cfif role neq 'campus'>#al.INST_CD#<br></cfif>
+				    				#al.ALLFEE_ID# <span><a href="fee_change_request.cfm?ALLFEE_ID=#al.ALLFEE_ID#&PRESERVE_STATUS=true">Update</a></span></td>
+								
 								<td>#al.FEE_DESC_BILLING#</td>
 								<td>#al.FEE_OWNER# #application.rcNames[FEE_OWNER]#</td>
 								<td>#al.FEE_TYPE#</td>
@@ -142,21 +142,20 @@
 			<!--- EVERYTHING AT OR UNDER 2% --->
 			<h2>Fee Requests At or Under the Guideline</h2>
 			<cfset tr_string2 = '<tr name="feeRow"'>
-			<cfif FY20_pct gt 2.00 OR FY21_pct gt 2.00>	<cfset tr_string = '<tr name="overage"'></cfif>			
+			<cfif FY20_pct gt 2.00 OR FY21_pct gt 2.00>	<cfset tr_string = '<tr name="overage"'></cfif>		
+			<input id="SubmitBtn5" type="submit" name="Submit" value="Submit Approvals" />	
 			<table id="cfoApprovalTableUnder2Pct" class="approvalTable">
 					<thead>
-						<tr class="newFee">
-							<th><span class="sm-blue">Unique ID</span></th>
+						<tr>
+							<th><span class="sm-blue">Unique ID<br>
 							<cfif role neq 'campus'>
-								<th><span class="sm-blue">Campus</span></th>
-							</cfif>
+								Campus
+							</cfif></span>
+							</th>
 							<th><span class="sm-blue">Fee Description</span></th>
 							<th><span class="sm-blue">Owner</span></th>
-							<th><span class="sm-blue">Fee Type</span></th>
 							<th><span class="sm-blue">Current Rate</span></th>
 							<th><span class="sm-blue">Proposed<br>rates</span></th>
-							<th><span class="sm-blue">Fee Begin Term</span></th>
-							<th><span class="sm-blue">Current Status</span></th>
 							<th><span class="sm-blue">Approve / OK / Return / Deny<br>
 									<input type="checkbox" id="approve_all_cb" name="cfo_approve_all_cb" onchange="blanketApproval_under_2pct()">
 									<label for="approve_all_cb">Approve All</label>
@@ -183,13 +182,18 @@
 								<cfif FY20_pct lte 2.00 AND FY21_pct lte 2.00>	<cfset tr_string = '<tr name="feeRow2"'>
 								<cfif al.FEE_BEGIN_TERM gt application.current_term><cfset tr_string = tr_string & ' class="newFee">'> <cfelse> <cfset tr_string = tr_string & ' class="oldFee">'> </cfif>
 								#tr_string#
-					    			<td>#al.ALLFEE_ID# <span><a href="fee_change_request.cfm?ALLFEE_ID=#al.ALLFEE_ID#">Update</a></span></td>
-									<cfif role neq 'campus'>
-										<td>#al.INST_CD#</td>
-									</cfif>
+					    			<td><cfif role neq 'campus'>
+										<span class="sm-blue">#al.INST_CD#</span>
+									</cfif><br>
+									#al.ALLFEE_ID# <span><a href="fee_change_request.cfm?ALLFEE_ID=#al.ALLFEE_ID#">Update</a></span><br>
+									<span class="sm-blue">#al.FEE_TYP_DESC#</span>
+									</td>
+									
 									<td>#al.FEE_DESC_BILLING#</td>
-									<td>#al.FEE_OWNER# #application.rcNames[FEE_OWNER]#</td>
-									<td>#al.FEE_TYPE#</td>
+									<td>#al.FEE_OWNER# #application.rcNames[FEE_OWNER]#<br>
+										<span class="sm-blue">First billing term: #al.FEE_BEGIN_TERM#</span>
+									</td>
+									
 									<td>#DollarFormat(al.CY_NUM)#</td>
 									<td>
 										YR1: #DollarFormat(al.LY_NUM)# 
@@ -204,9 +208,8 @@
 										<cfelse>
 							    			<span class="pct_inc">
 							    		</cfif>(#FY21_pct# %)</span></td>
-									<td>#al.FEE_BEGIN_TERM#</td>
-									<td>#al.FEE_STATUS#</td>
 									<td>
+										<span class="sm-blue">Current status: #al.FEE_STATUS#</span><br>
 										<select id="approval_select" name="fee_status" class="under_FEE_STATUS" onchange="approvalButton()">
 											<option value="false">-- Approve/OK/Return/Deny --</option>
 											<cfif role eq 'campus'>
