@@ -108,7 +108,12 @@ $(document).ready(function(){
 	            }
 	        } );
 	    } );
-	    var table = $('#summaryTable').DataTable( { orderCellsTop: true, fixedHeader: true, iDisplayLength: -1 });
+	    var table = $('#summaryTable').DataTable( { orderCellsTop: true, fixedHeader: true, iDisplayLength: -1,
+	      	"bPaginate": false,
+    		"bLengthChange": false,
+    		"bFilter": true,
+    		"bInfo": true,
+    		"bAutoWidth": false });
 	}
 
 /** pendingFeesTable ********/
@@ -211,7 +216,7 @@ $(document).ready(function(){
 		        } );
 	        }
 	    } );
-	    var cfoUtable = $('#cfoApprovalTableUnder2Pct').DataTable( { orderCellsTop: true, fixedHeader: true,  "pageLength": -1  });
+	    var cfoUtable = $('#cfoApprovalTableUnder2Pct').DataTable( { orderCellsTop: true, fixedHeader: true, "info":true,  "pageLength": -1});
 	}
 
 
