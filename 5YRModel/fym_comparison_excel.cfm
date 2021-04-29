@@ -1,5 +1,6 @@
+<cfinclude template="../includes/header_footer/fym_header.cfm" runonce="true" />
 <cfinclude template="../includes/functions/fym_functions.cfm" runonce="true" />
-<cfset fymCrHrComparison = compareFymCrHrs('IUKOA') />
+<cfset fymCrHrComparison = compareFymCrHrs('IU'&current_inst&'A') />
 <!---<cfdump var="#fymCrHrComparison.columnNames#"><cfabort>--->
 <!---
 	Create and store the simple HTML data that you want
@@ -21,42 +22,43 @@
 	<table>
 		<tr>
 			<td class="header">Campus</td>
-			<td class="header">AcadCareer</td>
+			<td class="header">Academic Career</td>
 			<td class="header">Residency</td>
-			<td class="header">Rev/Expense</td>
-			<td class="header">CHP_ACTUAL_HRS_FY21</td>
-			<td class="header">CHP_FY22_RATE
-			<td class="header">CHP_FY23_RATE
-			<td class="header">CHP_PROJ_HOURS_FY22
-			<td class="header">CHP_PROJ_HRS_FY23
-			<td class="header">CHP_REV_FY22
-			<td class="header">CHP_REV_FY23
-			<td class="header">DIFF_CHP_FYM_FY22
-			<td class="header">DIFF_CHP_FYM_FY23
-			<td class="header">DIF_FY22_PERCENT
-			<td class="header">DIF_FY23_PERCENT
-			<td class="header">FYM_FY22_RATE
-			<td class="header">FYM_FY23_RATE
-			<td class="header">FYM_PROJ_HRS_FY21
-			<td class="header">FYM_PROJ_HRS_FY22
-			<td class="header">FYM_PROJ_HRS_FY23
-			<td class="header">FYM_REV_FY22
-			<td class="header">FYM_REV_FY23
+			<td class="header">Proj Actual Hrs FY21</td>
+			<td class="header">Proj FY22 Rate</td>
+			<td class="header">Proj FY23 Rate</td>
+			<td class="header">Projector Credit Hrs FY22</td>
+			<td class="header">Projector Credit Hrs FY23</td>
+			<td class="header">Proj Revenue FY22</td>
+			<td class="header">Proj Revenue FY23</td>
+			<td class="header">Revenue Diff (Proj - FYM) FY22</td>
+			<td class="header">Revenue Diff (Proj - FYM) FY23</td>
+			<td class="header">Revenue Diff % (Proj - FYM) FY22</td>
+			<td class="header">Revenue Diff % (Proj - FYM) FY23</td>
+			<td class="header">FYM FY22 Rate</td>
+			<td class="header">FYM FY23 Rate</td>
+			<td class="header">FYM Credit Hours FY21</td>
+			<td class="header">FYM Credit Hours FY22</td>
+			<td class="header">FYM Credit Hours FY23</td>
+			<td class="header">FYM Revenue FY22</td>
+			<td class="header">FYM Revenue FY23</td>
 		</tr>
 		<cfloop query="fymCrHrComparison">
 			<tr>
   				<td>#INST_CD#</td>
   				<td>#ACAD_CAREER#</td>
+  				<td>#RES#</td>
+  				<td>#NumberFormat(CHP_ACTUAL_HRS_FY21,'999,999,999')#</td>
   				<td>#CHP_FY22_RATE#</td>
 				<td>#CHP_FY23_RATE#</td>
 				<td>#NumberFormat(CHP_PROJ_HOURS_FY22,'999,999,999')#</td>
 				<td>#NumberFormat(CHP_PROJ_HRS_FY23,'999,999,999')#</td>
 				<td>#NumberFormat(CHP_REV_FY22,'999,999,999')#</td>
 				<td>#NumberFormat(CHP_REV_FY23,'999,999,999')#</td>
-				<td>#NumberFormat(DIFF_CHP_FYM_FY22,'999,999,999')#</td>
-				<td>#NumberFormat(DIFF_CHP_FYM_FY23,'999,999,999')#</td>
-				<td>#NumberFormat(DIF_FY22_PERCENT,'999,999,999')#</td>
-				<td>#NumberFormat(DIF_FY23_PERCENT,'999,999,999')#</td>
+				<td>#NumberFormat(REV_DIF_CHP_FYM_FY22,'999,999,999')#</td>
+				<td>#NumberFormat(REV_DIF_CHP_FYM_FY23,'999,999,999')#</td>
+				<td>#NumberFormat(REV_DIF_FY22_PERCENT*100,'999,999,999.99')# %</td>
+				<td>#NumberFormat(REV_DIF_FY23_PERCENT*100,'999,999,999.99')# %</td>
 				<td>#NumberFormat(FYM_FY22_RATE,'999,999,999')#</td>
 				<td>#NumberFormat(FYM_FY23_RATE,'999,999,999')#</td>
 				<td>#NumberFormat(FYM_PROJ_HRS_FY21,'999,999,999')#</td>
@@ -110,9 +112,10 @@
 	will do this. We are also suggesting that the browser
 	use the name "phrases.xls" when prompting for save.
 --->
+<cfset outputFileName = '5YRModel_'&current_inst&'_CrHrProjector_comparison.xls' />
 <cfheader
 	name="Content-Disposition"
-	value="attachment; filename=5YRModel_CrHrProjector_comparison.xls"
+	value="attachment; filename=#outputFileName#"
 	/>
 
 
