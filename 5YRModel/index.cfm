@@ -49,6 +49,7 @@
 	<h3>#grp1_desc#</h3>
   	<input name="fymExcelBtn" type="submit" value="Export to Excel" />
   	<input name="fymSubmitBtn" type="submit" value="Update 5YR Model" />
+  	<input name="fymCrHrCompareBtn" type="submit" value="Compare to CrHr Projector" />
   	<span class="change_warning">You have unsaved changes in one or more tables. Be sure to update before leaving the page.</span>
   	<!---  table header  --->
 	<table id="fymMainTable#grp1_cd#" class="allFeesTable">

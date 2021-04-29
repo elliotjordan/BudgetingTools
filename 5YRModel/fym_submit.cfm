@@ -23,6 +23,8 @@
 	</cfloop> 
 <cfelseif IsDefined("form") and StructKeyExists(form,"fymExcelBtn")>
 	<cflocation url="fym_interface_excel.cfm" addToken="false" />
+<cfelseif isDefined("form") and StructKeyExists(form,"fymCrHrCompareBtn")>
+	<cflocation url="fym_comparison_excel.cfm" addToken="false" />
 <cfelse>
 	<p>Error. Please contact us and explain that you got the "5Yr Model Form submission error". Sorry for the trouble! Thanks</p> <cfabort>
 </cfif>

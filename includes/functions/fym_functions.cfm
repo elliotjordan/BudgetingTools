@@ -1,3 +1,12 @@
+<cffunction name="compareFymCrHrs">
+	<cfargument name="givenInst" type="string" required="true">
+	<cfquery name="getComparison" datasource="#application.datasource#">
+		SELECT * FROM ch_user.rpt_chp_vs_fym() 
+		WHERE inst_cd = <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenInst#">
+	</cfquery>
+	<cfreturn getComparison>
+</cffunction>
+
 <cffunction name="getCompDetails">
 	<cfargument name="givenChart" type="string" required="true">
 	<cfquery name="compDetailList" datasource="#application.datasource#">
