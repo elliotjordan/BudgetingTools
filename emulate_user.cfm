@@ -12,7 +12,7 @@
 	<cfset testUser = setFocus(url.target)> 
 	<cfset actionEntry = trackUserAction(REQUEST.authUser,'BS',5,#cgi.HTTP_REFERER#) />
 	<!---<cflocation url="#url.url#" addtoken="false" />--->
-	<cflocation url="index.cfm" addtoken="false" />
+	<cflocation url="#cgi.HTTP_REFERER#" addtoken="false" />
 <cfelse>
 	<!---<cfdump var="#form#">--->
 	You are #REQUEST.authUser#. <br />
