@@ -112,7 +112,7 @@
 	will do this. We are also suggesting that the browser
 	use the name "phrases.xls" when prompting for save.
 --->
-<cfset outputFileName = '5YRModel_'&current_inst&'_CrHrProjector_comparison.xls' />
+<cfset outputFileName = current_inst&'_FYM_CrHrProj_comparison.xls' />
 <cfheader
 	name="Content-Disposition"
 	value="attachment; filename=#outputFileName#"
