@@ -24,24 +24,24 @@
 			<td class="header">Campus</td>
 			<td class="header">Academic Career</td>
 			<td class="header">Residency</td>
-			<td class="header">Proj Actual Hrs FY21</td>
-			<td class="header">Proj FY22 Rate</td>
-			<td class="header">Proj FY23 Rate</td>
-			<td class="header">Projector Credit Hrs FY22</td>
-			<td class="header">Projector Credit Hrs FY23</td>
-			<td class="header">Proj Revenue FY22</td>
-			<td class="header">Proj Revenue FY23</td>
-			<td class="header">Revenue Diff (Proj - FYM) FY22</td>
-			<td class="header">Revenue Diff (Proj - FYM) FY23</td>
-			<td class="header">Revenue Diff % (Proj - FYM) FY22</td>
-			<td class="header">Revenue Diff % (Proj - FYM) FY23</td>
-			<td class="header">FYM FY22 Rate</td>
-			<td class="header">FYM FY23 Rate</td>
-			<td class="header">FYM Credit Hours FY21</td>
-			<td class="header">FYM Credit Hours FY22</td>
-			<td class="header">FYM Credit Hours FY23</td>
-			<td class="header">FYM Revenue FY22</td>
-			<td class="header">FYM Revenue FY23</td>
+			<td class="header">FY21 Proj Actual Hrs </td>
+			<td class="header">FY22 Proj CrHrs </td>
+			<td class="header">FY22 Proj Rate</td>
+			<td class="header">FY22 Proj Revenue</td>
+			<td class="header">FY23 Proj CrHrs </td>
+			<td class="header">FY23 Proj Rate</td>
+			<td class="header">FY23 Proj Revenue </td>
+			<td class="header">FY21 FYM CrHrs</td>
+			<td class="header">FY22 FYM CrHrs </td>
+			<td class="header">FY22 FYM Rate</td>
+			<td class="header">FY22 FYM Revenue </td>
+			<td class="header">FY23 FYM CrHrs</td>
+			<td class="header">FY23 FYM Rate</td>
+			<td class="header">FY23 FYM Revenue</td>
+			<td class="header">FY22 Revenue Diff (Proj - FYM) </td>
+			<td class="header">FY22 Revenue Diff % (Proj - FYM)</td>
+			<td class="header">FY23 Revenue Diff (Proj - FYM) </td>
+			<td class="header">FY23 Revenue Diff % (Proj - FYM) </td>
 		</tr>
 		<cfloop query="fymCrHrComparison">
 			<tr>
@@ -49,23 +49,23 @@
   				<td>#ACAD_CAREER#</td>
   				<td>#RES#</td>
   				<td>#NumberFormat(CHP_ACTUAL_HRS_FY21,'999,999,999')#</td>
+  				<td>#NumberFormat(CHP_PROJ_HOURS_FY22,'999,999,999')#</td>
   				<td>#CHP_FY22_RATE#</td>
+  				<td>#NumberFormat(CHP_REV_FY22,'999,999,999')#</td>
+  				<td>#NumberFormat(CHP_PROJ_HRS_FY23,'999,999,999')#</td>
 				<td>#CHP_FY23_RATE#</td>
-				<td>#NumberFormat(CHP_PROJ_HOURS_FY22,'999,999,999')#</td>
-				<td>#NumberFormat(CHP_PROJ_HRS_FY23,'999,999,999')#</td>
-				<td>#NumberFormat(CHP_REV_FY22,'999,999,999')#</td>
 				<td>#NumberFormat(CHP_REV_FY23,'999,999,999')#</td>
-				<td>#NumberFormat(REV_DIF_CHP_FYM_FY22,'999,999,999')#</td>
-				<td>#NumberFormat(REV_DIF_CHP_FYM_FY23,'999,999,999')#</td>
-				<td>#NumberFormat(REV_DIF_FY22_PERCENT*100,'999,999,999.99')# %</td>
-				<td>#NumberFormat(REV_DIF_FY23_PERCENT*100,'999,999,999.99')# %</td>
-				<td>#NumberFormat(FYM_FY22_RATE,'999,999,999')#</td>
-				<td>#NumberFormat(FYM_FY23_RATE,'999,999,999')#</td>
 				<td>#NumberFormat(FYM_PROJ_HRS_FY21,'999,999,999')#</td>
 				<td>#NumberFormat(FYM_PROJ_HRS_FY22,'999,999,999')#</td>
-				<td>#NumberFormat(FYM_PROJ_HRS_FY23,'999,999,999')#</td>
+				<td>#NumberFormat(FYM_FY22_RATE,'999,999,999')#</td>
 				<td>#NumberFormat(FYM_REV_FY22,'999,999,999')#</td>
+				<td>#NumberFormat(FYM_PROJ_HRS_FY23,'999,999,999')#</td>
+				<td>#NumberFormat(FYM_FY23_RATE,'999,999,999')#</td>
 				<td>#NumberFormat(FYM_REV_FY23,'999,999,999')#</td>
+				<td>#NumberFormat(REV_DIF_CHP_FYM_FY22,'999,999,999')#</td>
+				<td>#NumberFormat(REV_DIF_FY22_PERCENT*100,'999,999,999.99')# %</td>
+				<td>#NumberFormat(REV_DIF_CHP_FYM_FY23,'999,999,999')#</td>
+				<td>#NumberFormat(REV_DIF_FY23_PERCENT*100,'999,999,999.99')# %</td>
 			</tr>
 		</cfloop>
 	</table>

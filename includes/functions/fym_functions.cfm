@@ -3,6 +3,7 @@
 	<cfquery name="getComparison" datasource="#application.datasource#">
 		SELECT * FROM ch_user.rpt_chp_vs_fym() 
 		WHERE inst_cd = <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenInst#">
+		ORDER BY 1, 2 DESC, 3 DESC
 	</cfquery>
 	<cfreturn getComparison>
 </cffunction>

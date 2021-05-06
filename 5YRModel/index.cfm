@@ -19,7 +19,8 @@
 </cfif>
 
 <h2>5-Year Model for #getDistinctChartDesc(current_inst)# FY#application.shortfiscalyear#</h2>
-
+<form id="fymForm" action="fym_submit.cfm" method="post" >
+<input name="fymCrHrCompareBtn" type="submit" value="Compare to CrHr Projector" />
 <cfif fymRevSums.recordCount neq 0>
 	<h3>Summary</h3>
 	<!--- Begin summary table  --->
@@ -39,7 +40,7 @@
 </cfif>
 <!--- ************************************************ --->
 <hr />
-<form id="fymForm" action="fym_submit.cfm" method="post" >
+
 <cfloop query="fundTypes" >
 	<cfif grp1_cd gt 0>
 	<cfset ci = getFYMdataByFnd(current_inst, grp1_cd) />
@@ -49,7 +50,7 @@
 	<h3>#grp1_desc#</h3>
   	<input name="fymExcelBtn" type="submit" value="Export to Excel" />
   	<input name="fymSubmitBtn" type="submit" value="Update 5YR Model" />
-  	<input name="fymCrHrCompareBtn" type="submit" value="Compare to CrHr Projector" />
+  	
   	<span class="change_warning">You have unsaved changes in one or more tables. Be sure to update before leaving the page.</span>
   	<!---  table header  --->
 	<table id="fymMainTable#grp1_cd#" class="allFeesTable">
