@@ -3,5 +3,5 @@
 	</div>--->
 
 	<div class="prod_banner">
-		<p>Changes to non-instructional fees are now closed. Please let us know if you need some help correcting an error. Thanks!</p>
+		<p>Changes to fees are now closed. Please let us know if you need some help correcting an error. Thanks!</p>
 	</div>
