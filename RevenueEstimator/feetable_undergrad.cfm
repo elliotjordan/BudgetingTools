@@ -1,8 +1,4 @@
 <cfoutput>
-					<div class="workSaver">
-						<input  disabled="disabled" id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work"  
-					<cfif !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif> />
-					</div>
 					<table id="ugrdFeesTable" class="feeCodeTable">
 						<thead>
 							<tr>
@@ -200,12 +196,4 @@
 						<input hidden="hidden" value="#Url.Campus#" name="CAMPUS" />
 						<input hidden="hidden" value="#Url.RC#" name="RC" />
 					</cfif>
-					<!---<span class="SubTotal" id="ugrdSubTotalYr1">
-						SUB-TOTAL YR1 (only what is showing): 
-						#DollarFormat(0000.00)#
-					</span><br>
-					<span class="SubTotal" id="ugrdSubTotalYr2">
-						SUB-TOTAL YR2 (only what is showing): 
-						#DollarFormat(0000.00)#
-					</span>--->
 </cfoutput>

@@ -11,7 +11,11 @@
 <cfset userLanding = getUserLandingPage() />
 <cfset userAccessList = getUserAccessList() />
 <cfset dssIsOpen = checkDSSavailability() />
-<cfset projStatus = "open" />  <!--- valid settings are "open" and "closed" - NOTE: see REQUEST.specialAccess below --->
+<!--- ********** OPEN/CLOSE ********** --->
+<cfset projStatus = "closed" />  <!--- valid settings are "open" and "closed" - button logic checks ninjaList for "OPEN" --->
+<cfset ninjaList = "nschrode,jburgoon,nichodan,bjmoelle" /> 
+<!---<cfset ninjaList = "" />---> 
+<cfset ninjaList =ListAppend(ninjaList,projStatus) />
 
 <cfif isDefined("Url") AND StructKeyExists(Url, "Campus") AND StructKeyExists(Url, "RC")>
 	<cfset urlCampus = url.Campus>
@@ -94,14 +98,14 @@
 					</cfif>
 					</div>
 					<!-- End div controlBinTC -->
-					<div class="controlBinTRC">
-						<cfif request.authuser eq 'blork'> <!--- allow a specific user back in to make some adjustment ; blork is a placeholder or you can use blank --->
-							<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
-						<cfelse>
-							<input disabled="disabled"  id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" <cfif (projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser))>#application.disabled#</cfif> />
-						</cfif>
-					</div>
-					<!-- End div controlBinTR -->
+<!---					<div class="controlBar">
+						<div class="controlBinTRC">
+							<cfif ListFindNoCase(ninjaList,request.authuser) OR ListFind(ninjaList,"OPEN")> <!--- OPENS, or allow specific users access while site is closed --->
+								<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
+							<cfelse>
+								<input  disabled="disabled" id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
+							</cfif>
+					</div>--->
 
 				</div>
 				<!-- End of div controlBar -->
@@ -115,7 +119,7 @@
 					<cfset enrllmtCount = getQueryResultCount(DataSelect)>
 					<cfif Len(getCampus.recordCount) eq 0>		<!--- Placeholder for empty query results  --->
 						Campus RecordCount is 0.
-					</cfif>
+				</cfif>
 					<cfif 1>
 						<h2>Graduate Credit Hours</h2>
 						<p>We have set this table to contain what we believe are your "main" graduates.  All others are in a table at the bottom of the page.  We can change this setting for you if you wish.</p>
@@ -123,6 +127,14 @@
 					</cfif>
 
 					<cfif 1>
+						<div class="controlBinTRC">
+							<cfif ListFindNoCase(ninjaList,request.authuser) OR ListFindNoCase(ninjaList,"OPEN")> 
+								<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
+							<cfelse>
+								<input disabled="disabled"  id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
+							</cfif>
+						</div>
+						<!-- End div controlBinTR -->						
 						<h2>Undergraduate Credit Hours</h2>
 						<p>We have set this table to contain only your summer undergraduate enrollments.  All others are in a clearing account table for your campus fiscal officer.</p>
 						<cfinclude template="feetable_undergrad.cfm" >
@@ -131,15 +143,25 @@
 					<!--- Jump through some hoops to see if there are any non-GRAD, non-UGRD academic career lines left in the data --->
 					<cfset careerList = ValueList(enrllmtCount.ACAD_CAREER) />
 					<cfif ListLen(careerList) gt 0>
+						<div class="controlBinTRC">
+							<cfif ListFindNoCase(ninjaList,request.authuser) OR ListFindNoCase(ninjaList,"OPEN")> 
+								<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
+							<cfelse>
+								<input disabled="disabled"  id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
+							</cfif>
+						</div>
+						<!-- End div controlBinTR -->					
 						<h2>Other Enrollments</h2>
 						<p>We have set this table to contain miscellaneous graduate enrollments.  If there are any you prefer to appear in the table at the top of the page, we will be happy to change that for you.</p>
 						<cfinclude template="feetable_special.cfm" >
 					</cfif>
 					<div class="controlBar">
 						<div class="controlBinTRC">
-							<input  disabled="disabled" id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work"
-				<cfif projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif> />
-						</div>
+							<cfif ListFindNoCase(ninjaList,request.authuser) OR ListFind(ninjaList,"OPEN")> <!--- OPENS, or allow specific users access while site is closed --->
+								<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
+							<cfelse>
+								<input  disabled="disabled" id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
+							</cfif>
 					</div>
 
 					<cfif urlCampus eq "IN" AND urlRC eq "80">
@@ -149,32 +171,41 @@
 
 						<div class="controlBar">
 							<div class="controlBinTRC">
-								<input  disabled="disabled" id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work"
-					<cfif projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif>  />
+								<cfif ListFindNoCase(ninjaList,request.authuser) OR ListFindNoCase(ninjaList,"OPEN")> <!--- OPENS, or allow specific users access while site is closed --->
+									<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
+								<cfelse>
+									<input  disabled="disabled" id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
+								</cfif>
 							</div>
 						</div>
 
 						<h2>Banded Enrollments</h2>
 						<p>We have set this table to contain only Banded enrollments.</p>
-						<cfinclude template="feetable_banded.cfm" >
-
-						<div class="controlBar">
-							<div class="controlBinTRC">
-								<input  disabled="disabled" id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work"
-					<cfif projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif> />
-							</div>
-						</div>
-
-						<div class="controlBar">
-							<div class="controlBinTRC">
-								<input  disabled="disabled" id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work"
-					<cfif projStatus eq 'closed' and !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif> />
-							</div>
-						</div>						
+						<cfinclude template="feetable_banded.cfm" >					
 					</cfif>
+					
+					<div class="controlBar">
+						<div class="controlBinTRC">
+							<cfif ListFindNoCase(ninjaList,request.authuser) OR ListFindNoCase(ninjaList,"OPEN")> 
+								<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
+							<cfelse>
+								<input disabled="disabled"  id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
+							</cfif>
+						</div>
+					</div>
+					
 					<!--- No FCP conditional include --->
 					<cfif ListFindNocase("77,80,81",urlRc)>
 						<cfinclude template="no_fcp.cfm" >
+						<div class="controlBar">
+							<div class="controlBinTRC">
+								<cfif ListFindNoCase(ninjaList,request.authuser) OR ListFindNoCase(ninjaList,"OPEN")> 
+									<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
+								<cfelse>
+									<input disabled="disabled"  id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
+								</cfif>
+							</div>
+						</div>
 					</cfif>
 					<!--- end No FCP section --->
 				<cfelse>

@@ -6,7 +6,7 @@
 		<cfset Yr1RateCol = "b1_adj_rate">			<!--- starting out, all we know is data from yr1  --->
 		<cfset Yr2RateCol = "b1_adj_rate">			<!--- no idea what yr2 will be, so we roll yr1 rate forward --->
 	<cfelseif application.rateStatus eq "V1">		
-		<cfset Yr1RateCol = "b1_adj-escl_rate_yr1">	<!--- at this point we know the escalation, so we use it now --->
+		<cfset Yr1RateCol = "b1_adj_escl_rate_yr1">	<!--- at this point we know the escalation, so we use it now --->
 		<cfset Yr2RateCol = "b1_adj_escl_rate_yr2">	<!--- yr2 escalation may or may not match yr 1, so we have separate column  --->
 	</cfif>
 <cfelseif application.budget_year eq "YR2">
@@ -103,8 +103,8 @@
 				<input name="projHrs_Yr1" type="hidden" value="#projhours_yr1#" />
 			</cfif>
 					</td>
-					<!---<td name="feeLY" id="feeLY#CurrentRow#">#DollarFormat(B1_ADJ_ESCL_RATE_YR1)#</td>--->
-					<td name="feeLY" id="feeLY#CurrentRow#">#DollarFormat(b1_adj_rate)#</td>
+					<td name="feeLY" id="feeLY#CurrentRow#">#DollarFormat(B1_ADJ_ESCL_RATE_YR1)#</td>
+					<!---<td name="feeLY" id="feeLY#CurrentRow#">#DollarFormat(b1_adj_rate)#</td>--->
 					<td id="otherFeeRevYr1#CurrentRow#" name="estRevYr1">#DollarFormat(EstRev_YR1)#</td>
 				<cfif application.budget_year eq "YR2">
 					<td>Cr Hrs:	#NumberFormat(HOURS,'999,999.9')#
@@ -120,21 +120,15 @@
 						<cfif IsNumeric(0)><cfset feeAmount = 0 /></cfif>
 						<input name="projHrs_Yr2" id="projHrsYR2#CurrentRow#" size="10" value="#PROJHOURS_YR2#" onblur="calcEstRev(this.value, #feeAmount#, '#currentTarget#')"/>
 					</td>
-					<td name="feeLY" id="feeLY#CurrentRow#">#DollarFormat(b1_adj_rate)#</td>
+					<!---<td name="feeLY" id="feeLY#CurrentRow#">#DollarFormat(b1_adj_rate)#</td>--->
+					<td name="feeLY" id="feeLY#CurrentRow#">#DollarFormat(B1_ADJ_ESCL_RATE_YR2)#</td>
 					<td id="otherFeeRevYr2#CurrentRow#" name="estRevYr2">#DollarFormat(EstRev_YR2)#</td>
 				</tr>
 				</cfif>
 			</cfloop>
 		</tbody>
 	</table>
-	
-	<div class="controlBar">
-	  <div class="controlBinTRC">
-		<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" 
-		<cfif !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif> />
-	  </div>
-	</div>
-					
+
 	<h5>No FCP Hours (formerly "Unlinked")</h5>
 	<p>These are the unlinked credit hours to match the Official Census count. "NO FCP" rows occur when we have fee-paying credit hours of enrollment from Official Census, but we do not find a matching course in FCP to retrieve financial data. We provide those rows here so that the credit hours can be properly tied back from the Projector to the Official Census.</p>	
 	<!--- UNLINKED/NO FCP TABLE --->
@@ -205,11 +199,4 @@
 			</cfloop>
 		</tbody>
 	</table>
-
-	<div class="controlBar">
-	  <div class="controlBinTRC">
-		<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" 	 
-		<cfif !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif> />
-	  </div>
-	</div>
 </cfoutput>

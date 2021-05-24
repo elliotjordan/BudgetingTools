@@ -195,12 +195,4 @@
 						<input hidden="hidden" value="#Url.Campus#" name="CAMPUS" />
 						<input hidden="hidden" value="#Url.RC#" name="RC" />
 					</cfif>
-					<!---<span class="SubTotal" id="gradSubTotalYr1">
-						SUB-TOTAL YR1 (only what is showing): 
-						#DollarFormat(0000.00)#
-					</span><br>
-					<span class="SubTotal" id="gradSubTotalYr2">
-						SUB-TOTAL YR2 (only what is showing): 
-						#DollarFormat(0000.00)#
-					</span>--->
 </cfoutput>
