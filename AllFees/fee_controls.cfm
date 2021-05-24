@@ -1,6 +1,11 @@
 <!-- Chrome sucks -->
 <cfinclude template="../includes/header_footer/allfees_header.cfm" />
 <cfinclude template="../includes/functions/fee_rate_functions.cfm" />
+<cfset fee_params = getFeeParamData() />
+<cfset afm_de_asso = getAFM_DE_asso() />
+<cfset afm_params = getAFMparams() />
+<cfset delta = getDEchangeReport() />
+
 <cfif !StructKeyExists(session,"curr_proj_rc")>
 	<cfinclude template="loadUser.cfm">
 </cfif>

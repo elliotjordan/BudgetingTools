@@ -1,47 +1,62 @@
-<cfset fee_params = getFeeParamData() />
-<cfset afm_de_asso = getAFM_DE_asso() />
-<cfset afm_params = getAFMparams() />
-<cfset delta = getDEchangeReport() />
+<cfif IsDefined("form") AND StructKeyExists(form,"de_btn")>
+	<cfdump var="#form#" ><cfabort>
+</cfif>
+
 <cfoutput>
 	<div class="full_content">
 		<!---<cfdump var="#delta#" >--->
-
-		<table class="feeCodeTable">
-			<thead>
-				<tr>
-					<th>DE AllfeeID</th>
-					<th>Fee</th>
-					<th>Base AllFeeID</th>
-					<th>Current YR</th>
-					<th>1st YR</th>
-					<th>%Change</th>
-					<th>Association</th>
-					<th>Notes</th>
-				</tr>
-			</thead>
-			<tbody>
-				<cfloop query="#delta#">
-				<tr>
-					<td>#DE_Rate#</td>
-					<td>
-						<span class="sm-blue">#inst_cd#</span><br>
-						#fee_desc_billing#
-					</td>
-					<td>#Base_rate#</td>
-					<td>#fee_current#</td>
-					<td>#fee_lowyear#</td>
-					<td>#delta_percent#</td>
-					<td>
-						<span class="sm-blue">#fn_name#</span><br>
-						#asso_desc#
-					</td>
-					<td>#param_desc#</td>
-				</tr>
-				</cfloop>
-
-			</tbody>
-		</table>
+		<form id="de_form" name="de_form" action="fee_controls.cfm" method="post" >
+			<input id="de_btn" name="de_btn" type="submit" value="Save DE Changes">
+			<table class="feeCodeTable">
+				<thead>
+					<tr>
+						<th>DE AllfeeID</th>
+						<th>Fee</th>
+						<th>Base AllFeeID</th>
+						<th>Current YR</th>
+						<th>1st YR</th>
+						<th>%Change</th>
+						<th>Association</th>
+						<th>Rule Selector</th>
+						<th>Notes</th>
+					</tr>
+				</thead>
+				<tbody>
+					<cfloop query="#delta#">
+					<tr>
+						<td>#DE_Rate#</td>
+						<td>
+							<span class="sm-blue">#inst_cd#</span><br>
+							#fee_desc_billing#
+						</td>
+						<td>#Base_rate#</td>
+						<td>#fee_current#</td>
+						<td>#fee_lowyear#</td>
+						<td>#delta_percent#</td>
+						<td>
+							<span class="sm-blue">#fn_name#</span><br>
+							#asso_desc#
+						</td>
+						<td>
+							<select id="param_selector">
+								<cfloop query="afm_params">
+									<cfif delta.param_id eq afm_params.param_id>
+										<option value="#param_id#" name="de_param_option" selected="selected">#param_id# - #param_nm#</option>
+									<cfelse>
+										<option value="#param_id#" name="de_param_option">&##128139; #param_id# - #param_nm#</option>
+									</cfif>
+								</cfloop>
+							</select>
+						</td>
+						<td>#param_desc#</td>
+					</tr>
+					</cfloop>
 	
+				</tbody>
+			</table>
+		</form>
+	
+	<hr>
 	<pre>
 		select a.allfee_id as "DE_Rate", a.inst_cd, a.fee_desc_billing, a.unit_basis, a.fee_current,a.fee_lowyear,
 	      round((to_number(a.fee_lowyear)-to_number(a.fee_current))/to_number(a.fee_current),3)*100 as delta_percent,

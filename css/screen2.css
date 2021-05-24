@@ -128,6 +128,12 @@ div.full_content {		/* To use when the sidelink bar is not included. */
     text-decoration: none;
 } 
 
+/* highlighted select option */
+.hiliter {
+	color: #800000;
+	background-color: #ffe6ff;
+}
+
 /****************************************
  * Skip Navigation Container
  ****************************************/
