@@ -5,6 +5,8 @@
 <cfset afm_de_asso = getAFM_DE_asso() />
 <cfset afm_params = getAFMparams() />
 <cfset delta = getDEchangeReport() />
+<cfset unAssDE = getUnassociatedDE() />
+<cfset tuitionList = getTuitionList() />
 
 <cfif !StructKeyExists(session,"curr_proj_rc")>
 	<cfinclude template="loadUser.cfm">
@@ -22,7 +24,7 @@
 	
 	<h2>Distance Ed Settings</h2>
 	<h4>Prototype - what are we doing?</h4>
-	<p>Associate distance ed fee with base fee -> apply rule to distance ed rate</p>
+	<p>Associate distance ed fee with base fee -> apply rule to distance ed rate -> document who made changes -> display in main fee interface -> develop reporting</p>
 	<cfinclude template="de_controls.cfm" runonce="true" />
 	
 	<h2>UBO Fee Approvals</h2>

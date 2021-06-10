@@ -1,8 +1,17 @@
+<cffunction name="getTuitionList">
+	<cfquery name="tuiList" datasource="#application.datasource#">
+		select allfee_id, fee_desc_billing from afm
+		where fee_type IN ('TUI','PRO') and fiscal_year = '#application.fiscalyear#'
+		order by allfee_id asc
+	</cfquery>
+	<cfreturn tuiList>
+</cffunction>
+
 <cffunction name="getFeeParamData">
 	<cfargument name="givenInst" type="string" default="ALL" required="false" />
 	<cfquery name="feeParamData" datasource="#application.datasource#" >
 		select a.allfee_id, a.fiscal_year, a.inst_cd, a.fee_desc_billing, a.unit_basis, a.fee_current,
-		  b.asso_desc, b.fn_name, c.param_desc
+		  b.asso_desc, c.fn_name, c.param_desc
 		from fee_user.afm a
 		inner join afm_de_asso b on a.allfee_id = b.de_afid
 		inner join afm_params c on b.param_id = c.param_id
@@ -32,13 +41,35 @@
 	<cfquery name="de_delta" datasource="#application.datasource#">
 		select a.allfee_id as "DE_Rate", a.inst_cd, a.fee_desc_billing, a.unit_basis, a.fee_current,a.fee_lowyear,
 	      round((to_number(a.fee_lowyear)-to_number(a.fee_current))/to_number(a.fee_current),3)*100 as delta_percent,
-		  b.base_afid as "Base_Rate", b.param_id, b.asso_desc, b.fn_name, c.param_desc
+		  b.base_afid as "Base_Rate", b.param_id, b.asso_desc, c.fn_name, c.param_desc
 		from fee_user.afm a
 		inner join afm_de_asso b on a.allfee_id = b.de_afid
 		inner join afm_params c on b.param_id = c.param_id
-		where a.fiscal_year  = '2021' and a.active = 'Y' and c.active = 'Y'
+		where a.fiscal_year  = '#application.fiscalyear#' and a.active = 'Y' and c.active = 'Y'
 	</cfquery>
 	<cfreturn de_delta />
+</cffunction>
+
+<cffunction name="getUnassociatedDE">
+	<cfquery name="unAssDE" datasource="#application.datasource#">
+		select distinct a.allfee_id, a.fee_desc_billing , b.de_afid
+		from fee_user.afm a
+		left outer join afm_de_asso b on a.allfee_id = b.de_afid
+		where a.fiscal_year  = '#application.fiscalyear#' and a.active = 'Y' and a.fee_type = '_DE' and b.de_afid IS NULL
+		order by a.allfee_id ASC
+	</cfquery>
+	<cfreturn unAssDE />
+</cffunction>
+
+<cffunction name="insertNewAsso">
+	<cfargument name="givenBASEafid" required="true" type="string" />
+	<cfargument name="givenDEafid" required="true" type="string" />
+	<cfargument name="givenRule" required="true" type="numeric" />
+	<cfquery name="associateRule">
+		INSERT INTO fee_user.afm_de_asso(base_afid, de_afid, param_id)
+		VALUES (?, ?, ?)
+	</cfquery>
+	<cfreturn true />
 </cffunction>
 
 <cffunction name="saveNewFee">

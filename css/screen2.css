@@ -713,6 +713,10 @@ tr:hover {background-color: #a9a9a9}
 	background:#E1D8B7;
 }
 
+.feeCodeTable tr.new_entry {
+	background:#eeddcc;
+}
+
 .feeCodeTable td{ 
 	padding:4px; 
 	border:#44697D 1px solid;
