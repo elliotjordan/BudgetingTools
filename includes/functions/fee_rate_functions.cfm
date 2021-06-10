@@ -65,9 +65,13 @@
 	<cfargument name="givenBASEafid" required="true" type="string" />
 	<cfargument name="givenDEafid" required="true" type="string" />
 	<cfargument name="givenRule" required="true" type="numeric" />
-	<cfquery name="associateRule">
+	<cfquery name="associateRule" datasource="#application.datasource#">
 		INSERT INTO fee_user.afm_de_asso(base_afid, de_afid, param_id)
-		VALUES (?, ?, ?)
+		VALUES (
+			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenBASEafid#">, 
+			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenDEafid#">, 
+			<cfqueryparam cfsqltype="cf_sql_bigint" value="#givenRule#">
+			)
 	</cfquery>
 	<cfreturn true />
 </cffunction>

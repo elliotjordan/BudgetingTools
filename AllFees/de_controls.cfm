@@ -1,13 +1,13 @@
+<cfoutput>
+	
 <cfif IsDefined("form") AND StructKeyExists(form,"de_btn")>
-	<cfdump var="#form#" ><cfabort>
 	<cfset insertAsso = false />
-	<cfif IsDefined("#form#") AND StructKeyExists(form,"NEW_DE_AFID") and StructKeyExists(form,"NEW_DE_ASSO") AND form.new_de_asso neq 'NONE' AND form.new_new_de_adis neq 'NONE'>
-		<cfset insertAsso = insertNewAsso(givenBASEafid, form.new_de_afid, form.new_de_asso) />
+	<cfif IsDefined("form") AND StructKeyExists(form,"NEW_DE_AFID") and StructKeyExists(form,"NEW_DE_ASSO") AND form.new_de_asso neq 'NONE' AND form.NEW_DE_AFID neq 'NONE'>
+		<cfset insertAsso = insertNewAsso(form.new_base_afid, form.new_de_afid, LSParseNumber(form.new_de_asso)) />
 	</cfif>
-	<cfif insertAsso eq true><p>Insert was successful</p><cfelse><p>Not saved!</p></cfif>
+	<cflocation url="fee_controls.cfm" addtoken="false" />
 </cfif>
 
-<cfoutput>
 	<div class="full_content">
 		<!---<cfdump var="#delta#" >--->
 		<form id="de_form" name="de_form" action="fee_controls.cfm" method="post" >
@@ -114,9 +114,6 @@
 		
 		<h5>afm_params</h5>
 		<cfdump var="#afm_params#" />
-		
-		<h5>afm_de_asso</h5>
-		<cfdump var="#afm_de_asso#" />
 		
 	</div>  <!-- End div class="full_content"  -->
 </cfoutput>
