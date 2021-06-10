@@ -12,7 +12,7 @@
 		<!---<cfdump var="#delta#" >--->
 		<form id="de_form" name="de_form" action="fee_controls.cfm" method="post" >
 			<input id="de_btn" name="de_btn" type="submit" value="Save DE Changes">
-			<table class="feeCodeTable">
+			<table id="de_table" class="feeCodeTable">
 				<thead>
 					<tr>
 						<th>DE AllfeeID</th>
@@ -23,7 +23,7 @@
 						<th>%Change</th>
 						<th>Association</th>
 						<th>Rule Selector</th>
-						<th>Notes</th>
+						<th>Notes </th>
 					</tr>
 				</thead>
 				<tbody>

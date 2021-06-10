@@ -50,6 +50,11 @@ $(document).ready(function(){
 	    $("#masterTable_paginate").detach().prependTo('#masterTable_wrapper');
 	}
 
+/** DE Form ********/
+	if ($('#de_table').length > 0) {
+    	var deTable = $('#de_table').DataTable();
+    }
+
 /** masterTable ********/
     if ($('#masterTable').length > 0) {  //tables get a single row if there are no fees.  Hopefully users don't need to search tables with a single fee...
 		// Setup - add a search text input to each header cell

@@ -40,7 +40,8 @@
 <cffunction name="getDEchangeReport">
 	<cfquery name="de_delta" datasource="#application.datasource#">
 		select a.allfee_id as "DE_Rate", a.inst_cd, a.fee_desc_billing, a.unit_basis, a.fee_current,a.fee_lowyear,
-	      round((to_number(a.fee_lowyear)-to_number(a.fee_current))/to_number(a.fee_current),3)*100 as delta_percent,
+		  CASE When a.fee_current <= 0 then 0 else
+	      round((to_number(a.fee_lowyear)-to_number(a.fee_current))/to_number(a.fee_current),3)*100 END as delta_percent,
 		  b.base_afid as "Base_Rate", b.param_id, b.asso_desc, c.fn_name, c.param_desc
 		from fee_user.afm a
 		inner join afm_de_asso b on a.allfee_id = b.de_afid

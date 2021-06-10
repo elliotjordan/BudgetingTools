@@ -29,7 +29,8 @@
 	
 	<h2>UBO Fee Approvals</h2>
 	<p>Use this table to review and instantly OK or return individual fee requests from each of the IU campuses.</p>
-	<cfinclude template="approval_form.cfm" runonce="true" />
+	<p><i>Table temporarily hidden</i></p>
+	<!---<cfinclude template="approval_form.cfm" runonce="true" />--->
 </div>  <!-- End DIV class "full_content" -->
 </cfoutput>
 <cfinclude template="../includes/header_footer/allfees_footer.cfm" />
