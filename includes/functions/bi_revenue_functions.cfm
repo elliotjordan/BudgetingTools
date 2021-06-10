@@ -1088,8 +1088,7 @@ FROM #application.hours_to_project# h
 	<cfset clearBUDU001_ProjTable() />
 	<cftransaction isolation="serializable" action="begin">
 		<cfquery name="refillTable" datasource="#application.datasource#">
-			INSERT INTO BUDU001.chp_htp_t@dss_link
-			SELECT * FROM #application.hours_to_project# WHERE biennium = '#application.biennium#'
+			select * from ch_user.update_BUDU001_HTP()
 		</cfquery>
 		<cftransaction action = "commit" />
 	</cftransaction>
