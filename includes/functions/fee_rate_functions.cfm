@@ -62,6 +62,14 @@
 	<cfreturn unAssDE />
 </cffunction>
 
+<cffunction name="getDEasso">
+	<cfquery name="DEasso" datasource="#application.datasource#">
+		select b.base_afid, b.de_afid, b.param_id
+		from fee_user.afm_de_asso b 
+	</cfquery>
+	<cfreturn DEasso />
+</cffunction>
+
 <cffunction name="insertNewAsso">
 	<cfargument name="givenBASEafid" required="true" type="string" />
 	<cfargument name="givenDEafid" required="true" type="string" />

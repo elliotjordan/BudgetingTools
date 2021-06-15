@@ -50,10 +50,6 @@ $(document).ready(function(){
 	    $("#masterTable_paginate").detach().prependTo('#masterTable_wrapper');
 	}
 
-/** DE Form ********/
-	if ($('#de_table').length > 0) {
-    	var deTable = $('#de_table').DataTable();
-    }
 
 /** masterTable ********/
     if ($('#masterTable').length > 0) {  //tables get a single row if there are no fees.  Hopefully users don't need to search tables with a single fee...
@@ -242,6 +238,17 @@ $(document).ready(function(){
 	    } );
 	    var cfoUtable = $('#housingTable').DataTable( { orderCellsTop: true, fixedHeader: true, iDisplayLength: -1 });
 	}
+
+/** DE Form ********/
+	if ($('#de_table tr').length > 0) {
+		//console.log('DE TABLE EXISTS with length: '+ $('#de_table tr').length + "\n");
+    	var DEtableuurt = $('#de_table').DataTable({
+        "paging":   true,
+        "ordering": false,
+        "info":     false
+        } );
+    }
+
 
 	//update the delta hidden element if the user changes a field in the params form
 	// onchange() in any field, take the name of the field and change the <name>DELTA value to true

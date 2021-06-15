@@ -20,6 +20,7 @@
 <cfset feeTypeList = getPreparedTypeCategories() />
 <cfset role = getUserRole(session.access_level) />
 <cfset roleFeestatus = getDistinctFeeStatus() />
+<cfset feeAsso = getDEasso() />
 <cfoutput>
 
 <div class="full_content">
@@ -70,6 +71,13 @@
 										<span class="sm-blue">
 	<!---<a href="fee_change_request.cfm?ALLFEE_ID=#AllFeeData.ALLFEE_ID#">Update</a><br>---> #AllFeeData.FEE_TYP_DESC# 
 										</span>
+										<cfloop query="#DEasso#">
+											<cfif DEasso.base_afid eq AllFeeData.ALLFEE_ID>
+										<br><span class="sm-green">This rate drives #DEasso.DE_afid#</span>
+											<cfelseif DEasso.de_afid eq AllFeeData.ALLFEE_ID>
+										<br><span class="sm-green">The rate set by #DEasso.base_afid#</span>
+											</cfif>
+										</cfloop> 
 					    		</td>
 									<td>
 										#AllFeeData.FEE_DESC_LONG#<br>

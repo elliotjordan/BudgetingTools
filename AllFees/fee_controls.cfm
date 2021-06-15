@@ -19,18 +19,16 @@
 </cfif>
 <div class="full_content">
 	<cfinclude template="nav_links.cfm">
-	<h2>Push Fees to Bursar View</h2>
+<!---	<h2>Push Fees to Bursar View</h2>
 	<cfinclude template="update_bursar.cfm" runonce="true" />
-	
+	--->
 	<h2>Distance Ed Settings</h2>
-	<h4>Prototype - what are we doing?</h4>
-	<p>Associate distance ed fee with base fee -> apply rule to distance ed rate -> document who made changes -> display in main fee interface -> develop reporting</p>
 	<cfinclude template="de_controls.cfm" runonce="true" />
 	
-	<h2>UBO Fee Approvals</h2>
+<!---	<h2>UBO Fee Approvals</h2>
 	<p>Use this table to review and instantly OK or return individual fee requests from each of the IU campuses.</p>
-	<p><i>Table temporarily hidden</i></p>
+	<p><i>Table temporarily hidden</i></p>--->
 	<!---<cfinclude template="approval_form.cfm" runonce="true" />--->
 </div>  <!-- End DIV class "full_content" -->
 </cfoutput>
-<cfinclude template="../includes/header_footer/allfees_footer.cfm" />
+<cfinclude template="../includes/header_footer/allfees_footer.cfm" runonce="true" />

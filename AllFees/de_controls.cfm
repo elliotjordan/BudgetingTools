@@ -1,6 +1,6 @@
 <cfoutput>
 	
-<cfif IsDefined("form") AND StructKeyExists(form,"de_btn")>
+<cfif IsDefined("form") AND StructKeyExists(form,"de_btn")>  <cfdump var="#form#" ><cfabort>
 	<cfset insertAsso = false />
 	<cfif IsDefined("form") AND StructKeyExists(form,"NEW_DE_AFID") and StructKeyExists(form,"NEW_DE_ASSO") AND form.new_de_asso neq 'NONE' AND form.NEW_DE_AFID neq 'NONE'>
 		<cfset insertAsso = insertNewAsso(form.new_base_afid, form.new_de_afid, LSParseNumber(form.new_de_asso)) />
@@ -12,21 +12,8 @@
 		<!---<cfdump var="#delta#" >--->
 		<form id="de_form" name="de_form" action="fee_controls.cfm" method="post" >
 			<input id="de_btn" name="de_btn" type="submit" value="Save DE Changes">
-			<table id="de_table" class="feeCodeTable">
-				<thead>
-					<tr>
-						<th>DE AllfeeID</th>
-						<th>Fee</th>
-						<th>Base AllFeeID</th>
-						<th>Current YR</th>
-						<th>1st YR</th>
-						<th>%Change</th>
-						<th>Association</th>
-						<th>Rule Selector</th>
-						<th>Notes </th>
-					</tr>
-				</thead>
-				<tbody>
+				<table id="de_new_entry" class="not_yet_designed">
+					<tbody>
 					<tr class="new_entry">
 						<td colspan="3">
 							<label for="new_allfee_ID"><i>Current tuition and program fees</i></label>
@@ -47,7 +34,7 @@
 								</cfloop>
 							</select>
 						</td>
-						<td colspan="1">
+						<td>
 							<label for="asso_selector"><i>Rule list</i></label>
 							<select id="asso_selector" name="new_de_asso">
 								<cfif unassDE.recordCount eq 0>
@@ -65,6 +52,23 @@
 							<input name="new_DE_asso_note" type="text" placeholder="Notes" width="100%" size="90"></input>
 						</td>
 					</tr>
+					</tbody>
+				</table>
+			<table id="de_table" class="feeCodeTable">
+				<thead>
+					<tr>
+						<th>DE AllfeeID</th>
+						<th>Fee</th>
+						<th>Base AllFeeID</th>
+						<th>Current YR</th>
+						<th>1st YR</th>
+						<th>%Change</th>
+						<th>Association</th>
+						<th>Rule Selector</th>
+						<th>Notes </th>
+					</tr>
+				</thead>
+				<tbody>
 					<cfloop query="#delta#">
 					<tr>
 						<td>#DE_Rate#</td>
@@ -94,7 +98,6 @@
 						<td>#param_desc#</td>
 					</tr>
 					</cfloop>
-	
 				</tbody>
 			</table>
 		</form>
