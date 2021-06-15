@@ -17,6 +17,7 @@
 <cfif !ListFindNoCase(currentlyActive,'Non-instructional')>
 	<cfset editingEnabled = false />
 <cfelse><cfset editingEnabled = false /></cfif>
+
 <cfset feeTypeList = getPreparedTypeCategories() />
 <cfset role = getUserRole(session.access_level) />
 <cfset roleFeestatus = getDistinctFeeStatus() />
@@ -74,10 +75,16 @@
 										<cfloop query="#DEasso#">
 											<cfif DEasso.base_afid eq AllFeeData.ALLFEE_ID>
 										<br><span class="sm-green">This rate drives #DEasso.DE_afid#</span>
-											<cfelseif DEasso.de_afid eq AllFeeData.ALLFEE_ID>
-										<br><span class="sm-green">The rate set by #DEasso.base_afid#</span>
+											<cfelseif DEasso.de_afid eq AllFeeData.ALLFEE_ID AND DEasso.base_afid neq 'NONE'>
+										<br><span class="sm-green">This rate set by #DEasso.base_afid#<br>#DEasso.fee_desc_billing#</span>
+											<cfelseif DEasso.de_afid eq AllFeeData.ALLFEE_ID AND DEasso.base_afid eq 'NONE'>
+										<br><span class="sm-green">Independent rate</span>
 											</cfif>
-										</cfloop> 
+										</cfloop> 								
+<cfif IsDefined("url") AND StructKeyExists(url,"allfee_id") AND url.allfee_id eq AllFeeData.allfee_id>
+	<br><span class="sm-green">#url.allfee_id# - details here</span>
+	
+</cfif>
 					    		</td>
 									<td>
 										#AllFeeData.FEE_DESC_LONG#<br>
@@ -96,6 +103,11 @@
 										<cfelse>
 										   #AllFeeData.fee_lowyear#
 										</cfif>
+										<cfloop query="#DEasso#">
+											<cfif DEasso.de_afid eq AllFeeData.ALLFEE_ID AND DEasso.base_afid neq 'NONE'>
+										<br><span class="sm-green">#DEasso.fn_name#<br>applied for YR1</span>
+											</cfif>
+										</cfloop> 
 									</td>
 									<td><cfif editingEnabled and !ListFindNoCase(closedList, fee_type)>
 										<input id="fee_highyear-#AllFeeData.ALLFEE_ID#"
@@ -107,6 +119,11 @@
 										<cfelse>
 										   #AllFeeData.fee_highyear#
 										</cfif>
+										<cfloop query="#DEasso#">
+											<cfif DEasso.de_afid eq AllFeeData.ALLFEE_ID AND DEasso.base_afid neq 'NONE'>
+										<br><span class="sm-green">#DEasso.fn_name#<br>applied for YR2</span>
+											</cfif>
+										</cfloop> 
 									</td>
 									<td>
 		<cfif editingEnabled and !ListFindNoCase(closedList, fee_type)>
