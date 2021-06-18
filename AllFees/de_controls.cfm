@@ -1,6 +1,6 @@
 <cfoutput>
 	
-<cfif IsDefined("form") AND StructKeyExists(form,"de_btn")>  <cfdump var="#form#" ><cfabort>
+<cfif IsDefined("form") AND StructKeyExists(form,"de_btn")> 
 	<cfset insertAsso = false />
 	<cfif IsDefined("form") AND StructKeyExists(form,"NEW_DE_AFID") and StructKeyExists(form,"NEW_DE_ASSO") AND form.new_de_asso neq 'NONE' AND form.NEW_DE_AFID neq 'NONE'>
 		<cfset insertAsso = insertNewAsso(form.new_base_afid, form.new_de_afid, LSParseNumber(form.new_de_asso)) />

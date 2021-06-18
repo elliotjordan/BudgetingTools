@@ -66,7 +66,7 @@
 	<cfquery name="DEasso" datasource="#application.datasource#">
 		select b.base_afid, b.de_afid, b.param_id, a.fee_desc_billing, c.fn_name
 		from fee_user.afm_de_asso b 
-		left outer join fee_user.afm a on b.base_afid = a.allfee_id
+		left outer join fee_user.afm a on b.de_afid = a.allfee_id
 		left outer join afm_params c on b.param_id = c.param_id
 		where a.fiscal_year  = '#application.fiscalyear#' and a.active = 'Y'
 	</cfquery>

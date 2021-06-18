@@ -22,6 +22,7 @@
 <cfset role = getUserRole(session.access_level) />
 <cfset roleFeestatus = getDistinctFeeStatus() />
 <cfset feeAsso = getDEasso() />
+
 <cfoutput>
 
 <div class="full_content">
@@ -77,7 +78,7 @@
 										<br><span class="sm-green">This rate drives #DEasso.DE_afid#</span>
 											<cfelseif DEasso.de_afid eq AllFeeData.ALLFEE_ID AND DEasso.base_afid neq 'NONE'>
 										<br><span class="sm-green">This rate set by #DEasso.base_afid#<br>#DEasso.fee_desc_billing#</span>
-											<cfelseif DEasso.de_afid eq AllFeeData.ALLFEE_ID AND DEasso.base_afid eq 'NONE'>
+											<cfelseif DEasso.de_afid eq AllFeeData.ALLFEE_ID AND DEasso.base_afid eq 'NONE'> 
 										<br><span class="sm-green">Independent rate</span>
 											</cfif>
 										</cfloop> 								
@@ -113,9 +114,7 @@
 										<input id="fee_highyear-#AllFeeData.ALLFEE_ID#"
 										   name="fee_highyear-#AllFeeData.ALLFEE_ID#"
 										   class="right-justify" value="#AllFeeData.fee_highyear#" />
-										<input id="fee_highyear-#AllFeeData.ALLFEE_ID#DELTA"
-										     name="fee_highyear-#AllFeeData.ALLFEE_ID#DELTA"
-										     type="hidden" value="NO" />
+										<input id="fee_highyear-#AllFeeData.ALLFEE_ID#DELTA" name="fee_highyear-#AllFeeData.ALLFEE_ID#DELTA" type="hidden" value="NO" />
 										<cfelse>
 										   #AllFeeData.fee_highyear#
 										</cfif>
