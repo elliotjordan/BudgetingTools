@@ -50,6 +50,7 @@
 						<span class="link_hilight"><a href="UATax_history.cfm">History</a></span>
 					<cfif ListFindNoCase(REQUEST.adminUsernames,REQUEST.authUser)>
 						<span class="link_hilight"><a href="UATax_scenarios.cfm">Scenarios</a></span>
+						<span class="link_hilight"><a href="https://indiana.sharepoint.com/:f:/s/msteams_858801/EkFH6y82uZhIqvTFHYPV5Q8BZaCafgKkj_JV9DNHgMHMpA" target="_blank">Documents</a></span>
 					</cfif>
 	                </p>
 	            </div>
