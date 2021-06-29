@@ -24,8 +24,12 @@
 </cffunction>
 
 <cffunction name="getAFM_DE_asso" >
+	<cfargument name="givenDEafid" required="false" default="NONE">
 	<cfquery name="afm_de_asso" datasource="#application.datasource#">
 		select * from fee_user.afm_de_asso
+		<cfif givenDEafid neq 'NONE'>
+			where de_afid = <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenDEafid#">
+		</cfif>
 	</cfquery>
 	<cfreturn afm_de_asso />
 </cffunction>
@@ -86,6 +90,22 @@
 			)
 	</cfquery>
 	<cfreturn true />
+</cffunction>
+
+<cffunction name="updateDEasso">
+	<cfargument name="givenDEafid" required="true" type="string" />
+	<cfargument name="givenRule" required="true" type="numeric" />
+	<cfset test = getAFM_DE_asso(givenDEafid) />
+	<cfif test.recordCount gt 0 and test.param_id neq givenRule>
+		<cfquery datasource="#application.datasource#">
+			update fee_user.afm_de_asso 
+			set param_id = <cfqueryparam cfsqltype="cf_sql_bigint" value="#givenRule#">
+			where de_afid = <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenDEafid#">
+		</cfquery>
+		<cfreturn "PARAM_ID SET TO #givenRule# for #givenDEafid#">
+	<cfelse>
+		<cfreturn "NO CHANGE" />
+	</cfif>
 </cffunction>
 
 <cffunction name="saveNewFee">

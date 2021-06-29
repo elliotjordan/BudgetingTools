@@ -1,6 +1,14 @@
 <cfoutput>
 	
 <cfif IsDefined("form") AND StructKeyExists(form,"de_btn")> 
+	<cfloop collection="#form#" item="item">
+		<cfif FindNoCase("PARAM",item)> 
+			<cfset form_item = form[item].split("-") />
+			<cfset testDE = updateDEasso(form_item[1],form_item[2]) />
+			#form_item[1]# #form_item[2]# #testDE#<br>
+		</cfif>
+	</cfloop>
+	<cfdump var="#form#"><cfabort>
 	<cfset insertAsso = false />
 	<cfif IsDefined("form") AND StructKeyExists(form,"NEW_DE_AFID") and StructKeyExists(form,"NEW_DE_ASSO") AND form.new_de_asso neq 'NONE' AND form.NEW_DE_AFID neq 'NONE'>
 		<cfset insertAsso = insertNewAsso(form.new_base_afid, form.new_de_afid, LSParseNumber(form.new_de_asso)) />
@@ -69,6 +77,7 @@
 					</tr>
 				</thead>
 				<tbody>
+					<cfset rate_counter = 1 />
 					<cfloop query="#delta#">
 					<tr>
 						<td>#DE_Rate#</td>
@@ -85,18 +94,20 @@
 							#asso_desc#
 						</td>
 						<td>
-							<select id="param_selector" name="param_#delta.DE_Rate#">
+							<select id="param_selector" name="param_#rate_counter#">
 								<cfloop query="afm_params">
+									<cfset tuple = delta.DE_Rate&"-"&afm_params.param_id />
 									<cfif delta.param_id eq afm_params.param_id>
-										<option value="#param_id#" name="de_param_option" selected="selected">#param_id# - #param_nm#</option>
+										<option value="#tuple#" name="de_param_option" selected="selected">#param_id# - #param_nm# #tuple#</option>
 									<cfelse>
-										<option value="#param_id#" name="de_param_option">&##128139; #param_id# - #param_nm#</option>
+										<option value="#tuple#" name="de_param_option">&##128139; #param_id# - #param_nm# #tuple#</option>
 									</cfif>
 								</cfloop>
 							</select>
 						</td>
 						<td>#param_desc#</td>
 					</tr>
+					<cfset  rate_counter++ />
 					</cfloop>
 				</tbody>
 			</table>
