@@ -102,9 +102,9 @@
 								<cfloop query="afm_params">
 									<cfset tuple = delta.DE_Rate&"-"&afm_params.param_id />
 									<cfif delta.param_id eq afm_params.param_id>
-										<option value="#tuple#" name="de_param_option" selected="selected">#param_id# - #param_nm# #tuple#</option>
+										<option value="#tuple#" name="de_param_option" selected="selected">#param_id# - #param_nm#</option>
 									<cfelse>
-										<option value="#tuple#" name="de_param_option">&##128139; #param_id# - #param_nm# #tuple#</option>
+										<option value="#tuple#" name="de_param_option">&##128139; #param_id# - #param_nm#</option>
 									</cfif>
 								</cfloop>
 							</select>
