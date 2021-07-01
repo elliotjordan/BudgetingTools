@@ -22,6 +22,7 @@
 <!---	<h2>Push Fees to Bursar View</h2>
 	<cfinclude template="update_bursar.cfm" runonce="true" />
 	--->
+	<cfif StructKeyExists(url,"msg")><p class="lg-red">#url.msg#</p></cfif>
 	<h2>Distance Ed Settings</h2>
 	<cfinclude template="de_controls.cfm" runonce="true" />
 	

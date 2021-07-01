@@ -5,15 +5,19 @@
 		<cfif FindNoCase("PARAM",item)> 
 			<cfset form_item = form[item].split("-") />
 			<cfset testDE = updateDEasso(form_item[1],form_item[2]) />
-			#form_item[1]# #form_item[2]# #testDE#<br>
+			<!---#form_item[1]# #form_item[2]# #testDE#<br>--->
 		</cfif>
 	</cfloop>
-	<cfdump var="#form#"><cfabort>
+	<!---<cfabort>--->
 	<cfset insertAsso = false />
 	<cfif IsDefined("form") AND StructKeyExists(form,"NEW_DE_AFID") and StructKeyExists(form,"NEW_DE_ASSO") AND form.new_de_asso neq 'NONE' AND form.NEW_DE_AFID neq 'NONE'>
 		<cfset insertAsso = insertNewAsso(form.new_base_afid, form.new_de_afid, LSParseNumber(form.new_de_asso)) />
 	</cfif>
-	<cflocation url="fee_controls.cfm" addtoken="false" />
+	<cfset msg = "Updates complete." />
+	<cfif insertAsso>
+		<cfset msg = msg & " New association recorded for #form.new_de_afid#." />
+	</cfif>
+	<cflocation url="fee_controls.cfm?msg=#msg#" addtoken="false" />
 </cfif>
 
 	<div class="full_content">
