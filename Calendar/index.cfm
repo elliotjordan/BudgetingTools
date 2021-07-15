@@ -11,9 +11,8 @@
 			<li>Put budget calender items in a database table</li>
 			<li>Centalize editing, printing, and publishing to PDF</li>
 			<li>Provide infrastructure for simple task management</li>
-			<li>Learn how to publish from github to ColdFusion server</li>
-			<li>Explore how to integrate with other areas (Tableau server, sitehoste)</li>
-			<li>Elliot can learn CF</li>
+			<li>Allow for fast UPDATE notifications</li>
+			<li>Enable email list mgmt so that updates auto-notify users with an active link to new changes</li>
 		</ul>
 	</p>
 	
