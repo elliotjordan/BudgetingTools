@@ -90,8 +90,8 @@
 							#fee_desc_billing#
 						</td>
 						<td>#Base_rate#</td>
-						<td>#fee_current#</td>
-						<td>#fee_lowyear#</td>
+						<td>#DollarFormat(fee_current)#</td>
+						<td>#DollarFormat(fee_lowyear)#</td>
 						<td>#delta_percent#</td>
 						<td>
 							<span class="sm-blue">#fn_name#</span><br>
