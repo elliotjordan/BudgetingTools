@@ -1,5 +1,6 @@
 //UBO Project Management functions 
 function toggleNewForm(id){
+	//console.log("HI ELLIOT");
   var e = document.getElementById(id);
     if (e.style.display == 'block')
     	e.style.display = 'none';

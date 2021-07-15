@@ -43,7 +43,7 @@
 	                    </a>
 						<span class="link_hilight"><a href="index.cfm">Projects</a></span>
 						<span class="link_hilight"><a href="permissions.cfm">Permissions</a></span>
-						<span class="link_hilight"><a href="teams.cfm">Teams</a></span>
+						<span class="link_hilight"><a href="teams.cfm">Teamses</a></span>
 						<span class="link_hilight"><a href="allocations.cfm">Allocations</a></span>
 						<span class="link_hilight"><a href="targets.cfm">Targets</a></span>
 						<span class="link_hilight"><a href="reports.cfm">Reports</a></span>

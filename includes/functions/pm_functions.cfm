@@ -1,4 +1,4 @@
-<cffunction name="getAllProjects" output="true">
+<cffunction name="getAllProjects" output="true" returntype="Query">
 	<cfargument name="givenProjectID" type="numeric" required="false" default="-1">
 	<cfquery name="getAllProj" datasource="#application.datasource#">
 		SELECT p.proj_id, p.proj_owner, p.proj_area, p.proj_name, p.proj_desc, p.proj_yr, p.proj_qtr, p.proj_status, p.created_on
