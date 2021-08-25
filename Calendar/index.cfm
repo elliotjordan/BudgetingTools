@@ -1,7 +1,7 @@
 <cfinclude template="cal_header.cfm" runonce="true" />
 <cfinclude template="cal_functions.cfm" runonce="true" />
 <cfset calItems = getCalendarItems() />
-
+<cfdump var="#calItems#" />
 <cfoutput>
 <div class="full_content">
 <h2>Budget Calendar - FY#application.shortfiscalyear#</h2>
@@ -15,8 +15,8 @@
 			<li>Enable email list mgmt so that updates auto-notify users with an active link to new changes</li>
 		</ul>
 	</p>
-	
-	<form name="calForm" action="cal_update.cfm" method="post"> <!--- Notice I avoid "cfform". The CF version of forms stinks --->
+	 <!--- Notice I avoid "cfform". The CF version of forms stinks --->
+	<form name="calForm" action="cal_update.cfm" method="post">
 		<table id="calItemTbl" class="feeCodeTable">
 			<thead>
 				<tr>
@@ -61,11 +61,8 @@
 					</cfif>	
 				</cfloop>
 			</tbody>
-			</tbody>
-			
 		</table>
 	</form>
 </div>  <!-- End div class full-content -->
 </cfoutput>
-
 <cfinclude template="cal_footer.cfm" runonce="true" />

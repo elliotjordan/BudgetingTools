@@ -28,8 +28,6 @@
 		<script src="../js/jQuery-1.12.3/jquery-1.12.3.min.js"></script>
         <script src="../js/datatables.min.js"></script>
         <script src="../js/dataTables.buttons.min.js"></script>
-        <script src="../js/revenue.js"></script>
-        <script src="../js/all_fees.js"></script>
 	</head>
 
 	<body>
