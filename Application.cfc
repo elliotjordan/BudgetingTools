@@ -276,7 +276,7 @@
 		--->
 		<cf_cas_auth> <!--- Sets REQUEST.authuser which can be called in code  --->
 		<cfset This.scriptprotect="all">
-		<cfset REQUEST.developerUsernames = "jburgoon,gwpalmer,nschrode,ellijord,jopadams,uisoscan" />
+		<cfset REQUEST.developerUsernames = "jburgoon,gwpalmer,nschrode,ellijord,jopadams,uisoscan" /> 
 		<cfset REQUEST.adminUsernames = "jburgoon,gwpalmer,nschrode,ellijord,jopadams,alirober,nichodan,sbadams,uisoscan,bjmoelle,galter,ttwu" />
 		<!--- TODO: make this a single setting in application and use dynamic where USERS.PROJECTOR_RC eq "ALL" --->
 		<cfset REQUEST.campusFOusernames = "aheeter,freemanr,dkcarter,dadooley,dwavle,atronc01,cbroeker,kcwalsh,coback,arlsphil,kamyers,srastogi,rstrouse,lejulian,ltschler,peterskl,mtdicker,jahayman,tschance,kjgrant,jvsummer,ckasdor" />
