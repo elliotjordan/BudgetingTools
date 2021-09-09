@@ -6,7 +6,7 @@
 	<p>The All Teams folder for general uploads is
 			<a alt="Link to BUDU all campuses uploads folder" href='https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/All_Campuses_BudgetOffice/5-Year%20Projections/2020-21?csf=1&web=1&e=q3dNbS' target="_blank">here</a>
 		</p>
-		<p>Your private #currentUser.fym_inst# campus upload folder is
+		<p>Your private #ListFirst(currentUser.fym_inst)# campus upload folder is
 		<cfswitch expression="#currentUser.fym_inst#">
 			<cfcase value="BL">
 				<a target="_blank" alt="Link to BL uploads folder"
