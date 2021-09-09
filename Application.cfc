@@ -27,15 +27,15 @@
 		<cfset application.disabled = "disabled"> <!--- Empty string "" enables submit buttons; "disabled" will cause submit buttons to gray out --->
 		<cfset application.current_term = "4208">
 		<cfset application.default_begin_term = "4218">
-    	<cfset application.fiscalyear = '2021' />
-    	<cfset application.shortfiscalyear = '21' />
+    	<cfset application.fiscalyear = '2022' />
+    	<cfset application.shortfiscalyear = '22' />
     	<cfset application.biennium = 'B22-23' />  <!--- formerly B20-21 --->
  		<cfset application.budget_year = "YR1" />  <!--- YR1 is "long" year where we set two years' worth of values. YR2 is "short" year where we tweak second year estimates.  --->
     	<cfset application.prioryear = 'FY21' />
     	<cfset application.firstyear = 'FY22' />
     	<cfset application.secondyear = 'FY23' />
  		<cfif !StructKeyExists(application,"rateStatus")>
-    		<cfset application.rateStatus = "V1">  <!--- valid values are either Vc or V1 --->
+    		<cfset application.rateStatus = "Vc">  <!--- valid values are either Vc or V1 --->
  		</cfif>
  		<cfset application.reportBtnEnabled = "true" />
      	<cfset application.excelTemplateName = 'FeeRateRequests.xls' />
@@ -276,8 +276,8 @@
 		--->
 		<cf_cas_auth> <!--- Sets REQUEST.authuser which can be called in code  --->
 		<cfset This.scriptprotect="all">
-		<cfset REQUEST.developerUsernames = "jburgoon,gwpalmer,nschrode,uisoscan" />
-		<cfset REQUEST.adminUsernames = "jburgoon,gwpalmer,nschrode,jopadams,alirober,nichodan,sbadams,uisoscan,bjmoelle,galter,ttwu" />
+		<cfset REQUEST.developerUsernames = "jburgoon,gwpalmer,nschrode,ellijord,jopadams,uisoscan" />
+		<cfset REQUEST.adminUsernames = "jburgoon,gwpalmer,nschrode,ellijord,jopadams,alirober,nichodan,sbadams,uisoscan,bjmoelle,galter,ttwu" />
 		<!--- TODO: make this a single setting in application and use dynamic where USERS.PROJECTOR_RC eq "ALL" --->
 		<cfset REQUEST.campusFOusernames = "aheeter,freemanr,dkcarter,dadooley,dwavle,atronc01,cbroeker,kcwalsh,coback,arlsphil,kamyers,srastogi,rstrouse,lejulian,ltschler,peterskl,mtdicker,jahayman,tschance,kjgrant,jvsummer,ckasdor" />
 		<cfset REQUEST.regionalUsernames = "pyebei" />
@@ -286,11 +286,11 @@
 		<cfset REQUEST.baseurl = application.baseurl />
  		<cfset REQUEST.fileUploadPath = 'C:\Users\jburgoon\Documents' />
  		<cfset REQUEST.boxUploadPath = 'https://iu.app.box.com/folder/4781002109/' />
+ 		<cfset REQUEST.opAssAdmins = "gwpalmer,nschrode,ellijord,jopadams,jburgoon,alirober,ttwu,galter,bjmoelle,nichodan,sbadams,jsej,paulschm,dlkremer,pyebei" />
+ 		<cfset REQUEST.opAssUsers = "" />
  		<cfset REQUEST.Approver_list ="gwpalmer,nschrode,jburgoon,alirober,ttwu,galter,bjmoelle,nichodan,sbadams,jsej" />
  		<!---  Usernames appearing in the specialAccess list will see the Save Your Work button enabled EVEN IF application.disabled has been set to "disabled"  --->  <!--- TODO: Make this dynamic from the database and add a UBO Control to it  --->
- 	 	<cfset REQUEST.specialAccess = "jburgoon,nschrode,alirober,aheeter,freemanr,bmcminn,cbroeker,kcwalsh,coback,lejulian,jahayman,mtdicker,tschance,kjgrant,ltschler,dwavle,jvsummer,ckasdor" />
- <!---	<cfset REQUEST.specialAccess = "jburgoon,nschrode,alirober,aheeter,freemanr,bmcminn,cbroeker,kcwalsh,coback,lejulian,jahayman,mtdicker,ltschler,ckasdor,dwavle,jdurle,volpatti,jfaulkne,crealey,arlsphil,kamyers,jdray,chmiller,cre_old,msaba,dpmayo,psfrey,ncohenou,adaniels,srastogi,kjbrown,mlhenry,lgriffin,rstrouse,dyoungbl,tylerick,sujschae,buckles,haganma,garobe,tcpennin,ldinsmo,tpbrown,rhanson,tfisher,cfrye,tamartin,conpurce,vmarscha,ssalexan,dijones,rmarasco,rsuther2" /> --->
-		<!--- <cfset REQUEST.specialAccess = getSpecialAccessList() /> --->
+ 	 	<cfset REQUEST.specialAccess = "jburgoon,nschrode,ellijord,jopadams,alirober,aheeter,freemanr,bmcminn,cbroeker,kcwalsh,coback,lejulian,jahayman,mtdicker,tschance,kjgrant,ltschler,dwavle,jvsummer,ckasdor" />
 		<!--- disable various hoo-haw shenanigans.  These constructs are too high strung to belong here. --->
 		<cfif StructKeyExists(cgi,"Query_string") AND CGI.Query_string IS Not "">
 			<cfset Checkstring = CGI.QUERY_STRING>
