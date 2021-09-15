@@ -17,6 +17,7 @@
 	<cfreturn compDetailList>	
 </cffunction>
 
+<!---
 <cffunction name="calcsRunningTotals">
 	<cfargument name="givenChart" type="string" required="true">
 	<cfset compDetails = getCompDetails(givenChart) />
@@ -33,6 +34,7 @@
 
 	<cfreturn rt>
 </cffunction>
+--->
 
 <cffunction name="getFYMcomments" returntype="query">
 	<cfargument name="givenOID" type="numeric" required="false" default= 0>

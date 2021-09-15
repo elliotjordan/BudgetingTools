@@ -34,9 +34,7 @@
 			<td><!--- Yr1 col --->
 				<cfset cd1 = -1 />
 				<cfloop query="#compDetails#">
-					<!---x#compDetails.grp1_cd# - #ci.grp1_cd# x | #compDetails.ln2_cd# - #ci.ln2_cd#--->
 					<cfif compDetails.grp1_cd eq trim(fundTypes.grp1_cd) and compDetails.ln2_cd eq ci.ln2_cd>
-						<!---#compDetails.grp1_cd# #ci.grp1_cd# | #compDetails.ln2_cd# - #ci.ln2_cd# | #compDetails.yr1_new# <br>--->
 						<cfset cd1 = compDetails.yr1_new + cd0 /> 
 					</cfif>
 				</cfloop>
@@ -48,7 +46,6 @@
 					$ <input id="yr1_newOID#OID#" name="yr1_newOID#OID#_#grp2_cd#" type="text" size="10" value="#trim(NumberFormat(yr1_new,'999,999,999'))#" /><br />
 					<input id="yr1_newOID#OID#DELTA" name="yr1_newOID#OID#_#grp2_cd#DELTA" type="hidden" value="false">
 				<cfelse>
-					<!---<span  id="yr1_newOID#OID#" name="yr1_newOID#OID#_#grp2_cd#">$ #NumberFormat(yr1_new,'999,999,999')#</span>--->
 					<span  id="yr1_newOID#OID#" name="yr1_newOID#OID#_#grp2_cd#">$ #NumberFormat(yr1_new,'999,999,999')#</span>
 				</cfif>
 			</td>
@@ -56,7 +53,6 @@
 				<cfset cd2 = -1 />
 				<cfloop query="#compDetails#">
 					<cfif compDetails.grp1_cd eq trim(fundTypes.grp1_cd) and compDetails.ln2_cd eq ci.ln2_cd>
-						<!---#compDetails.ln2_cd# - #compDetails.yr2_new#<br>--->
 						<cfset cd2 = compDetails.yr2_new + cd1 />
 					</cfif>
 				</cfloop>
@@ -124,7 +120,7 @@
 				<cfelse>
 					<span id="yr5_newOID#OID#" name="yr5_newOID#OID#_#grp2_cd#">$ #NumberFormat(yr5_new,'999,999,999')#</span>
 				</cfif>
-			</td> <!---<cfdump var="#commentBucket[104].comment#" ><cfabort>--->
+			</td> 
 			<td><!--- Comment --->
 				<cfif StructKeyExists(commentbucket,oid)>
 					<textarea id="comm_#OID#" name="comm_#OID#" type="text" maxlength="1024" height="3" width="100%">#commentBucket[oid].comment#</textarea>

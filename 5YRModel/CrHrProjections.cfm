@@ -8,7 +8,7 @@
 <cfset campusRateEditors = "aheeter,freemanr,kcwalsh,garobe,jbdimond" />
 <cfoutput>
 <div class="full_content">
-<cfif ListFindNoCase('blork',current_inst) or REQUEST.authUser eq 'sbadams'>
+<cfif true>   <!--- ListFindNoCase('blork',current_inst) or REQUEST.authUser eq 'sbadams'>--->
 	<cfset editcy = true /><cfset edityr1 = true /><cfset edityr2 = true /><cfset edityr3 = true /><cfset edityr4 = true /><cfset edityr5 = true />
 <cfelse>
 	<cfset editcy = false /><cfset edityr1 = false /><cfset edityr2 = false /><cfset edityr3 = false /><cfset edityr4 = false /><cfset edityr5 = false />
