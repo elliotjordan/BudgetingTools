@@ -20,3 +20,10 @@
 		<cfreturn smoke />
 	</cfif>
 </cffunction>
+
+<cffunction name="getCalendarItems2">
+	<cfquery name="getCalItems" datasource="#application.datasource#">
+		SELECT * FROM fee_user.pm_calendar order by 1
+	</cfquery>
+	<cfreturn getCalItems>
+</cffunction>
