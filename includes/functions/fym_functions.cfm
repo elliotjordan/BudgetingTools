@@ -190,7 +190,7 @@
 	<cfreturn fymDataExcel>
 </cffunction>
 
-<cffunction name="getFYMdata">
+<cffunction name="getFYMdata">   <!--- stubbed function, not sure we need it yet  --->
 	<cfargument name="givenChart" required="false" default="ALL">
 	<cfquery name="fymData" datasource="#application.datasource#">
 		SELECT * FROM fee_user.rpt_fym_report_change_model(
@@ -200,11 +200,24 @@
 	<cfreturn fymData>
 </cffunction>
 
+<!--- DEPRECATED - replaced by function fee_user.rpt_fym_report_final_model()
 <cffunction name="getFYMdataByFnd">
 	<cfargument name="givenChart" required="false" default="ALL">
 	<cfargument name="givenGrp1" required="false" default="ALL">
 	<cfquery name="fymDataByFnd" datasource="#application.datasource#">
 		SELECT * FROM fee_user.rpt_fym_report_change_model_byfnd(
+			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">,
+			<cfqueryparam cfsqltype="cf_sql_numeric" value="#givenGrp1#">
+		)
+	</cfquery>
+	<cfreturn fymDataByFnd />
+</cffunction>--->
+
+<cffunction name="getFYMdataByFnd">
+	<cfargument name="givenChart" required="false" default="ALL">
+	<cfargument name="givenGrp1" required="false" default="ALL">
+	<cfquery name="fymDataByFnd" datasource="#application.datasource#">
+		SELECT * FROM fee_user.rpt_fym_report_final_model_byfnd(
 			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">,
 			<cfqueryparam cfsqltype="cf_sql_numeric" value="#givenGrp1#">
 		)

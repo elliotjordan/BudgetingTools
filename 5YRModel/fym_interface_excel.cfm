@@ -32,6 +32,7 @@
 			<td class="header">FY#application.shortfiscalyear + 3#</td>
 			<td class="header">FY#application.shortfiscalyear + 4#</td>
 			<td class="header">FY#application.shortfiscalyear + 5#</td>
+			<td class="header">Notes</td>
 	  	</tr>
 		</tr>
 		<cfloop query="crHrTotals">
