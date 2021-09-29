@@ -1,7 +1,7 @@
 <cfinclude template="../includes/header_footer/fym_header.cfm" runonce="true" />
 <cfinclude template="../includes/functions/fym_functions.cfm" runonce="true" />
 <cfoutput>
-<cfset salObjects = convertQueryToStruct(getAllSalaryObjects('2021')) />
+<!--- deprecated <cfset salObjects = convertQueryToStruct(getAllSalaryObjects('2021')) />--->
 <cfset fymParams = convertQueryToStruct(getFYMparams()) />  <!---<cfdump var="#fymParams#"/>--->
 <!---<cfset coreTest = getFYMparams() />  <cfdump var="#coreTest#"/>--->
 <cfset currentUser = getFYMUser(REQUEST.authUser) />

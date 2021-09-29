@@ -2,6 +2,7 @@ $.fn.colTotal = function (e) {
 	//loop through each table with name like "fymMainTable"
 	//loop through each row and add running totals to column sums
 	//update sub-totals and grand total for table
+	//console.log("colTotal called");
 	var tableList = ['fymMainTable1','fymMainTable2','fymMainTable3'];
 	var stRevDict = {"orig":0, "cur_yr_new": 0, "yr1_new":0, "yr2_new":0, "yr3_new":0, "yr4_new":0, "yr5_new":0};
 	var stExpDict = {"orig":0, "cur_yr_new": 0, "yr1_new":0, "yr2_new":0, "yr3_new":0, "yr4_new":0, "yr5_new":0};
@@ -195,16 +196,16 @@ $.fn.rTotal = function (e) {
 	// onchange() in any field, take the name of the field and change the <name>DELTA value to true
 	$("form :input").change(function() {
 		//console.log('Keypress has changed ' + this.name + '\n');
-  		$(this).closest('form').data('changed', true);
-  		var change_element = this.name+'DELTA'; 
-  		//console.log('change_element: ' + change_element+'\n');
-		$('[name="'+ change_element+ '"]' ).val('true');
 		if (this.name != 'fundRad') {
-			$('.change_warning').show();
-		}
-		//if ($('#fymForm') == "") {
+	  		$(this).closest('form').data('changed', true);
+	  		var change_element = this.name+'DELTA'; 
+	  		//console.log('change_element: ' + change_element+'\n');
+			$('[name="'+ change_element+ '"]' ).val('true');
+			if (this.name != 'fundRad') {
+				$('.change_warning').show();
+			}
 			$.fn.colTotal();
-		//}
+		}
 	});
 		
 	// prevent RETURN/ENTER key from submitting form

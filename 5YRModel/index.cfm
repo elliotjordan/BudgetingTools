@@ -30,7 +30,7 @@
 <form id="fymForm" action="fym_submit.cfm?fund=#fund_sel#" method="post" >
 <input name="fymCrHrCompareBtn" type="submit" value="Compare to CrHr Projector" />
 <cfif fymRevSums.recordCount neq 0>
-	<h3>Summary</h3>
+	<h3>All-Funds Summary</h3>
 	<!--- Begin summary table  --->
 		<table id="fymSummaryTable" class="summaryTable">
 		  <tr>
@@ -50,7 +50,17 @@
 <hr />
 <!--- Fund selector control --->
 
-<cfif structKeyExists(url,"fund")><cfset fund_sel = url.fund></cfif>
+<cfif structKeyExists(url,"fund")>
+	<cfset fund_sel = url.fund>
+</cfif>
+	
+<cfloop query="fundTypes">
+	<cfif grp1_cd gt 0 and fund_sel eq grp1_cd>
+	<cfset ci = getFYMdataByFnd(current_inst, grp1_cd) />
+	<cfset campusSubTotal = getFymSums(current_inst, grp1_cd) />
+	<cfset revSubTotals = getFymSubTotals(current_inst,grp1_cd,1) />
+	<cfset expSubTotals = getFymSubTotals(current_inst,grp1_cd,2) />
+	<h3>#grp1_desc#</h3>
 	<cfloop query="fundTypes">
 		<cfif grp1_cd neq 0>	<!--- ignore "PARAM" --->
 			<cfif fund_sel eq grp1_cd>
@@ -61,15 +71,7 @@
 			<label for="radBtn_#grp1_cd#">#grp1_desc#</label>
 		</cfif>
 	</cfloop>
-	<input type="submit" name="radSelBtn" value="Choose Fund Type">
-	
-<cfloop query="fundTypes">
-	<cfif grp1_cd gt 0 and fund_sel eq grp1_cd>
-	<cfset ci = getFYMdataByFnd(current_inst, grp1_cd) />
-	<cfset campusSubTotal = getFymSums(current_inst, grp1_cd) />
-	<cfset revSubTotals = getFymSubTotals(current_inst,grp1_cd,1) />
-	<cfset expSubTotals = getFymSubTotals(current_inst,grp1_cd,2) />
-	<h3>#grp1_desc#</h3>
+	<input type="submit" name="radSelBtn" value="Choose Fund Type"><br />
   	<input name="fymExcelBtn" type="submit" value="Export to Excel" />
   	<input name="fymSubmitBtn" type="submit" value="Update 5YR Model" />
   	
