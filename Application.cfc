@@ -25,7 +25,7 @@
 		<!--- Set application-specific variables  --->
 		<cfset application.hours_to_project = "CH_USER.HTP">
 		<cfset application.disabled = "disabled"> <!--- Empty string "" enables submit buttons; "disabled" will cause submit buttons to gray out --->
-		<cfset application.current_term = "4208">
+		<cfset application.current_term = "4218">
 		<cfset application.default_begin_term = "4218">
     	<cfset application.fiscalyear = '2022' />
     	<cfset application.shortfiscalyear = '22' />
