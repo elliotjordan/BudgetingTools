@@ -13,6 +13,14 @@
 			<li>Provide infrastructure for simple task management</li>
 			<li>Allow for fast UPDATE notifications</li>
 			<li>Enable email list mgmt so that updates auto-notify users with an active link to new changes</li>
+			<li>given event in calendar has a duration / mark that</li>
+			<li>given event in the calendar has an associated email template / put that in confluence</li>
+			<li>see payroll load batch schedule email example in confluence / contact UHRS is Jenna Ellis</li>
+			<li>consider a flag for email targets associated with event</li>
+			<li>given event in the calendar has a usual lag or processing time (UITS, UHRS, etc)</li>
+			<li>Add Day of the Week to the Calendar (Monday)</li>
+			<li>add calendar logic to the event / "always on a Monday, first Friday in April, whatever"</li>
+				<li>make sure refreshes in stage don't clash with other plans </li>
 		</ul>
 	</p>
 	 <!--- Notice I avoid "cfform". The CF version of forms stinks --->
