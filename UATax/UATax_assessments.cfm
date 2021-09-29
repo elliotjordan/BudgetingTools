@@ -1,3 +1,6 @@
+<cfif opAccess eq false >
+  <p>For permission to view this page, please contact the University Budget Office. Thank you.</p>
+<cfelse>
 <cfset assessmentList = getAssessments() />
 <!---<cfdump var="#assessmentList#" >--->
 <cfset adjBaseTotals = getAdjBaseTotals() />
@@ -39,4 +42,5 @@
 		</table>
 	</div>  <!-- End div class "full_content" -->
 </cfoutput>
+</cfif>
 <cfinclude template="../includes/header_footer/UATax_footer.cfm" runonce="true">

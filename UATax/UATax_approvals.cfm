@@ -1,4 +1,7 @@
 <cfinclude template="../includes/header_footer/UATax_header.cfm" runonce="true">
+<cfif opAccess eq false >
+  <p>For permission to view this page, please contact the University Budget Office. Thank you.</p>
+<cfelse>
 	<!--- Completed Approvals --->
 		<h3>Adjusted Base Rows</h3>
 		<table class="allFeesTable">
@@ -46,3 +49,4 @@
 			</tbody>
 		</table>		
 		
+</cfif>

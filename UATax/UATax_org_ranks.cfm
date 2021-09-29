@@ -1,5 +1,7 @@
 <cfinclude template="../includes/header_footer/UATax_header.cfm" runonce="true">
-
+<cfif opAccess eq false >
+  <p>For permission to view this page, please contact the University Budget Office. Thank you.</p>
+<cfelse>
 	<!--- Rank by Org Code --->
 	<cfoutput>
 		<h3>Orgs Ranked by Total Adj Base Budget Amount</h3>
@@ -49,3 +51,4 @@
 			</tbody>
 		</table>		
 	</cfoutput>
+</cfif>

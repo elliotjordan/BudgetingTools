@@ -1,6 +1,8 @@
 <cfinclude template="../includes/header_footer/UATax_header.cfm" runonce="true">
 <cfinclude template="../includes/functions/UATax_functions.cfm" runonce="true">
-
+<cfif opAccess eq false >
+  <p>For permission to view this page, please contact the University Budget Office. Thank you.</p>
+<cfelse>
 <cfif StructKeyExists(url,"ln")>
 	<cfset B7940item = getSpecificItem(url.ln) />
 	<cfset B7940itemCatList = getItemCatList() />
@@ -71,5 +73,6 @@
 	<cfinclude template="UATax_updateHistory.cfm" runonce="true">
 <cfelse>
 	<cflocation url="index.cfm?message=request not recognized" addtoken="false">
+</cfif>
 </cfif>
 <cfinclude template="../includes/header_footer/UATax_footer.cfm" runonce="true">

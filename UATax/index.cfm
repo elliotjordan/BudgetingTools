@@ -5,7 +5,10 @@
 <!---<cfdump var="#guidelineTotals#" >--->
 <cfoutput>
 	<div class="full_content">
-
+<cfif !(ListFindNoCase(REQUEST.opAssAdmins,REQUEST.authUser) OR ListFindNoCase(REQUEST.opAssUsers,REQUEST.authUser) )>
+			<h2>University Support Site</h2>
+			<p>Please contact the University Budget Office for permission to access this site. Thank you.</p>
+<cfelse>	
 		<h2>2020-21 University Support - Campus Guidelines</h2>
 <!--- begin dev area  --->
 
@@ -87,6 +90,7 @@
 					</cfif>--->
 			</tbody>
 		</table>
+</cfif>
 	</div>  <!-- End div class "full_content" -->
 </cfoutput>
 <cfinclude template="../includes/header_footer/UATax_footer.cfm" runonce="true">

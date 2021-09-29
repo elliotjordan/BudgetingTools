@@ -1,5 +1,8 @@
 <cfinclude template="../includes/header_footer/UATax_header.cfm" runonce="true">
 <cfinclude template="../includes/functions/UATax_functions.cfm" runonce="true">
+<cfif opAccess eq false >
+  <p>For permission to view this page, please contact the University Budget Office. Thank you.</p>
+<cfelse>
 <cfset filter = "NO" />
 <cfif IsDefined("url") and StructKeyExists(url,"fin_sub_obj_cd")>
 	<cfset adjBaseTotals = getAdjBase_supportingLines(url.fin_sub_obj_cd) />
@@ -65,4 +68,5 @@
 		</table>
 	</div>  <!-- End div class "full_content" -->
 </cfoutput>
+</cfif>
 <cfinclude template="../includes/header_footer/UATax_footer.cfm" runonce="true">

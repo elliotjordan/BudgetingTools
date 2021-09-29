@@ -1,6 +1,8 @@
 <cfinclude template="../includes/header_footer/UATax_header.cfm" runonce="true">
 <cfinclude template="../includes/functions/UATax_functions.cfm" runonce="true">
-
+<cfif opAccess eq false >
+  <p>For permission to view this page, please contact the University Budget Office. Thank you.</p>
+<cfelse>
 <cfset UATax_alloc = getUATax_allocByUnit('77') />
 <cfset rc77details = getRC77details() />
 
@@ -43,9 +45,9 @@
 						<td class="expense_red medium">#NumberFormat(SUM)#</td>
 					</tr>
 				</cfloop>
-			</cfoutput>
 		</tbody>
 	</table>
 </div>   <!-- End div class full_content  -->
-
+</cfoutput>
+</cfif>
 <cfinclude template="../includes/header_footer/UATax_footer.cfm">

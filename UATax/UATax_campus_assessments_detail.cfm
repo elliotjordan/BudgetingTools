@@ -1,5 +1,8 @@
 <cfinclude template="../includes/header_footer/UATax_header.cfm" runonce="true">
 <cfinclude template="../includes/functions/UATax_functions.cfm" runonce="true">
+<cfif opAccess eq false >
+  <p>For permission to view this page, please contact the University Budget Office. Thank you.</p>
+<cfelse>
 <cfif IsDefined("url") and StructKeyExists(url,"assmtID")>
 	<cfset ass_details = getCampusAssmtDetails(url.assmtID) />
 </cfif>
@@ -27,4 +30,5 @@
 		</table>
 </div>  <!-- End div class="full_content" -->
 </cfoutput>
+</cfif>
 <cfinclude template="../includes/header_footer/UATax_footer.cfm">

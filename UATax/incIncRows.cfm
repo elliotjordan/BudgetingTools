@@ -1,6 +1,8 @@
 <cfinclude template="../includes/header_footer/UATax_header.cfm">
 <cfinclude template="../includes/functions/UATax_functions.cfm">
-
+<cfif opAccess eq false >
+  <p>For permission to view this page, please contact the University Budget Office. Thank you.</p>
+<cfelse>
 <cfoutput>
 	<cfset incInc_data = initIncIncRows() />
 	
@@ -45,5 +47,5 @@
 			</tbody>
 		</table>		
 </cfoutput>
-
+</cfif>  <!--- opAccess --->
 <cfinclude template="../includes/header_footer/UATax_footer.cfm">

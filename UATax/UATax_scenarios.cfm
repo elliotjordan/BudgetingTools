@@ -1,5 +1,8 @@
 <cfinclude template="../includes/header_footer/UATax_header.cfm" runonce="true">
 <cfinclude template="../includes/functions/UATax_functions.cfm" runonce="true">
+<cfif opAccess eq false >
+  <p>For permission to view this page, please contact the University Budget Office. Thank you.</p>
+<cfelse>
 <cfset scenario_list = getUATaxScenarios() />
 
 <cfoutput>
@@ -122,4 +125,5 @@
 	<p>We are sorry, but you are not authorized to access this page.  Please contact UBO to request permission for access.
 </cfif>
 </cfoutput>
+</cfif>
 <cfinclude template="../includes/header_footer/UATax_footer.cfm" runonce="true">

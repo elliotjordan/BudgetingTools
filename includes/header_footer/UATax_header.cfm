@@ -40,6 +40,9 @@
 	                    	<img src="../_iu-brand/img/trident-tab.gif" height="73" width="64" alt="IU Trident logo" />
 	                        <span class="line-break">INDIANA UNIVERSITY BUDGET OFFICE - UA SUPPORT PORTAL</span>
 	                    </a>
+	                <cfset opAccess = false />
+					<cfif ListFindNoCase(REQUEST.opAssAdmins,REQUEST.authUser) OR ListFindNoCase(REQUEST.opAssUsers,REQUEST.authUser)>
+						<cfset opAccess = true />
 						<span class="link_hilight"><a href="index.cfm">Home</a></span>
 						<span class="link_hilight"><a href="UATax_summary.cfm">Summary</a></span>
 						<span class="link_hilight"><a href="UATax_adjBase.cfm">Annual Change Details</a></span>
@@ -48,7 +51,8 @@
 						<!---<span class="link_hilight"><a href="UATax_alloc_RC77.cfm">RC77</a></span>--->
 						<span class="link_hilight"><a href="UATax_detail.cfm">Detail</a></span>
 						<!---<span class="link_hilight"><a href="UATax_history.cfm">History</a></span>--->
-					<cfif ListFindNoCase(REQUEST.adminUsernames,REQUEST.authUser)>
+					</cfif>
+					<cfif ListFindNoCase(REQUEST.opAssAdmins,REQUEST.authUser)>
 						<span class="link_internal"><a href="UATax_scenarios.cfm">Scenarios</a></span>
 						<span class="link_internal"><a href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/BUDU_Documentation/University%20Operating%20Assessments?csf=1&web=1&e=QhJbc7" target="_blank">Documents</a></span>
 					</cfif>
