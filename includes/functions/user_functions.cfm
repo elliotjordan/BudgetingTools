@@ -13,7 +13,7 @@
   	<cfargument name="username" required="true">
   	<cfquery datasource="#application.datasource#" name="authUserData">
   		SELECT USERNAME, FIRST_LAST_NAME,EMAIL,DESCRIPTION,ACCESS_LEVEL,CHART,PROJECTOR_RC,ALLFEES_RCS, PHONE,ACTIVE,CREATED_ON, fym_inst
-  		FROM FEE_USER.USERS_B
+  		FROM FEE_USER.USERS
   		WHERE ACTIVE = 'Y' AND USERNAME = <cfqueryparam value="#username#" cfsqltype="cf_sql_varchar">
   	</cfquery>
   	<cfreturn authUserData>
@@ -126,7 +126,7 @@
 <cffunction name="getFocus">
 	<cfargument name="givenUser" type="string" required="true">
 	<cfquery name="focusValue" datasource="#application.datasource#">
-		Select username, focus from users_b where username =
+		Select username, focus from users where username =
 		<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenUser#">
 	</cfquery>
 	<cfreturn focusValue>
@@ -135,7 +135,7 @@
 <cffunction name="setFocus">
 	<cfargument name="givenChart" type="string" required="true">
 	<cfquery datasource="#application.datasource#" name="emulator">
-	   	 UPDATE fee_user.users_b SET focus = <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">
+	   	 UPDATE fee_user.users SET focus = <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">
 	   	 WHERE username = <cfqueryparam cfsqltype="cf_sql_varchar" value="#REQUEST.authUser#">
 	</cfquery>
 	<cfreturn true />	
