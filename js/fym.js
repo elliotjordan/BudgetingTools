@@ -199,7 +199,9 @@ $.fn.rTotal = function (e) {
   		var change_element = this.name+'DELTA'; 
   		//console.log('change_element: ' + change_element+'\n');
 		$('[name="'+ change_element+ '"]' ).val('true');
-		$('.change_warning').show();
+		if (this.name != 'fundRad') {
+			$('.change_warning').show();
+		}
 		//if ($('#fymForm') == "") {
 			$.fn.colTotal();
 		//}
