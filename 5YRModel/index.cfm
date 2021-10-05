@@ -68,7 +68,7 @@
 		<thead>
 		  <tr>
 			<th>Fund Group<br>Revenue/Expense</th>
-			<th>FY#application.shortfiscalyear# Adj Base Budget<br><span class="sm-blue"><i>as of Jan 21</i></span></th>
+			<th>FY#application.shortfiscalyear# Adj Base Budget<br><span class="sm-blue"><i>as of Oct 4, 2021</i></span></th>
 			<th>FY#application.shortfiscalyear# Projection</th>
 			<th>FY#application.shortfiscalyear + 1# Projection</th>
 			<th>FY#application.shortfiscalyear + 2# Projection</th>
