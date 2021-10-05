@@ -87,11 +87,22 @@
 </cffunction>
 
 <cffunction name="getFYMparams">
-	<cfquery name="getParms" datasource="#application.datasource#">
+<!---	<cfquery name="getParms" datasource="#application.datasource#">
 		select OID, chart_cd, ln1_cd, ln2_cd, ln1_desc, ln2_desc, cur_yr_new, yr1_new,
 		yr2_new, yr3_new, yr4_new, yr5_new , ln_sort
 		from fym_data WHERE grp1_cd = 0 ORDER BY chart_cd ASC, grp1_cd ASC, grp2_cd ASC,ln_sort ASC
+	</cfquery>--->
+	<cfquery name="getParms" datasource="#application.datasource#">
+	select OID, chart_cd, ln1_cd, ln2_cd, ln1_desc, ln2_desc, cur_yr_new, yr1_new,
+		yr2_new, yr3_new, yr4_new, yr5_new , ln_sort
+		from fym_data f 
+		JOIN proj_parameter p
+		ON F.cur_fis_yr = p.fiscal_year
+		WHERE grp1_cd = 0 
+		and p.project_cd = 'FYM'
+		ORDER BY chart_cd ASC, grp1_cd ASC, grp2_cd ASC,ln_sort ASC
 	</cfquery>
+		
 	<cfreturn getParms>
 </cffunction>
 
@@ -152,7 +163,11 @@
 
 <cffunction name="getFundTypes">
 	<cfquery name="fundList" datasource="#application.datasource#">
-		SELECT DISTINCT grp1_desc, grp1_cd FROM fee_user.fym_data ORDER BY grp1_cd ASC;
+		SELECT DISTINCT d.grp1_desc, d.grp1_cd FROM fee_user.fym_data  d
+		JOIN fee_user.proj_parameter p
+		ON d.cur_fis_yr = p.fiscal_year
+		WHERE p.project_cd = 'FYM' 
+		ORDER BY d.grp1_cd ASC;
 	</cfquery>
 	<cfreturn fundList />
 </cffunction>
