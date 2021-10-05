@@ -1,20 +1,23 @@
 <cfinclude template="../includes/header_footer/fym_header.cfm" runonce="true" />
 <cfinclude template="../includes/functions/fym_functions.cfm" runonce="true" />
 
-<cfif structKeyExists(url,"fund")>
-	<cfset fund_sel = url.fund />
-<cfelse>
-	<cfset fund_sel = 1 />     <!--- Default to General funds  --->
-</cfif>
 <cfset fundTypes = getFundTypes() />  
+
 <cfset fymRevSums = getFymRevSums(current_inst,1) />
+
 <cfset fymRevDelta = getFymRevDelta(current_inst) />
+
 <cfset fymExpSums = getFymExpSums(current_inst) />
 <!---<cfset fymExpSums = getFymExpSums(2022, 'KO') />--->
+
 <cfset fymExpDelta = getFymExpDelta(current_inst) />
+
 <cfset fymSurplus = getFymSurplus(current_inst) />
+
 <cfset crHrTotals = getCrHrSums(current_inst) />
+
 <cfset compDetails = getCompDetails(current_inst) />
+
 <cfset commentBucket = convertQueryToStruct(getFYMcomments()) />
 <cfoutput>
 <div class="full_content">
@@ -27,10 +30,10 @@
 </cfif>
 
 <h2>5-Year Model for #getDistinctChartDesc(current_inst)# FY#application.shortfiscalyear#</h2>
-<form id="fymForm" action="fym_submit.cfm?fund=#fund_sel#" method="post" >
+<form id="fymForm" action="fym_submit.cfm" method="post" >
 <input name="fymCrHrCompareBtn" type="submit" value="Compare to CrHr Projector" />
 <cfif fymRevSums.recordCount neq 0>
-	<h3>All-Funds Summary</h3>
+	<h3>Summary</h3>
 	<!--- Begin summary table  --->
 		<table id="fymSummaryTable" class="summaryTable">
 		  <tr>
@@ -48,30 +51,14 @@
 </cfif>
 <!--- ************************************************ --->
 <hr />
-<!--- Fund selector control --->
 
-<cfif structKeyExists(url,"fund")>
-	<cfset fund_sel = url.fund>
-</cfif>
-	
-<cfloop query="fundTypes">
-	<cfif grp1_cd gt 0 and fund_sel eq grp1_cd>
+<cfloop query="fundTypes" >
+	<cfif grp1_cd gt 0>
 	<cfset ci = getFYMdataByFnd(current_inst, grp1_cd) />
 	<cfset campusSubTotal = getFymSums(current_inst, grp1_cd) />
 	<cfset revSubTotals = getFymSubTotals(current_inst,grp1_cd,1) />
 	<cfset expSubTotals = getFymSubTotals(current_inst,grp1_cd,2) />
 	<h3>#grp1_desc#</h3>
-	<cfloop query="fundTypes">
-		<cfif grp1_cd neq 0>	<!--- ignore "PARAM" --->
-			<cfif fund_sel eq grp1_cd>
-				<input id="radBtn_#grp1_cd#" type="radio" value="#grp1_cd#" name="fundRad" checked="checked" />
-			<cfelse>
-				<input id="radBtn_#grp1_cd#" type="radio" value="#grp1_cd#" name="fundRad" />
-			</cfif>
-			<label for="radBtn_#grp1_cd#">#grp1_desc#</label>
-		</cfif>
-	</cfloop>
-	<input type="submit" name="radSelBtn" value="Choose Fund Type"><br />
   	<input name="fymExcelBtn" type="submit" value="Export to Excel" />
   	<input name="fymSubmitBtn" type="submit" value="Update 5YR Model" />
   	
