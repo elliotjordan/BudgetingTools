@@ -31,7 +31,7 @@
 
 <h2>5-Year Model for #getDistinctChartDesc(current_inst)# FY#application.shortfiscalyear#</h2>
 <form id="fymForm" action="fym_submit.cfm" method="post" >
-<input name="fymCrHrCompareBtn" type="submit" value="Compare to CrHr Projector" />
+<!---<input name="fymCrHrCompareBtn" type="submit" value="Compare to CrHr Projector" />--->
 <cfif fymRevSums.recordCount neq 0>
 	<h3>Summary</h3>
 	<!--- Begin summary table  --->
