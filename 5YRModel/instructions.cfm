@@ -23,12 +23,12 @@
 
 <p>Tuition projections include:
 	<ul>
-		<li>The FY22 & FY23 Credit Hours and weighted escalated Rates are taken from the previous Two-Year Credit Hour Projection portal data.</li>
+		<li>The FY22 - FY23 Credit Hours and weighted escalated Rates are taken from the previous Two-Year Credit Hour Projection portal data.</li>
 		<ul>
 			<li>Any changes/updates made last year in Budget Construction or outside of the Projector will not be reflected.</li>
 			<li>Aggregation is done at the academic career and residency (object code) level for the whole fiscal year.</li>
 		</ul>
-		<li>The FY24, FY25, FY26 & FY27 rates have been escalated based on the estimated planning parameters set by UBO.</li>
+		<li>The FY24, FY25, FY26 and FY27 rates have been escalated based on the estimated planning parameters set by UBO.</li>
 		<li>The FY24, FY25, FY26 credit hours have been carried forward from the previous 5-Year Forecasting Model.</li>
 		<li>The FY27 Credit Hours are duplicated from FY26. Please adjust accordingly for your campus.</li>
 	</ul>
