@@ -117,7 +117,7 @@
 				</cfif>
 			</td> 
 			<td><!--- Comment --->
-				<span class="sm-green">#OID#</span>
+				<!---<span class="sm-green">#OID#</span>--->
 				<cfif StructKeyExists(commentbucket,oid)>
 					<textarea id="comm_#OID#" name="comm_#OID#" type="text" maxlength="1024" height="3" width="100%">#commentBucket[oid].comment#</textarea>
 					<input id="comm_#OID#CDELTA" name="comm_#OID#CDELTA" type="hidden" value="false" />
