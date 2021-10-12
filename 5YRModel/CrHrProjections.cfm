@@ -8,6 +8,8 @@
 <cfset campusRateEditors = "aheeter,freemanr,kcwalsh,garobe,jbdimond" />
 <cfoutput>
 <div class="full_content">
+    <cfinclude template="test_banner.cfm" runonce="true" />
+
 <cfif true>   <!--- ListFindNoCase('blork',current_inst) or REQUEST.authUser eq 'sbadams'>--->
 	<cfset editcy = true /><cfset edityr1 = true /><cfset edityr2 = true /><cfset edityr3 = true /><cfset edityr4 = true /><cfset edityr5 = true />
 <cfelse>
