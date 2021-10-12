@@ -7,6 +7,8 @@
 <cfset currentUser = getFYMUser(REQUEST.authUser) />
 <cfif ListFindNoCase(REQUEST.adminUsernames,currentUser.username)><cfset editor = "YES"><cfelse><cfset editor = "NO"></cfif>
 <div class="full_content">
+    <cfinclude template="test_banner.cfm" runonce="true" />
+
 <h2>5-Year Model Parameters for <!---#getDistinctChartDesc(currentUser.fym_inst)# --->FY#application.shortfiscalyear#</h2>
 <p>Use this table to view and maintain model parameters</p>
 
