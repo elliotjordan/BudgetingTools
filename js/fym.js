@@ -195,8 +195,9 @@ $.fn.rTotal = function (e) {
 	//update the delta hidden element if the user changes a field in the params form
 	// onchange() in any field, take the name of the field and change the <name>DELTA value to true
 	$("form :input").change(function() {
+		var $handle = $(this);
 		//console.log('Keypress has changed ' + this.name + '\n');
-		if (this.name != 'fundRad') {
+		if (this.name != 'fundRad' &&  $handle.is("input")) { 
 	  		$(this).closest('form').data('changed', true);
 	  		var change_element = this.name+'DELTA'; 
 	  		//console.log('change_element: ' + change_element+'\n');
@@ -206,6 +207,16 @@ $.fn.rTotal = function (e) {
 			}
 			$.fn.colTotal();
 		}
+		if ($handle.is("textarea")) {
+	        $("form :input[id^='comm_']").change(function() {
+			console.log('Keypress has changed comment field ' + this.name + '\n');
+	  		$(this).closest('form').data('changed', true);
+	  		var change_element = this.name+'CDELTA'; 
+	  		console.log('comment change_element: ' + change_element+'\n');
+			$('[name="'+ change_element+ '"]' ).val('COMMENT');
+			$('.change_warning').show();
+		});	
+    	}
 	});
 		
 	// prevent RETURN/ENTER key from submitting form

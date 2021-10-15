@@ -103,7 +103,7 @@ $.fn.colTotal = function (e) {
 
 $.fn.rTotal = function (e) {
 	$.fn.getCompID = function (givenID){
-		console.log("compID: "+givenID+"\n");
+		//console.log("compID: "+givenID+"\n");
 	}
 	//console.log('rTotal firing off');
 	// first, given a particular element, identify all the other elements in the same row using the OID scheme
@@ -200,6 +200,7 @@ $.fn.rTotal = function (e) {
 		//}
 	});
 
+$.fn.prepComm = function (e) {
 	//update the CDELTA hidden element if the user changes a COMMENT field in the params form
 	// onchange() in any COMMENT field, take the name of the field and change the <name>DELTA value to COMMENT
 	$("form :input[id^='comm_']").change(function() {
@@ -210,9 +211,11 @@ $.fn.rTotal = function (e) {
 		$('[name="'+ change_element+ '"]' ).val('COMMENT');
 		$('.change_warning').show();
 		//if ($('#fymForm') == "") {
-			$.fn.colTotal();
+			//$.fn.colTotal();
 		//}
 	});		
+} // end function
+
 	// prevent RETURN/ENTER key from submitting form
     $(document).on("keypress", function(event) {
     	if (event.keyCode == 13) {
