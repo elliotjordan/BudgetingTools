@@ -5,7 +5,7 @@
 <cfset crHrSums = getCrHrSums_OLD(current_inst,'NO') />  <!--- CF logic, not a function in Postgres --->
 <cfset campusStruct = convertQueryToStruct(crHrInfo) />
 <cfset userDetails = getFeeUser(REQUEST.authUser) />
-<cfset campusRateEditors = "aheeter,freemanr,kcwalsh,garobe,jbdimond" />
+<cfset campusRateEditors = "aheeter,freemanr,kcwalsh,garobe,coback" />
 <cfoutput>
 <div class="full_content">
 <cfif true>   <!--- ListFindNoCase('blork',current_inst) or REQUEST.authUser eq 'sbadams'>--->
@@ -100,8 +100,17 @@
 					  <input id="yr1_hrs_newOID#OID#DELTA" name="yr1_hrs_newOID#OID#DELTA" type="hidden" value="false">
 		<cfelse><span id="yr1_hrs_new#OID#" name="yr1_hrs_new#OID#">#trim(NumberFormat(yr1_hrs_new,'999,999.9'))#</span>
 		</cfif></span><br />
-			  <span id="yr1_rt" name="yr1_rt" class="sm-green">YR1 rate: $#NumberFormat(yr1_rt,'999,999.99')#</span><br>
-			  <span id="yr1_tot" name="yr1_tot" class="sm-green">Total revenue: $#trim(NumberFormat(yr1_rev,'999,999'))#</span>
+			  <!---<span id="yr1_rt" name="yr1_rt" class="sm-green">YR1 rate: $#NumberFormat(yr1_rt,'999,999.99')#</span><br>
+			  <span id="yr1_tot" name="yr1_tot" class="sm-green">Total revenue: $#trim(NumberFormat(yr1_rev,'999,999'))#</span>--->
+			  <cfif editcy and (ListFindNoCase(campusRateEditors, REQUEST.authUser) or ListFindNoCase(REQUEST.adminUsernames,REQUEST.authUser))>
+				<span class="sm-green">Current YR rate:
+					$<input id="yr1_rt" name="yr1_rtOID#OID#" type="text" size="10" value="#trim(NumberFormat(yr1_rt,'999,999.99'))#" />
+					<br>
+					<input id="yr1_rtOID" name="yr1_rtOID#OID#DELTA" type="hidden" value="false">
+				<cfelse>
+				<span id="yr1_rt" name="yr1_rt#OID#" class="sm-green">Current YR rate: $#trim(NumberFormat(yr1_rt,'999,999.99'))#
+				</cfif></span><br/>
+			    <span id="yr1_rev#OID#" name="yr1_rev#OID#" class="sm-green">Total revenue: $#trim(NumberFormat(yr1_rev,'999,999'))#</span>
 			</td>
             <!--- *** --->
 			<td class="math">
