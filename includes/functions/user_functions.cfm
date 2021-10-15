@@ -12,7 +12,7 @@
   <cffunction name="getFYMUser" output="true">
   	<cfargument name="username" required="true">
   	<cfquery datasource="#application.datasource#" name="authUserData">
-  		SELECT USERNAME, FIRST_LAST_NAME,EMAIL,DESCRIPTION,ACCESS_LEVEL,CHART,PROJECTOR_RC,ALLFEES_RCS, PHONE,ACTIVE,CREATED_ON, fym_inst
+  		SELECT USERNAME, FIRST_LAST_NAME,EMAIL,DESCRIPTION,ACCESS_LEVEL,CHART,PROJECTOR_RC,ALLFEES_RCS, PHONE,ACTIVE,CREATED_ON, fym_inst,focus
   		FROM FEE_USER.USERS
   		WHERE ACTIVE = 'Y' AND USERNAME = <cfqueryparam value="#username#" cfsqltype="cf_sql_varchar">
   	</cfquery>
@@ -128,6 +128,7 @@
 	<cfquery name="focusValue" datasource="#application.datasource#">
 		Select username, focus from users where username =
 		<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenUser#">
+		and active = 'Y'
 	</cfquery>
 	<cfreturn focusValue>
 </cffunction>
