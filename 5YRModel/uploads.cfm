@@ -1,60 +1,62 @@
 <cfinclude template="../includes/header_footer/fym_header.cfm" runonce="true" />
 <cfoutput>
 <div class="full_content">
+	
 <h2>Uploads for FY#application.shortfiscalyear#</h2>
-<p>We have two folders in the UBO Teams space where you may upload files:</p>
-	<p>The All Teams folder for general uploads is
-			<a alt="Link to BUDU all campuses uploads folder" href='https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/All_Campuses_BudgetOffice/5-Year%20Projections/2020-21?csf=1&web=1&e=q3dNbS' target="_blank">here</a>
-		</p>
 		<p>Your private #current_inst# campus upload folder is
-		<cfswitch expression="#currentUser.fym_inst#">
+		<cfswitch expression="#currentUser.focus#">
 			<cfcase value="BL">
-				<a target="_blank" alt="Link to BL uploads folder"
-href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/BL_Submission_BudgetOffice/5-Year%20Projections/2020-21?csf=1&web=1&e=dZOmZa">here</a>
+				<a target="_blank" alt="Link to BL uploads folder" 
+href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/BL_Submission_BudgetOffice/5-Year%20Projections/2021-22?csf=1&web=1&e=t29mNw">here</a>
 			</cfcase>
 
     		<cfcase value="BA-ATHL">
 				<a target="_blank" alt="Link to BL Athletics uploads folder"
-href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/BL_Submission_BudgetOffice/5-Year%20Projections/2020-21?csf=1&web=1&e=dZOmZa">here</a>
+href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/BL_Submission_BudgetOffice/BA-Athletics-RC%208C_Submission/5-Year%20Projections/2021-22?csf=1&web=1&e=txIHAR">here</a>
     		</cfcase>
 
-    		<cfcase value="EA" delimiters=";">
+    		<cfcase value="EA">
 				<a target="_blank" alt="Link to EA uploads folder"
-href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/EA_Submission_BudgetOffice/5-Year%20Projections/2020-21/">here</a>
+href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/EA_Submission_BudgetOffice/5-Year%20Projections/2021-22?csf=1&web=1&e=mUkzrN">here</a>
     		</cfcase>
 
     		<cfcase value="IN">
 				<a target="_blank" alt="Link to IN uploads folder"
-href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/IN_Submission_BudgetOffice/5-Year%20Projections?csf=1&web=1&e=mIbGOo">here</a>
+href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/IN_Submission_BudgetOffice/5-Year%20Projections/2021-22?csf=1&web=1&e=Ge25z7">here</a>
     		</cfcase>
 
     		<cfcase value="MED">
 				<a target="_blank" alt="Link to School of Medicine uploads folder"
-href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/IN_Submission_BudgetOffice/5-Year%20Projections?csf=1&web=1&e=mIbGOo">here</a>
+href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/IN_Submission_BudgetOffice/IN-MED-RC%2010_Submission/5-Year%20Projections/2021-22?csf=1&web=1&e=00KbDS">here</a>
     		</cfcase>
 
     		<cfcase value="KO">
 				<a target="_blank" alt="Link to KO uploads folder"
-href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/KO_Submission_BudgetOffice/5-Year%20Projections/2020-21?csf=1&web=1&e=8ONafZ">here</a>
+href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/KO_Submission_BudgetOffice/5-Year%20Projections/2021-22?csf=1&web=1&e=8m2dhr">here</a>
     		</cfcase>
 
     		<cfcase value="NW">
 				<a target="_blank" alt="Link to NW uploads folder"
-href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/NW_Submission_BudgetOffice/5-Year%20Projections/2020-21?csf=1&web=1&e=E5yTT7">here</a>
+href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/NW_Submission_BudgetOffice/5-Year%20Projections/2021-22?csf=1&web=1&e=uHfWrz">here</a>
     		</cfcase>
 
     		<cfcase value="SB">
 				<a target="_blank" alt="Link to SB uploads folder"
-href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/SB_Submission_BudgetOffice/5-Year%20Projections/2020-21?csf=1&web=1&e=WB7YlI">here</a>
+href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/SB_Submission_BudgetOffice/5-Year%20Projections/2021-22?csf=1&web=1&e=zRcJOR">here</a>
     		</cfcase>
 
     		<cfcase value="SE">
-				<a target="_blank" href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/SE_Submission_BudgetOffice/5-Year%20Projections/2020-21?csf=1&web=1&e=5WANbI">here</a>
+				<a target="_blank" alt="Link to SE uploads folder" 
+href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/SE_Submission_BudgetOffice/5-Year%20Projections/2021-22?csf=1&web=1&e=tbBgR8">here</a>
     		</cfcase>
 
+    		<cfcase value="UA">
+				<a target="_blank" alt="Link to UA uploads folder" 
+href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/UA_Submission_BudgetOffice/5-Year%20Projections/2021-22?csf=1&web=1&e=vd87YA">here</a>
+    		</cfcase>
+    		
     		<cfdefaultcase>
-    			<a target="_blank" alt="default link to BUDU all campuses uploads folder"
-href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/All_Campuses_BudgetOffice/5-Year%20Projections/2020-21?csf=1&web=1&e=q3dNbS">here</a
+    			not found. Please contact us and we will have a look.
     		</cfdefaultcase>
 
 		</cfswitch>
