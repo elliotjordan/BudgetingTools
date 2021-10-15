@@ -109,14 +109,14 @@
    	<cfdefaultcase><cfset givenUsername = "#givenUsername#"></cfdefaultcase>
    </cfswitch>
    <cfquery datasource="#application.datasource#" name="emulatee">
-   	 SELECT id, username, access_level, chart, projector_rc, allfees_rcs, fym_inst
+   	 SELECT id, username, access_level, chart, projector_rc, allfees_rcs
    	 FROM #application.usersTable#
    	 WHERE username = <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenUsername#">
    </cfquery>
    <cfif emulatee.RecordCount eq 1>
 	   <cfquery datasource="#application.datasource#" name="emulator">
 	   	 UPDATE #application.usersTable# SET access_level = '#emulatee.access_level#', chart = '#emulatee.chart#',
-	   	   projector_rc = '#emulatee.projector_rc#', allfees_rcs = '#emulatee.allfees_rcs#', fym_inst = '#emulatee.fym_inst#'
+	   	   projector_rc = '#emulatee.projector_rc#', allfees_rcs = '#emulatee.allfees_rcs#'
 	   	 WHERE username = <cfqueryparam cfsqltype="cf_sql_varchar" value="#REQUEST.authUser#">
 	   </cfquery>
    </cfif>
