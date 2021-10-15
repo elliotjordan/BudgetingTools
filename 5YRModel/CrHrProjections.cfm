@@ -8,7 +8,9 @@
 <cfset campusRateEditors = "aheeter,freemanr,kcwalsh,garobe,coback" />
 <cfoutput>
 <div class="full_content">
-    <cfinclude template="test_banner.cfm" runonce="true" />
+<cfif FindNoCase("rohan",application.baseurl) OR FindNoCase("8443",application.baseurl)>
+	<cfinclude template="test_banner.cfm">
+</cfif>
 
 <cfif true>   <!--- ListFindNoCase('blork',current_inst) or REQUEST.authUser eq 'sbadams'>--->
 	<cfset editcy = true /><cfset edityr1 = true /><cfset edityr2 = true /><cfset edityr3 = true /><cfset edityr4 = true /><cfset edityr5 = true />
