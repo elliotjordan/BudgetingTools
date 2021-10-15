@@ -288,7 +288,7 @@
  		<cfset REQUEST.boxUploadPath = 'https://iu.app.box.com/folder/4781002109/' />
  		<cfset REQUEST.opAssAdmins = "gwpalmer,nschrode,ellijord,jopadams,jburgoon,alirober,ttwu,galter,bjmoelle,nichodan,sbadams,jsej,paulschm,dlkremer,pyebei" />
  		<cfset REQUEST.opAssUsers = "" />
- 		<cfset REQUEST.Approver_list ="gwpalmer,nschrode,jburgoon,alirober,ttwu,galter,bjmoelle,nichodan,sbadams,jsej" />
+ 		<cfset REQUEST.Approver_list ="gwpalmer,ellijord,nschrode,jburgoon,alirober,ttwu,galter,bjmoelle,nichodan,sbadams,jsej" />
  		<!---  Usernames appearing in the specialAccess list will see the Save Your Work button enabled EVEN IF application.disabled has been set to "disabled"  --->  <!--- TODO: Make this dynamic from the database and add a UBO Control to it  --->
  	 	<cfset REQUEST.specialAccess = "jburgoon,nschrode,ellijord,jopadams,alirober,aheeter,freemanr,bmcminn,cbroeker,kcwalsh,coback,lejulian,jahayman,mtdicker,tschance,kjgrant,ltschler,dwavle,jvsummer,ckasdor" />
 		<!--- disable various hoo-haw shenanigans.  These constructs are too high strung to belong here. --->
