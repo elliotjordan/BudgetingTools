@@ -21,6 +21,8 @@
 <cfset commentBucket = convertQueryToStruct(getFYMcomments()) />
 <cfoutput>
 <div class="full_content">
+        <cfinclude template="test_banner.cfm" runonce="true" />
+
 <cfif true> <!---ListFindNoCase('KO',current_inst) or REQUEST.authUser eq 'sbadams'> ---> 
 	<!--- The above commented section allows for specific campuses to get in and insures that Sam always has edit access  --->
 	<cfset editcy = true /><cfset edityr1 = true /><cfset edityr2 = true /><cfset edityr3 = true /><cfset edityr4 = true /><cfset edityr5 = true />

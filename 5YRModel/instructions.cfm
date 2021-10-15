@@ -3,10 +3,18 @@
 <div class="full_content">
 <h2>Instructions for the UBO 5-Year Model for FY#application.shortfiscalyear#</h2>
 <h3>The submission deadline on our Budget Calendar for 5-Year Model submissions is Dec 8, 2021</h3>
+<<<<<<< HEAD
 <p>More instructions are located here: <a target="_blank"  href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/All_Campuses_BudgetOffice/5-Year%20Projections?csf=1&web=1&e=RhOcVw" alt="Link to Word doc"><span>Instructions (MS Word)</span></a></p>
 <p>The All Campuses folder for general downloads from UBO is <a target="_blank"  href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/All_Campuses_BudgetOffice/5-Year%20Projections?csf=1&web=1&e=vDcg7d"></a></p>
 <p>The 'Other Funds (DS-RF)' fund group category has been disaggregated for FY22. Otherwise, the model is largely unchanged from last year. We're glad to host refresher training sessions about the 5-year planning model. Please let us know if you are interested, or if you have any questions about the model.</p>
 <p>The 5-year planning model is an important component of the university's continued focus on multi-year financial planning. Our goals with a 5-year plan are to assess the long-term fiscal health of each campus and university administration, ensure organizations with financial pressures have a strategy to balance operating budgets, and review planned uses of fund balance reserves. This model is helpful in reporting, financial planning, and decision-making throughout the organization.</p>
+=======
+<p>More instructions are here: <a target="_blank"  href="https://budu.iu.edu/apps/docs/Supplemental_Instructions_5YR_Model.docx" alt="Link to Word doc"><span>Instructions (MS Word)</span></a></p>
+<!--<p>More instructions are here: <a target="_blank"  href="https://indiana.sharepoint.com/sites/msteams_858801/Shared%20Documents/Forms/AllItems.aspx?RootFolder=%2Fsites%2Fmsteams%5F858801%2FShared%20Documents%2FGeneral%2FUA%2DBUDU%2DExternal%2FCampusSubmission%5FBUDU%2FAll%5FCampuses%5FBudgetOffice%2F5%2DYear%20Projections%2F2020%2D21&FolderCTID=0x0120009E6EB9521A540B4AA194A082560CBB47" alt="Link to Word doc"><span>Instructions (MS Word)</span></a></p>-->
+<p>Although the model is largely unchanged from this past year, we’re glad to host refresher training sessions about the 5-year planning model. Please let us know if you are interested, or if you have any questions about the model.</p>
+
+<p>The 5-year planning model is an important component of the university’s continued focus on multiyear financial planning. Our goals with a 5-year plan are to summarize the long-term fiscal health of each campus and university administration, ensure organizations with financial pressures have a strategy to balance operating budgets, and review planned uses of fund balance reserves. This model is helpful in reporting, financial planning, and decision making throughout the organization.</p>
+>>>>>>> branch 'master' of https://github.iu.edu/iu-budu/BudgetingTools.git
 
 <h3>Model page</h3>
 <p>The revenue and expense projection assumptions in the model are preliminary assumptions. Please make updates to the model to your satisfaction by entering the balance amount For a revenue total, please enter the 'real' balance amount, e.g., 1,000,000. For negative values, please use a "-" sign.</p>
@@ -23,9 +31,15 @@
 			<li>Any changes/updates made last year in Budget Construction or outside of the Projector will not be reflected.</li>
 			<li>Aggregation is done at the academic career and residency (object code) level for the whole fiscal year.</li>
 		</ul>
+<<<<<<< HEAD
 		<li>The FY24, FY25, FY26, & FY27 rates have been escalated based on the estimated planning parameters set by UBO.</li>
 		<li>The FY24, FY25, & FY26 credit hours have been carried forward from the previous 5-Year Forecasting Model.</li>
 		<li>The FY27 Credit Hours are duplicated from FY25. Please adjust accordingly for your campus.</li>
+=======
+		<li>The FY24, FY25, FY26 and FY27 rates have been escalated based on the estimated planning parameters set by UBO.</li>
+		<li>The FY24, FY25, FY26 credit hours have been carried forward from the previous 5-Year Forecasting Model.</li>
+		<li>The FY27 Credit Hours are duplicated from FY26. Please adjust accordingly for your campus.</li>
+>>>>>>> branch 'master' of https://github.iu.edu/iu-budu/BudgetingTools.git
 	</ul>
 
 <h3>Parameters page</h3>
