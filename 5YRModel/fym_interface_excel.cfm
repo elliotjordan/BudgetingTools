@@ -1,6 +1,7 @@
 <cfinclude template="../includes/functions/fym_functions.cfm" runonce="true" />
 <cfset crHrTotals = getCrHrSums() />
 <cfset campusInfo = getFYMdataExcel() />
+<!---<cfdump var="#campusInfo#" ><cfabort>--->
 <!---
 	Create and store the simple HTML data that you want
 	to treat as an Excel file.
@@ -58,13 +59,13 @@
    				<td>#grp2_desc#</td>
 				<td>#ln1_desc#</td>
 				<td>#ln2_desc#</td>
-				<td>#NumberFormat(campusInfo.cy_orig_budget_amt,'999,999,999')#</td>
-				<td>#NumberFormat(campusInfo.cur_yr_new,'999,999,999')#</td>
-				<td>#NumberFormat(campusInfo.yr1_new,'999,999,999')#</td>
-				<td>#NumberFormat(campusInfo.yr2_new,'999,999,999')#</td>
-				<td>#NumberFormat(campusInfo.yr3_new,'999,999,999')#</td>
-				<td>#NumberFormat(campusInfo.yr4_new,'999,999,999')#</td>
-				<td>#NumberFormat(campusInfo.yr5_new,'999,999,999')#</td>
+				<td>#campusInfo.cy_orig_budget_amt#</td>
+				<td>#campusInfo.cur_yr_new#</td>
+				<td>#campusInfo.yr1_new#</td>
+				<td>#campusInfo.yr2_new#</td>
+				<td>#campusInfo.yr3_new#</td>
+				<td>#campusInfo.yr4_new#</td>
+				<td>#campusInfo.yr5_new#</td>
 			</tr>
 		</cfloop>
 	</table>
