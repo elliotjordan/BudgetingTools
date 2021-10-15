@@ -39,6 +39,6 @@
 <cfelse>
 	<p>Error. Please contact us and explain that you got the "5Yr Model Form submission error". Sorry for the trouble! Thanks</p> <cfabort>
 </cfif>
-<cfset updateStatus = updateCrHrRates(currentUser.fym_inst)>  <!---
-<cflocation url="index.cfm?fund=#current_fund#" addtoken="false" />--->
+<cfset updateStatus = updateCrHrRates(currentUser.fym_inst)>  
+<cflocation url="index.cfm?fund=#current_fund#" addtoken="false" />
 </cfoutput>
