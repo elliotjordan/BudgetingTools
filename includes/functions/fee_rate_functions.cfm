@@ -1,7 +1,7 @@
 <cffunction name="getTuitionList">
 	<cfquery name="tuiList" datasource="#application.datasource#">
 		select allfee_id, fee_desc_billing from afm
-		where fee_type IN ('TUI','PRO') and fiscal_year = '#application.fiscalyear#'
+		where fee_type IN ('TUI','PRO') and fiscal_year = '2021'
 		order by allfee_id asc
 	</cfquery>
 	<cfreturn tuiList>
@@ -15,7 +15,7 @@
 		from fee_user.afm a
 		inner join afm_de_asso b on a.allfee_id = b.de_afid
 		inner join afm_params c on b.param_id = c.param_id
-		where a.fiscal_year  = '#application.fiscalyear#' and a.active = 'Y' and c.active = 'Y'
+		where a.fiscal_year  = '2021' and a.active = 'Y' and c.active = 'Y'
 		<cfif givenInst neq 'ALL'>
 			and a.inst_cd = <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenInst#">
 		</cfif>
@@ -50,7 +50,7 @@
 		from fee_user.afm a
 		inner join afm_de_asso b on a.allfee_id = b.de_afid
 		inner join afm_params c on b.param_id = c.param_id
-		where a.fiscal_year  = '#application.fiscalyear#' and a.active = 'Y' and c.active = 'Y'
+		where a.fiscal_year  = '2021' and a.active = 'Y' and c.active = 'Y'
 	</cfquery>
 	<cfreturn de_delta />
 </cffunction>
@@ -60,7 +60,7 @@
 		select distinct a.allfee_id, a.fee_desc_billing , b.de_afid
 		from fee_user.afm a
 		left outer join afm_de_asso b on a.allfee_id = b.de_afid
-		where a.fiscal_year  = '#application.fiscalyear#' and a.active = 'Y' and a.fee_type = '_DE' and b.de_afid IS NULL
+		where a.fiscal_year  = '2021' and a.active = 'Y' and a.fee_type = '_DE' and b.de_afid IS NULL
 		order by a.allfee_id ASC
 	</cfquery>
 	<cfreturn unAssDE />
@@ -72,7 +72,7 @@
 		from fee_user.afm_de_asso b 
 		left outer join fee_user.afm a on b.de_afid = a.allfee_id
 		left outer join afm_params c on b.param_id = c.param_id
-		where a.fiscal_year  = '#application.fiscalyear#' and a.active = 'Y'
+		where a.fiscal_year  = '2021' and a.active = 'Y'
 	</cfquery>
 	<cfreturn DEasso />
 </cffunction>
@@ -137,7 +137,7 @@
 		--->
 				WHERE allfee_id = <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenAFID#" />
 				and
-				FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y'
+				FISCAL_YEAR =  '2021' AND ACTIVE = 'Y'
 		</cfquery>
 		<cfreturn true />
 	<cfelse>
@@ -168,7 +168,7 @@
 	<cfquery name="getFees" datasource="#application.datasource#">
 		SELECT allfee_id, allfee_masterid, allfee_groupid, local_id, local_masterid, fiscal_year, inst_cd, fee_type, fee_typ_desc, unit_basis, fee_desc_long, fee_desc_billing, fee_desc_web, fee_current, fee_lowyear, fee_highyear, yr1_est_vol, yr2_est_vol, xfactor, yfactor, fee_begin_term, dyn_org_ind, cost_desc_item1, cost_desc_item2, cost_amt_item1, cost_amt_item2, sis_itemtype, sis_type, account_nbr, sub_account_nbr, wo_account_nbr, rec_account_nbr, cy_est_vol, obj_cd, dept_id, fee_owner, replacement_fee, replacement_ind, fee_distance, meta, fee_note, approval_lvl, need_for_fee, further_justify, active, fee_status, cohort, fee_residency, fee_level, summer_ind, set_id
 	FROM #application.allFeesTable#
-		WHERE FISCAL_YEAR = '#application.fiscalyear#' AND ACTIVE = <cfqueryparam cfsqltype="cf_sql_char" value="#given_feeStatus#">
+		WHERE FISCAL_YEAR = '2021' AND ACTIVE = <cfqueryparam cfsqltype="cf_sql_char" value="#given_feeStatus#">
 		<cfif LEN(given_AllFeeID)>
 			AND ALLFEE_ID = '#given_AllFeeID#'
 		</cfif>
@@ -189,7 +189,7 @@
 		fee_note, approval_lvl, need_for_fee, further_justify, active, fee_status, cohort, fee_residency,
 		fee_level, summer_ind, set_id
 		FROM #application.allFeesTable#
-		WHERE FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y'
+		WHERE FISCAL_YEAR =  '2021' AND ACTIVE = 'Y'
 		<cfif given_AllFeeID neq 'ALL'>
 			AND ALLFEE_ID = '#given_AllFeeID#'
 		</cfif>
@@ -234,7 +234,7 @@
 		  FEE_NOTE,
 		  LOCAL_ID
 		FROM #application.allFeesTable#
-		WHERE FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y'
+		WHERE FISCAL_YEAR =  '2021' AND ACTIVE = 'Y'
 		  AND FEE_TYPE NOT IN ('_DE', 'TUI', 'MAN', 'PRO')
 		<cfif given_accessLevel eq "bduser">
 			<cfif SUBSTR(given_accessLevel,1,2) eq given_homeChart>
@@ -288,10 +288,10 @@
 		 FROM #application.allFeesTable# v9
 		 INNER JOIN (SELECT DISTINCT ALLFEE_MASTERID, MAX(FEE_DESC_LONG) AS FEE_DESC_LONG
 		             FROM #application.allFeesTable#
-		             WHERE fiscal_year = ''#application.fiscalyear#''
+		             WHERE fiscal_year = ''2021''
 		             GROUP BY ALLFEE_MASTERID) v9b
 		   ON v9.ALLFEE_MASTERID = v9b.ALLFEE_MASTERID
-		 WHERE v9.FEE_TYPE IN (''ADM'',''CRS'') AND v9.ACTIVE = ''Y'' AND v9.ALLFEE_MASTERID IS NOT NULL AND LENGTH(v9.ALLFEE_MASTERID) = 11 and fiscal_year = ''#application.fiscalyear#''
+		 WHERE v9.FEE_TYPE IN (''ADM'',''CRS'') AND v9.ACTIVE = ''Y'' AND v9.ALLFEE_MASTERID IS NOT NULL AND LENGTH(v9.ALLFEE_MASTERID) = 11 and fiscal_year = ''2021''
 		 ORDER BY v9b.FEE_DESC_LONG ASC',
 		 'SELECT DISTINCT INST_CD FROM #application.allFeesTable# WHERE ACTIVE =''Y'' ORDER BY 1 ASC')
 		AS
@@ -309,7 +309,7 @@
 	<cfquery name="getFees" datasource="#application.datasource#">
 		SELECT allfee_id, allfee_masterid, allfee_groupid, local_id, local_masterid, fiscal_year, inst_cd, fee_type, fee_typ_desc, unit_basis, fee_desc_long, fee_desc_billing, fee_desc_web, fee_current, fee_lowyear, fee_highyear, yr1_est_vol, yr2_est_vol, xfactor, yfactor, fee_begin_term, dyn_org_ind, cost_desc_item1, cost_desc_item2, cost_amt_item1, cost_amt_item2, sis_itemtype, sis_type, account_nbr, sub_account_nbr, wo_account_nbr, rec_account_nbr, cy_est_vol, obj_cd, dept_id, fee_owner, replacement_fee, replacement_ind, fee_distance, meta, fee_note, approval_lvl, need_for_fee, further_justify, active, fee_status, cohort, fee_residency, fee_level, summer_ind, set_id
 	FROM #application.allFeesTable#
-		WHERE FISCAL_YEAR = '#application.fiscalyear#' AND ACTIVE = 'Y'
+		WHERE FISCAL_YEAR = '2021' AND ACTIVE = 'Y'
 		<cfif MID(session.ACCESS_LEVEL,1,2) neq 'ua'>
 		  AND INST_CD = '#curr_INST_CD#'
 		</cfif>
@@ -367,7 +367,7 @@
 		  NEED_FOR_FEE "Need for Fee",
 		  FURTHER_JUSTIFY "Addl Justification"
 		FROM #application.allFeesTable#
-		WHERE FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y'
+		WHERE FISCAL_YEAR =  '2021' AND ACTIVE = 'Y'
 		  AND FEE_TYPE IN ('ADM', 'CRS','PUR')
 			AND INST_CD = '#curr_INST_CD#'
 		<cfif MID(userFilter.access_level,3,2) neq "us">
@@ -410,7 +410,7 @@
 		  NEED_FOR_FEE "Need for Fee",
 		  FURTHER_JUSTIFY "Addl Justification"
 		FROM #application.allFeesTable#
-		WHERE FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y'
+		WHERE FISCAL_YEAR =  '2021' AND ACTIVE = 'Y'
 		  AND FEE_TYPE = ('CMP')
 			AND INST_CD = '#curr_INST_CD#'
 		<cfif MID(userFilter.access_level,3,2) neq "us">
@@ -456,7 +456,7 @@
 		  NEED_FOR_FEE "Need for Fee",
 		  FURTHER_JUSTIFY "Addl Justification"
 		FROM #application.allFeesTable#
-		WHERE FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y'
+		WHERE FISCAL_YEAR =  '2021' AND ACTIVE = 'Y'
 		  AND FEE_TYPE IN ('ADM', 'CRS','PUR', 'CMP')
 			AND INST_CD = '#curr_INST_CD#'
 		<cfif MID(userFilter.access_level,3,2) neq "us">
@@ -497,7 +497,7 @@
 		  NEED_FOR_FEE "Need for Fee",
 		  FURTHER_JUSTIFY "Addl Justification"
 		FROM #application.allFeesTable#
-		WHERE FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y'
+		WHERE FISCAL_YEAR =  '2021' AND ACTIVE = 'Y'
 	</cfquery>
 	<cfreturn getFees>
 </cffunction>
@@ -527,7 +527,7 @@
 		  FURTHER_JUSTIFY, fee_lowyear, fee_highyear, FEE_DESC_LONG, FEE_DESC_BILLING, FEE_DESC_WEB, YR1_EST_VOL, YR2_EST_VOL, FEE_BEGIN_TERM,
 		  DYN_ORG_IND, COST_DESC_ITEM1, COST_DESC_ITEM2, COST_AMT_ITEM1, COST_AMT_ITEM2, REPLACEMENT_IND, FURTHER_JUSTIFY
 		FROM #application.allFeesTable#
-		WHERE FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y' and
+		WHERE FISCAL_YEAR =  '2021' AND ACTIVE = 'Y' and
 		FEE_TYPE IN ('CMP','PUR') AND ACTIVE = 'Y'
 		  AND INST_CD = <cfqueryparam cfsqltype="cf_sql_char" value="#curr_INST_CD#">
 		<cfif LEN(given_homeRC) AND given_homeRC neq 'us'>
@@ -629,7 +629,7 @@
 	<cfquery name="getDupes" datasource="#application.datasource#">
 		SELECT ALLFEE_ID, COUNT(ALLFEE_ID)
 		FROM #application.allFeesTable#
-		WHERE FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y'
+		WHERE FISCAL_YEAR =  '2021' AND ACTIVE = 'Y'
 		GROUP BY ALLFEE_ID
 		HAVING COUNT(ALLFEE_ID) > 1
 	</cfquery>
@@ -644,7 +644,7 @@
 	<cfquery name="getCounts" datasource="#application.datasource#">
 		SELECT DISTINCT INST_CD, FEE_TYPE, FEE_TYP_DESC, UNIT_BASIS, COUNT(ALLFEE_ID) AS "TOTAL_COUNT"
 		FROM #application.allFeesTable#
-		WHERE FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y'
+		WHERE FISCAL_YEAR =  '2021' AND ACTIVE = 'Y'
 		GROUP BY INST_CD, FEE_TYPE, FEE_TYP_DESC, UNIT_BASIS
 		ORDER BY FEE_TYPE ASC
 	</cfquery>
@@ -699,7 +699,7 @@
   		  FURTHER_JUSTIFY
 		FROM #application.allFeesTable#
 		WHERE ALLFEE_ID = <cfqueryparam cfsqltype="cf_sql_char" maxlength="11" value="#givenAllFeeID#">
-		  AND FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y'
+		  AND FISCAL_YEAR =  '2021' AND ACTIVE = 'Y'
 	</cfquery>
 	<cfif getFeeInfo.recordCount lt 1>
 		<cfset getFeeInfo = createBlankFeeInfo(givenAllFeeID,givenFeeType) >
@@ -756,7 +756,7 @@
 	<cfargument name="givenCampus" required="false" type="string" default="none">
 	<cfquery name="getDistinctOwners" datasource="#application.datasource#" >
 		SELECT DISTINCT FEE_OWNER FROM #application.allFeesTable#
-		WHERE FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y' AND INST_CD = <cfqueryparam cfsqltype="cf_sql_char" value="#givenCampus#">
+		WHERE FISCAL_YEAR =  '2021' AND ACTIVE = 'Y' AND INST_CD = <cfqueryparam cfsqltype="cf_sql_char" value="#givenCampus#">
 		ORDER BY FEE_OWNER ASC
 	</cfquery>
 	<cfreturn getDistinctOwners>
@@ -814,7 +814,7 @@
 		  <cfif givenFeeOwner neq "none">
 		  	 AND FEE_OWNER = <cfqueryparam cfsqltype="cf_sql_char" value="#givenFeeOwner#">
 		  </cfif>
-		  AND ACCOUNT_NBR IS NOT NULL and FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y'
+		  AND ACCOUNT_NBR IS NOT NULL and FISCAL_YEAR =  '2021' AND ACTIVE = 'Y'
 		  ORDER BY ACCOUNT_NBR ASC
 	</cfquery>
 	<cfreturn getDistinctAccounts>
@@ -827,7 +827,7 @@
 		SELECT DISTINCT SUB_ACCOUNT_NBR FROM #application.allFeesTable#
 		WHERE INST_CD = <cfqueryparam cfsqltype="cf_sql_char" value="#givenCampus#">
 		  AND FEE_TYPE = <cfqueryparam cfsqltype="cf_sql_char" value="#givenFeeType#">
-		  AND FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y' AND SUB_ACCOUNT_NBR IS NOT NULL
+		  AND FISCAL_YEAR =  '2021' AND ACTIVE = 'Y' AND SUB_ACCOUNT_NBR IS NOT NULL
 		ORDER BY SUB_ACCOUNT_NBR ASC
 	</cfquery>
 	<cfreturn getDistinctSubAccounts>
@@ -839,7 +839,7 @@
 	<cfquery name="getDistinctWOAccounts" datasource="#application.datasource#" >
 		SELECT DISTINCT WO_ACCOUNT_NBR FROM #application.allFeesTable#
 		WHERE INST_CD = <cfqueryparam cfsqltype="cf_sql_char" value="#givenCampus#">
-		  AND FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y' AND WO_ACCOUNT_NBR IS NOT NULL
+		  AND FISCAL_YEAR =  '2021' AND ACTIVE = 'Y' AND WO_ACCOUNT_NBR IS NOT NULL
 		ORDER BY WO_ACCOUNT_NBR ASC
 	</cfquery>
 	<cfreturn getDistinctWOAccounts>
@@ -852,7 +852,7 @@
 	<cfquery name="getDistinctRecAccounts" datasource="#application.datasource#" >
 		SELECT DISTINCT REC_ACCOUNT_NBR FROM #application.allFeesTable#
 		WHERE INST_CD = <cfqueryparam cfsqltype="cf_sql_char" value="#givenCampus#"> and
-		  FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y'
+		  FISCAL_YEAR =  '2021' AND ACTIVE = 'Y'
 		  <cfif givenFeeOwner neq "none">
 		  	 AND FEE_OWNER = <cfqueryparam cfsqltype="cf_sql_char" value="#givenFeeOwner#">
 		  </cfif>
@@ -873,7 +873,7 @@
 		  <cfif givenFeeOwner neq "none">
 		  	 AND FEE_OWNER = <cfqueryparam cfsqltype="cf_sql_char" value="#givenFeeOwner#">
 		  </cfif>
-		  AND FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y' AND OBJ_CD IS NOT NULL
+		  AND FISCAL_YEAR =  '2021' AND ACTIVE = 'Y' AND OBJ_CD IS NOT NULL
 		ORDER BY OBJ_CD ASC
 	</cfquery>
 	<cfreturn getDistinctObjCds>
@@ -884,7 +884,7 @@
 	<cfquery name="getDistinctUnitsBasis" datasource="#application.datasource#" >
 		SELECT DISTINCT UNIT_BASIS FROM #application.allFeesTable#
 		WHERE FEE_TYPE = <cfqueryparam cfsqltype="cf_sql_char" value="#givenFeeType#">
-		  AND FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y' AND UNIT_BASIS IS NOT NULL
+		  AND FISCAL_YEAR =  '2021' AND ACTIVE = 'Y' AND UNIT_BASIS IS NOT NULL
 		ORDER BY UNIT_BASIS ASC
 	</cfquery>
 	<cfreturn getDistinctUnitsBasis>
@@ -969,7 +969,7 @@
 				UPDATE #application.allFeesTable#
 				SET #givenCol# =  <cfqueryparam value="#givenValue#" />
 				WHERE allfee_id = <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenFeeID#">
-				  AND fiscal_year = #application.fiscalyear#
+				  AND fiscal_year = 2021
 			</cfquery>
 		<!---</cftransaction>--->
 	<cfreturn true />
@@ -1013,7 +1013,7 @@
 	<cfquery name="updateStatus" datasource="#application.datasource#">
 		UPDATE #application.allFeesTable#
       	SET FEE_STATUS = <cfqueryparam cfsqltype="cf_sql_char" value="#givenStatus#">
-        WHERE ALLFEE_ID = '#givenAllFeeID#' and fiscal_year = '#application.fiscalyear#'
+        WHERE ALLFEE_ID = '#givenAllFeeID#' and fiscal_year = '2021'
     </cfquery>
 </cffunction>
 
@@ -1069,7 +1069,7 @@
 			TO_NUMBER(fee_highyear) AS "HY_NUM"
 		FROM #application.allFeesTable#
 		WHERE ACTIVE = 'Y'
-		  and fiscal_year = '#application.fiscalyear#'
+		  and fiscal_year = '2021'
 		  AND FEE_TYPE IN ('CRS','ADM') -- ('TUI','MAN','HOU')
 		<cfif givenRole eq 'campus'>
 	  		AND INST_CD = <cfqueryparam cfsqltype="cf_sql_char" value="#givenCampus#">
@@ -1107,7 +1107,7 @@
          WHEN 'ADM' THEN 'CFO'
          ELSE ''
        END
-      WHERE FEE_STATUS != 'Approved FY19' AND APPROVAL_LVL IS NULL AND FEE_TYPE IS NOT NULL and FISCAL_YEAR =  '#application.fiscalyear#'
+      WHERE FEE_STATUS != 'Approved FY19' AND APPROVAL_LVL IS NULL AND FEE_TYPE IS NOT NULL and FISCAL_YEAR =  '2021'
 	</cfquery>
 	<cfreturn true>
 </cffunction>
@@ -1123,7 +1123,7 @@
 	<cfquery name="approvalSummary" datasource="#application.datasource#">
 		SELECT DISTINCT INST_CD, FEE_TYP_DESC, FEE_STATUS, COUNT(*)
 		FROM #application.allFeesTable#
-		WHERE FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y'
+		WHERE FISCAL_YEAR =  '2021' AND ACTIVE = 'Y'
 		<cfif ListFindNoCase("ALL,CFO,BURSAR",givenRole)>
 			AND INST_CD IN ('IUBLA','IUINA','IUEAA','IUKOA','IUNWA','IUSBA','IUSEA')
 		<cfelseif givenRole eq 'regional'>
@@ -1166,7 +1166,7 @@
 		 UPDATE #application.allFeesTable#
 		 SET ACTIVE = 'N'
 		 WHERE ALLFEE_ID = <cfqueryparam cfsqltype="cf_sql_char" value="#givenAllFeeID#"> and
-		 FISCAL_YEAR =  '#application.fiscalyear#'
+		 FISCAL_YEAR =  '2021'
 	</cfquery>
 	<cfif updateActiveSetting.recordCount gt 0>
 		<cfreturn true>
@@ -1213,7 +1213,7 @@
 <cffunction name="getHousingList" >
 	<cfquery name="housingList" datasource="#application.datasource#">
 		SELECT * FROM #application.allFeesTable#
-		WHERE FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y' AND FEE_TYPE = 'HOU'
+		WHERE FISCAL_YEAR =  '2021' AND ACTIVE = 'Y' AND FEE_TYPE = 'HOU'
 	</cfquery>
 	<cfreturn housingList>
 </cffunction>
@@ -1228,7 +1228,7 @@
 			SET fee_lowyear = <cfqueryparam cfsqltype="cf_sql_char" value="#givenFY20#">,
 			    fee_highyear = <cfqueryparam cfsqltype="cf_sql_char" value="#givenFY21#">
 			WHERE ALLFEE_ID = <cfqueryparam cfsqltype="cf_sql_char" value="#givenAFID#"> and
-			FISCAL_YEAR =  '#application.fiscalyear#'
+			FISCAL_YEAR =  '2021'
 	  </cfquery>
 	  <cfcatch type="any">
 		<cfreturn false>
@@ -1244,7 +1244,7 @@
 	<!--- Count the number of existing records we will insert --->
 	  	<cftry>
 		  	<cfquery name="countSourceFeeRecords" datasource="#application.datasource#">
-		  		SELECT count(*) as "sourceTotal" from #application.allFeesTable# where FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y'
+		  		SELECT count(*) as "sourceTotal" from #application.allFeesTable# where FISCAL_YEAR =  '2021' AND ACTIVE = 'Y'
 		  	</cfquery>
 	  	<cfcatch type="any">
 			<cfreturn cfcatch>
@@ -1262,7 +1262,7 @@
 	<!--- insert the records  --->
 	  	<cftry>
 	  		<cfquery name="rebuildBursarRecords" datasource="#application.datasource#">
-	  			INSERT INTO #application.bursarFeesTable# (SELECT * FROM #application.allFeesTable# where FISCAL_YEAR =  '#application.fiscalyear#' AND ACTIVE = 'Y')
+	  			INSERT INTO #application.bursarFeesTable# (SELECT * FROM #application.allFeesTable# where FISCAL_YEAR =  '2021' AND ACTIVE = 'Y')
 	  		</cfquery>
 	  	<cfcatch type="any">
 			<cfreturn cfcatch>
