@@ -36,14 +36,17 @@
 
 <h3>Uploads</h3>
 	<p>This page provides convenient links to the UBO All Teams folder where you may upload your supporting documents.</p>
-	<p>For the 5-year projection model narrative, please include:</p>
-	<ul>
-		<li>Support for significant changes to UBO standard income/expense escalation logic (factors, formulas, etc.)</li>
-		<li>Provide highlights for the strategy to balance operating budgets. If the use of reserves is planned to fund operations or for strategic investments, include the projected amounts.</li>
-		<li>Current and planned (cost) reductions and resource reallocations should be provided in the budget reallocation summary. Please provide any supplemental information on budget reduction, budget reallocation, and new revenue initiatives as they pertain to the campus strategic plans.</li>
-		<li>Include specific RCs and operating units experiencing financial pressures, the drivers (enrollment, headcount, expense growth, etc.), and the strategy to maintain a balanced budget.</li>
-	</ul>
-
+	<p>Please provide a narrative on the 5-year model that includes the following:</p>
+	<ol>
+		<li>A goal for the FY23 budget planning effort incudes identifying opportunities to reduce and reallocate budgets in order to fund planned increases in salaries and benefits. Describe opportunities for efficiencies, resource reallocations, and cost reductions that are available to accomplish this goal.</li>
+		<li>For compensation, please provide details on any planned changes in faculty and staff FTE, and whether the changes are part of new programs, reorganizations, or downsizing.</li>
+		<li>Provide a summary of enrollment assumptions (beginners, transfers, retention, etc.) used in building the projections. Please describe any areas where you anticipate significant increases, decreases, and shifts and the impact on campus strategic initiatives.</li>
+		<li>Describe any new revenue initiatives that affect the 5-year model projections.</li> 
+		<li>For projected increases in financial aid, describe where investments are planned (undergrad, graduate, professional, need-based, merit). Describe the funding sources that have been identified for the increased financial aid and the impact on net tuition margins.</li>
+		<li>Please explain the primary drivers for changes in other revenues and other expenses.</li>
+		<li>Please include details for planned investments and uses of cash reserves included in the 5-year projections.</li>
+		<li>Provide descriptions for any uses of reserves in the 5-year projections needed to fund operational deficits. For any deficits, please describe where the deficits are anticipated and plans to return the organization to fiscal health.</li>
+	</ol>
 </div>  <!-- End div class full-content -->
 </cfoutput>
 <cfinclude template="../includes/header_footer/fym_footer.cfm" runonce="true" />
