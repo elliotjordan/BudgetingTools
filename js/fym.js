@@ -3,7 +3,7 @@ $.fn.colTotal = function (e) {
 	//loop through each row and add running totals to column sums
 	//update sub-totals and grand total for table
 	//console.log("colTotal called");
-	var tableList = ['fymMainTable1','fymMainTable2','fymMainTable3'];
+	var tableList = ['fymMainTable1','fymMainTable2','fymMainTable3','fymmainTable4'];
 	var stRevDict = {"orig":0, "cur_yr_new": 0, "yr1_new":0, "yr2_new":0, "yr3_new":0, "yr4_new":0, "yr5_new":0};
 	var stExpDict = {"orig":0, "cur_yr_new": 0, "yr1_new":0, "yr2_new":0, "yr3_new":0, "yr4_new":0, "yr5_new":0};
 	$.each(tableList, function(index, value) {
@@ -191,34 +191,35 @@ $.fn.rTotal = function (e) {
 	return colDict;
 	//	console.log('rTotal finished for OID ' +currentID+ '\n');
 } // end function
-	
-	//update the delta hidden element if the user changes a field in the params form
-	// onchange() in any field, take the name of the field and change the <name>DELTA value to true
-	$("form :input").change(function() {
-		var $handle = $(this);
-		//console.log('Keypress has changed ' + this.name + '\n');
-		if (this.name != 'fundRad' &&  $handle.is("input")) { 
-	  		$(this).closest('form').data('changed', true);
-	  		var change_element = this.name+'DELTA'; 
-	  		//console.log('change_element: ' + change_element+'\n');
-			$('[name="'+ change_element+ '"]' ).val('true');
-			if (this.name != 'fundRad') {
-				$('.change_warning').show();
-			}
-			$.fn.colTotal();
-		}
-		if ($handle.is("textarea")) {
-	        $("form :input[id^='comm_']").change(function() {
-			console.log('Keypress has changed comment field ' + this.name + '\n');
-	  		$(this).closest('form').data('changed', true);
-	  		var change_element = this.name+'CDELTA'; 
-	  		console.log('comment change_element: ' + change_element+'\n');
-			$('[name="'+ change_element+ '"]' ).val('COMMENT');
+
+//update the delta hidden element if the user changes a field in the params form
+// onchange() in any field, take the name of the field and change the <name>DELTA value to true
+$("form :input").change(function() {
+	//console.log('form inpout changed for ' + this.name + '\n')
+	var $handle = $(this);
+	//console.log('Keypress has changed ' + this.name + '\n');
+	if (this.name != 'fundRad' &&  $handle.is("input")) { 
+  		$(this).closest('form').data('changed', true);
+  		var change_element = this.name+'DELTA'; 
+  		//console.log('change_element: ' + change_element+'\n');
+		$('[name="'+ change_element+ '"]' ).val('true');
+		if (this.name != 'fundRad') {
 			$('.change_warning').show();
-		});	
-    	}
-	});
-		
+		}
+		$.fn.colTotal();
+	}
+	if ($handle.is("textarea")) {
+		//console.log('Textarea input changed\n');
+        
+		//console.log('Changed comment field ' + this.name + '\n');
+  		$(this).closest('form').data('changed', true);
+  		var change_element = this.name+'CDELTA'; 
+  		//console.log('comment change_element: ' + change_element+'\n');
+		$('[name="'+ change_element+ '"]' ).val('COMMENT');
+		$('.change_warning').show();
+	}
+});
+	
 	// prevent RETURN/ENTER key from submitting form
     $(document).on("keypress", function(event) {
     	if (event.keyCode == 13) {
