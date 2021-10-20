@@ -20,6 +20,22 @@
 $(document).ready(function(){
 	//console.log('doc ready \n');
 	//console.log('HEY '+$('#rtc248').text().replace(/[^0-9\-.]/g,''));
+	$(function() {
+        // get the full URL at the address bar
+        var url = window.location.href;
+        // passes on every link_highlight "a" tag
+        $(".link_hilight a").each(function() {
+            // checks if its the same on the address bar
+            if (this.id != 'choiceLink') {
+	            console.log('header link this.id: ' + url + ' - ' + this.id + ' - ' + this.href +'\n');
+	            if (url == (this.href)) {
+	                $(this).closest("span").addClass("active");
+	                //for making parent of submenu active
+	               //$(this).closest("li").parent().parent().addClass("active");
+	            }
+            }
+        });
+    }); 
 	$('.pm_form').hide();  //pm submit forms start off hidden from view.  Button will show/hide the form as needed.
 	$('.change_warning').hide();
 	$("input[type='text']").click(function () {

@@ -101,6 +101,13 @@ div.full_content {		/* To use when the sidelink bar is not included. */
     margin: 2px 2px 2px 2px;
 }
 
+/* highlight the current page, see fym_footer for js */
+#branding-bar span.active a, .link_highlight span a:hover {
+	text-decoration:none;
+	background-color: #aa1100 ;
+    color: #fff;
+}
+
  /* internal-only link */
 .link_internal a:link {
     color: #F9FC1C !important;

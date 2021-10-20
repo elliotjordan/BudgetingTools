@@ -45,23 +45,23 @@
 	                    	<img src="../_iu-brand/img/trident-tab.gif" height="73" width="64" alt="IU Trident logo" />
 	                        <span class="line-break">INDIANA UNIVERSITY BUDGET OFFICE - 5YR MODEL PORTAL</span>
 	                    </a>
-						<span class="link_hilight"><a href="instructions.cfm">Instructions</a></span>
+						<span class="link_hilight"><a id="instrxnLink" href="instructions.cfm">Instructions</a></span>
 						
 						<span class="link_hilight targetLink"> 
-							<a href="index.cfm">Model <b>#current_inst#</b></a> 
+							<a id="modelLink" href="index.cfm">Model <b>#current_inst#</b></a> 
 							<cfif Len(currentUser.fym_inst) neq 1>
 								<cfset CurrentURL = 'https://' & cgi.HTTP_HOST & CGI.SCRIPT_NAME>
 								<cfloop list="#currentUser.fym_inst#" index="choice">
 									<cfif choice neq current_inst>
-										<a href="../emulate_user.cfm?target=#choice#&url=#CurrentURL#">| #choice#</a> 
+										<a id="choiceLink" href="../emulate_user.cfm?target=#choice#&url=#CurrentURL#">| #choice#</a> 
 									</cfif>
 								</cfloop>
 							</cfif>
 						</span>
-						<span class="link_hilight"><a href="CrHrProjections.cfm">Credit Hours</a></span>
-						<span class="link_hilight"><a href="params.cfm">Parameters</a></span>
-						<span class="link_hilight"><a href="fym_excel.cfm">FYM Data (#current_inst#)</a></span>
-						<span class="link_hilight"><a href="uploads.cfm">Uploads</a></span>
+						<span class="link_hilight"><a id="crHrLink" href="CrHrProjections.cfm">Credit Hours</a></span>
+						<span class="link_hilight"><a id="paramLink" href="params.cfm">Parameters</a></span>
+						<span class="link_hilight"><a id="dataLink" href="fym_excel.cfm">FYM Data (#current_inst#)</a></span>
+						<span class="link_hilight"><a id="uploadLink" href="uploads.cfm">Uploads</a></span>
 	                </p>
 	            </div>
 	        </div>
