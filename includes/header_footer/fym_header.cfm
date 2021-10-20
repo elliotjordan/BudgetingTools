@@ -58,7 +58,7 @@
 								</cfloop>
 							</cfif>
 						</span>
-						<span class="link_hilight"><a id="crHrLink" href="CrHrProjections.cfm">Credit Hours</a></span>
+						<span class="link_hilight"><a id="crHrLink" href="CrHrProjections.cfm">Credit Hours</a></span> 
 						<span class="link_hilight"><a id="paramLink" href="params.cfm">Parameters</a></span>
 						<span class="link_hilight"><a id="dataLink" href="fym_excel.cfm">FYM Data (#current_inst#)</a></span>
 						<span class="link_hilight"><a id="uploadLink" href="uploads.cfm">Uploads</a></span>

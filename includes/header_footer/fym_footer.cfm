@@ -27,11 +27,9 @@ $(document).ready(function(){
         $(".link_hilight a").each(function() {
             // checks if its the same on the address bar
             if (this.id != 'choiceLink') {
-	            console.log('header link this.id: ' + url + ' - ' + this.id + ' - ' + this.href +'\n');
+	            //console.log('header link this.id: ' + url + ' - ' + this.id + ' - ' + this.href +'\n');
 	            if (url == (this.href)) {
 	                $(this).closest("span").addClass("active");
-	                //for making parent of submenu active
-	               //$(this).closest("li").parent().parent().addClass("active");
 	            }
             }
         });
