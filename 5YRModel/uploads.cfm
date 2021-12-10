@@ -25,7 +25,7 @@ href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documen
 href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/IN_Submission_BudgetOffice/5-Year%20Projections/2021-22?csf=1&web=1&e=Ge25z7">here</a>
     		</cfcase>
 
-    		<cfcase value="MED">
+    		<cfcase value="IM">
 				<a target="_blank" alt="Link to School of Medicine uploads folder"
 href="https://indiana.sharepoint.com/:f:/r/sites/msteams_858801/Shared%20Documents/General/UA-BUDU-External/CampusSubmission_BUDU/IN_Submission_BudgetOffice/IN-MED-RC%2010_Submission/5-Year%20Projections/2021-22?csf=1&web=1&e=00KbDS">here</a>
     		</cfcase>
