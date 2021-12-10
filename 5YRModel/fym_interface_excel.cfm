@@ -1,6 +1,9 @@
+<cfinclude template="../includes/header_footer/fym_header.cfm" runonce="true" />
 <cfinclude template="../includes/functions/fym_functions.cfm" runonce="true" />
-<cfset crHrTotals = getCrHrSums() />
-<cfset campusInfo = getFYMdataExcel() />
+<cfset modelTotals = getModelExcelDownload(#current_inst#) />  
+<cfset campusInfo = getFYMdataExcel() /> <!---<cfdump var="#campusInfo#" ><cfabort>--->
+<cfset fymCommentList = getFYMcomments() />  <!---<cfdump var="#modelTotals#" ><cfabort>--->
+<cfset aggregatedFymData = get_rpt_fym_report_final_model(#current_inst#) />
 <!---<cfdump var="#campusInfo#" ><cfabort>--->
 <!---
 	Create and store the simple HTML data that you want
@@ -21,6 +24,7 @@
 <cfoutput>
 	<table>
 		<tr>
+			<!---<td>OIDs - fym - comment</td>--->
 			<td class="header">Chart</td>
 			<td class="header">Fund</td>
 			<td class="header">Rev/Expense</td>
@@ -36,36 +40,22 @@
 			<td class="header">Notes</td>
 	  	</tr>
 		</tr>
-		<cfloop query="crHrTotals">
+		<cfloop query="aggregatedFymData">
 			<tr>
-  				<td>#chart_cd#</td>
-  				<td>General Fund</td>
-   				<td>Revenue</td>
-				<td>Tuition</td>
-				<td>--</td>				
-				<td>#NumberFormat(crHrTotals.pr_total_rev,'999,999,999')#</td>
-				<td>#NumberFormat(crHrTotals.cy_total_rev,'999,999,999')#</td>
-				<td>#NumberFormat(crHrTotals.yr1_total_rev,'999,999,999')#</td>
-				<td>#NumberFormat(crHrTotals.yr2_total_rev,'999,999,999')#</td>
-				<td>#NumberFormat(crHrTotals.yr3_total_rev,'999,999,999')#</td>
-				<td>#NumberFormat(crHrTotals.yr4_total_rev,'999,999,999')#</td>
-				<td>#NumberFormat(crHrTotals.yr5_total_rev,'999,999,999')#</td>
-			</tr>
-		</cfloop>
-		<cfloop query="campusInfo">
-			<tr>
-  				<td>#chart_cd#</td>
-  				<td>#grp1_desc#</td>
-   				<td>#grp2_desc#</td>
-				<td>#ln1_desc#</td>
-				<td>#ln2_desc#</td>
-				<td>#campusInfo.cy_orig_budget_amt#</td>
-				<td>#campusInfo.cur_yr_new#</td>
-				<td>#campusInfo.yr1_new#</td>
-				<td>#campusInfo.yr2_new#</td>
-				<td>#campusInfo.yr3_new#</td>
-				<td>#campusInfo.yr4_new#</td>
-				<td>#campusInfo.yr5_new#</td>
+				<!---<td>#aggregatedFymData.oid#</td>--->
+  				<td>#aggregatedFymData.chart_cd#</td>
+  				<td>#aggregatedFymData.grp1_desc#</td>
+   				<td>#aggregatedFymData.grp2_desc#</td>
+				<td>#aggregatedFymData.ln1_desc#</td>
+				<td>#aggregatedFymData.ln2_desc#</td>
+				<td>#aggregatedFymData.cy_orig_budget_amt#</td>
+				<td>#aggregatedFymData.cur_yr_new#</td>
+				<td>#aggregatedFymData.yr1_new#</td>
+				<td>#aggregatedFymData.yr2_new#</td>
+				<td>#aggregatedFymData.yr3_new#</td>
+				<td>#aggregatedFymData.yr4_new#</td>
+				<td>#aggregatedFymData.yr5_new#</td>
+				<td>#aggregatedFymData.fym_comment#</td>
 			</tr>
 		</cfloop>
 	</table>

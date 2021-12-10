@@ -206,6 +206,16 @@
 	<cfreturn fymAllData />
 </cffunction>
 
+<cffunction name="get_rpt_fym_report_final_model" >
+	<cfargument name="givenChart" required="false" default="ALL">
+		<cfquery name="aggregatedFymData" datasource="#application.datasource#">
+		SELECT * FROM fee_user.rpt_fym_report_final_model(
+			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">
+		)
+	</cfquery>
+	<cfreturn aggregatedFymData>
+</cffunction>
+
 <cffunction name="getFYMdataExcel">
 	<cfquery name="fymDataExcel" datasource="#application.datasource#">
 		(SELECT * FROM fee_user.fetch_fym_data()
@@ -365,29 +375,49 @@
 	<cfreturn crHrData>
 </cffunction>
 
-<cffunction name="getCrHrSums">
-	<cfargument name="givenChart" required="false" default="ALL">
+<cffunction name="getCrHrSums">  <!--- might need later, not currently used  --->
+	<cfargument name="givenChart" required="true">
 	<cfquery name="crHrSums" datasource="#application.datasource#">
-		SELECT chart_cd,details_disp,
-		  cy_orig_budget_amt as pr_total_rev,
-		  cur_yr_new as cy_total_rev,
-		  yr1_new as yr1_total_rev,
-		  yr2_new as yr2_total_rev,
-		  yr3_new as yr3_total_rev,
-		  yr4_new as yr4_total_rev,
-		  yr5_new as yr5_total_rev
-		<cfif givenChart eq 'ALL'>
-			FROM calc_fym_tuition_row()
-		<cfelse>
-			FROM calc_fym_tuition_row(<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">)
-		</cfif>
-		ORDER BY chart_cd asc
+		SELECT sum_cd, sum_desc,
+		  cur_yr_new_sum,
+		  yr1_new_sum,
+		  yr2_new_sum,
+		  yr3_new_sum,
+		  yr4_new_sum,
+		  yr5_new_sum
+		FROM calc_fym_crhr_sum(<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">)
 	</cfquery>
 	<cfreturn crHrSums />
 </cffunction>
 
+<!---cy_orig_budget_amt
+cur_yr_new
+yr1_new
+fee_user.calc_fym_tuition_row--->
 
-<cffunction name="getCrHrSums_OLD">
+
+<cffunction name="getModelExcelDownload">
+	<cfargument name="givenChart" required="false" default="ALL">
+	<!---<cfargument name="givenDetail" required="false" default="NO">--->
+	<cfquery name="modelSums" datasource="#application.datasource#">
+		SELECT oid,chart_cd,
+		   <!---<cfif givenDetail neq 'NO'>res, acad_career,</cfif>--->
+			cy_orig_budget_amt,
+			cur_yr_new,
+			yr1_new,
+			yr2_new,
+			yr3_new,
+			yr4_new,
+			yr5_new 
+		FROM fee_user.calc_fym_tuition_row
+		<cfif givenChart neq 'ALL'>WHERE chart_cd = <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#"></cfif>
+		<!---<cfif givenDetail neq 'NO'>GROUP BY chart_cd, res, acad_career--->
+		ORDER BY chart_cd asc
+	</cfquery>
+	<cfreturn modelSums />
+</cffunction>
+
+<!---<cffunction name="getCrHrSums_OLD">
 	<cfargument name="givenChart" required="false" default="ALL">
 	<cfargument name="givenDetail" required="false" default="NO">
 	<cfquery name="crHrSums" datasource="#application.datasource#">
@@ -407,7 +437,7 @@
 		ORDER BY chart_cd asc
 	</cfquery>
 	<cfreturn crHrSums />
-</cffunction>
+</cffunction>--->
 <cffunction name="getSingleCampusSubmission" >
 	<!--- select amount from fee_user.fym_campus_input WHERE campus = 'IUBLA' and line_cd = 'TF' and fyear = '2023' --->
 	<cfargument name="givenCampus" type="string" required="true" />
@@ -482,7 +512,7 @@
 			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">
 			)
 	</cfquery>
-	<cfreturn true />
+	<cfreturn callCrHrFunc />
 </cffunction>
 
 <cffunction name="getTestQuery">

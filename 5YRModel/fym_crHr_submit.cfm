@@ -16,6 +16,8 @@
 <cfelse>
 	<p>The form did not contain an fymCrHrSubmitBtn element.</p>
 </cfif>
-<cfset updateStatus = updateCrHrRates(currentUser.chart)>
+<!---<cfset updateStatus = updateCrHrRates(currentUser.chart)>--->
+<cfset updateStatus = updateCrHrRates(currentUser.focus)> 
+
 <cflocation url="CrHrProjections.cfm" addtoken="false" />
 </cfoutput>

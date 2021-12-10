@@ -2,7 +2,7 @@
 <cfinclude template="../includes/functions/fym_functions.cfm" runonce="true" />
 <cfset userDetails = getFeeUser(REQUEST.authUser) />
 <cfset crHrInfo = getFYM_CrHrdata(current_inst) />
-<cfset crHrSums = getCrHrSums_OLD(current_inst,'NO') />  <!--- CF logic, not a function in Postgres --->
+<cfset crHrSums = getCrHrSums(current_inst) /> 
 <cfset campusStruct = convertQueryToStruct(crHrInfo) />
 <cfset userDetails = getFeeUser(REQUEST.authUser) />
 <cfset campusRateEditors = "aheeter,freemanr,kcwalsh,garobe,coback" />
@@ -20,8 +20,8 @@
 </cfif>
 
 <h2>#getDistinctChartDesc(current_inst)# Credit Hours - FY#application.shortfiscalyear#</h2>
-<form id="fymCrHrBtn" name="fymCrHrBtn" action="CrHrDownload.cfm"><input type="submit" value="Donwload 5Yr Model Cr Hrs" /></form>
-<h3>Summary</h3>
+<form id="fymCrHrBtn" name="fymCrHrBtn" action="CrHrDownload.cfm"><input type="submit" value="Download 5Yr Model Cr Hrs" /></form>
+<h3>Credit Hour Summary</h3>
 	<table class="summaryTable">
 	  <tr>
 		<th>Item</th>
@@ -35,20 +35,27 @@
 	  <cfif crHrSums.recordcount gt 0>
 	  <cfloop query="crHrSums">
 	  	<tr>
-	  		<td><span class="sm-blue">Total CrHrs</span><br>
-	  			<span class="sm-green">Total Revenue</span></td>
-	  		<td><span class="sm-blue">#NumberFormat(cy_total_crhrs,'999,999,999.9')#</span><br>
-	  			<span class="sm-green">$ #NumberFormat(cy_total_rev,'999,999,999')#</span></td>
-	  		<td><span class="sm-blue">#NumberFormat(yr1_total_crhrs,'999,999,999.9')#</span><br>
-	  			<span class="sm-green">$ #NumberFormat(yr1_total_rev,'999,999,999')#</span></td>
-	  		<td><span class="sm-blue">#NumberFormat(yr2_total_crhrs,'999,999,999.9')#</span><br>
-	  			<span class="sm-green">$ #NumberFormat(yr2_total_rev,'999,999,999')#</span></td>
-	  		<td><span class="sm-blue">#NumberFormat(yr3_total_crhrs,'999,999,999.9')#</span><br>
-	  			<span class="sm-green">$ #NumberFormat(yr3_total_rev,'999,999,999')#</span></td>
-	  		<td><span class="sm-blue">#NumberFormat(yr4_total_crhrs,'999,999,999.9')#</span><br>
-	  			<span class="sm-green">$ #NumberFormat(yr4_total_rev,'999,999,999')#</span></td>
-	  		<td><span class="sm-blue">#NumberFormat(yr5_total_crhrs,'999,999,999.9')#</span><br>
-	  			<span class="sm-green">$ #NumberFormat(yr5_total_rev,'999,999,999')#</span></td>
+	  		<td>
+	  			<cfif sum_cd eq 'CRHR'><span class="sm-blue">#sum_desc#</span><br></cfif>
+	  			<cfif sum_cd eq 'REV'><span class="sm-green">#sum_desc#</span></td></cfif>
+	  		<td>
+	  			<cfif sum_cd eq 'CRHR'><span class="sm-blue">#NumberFormat(cur_yr_new_sum,'999,999,999.9')#</span><br></cfif>
+	  			<cfif sum_cd eq 'REV'><span class="sm-green">$ #NumberFormat(cur_yr_new_sum,'999,999,999')#</span></td></cfif>
+	  		<td>
+	  			<cfif sum_cd eq 'CRHR'><span class="sm-blue">#NumberFormat(yr1_new_sum,'999,999,999.9')#</span><br></cfif>
+	  			<cfif sum_cd eq 'REV'><span class="sm-green">$ #NumberFormat(yr1_new_sum,'999,999,999')#</span></td></cfif>
+	  		<td>
+	  			<cfif sum_cd eq 'CRHR'><span class="sm-blue">#NumberFormat(yr2_new_sum,'999,999,999.9')#</span><br></cfif>
+	  			<cfif sum_cd eq 'REV'><span class="sm-green">$ #NumberFormat(yr2_new_sum,'999,999,999')#</span></td></cfif>
+	  		<td>
+	  			<cfif sum_cd eq 'CRHR'><span class="sm-blue">#NumberFormat(yr3_new_sum,'999,999,999.9')#</span><br></cfif>
+	  			<cfif sum_cd eq 'REV'><span class="sm-green">$ #NumberFormat(yr3_new_sum,'999,999,999')#</span></td></cfif>
+	  		<td>
+	  			<cfif sum_cd eq 'CRHR'><span class="sm-blue">#NumberFormat(yr4_new_sum,'999,999,999.9')#</span><br></cfif>
+	  			<cfif sum_cd eq 'REV'><span class="sm-green">$ #NumberFormat(yr4_new_sum,'999,999,999')#</span></td></cfif>
+	  		<td>
+	  			<cfif sum_cd eq 'CRHR'><span class="sm-blue">#NumberFormat(yr5_new_sum,'999,999,999.9')#</span><br></cfif>
+	  			<cfif sum_cd eq 'REV'><span class="sm-green">$ #NumberFormat(yr5_new_sum,'999,999,999')#</span></td></cfif>
 	  	</tr>
 	  </cfloop>
 	  <cfelse><tr><td colspan = '8'>Sorry, no records found for your campus.</td></tr></cfif>
@@ -107,12 +114,12 @@
 			  <!---<span id="yr1_rt" name="yr1_rt" class="sm-green">YR1 rate: $#NumberFormat(yr1_rt,'999,999.99')#</span><br>
 			  <span id="yr1_tot" name="yr1_tot" class="sm-green">Total revenue: $#trim(NumberFormat(yr1_rev,'999,999'))#</span>--->
 			  <cfif editcy and (ListFindNoCase(campusRateEditors, REQUEST.authUser) or ListFindNoCase(REQUEST.adminUsernames,REQUEST.authUser))>
-				<span class="sm-green">Current YR rate:
+				<span class="sm-green">YR1 rate:
 					$<input id="yr1_rt" name="yr1_rtOID#OID#" type="text" size="10" value="#trim(NumberFormat(yr1_rt,'999,999.99'))#" />
 					<br>
 					<input id="yr1_rtOID" name="yr1_rtOID#OID#DELTA" type="hidden" value="false">
 				<cfelse>
-				<span id="yr1_rt" name="yr1_rt#OID#" class="sm-green">Current YR rate: $#trim(NumberFormat(yr1_rt,'999,999.99'))#
+				<span id="yr1_rt" name="yr1_rt#OID#" class="sm-green">YR1 rate: $#trim(NumberFormat(yr1_rt,'999,999.99'))#
 				</cfif></span><br/>
 			    <span id="yr1_rev#OID#" name="yr1_rev#OID#" class="sm-green">Total revenue: $#trim(NumberFormat(yr1_rev,'999,999'))#</span>
 			</td>

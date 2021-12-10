@@ -12,15 +12,14 @@
 	   		<cfset rootID = REPLACE(i,"DELTA","") />
    			<cfset cutParam = ListToArray(REPLACE(rootID,"OID",""),"~",false,true)  />
    			<!---OID:#cutParam[1]# |column:#cutParam[2]# | form value to use for updating the column:#Form[rootID]#<br />-----<br>--->
+   			<cfset scrubbedParam1 = REPLACE(cutParam[1],",","","ALL") />
+   			<cfset scrubbedParam2 = REPLACE(cutParam[2],",","","ALL") />
+   			<cfset scrubbedParam3 = REPLACE(Form[rootID],",","","ALL") />
+   			<!---<br>*******<br>scrubbedParam1: #scrubbedParam1#  -  scrubbedParam2: #scrubbedParam2#<br>--->
 	   		<!---<cfset task = updateFymData(cutParam[2], cutParam[1], Form[rootID] ) />--->
+	   		<cfset task = updateFymData(scrubbedParam2, scrubbedParam1, scrubbedParam3 ) />
 	   </cfif>
 	</cfloop>
-	<!---<cfdump var="#Form#" />--->
-	<!---<cfscript>
-		updateNumParam();
-		updateExp();
-		updateCrHrFromParams();
-	</cfscript>--->
 </cfif>
 </cfoutput>
 
