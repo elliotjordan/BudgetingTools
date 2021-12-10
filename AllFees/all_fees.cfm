@@ -78,7 +78,7 @@
 										<br><span class="sm-green">This rate drives #DEasso.DE_afid#</span>
 											<cfelseif DEasso.de_afid eq AllFeeData.ALLFEE_ID AND DEasso.base_afid neq 'NONE'>
 										<br><span class="sm-green">This rate set by #DEasso.base_afid#<br>#DEasso.fee_desc_billing#</span>
-											<cfelseif DEasso.de_afid eq AllFeeData.ALLFEE_ID AND DEasso.base_afid eq 'NONE'> 
+											<cfelseif DEasso.de_afid eq AllFeeData.ALLFEE_ID AND (DEasso.base_afid eq 'NONE' || DEasso.base_afid eq 'NO BASE FEE')> 
 										<br><span class="sm-green">Independent rate</span>
 											</cfif>
 										</cfloop> 								
