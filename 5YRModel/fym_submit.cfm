@@ -17,6 +17,7 @@
   			<cfset scrubbedValue =  REREPLACE(Form[rootID],"[^0-9.\-]","","ALL") />  
   			REGULAR FIELD #rootId# Form[i] #form[i]# - activeColumn #activeColumn# - #scrubbedValue#<br>
 	   		<cfset task = updateFymData(activeColumn, activeOID[1], scrubbedValue) />
+	   		<br>Updating metadata now...<br>
 	   		<cfset actionEntry = trackFYMAction(#REQUEST.AuthUser#,#current_inst#,21,"fym_submit - #activeColumn# OID#activeOID[1]# changed to #scrubbedValue# - #DateTimeFormat(Now(),"EEE dd-mmm-yyyy hh:nn:ss tt")#") />
 	   </cfif>
 	   <cfif Form[i] eq 'COMMENT'>
