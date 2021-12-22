@@ -48,7 +48,7 @@
 						<span class="link_hilight"><a id="instrxnLink" href="instructions.cfm">Instructions</a></span>
 						
 						<span class="link_hilight targetLink"> 
-							<a id="modelLink" href="index.cfm">Model <b>#current_inst#</b></a> 
+							<a id="modelLink" href="index.cfm"><b>Model #current_inst#</b></a> 
 							<cfif Len(currentUser.fym_inst) neq 1>
 								<cfset CurrentURL = 'https://' & cgi.HTTP_HOST & CGI.SCRIPT_NAME>
 								<cfloop list="#currentUser.fym_inst#" index="choice">
