@@ -30,25 +30,6 @@
 	<cfreturn compDetailList>	
 </cffunction>
 
-<!---
-<cffunction name="calcsRunningTotals">
-	<cfargument name="givenChart" type="string" required="true">
-	<cfset compDetails = getCompDetails(givenChart) />
-	<cfset fundTypes = getFundTypes() />  
-	<cfloop query="fundTypes" >
-		<cfif grp1_cd gt 0>
-			<cfset campusInfo = getFYMdataByFnd(current_inst, grp1_cd) />
-		</cfif>
-	</cfloop>
-	<cfset rt = new Struct() />
-	<!--- loop through the campus info and calculate the running total for all years for each line --->
-	
-	<!--- find any comp adjustment values and add them in as needed --->
-
-	<cfreturn rt>
-</cffunction>
---->
-
 <cffunction name="getFYMcomments" returntype="query">
 	<cfargument name="givenOID" type="numeric" required="false" default= 0>
 	<cfquery datasource="#application.datasource#" name="commentList">
@@ -85,7 +66,6 @@
 			WHERE oid = <cfqueryparam cfsqltype="numeric" value="#givenOID#">
 		</cfquery>
 	<cfelse> 
-				<!---<cfdump var="#foundComment#" ><cfabort>--->
 		<cfset insertedComment = createFYMcomment(givenOID,givenComment) />
 	</cfif>
 </cffunction>
@@ -100,11 +80,6 @@
 </cffunction>
 
 <cffunction name="getFYMparams">
-<!---	<cfquery name="getParms" datasource="#application.datasource#">
-		select OID, chart_cd, ln1_cd, ln2_cd, ln1_desc, ln2_desc, cur_yr_new, yr1_new,
-		yr2_new, yr3_new, yr4_new, yr5_new , ln_sort
-		from fym_data WHERE grp1_cd = 0 ORDER BY chart_cd ASC, grp1_cd ASC, grp2_cd ASC,ln_sort ASC
-	</cfquery>--->
 	<cfquery name="getParms" datasource="#application.datasource#">
 	select OID, chart_cd, ln1_cd, ln2_cd, ln1_desc, ln2_desc, cur_yr_new, yr1_new,
 		yr2_new, yr3_new, yr4_new, yr5_new , ln_sort
@@ -238,19 +213,6 @@
 	<cfreturn fymData>
 </cffunction>
 
-<!--- DEPRECATED - replaced by function fee_user.rpt_fym_report_final_model()
-<cffunction name="getFYMdataByFnd">
-	<cfargument name="givenChart" required="false" default="ALL">
-	<cfargument name="givenGrp1" required="false" default="ALL">
-	<cfquery name="fymDataByFnd" datasource="#application.datasource#">
-		SELECT * FROM fee_user.rpt_fym_report_change_model_byfnd(
-			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">,
-			<cfqueryparam cfsqltype="cf_sql_numeric" value="#givenGrp1#">
-		)
-	</cfquery>
-	<cfreturn fymDataByFnd />
-</cffunction>--->
-
 <cffunction name="getFYMdataByFnd">
 	<cfargument name="givenChart" required="false" default="ALL">
 	<cfargument name="givenGrp1" required="false" default="ALL">
@@ -375,7 +337,7 @@
 	<cfreturn crHrData>
 </cffunction>
 
-<cffunction name="getCrHrSums">  <!--- might need later, not currently used  --->
+<cffunction name="getCrHrSums"> 
 	<cfargument name="givenChart" required="true">
 	<cfquery name="crHrSums" datasource="#application.datasource#">
 		SELECT sum_cd, sum_desc,
@@ -390,18 +352,10 @@
 	<cfreturn crHrSums />
 </cffunction>
 
-<!---cy_orig_budget_amt
-cur_yr_new
-yr1_new
-fee_user.calc_fym_tuition_row--->
-
-
 <cffunction name="getModelExcelDownload">
 	<cfargument name="givenChart" required="false" default="ALL">
-	<!---<cfargument name="givenDetail" required="false" default="NO">--->
 	<cfquery name="modelSums" datasource="#application.datasource#">
 		SELECT oid,chart_cd,
-		   <!---<cfif givenDetail neq 'NO'>res, acad_career,</cfif>--->
 			cy_orig_budget_amt,
 			cur_yr_new,
 			yr1_new,
@@ -411,40 +365,16 @@ fee_user.calc_fym_tuition_row--->
 			yr5_new 
 		FROM fee_user.calc_fym_tuition_row
 		<cfif givenChart neq 'ALL'>WHERE chart_cd = <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#"></cfif>
-		<!---<cfif givenDetail neq 'NO'>GROUP BY chart_cd, res, acad_career--->
 		ORDER BY chart_cd asc
 	</cfquery>
 	<cfreturn modelSums />
 </cffunction>
 
-<!---<cffunction name="getCrHrSums_OLD">
-	<cfargument name="givenChart" required="false" default="ALL">
-	<cfargument name="givenDetail" required="false" default="NO">
-	<cfquery name="crHrSums" datasource="#application.datasource#">
-		SELECT chart_cd,
-		   <cfif givenDetail neq 'NO'>res, acad_career,</cfif>
-		  sum(cur_yr_orig_hrs) as pr_total_crhrs, sum(cur_yr_orig_hrs*cur_yr_orig_rt) as pr_total_rev,
-		  sum(cur_yr_hrs_new) as cy_total_crhrs, sum(cur_yr_rt*cur_yr_hrs_new) as cy_total_rev,
-		  sum(yr1_hrs_new) as yr1_total_crhrs, sum(yr1_rt*yr1_hrs_new) as yr1_total_rev,
-		  sum(yr2_hrs_new) as yr2_total_crhrs, sum(yr2_rt*yr2_hrs_new) as yr2_total_rev,
-		  sum(yr3_hrs_new) as yr3_total_crhrs, sum(yr3_rt*yr3_hrs_new) as yr3_total_rev,
-		  sum(yr4_hrs_new) as yr4_total_crhrs, sum(yr4_rt*yr4_hrs_new) as yr4_total_rev,
-		  sum(yr5_hrs_new) as yr5_total_crhrs, sum(yr5_rt*yr5_hrs_new) as yr5_total_rev
-		FROM fee_user.fym_crhr
-		<cfif givenChart neq 'ALL'>WHERE chart_cd = <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#"></cfif>
-		<cfif givenDetail neq 'NO'>GROUP BY chart_cd, res, acad_career
-		<cfelse>GROUP BY chart_cd</cfif>
-		ORDER BY chart_cd asc
-	</cfquery>
-	<cfreturn crHrSums />
-</cffunction>--->
 <cffunction name="getSingleCampusSubmission" >
-	<!--- select amount from fee_user.fym_campus_input WHERE campus = 'IUBLA' and line_cd = 'TF' and fyear = '2023' --->
 	<cfargument name="givenCampus" type="string" required="true" />
 	<cfargument name="givenLineCd" type="string" required="true" />
 	<cfargument name="givenLineFyear" type="string" required="true" />
 	<cfquery name="uniqueLine">
-
 	</cfquery>
 </cffunction>
 
@@ -460,7 +390,6 @@ fee_user.calc_fym_tuition_row--->
 	<cfargument name="givenQuery" required="true">
 	<cfset colList = givenQuery.getColumnList() />
 	<cfif ArrayFind(colList,"OID") neq 0>
-		<!---<cfscript>orderedStruct = structNew("ordered");</cfscript>--->
 		<cfset newStruct = {"colList" = colList} />
 		<cfloop query="givenQuery">
 			<cfscript>
