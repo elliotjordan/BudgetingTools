@@ -94,6 +94,37 @@
 	<cfreturn getParms>
 </cffunction>
 
+<cffunction name="getScenarios">
+	<cfargument name="given_row" required="false" default="ALL">
+	<cfquery name="getScens" datasource="#application.datasource#">
+		select scen_oid as oid, scen_user, scen_title from fym_scenarios
+		<cfif given_row neq 'ALL'>
+			where scen_oid = #given_row#
+		</cfif>
+	</cfquery>
+	<cfreturn getScens>
+</cffunction>
+
+<cffunction name="getScenarioData">
+	<cfargument name="given_row" required="false" default="ALL">
+	<cfquery name="getScens" datasource="#application.datasource#">
+		select *from fym_data_scenario
+		<cfif given_row neq 'ALL'>
+			where scenario_cd = #given_row#
+		</cfif>
+	</cfquery>
+	<cfreturn getScens>
+</cffunction>
+
+<cffunction name="getNewScenarioDataRow" >
+	<cfargument name="given_row" required="true">
+	<cfquery name="getscenBaseData" datasource="#application.datasource#">
+		select * from fym_data
+		where oid = '#given_row#'
+	</cfquery>
+	<cfreturn getscenBaseData>
+</cffunction>
+
 <cffunction name="getSpecificFYMparam">
 	<cfargument name="givenChart" required="true" type="string" />
 	<cfargument name="givenLn1Cd" required="true" type="string" />

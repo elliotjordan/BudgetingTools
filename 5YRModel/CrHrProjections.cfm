@@ -19,7 +19,7 @@
 	<cfinclude template="prod_banner.cfm" runonce="true" />
 </cfif>
 
-<h2>#getDistinctChartDesc(current_inst)# Credit Hours - FY#application.shortfiscalyear#</h2>
+<h2>#getDistinctChartDesc(current_inst)# Credit Hours - FY#application.shortfiscalyear# - Campus Submission</h2>
 <form id="fymCrHrBtn" name="fymCrHrBtn" action="CrHrDownload.cfm"><input type="submit" value="Download 5Yr Model Cr Hrs" /></form>
 <h3>Credit Hour Summary</h3>
 	<table class="summaryTable">
@@ -81,7 +81,9 @@
 	  	<tr>
 	  		<td>#acad_career#<br>
 	  			<input type="hidden" value="#OID#"></td>
-	  		<td>#res#</td>
+	  		<td>#res# <br>
+	  			<span class="sm-blue"><a href="scenarios.cfm?row=#OID#">Add row to Scenario</a></span>
+	  		</td>
 	  		<!--- *** --->
 			<td class="math">
 				<span id="orig_cy_hrs#OID#" class="sm-blue">Orig Current YR hrs: #NumberFormat(cur_yr_hrs,'999,999.9')#</span><br>
