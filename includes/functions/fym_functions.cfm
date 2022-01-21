@@ -147,7 +147,7 @@
 	<cfargument name="givenscenario_cd" required="false" default=0>
 	<cfargument name="givenfisyr" required="false" default=#application.fiscalyear#>
 	<cfquery name="getScenCrHr" datasource="#application.datasource#">
-		select scenario_cd, scenario_owner, scenario_nm, scenario_access, scenario_fis_yr, cur_fis_yr, inst_cd, chart_cd, acad_career, res, 
+		select oid,scenario_cd, scenario_owner, scenario_nm, scenario_access, scenario_fis_yr, cur_fis_yr, inst_cd, chart_cd, acad_career, res, 
 		cur_yr_hrs_new, yr1_hrs_new, yr2_hrs_new, yr3_hrs_new, yr4_hrs_new, yr5_hrs_new,
 		scenario_type_cd
 		from fee_user.fetch_fym_crhr_scenario(
