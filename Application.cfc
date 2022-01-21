@@ -24,18 +24,18 @@
 
 		<!--- Set application-specific variables  --->
 		<cfset application.hours_to_project = "CH_USER.HTP">
-		<cfset application.disabled = "disabled"> <!--- Empty string "" enables submit buttons; "disabled" will cause submit buttons to gray out --->
-		<cfset application.current_term = "4218">
-		<cfset application.default_begin_term = "4218">
+		<cfset application.disabled = ""> <!--- Empty string "" enables submit buttons; "disabled" will cause submit buttons to gray out --->
+		<cfset application.current_term = "4228">
+		<cfset application.default_begin_term = "4228">
     	<cfset application.fiscalyear = '2022' />
     	<cfset application.shortfiscalyear = '22' />
     	<cfset application.biennium = 'B22-23' />  <!--- formerly B20-21 --->
- 		<cfset application.budget_year = "YR1" />  <!--- YR1 is "long" year where we set two years' worth of values. YR2 is "short" year where we tweak second year estimates.  --->
+ 		<cfset application.budget_year = "YR2" />  <!--- YR1 is "long" year where we set two years' worth of values. YR2 is "short" year where we tweak second year estimates.  --->
     	<cfset application.prioryear = 'FY21' />
     	<cfset application.firstyear = 'FY22' />
     	<cfset application.secondyear = 'FY23' />
  		<cfif !StructKeyExists(application,"rateStatus")>
-    		<cfset application.rateStatus = "Vc">  <!--- valid values are either Vc or V1 --->
+    		<cfset application.rateStatus = "V1">  <!--- valid values are either Vc or V1 --->
  		</cfif>
  		<cfset application.reportBtnEnabled = "true" />
      	<cfset application.excelTemplateName = 'FeeRateRequests.xls' />
@@ -48,7 +48,7 @@
 			<cfset application.homepage = "https://bl-budu-gondor.ads.iu.edu/BudgetingTools/AllFees/index.cfm">
 			<cfset this.sessioncookie.domain = ".iu.edu" />
 			<cfset this.dsn="fee_pg">
-			<cfset application.rateStatus = "Vc">  <!--- valid values are either Vc or V1; ovderrides global setting above --->
+			<cfset application.rateStatus = "V1">  <!--- valid values are either Vc or V1; ovderrides global setting above --->
 			<cfif not structkeyexists(application,"datasource")>
 				<cflock name="application.datasource" timeout="5" type="readonly" throwontimeout="no">
 					<cfset application.datasource="fee_pg">
