@@ -1,7 +1,7 @@
 <cfinclude template="../includes/functions/fym_functions.cfm" runonce="true" />
 <cfinclude template="../includes/header_footer/fym_header.cfm" runonce="true" />
 
-<cfset crHrsDown = getFYM_CrHrdata(current_inst) />
+<cfset crHrsDown = getFYM_CrHrdata(current_scenario, current_inst) />
 
 <cfdump var="#crHrsDown.columnList#" />
 

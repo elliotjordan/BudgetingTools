@@ -97,21 +97,39 @@
 <cffunction name="getScenarios">
 	<cfargument name="given_row" required="false" default="ALL">
 	<cfquery name="getScens" datasource="#application.datasource#">
-		select scen_oid as oid, scen_user, scen_title from fym_scenarios
+		select scenario_cd as oid, scenario_owner, scenario_nm, scenario_access, scenario_fis_yr from fym_scenario
 		<cfif given_row neq 'ALL'>
-			where scen_oid = #given_row#
+			where scenario_cd = #given_row#
 		</cfif>
+		order by scenario_cd ASC
 	</cfquery>
 	<cfreturn getScens>
 </cffunction>
 
-<cffunction name="getScenarioData">
-	<cfargument name="given_row" required="false" default="ALL">
+<cffunction name="getCurrentScenario">
+	<cfargument name="given_id" required="true">
 	<cfquery name="getScens" datasource="#application.datasource#">
-		select *from fym_data_scenario
-		<cfif given_row neq 'ALL'>
-			where scenario_cd = #given_row#
-		</cfif>
+		select s.scenario_cd, s.scenario_owner, s.scenario_nm, s.scenario_access, s.scenario_fis_yr
+		from fym_scenario s
+		where s.scenario_cd = <cfqueryparam cfsqltype="cf_sql_numeric" value="#given_id#">
+	</cfquery>
+	<cfreturn getScens>
+</cffunction>
+
+<cffunction name="getCurrentScenarioData">
+	<cfargument name="givenscenario_cd" required="false" default=0>
+	<cfargument name="givenfisyr" required="false" default=#application.fiscalyear#>
+	<cfquery name="getScens" datasource="#application.datasource#">
+		select d.oid, d.inst_cd, d.chart_cd, d.scenario_cd, d.scenario_owner, d.scenario_nm, d.scenario_access, d.scenario_fis_yr, 
+			d.cur_fis_yr, d.grp1_cd, d.grp1_desc, d.grp2_desc, d.grp2_cd, 
+			d.ln1_cd, d.ln1_desc, d.ln2_cd, d.ln2_desc, d.cur_yr_new, 
+			d.yr1_new, d.yr2_new, d.yr3_new, d.yr4_new, d.yr5_new, 
+			d.scenario_type_cd, d.scenario_type_nm
+		from fee_user.fetch_fym_data_scenario(
+			<cfqueryparam cfsqltype="numeric" value="#givenscenario_cd#">,
+			<cfqueryparam cfsqltype="numeric" value="#givenfisyr#"> 
+			) d
+			ORDER BY d.chart_cd asc, d.grp1_cd asc, d.grp2_cd asc, ln1_cd asc
 	</cfquery>
 	<cfreturn getScens>
 </cffunction>
@@ -119,11 +137,27 @@
 <cffunction name="getNewScenarioDataRow" >
 	<cfargument name="given_row" required="true">
 	<cfquery name="getscenBaseData" datasource="#application.datasource#">
-		select * from fym_data
+		select * from fee_user.rpt_fym_report_credit_hours()
 		where oid = '#given_row#'
 	</cfquery>
 	<cfreturn getscenBaseData>
 </cffunction>
+
+<cffunction name="getScenarioCrHr" >
+	<cfargument name="givenscenario_cd" required="false" default=0>
+	<cfargument name="givenfisyr" required="false" default=#application.fiscalyear#>
+	<cfquery name="getScenCrHr" datasource="#application.datasource#">
+		select scenario_cd, scenario_owner, scenario_nm, scenario_access, scenario_fis_yr, cur_fis_yr, inst_cd, chart_cd, acad_career, res, 
+		cur_yr_hrs_new, yr1_hrs_new, yr2_hrs_new, yr3_hrs_new, yr4_hrs_new, yr5_hrs_new,
+		scenario_type_cd
+		from fee_user.fetch_fym_crhr_scenario(
+			<cfqueryparam cfsqltype="numeric" value="#givenscenario_cd#">,
+			<cfqueryparam cfsqltype="numeric" value="#givenfisyr#"> 
+		)
+	</cfquery>
+	<cfreturn getScenCrHr>
+</cffunction>
+
 
 <cffunction name="getSpecificFYMparam">
 	<cfargument name="givenChart" required="true" type="string" />
@@ -199,8 +233,13 @@
 </cffunction>
 
 <cffunction name="getExcelfnDump">
+	<cfargument name="givenScenarioCd" required="false" default=0>
+	<cfargument name="givenChart" required="false" default="ALL">
 	<cfquery name="callFinalModel" datasource="#application.datasource#">
-		SELECT * FROM rpt_fym_report_final_model()
+		SELECT * FROM fee_user.rpt_fym_report_final_model(
+			<cfqueryparam cfsqltype="cf_sql_numeric" value="#givenScenarioCd#">,
+			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">
+			)
 	</cfquery>
 	<cfreturn callFinalModel />
 </cffunction>
@@ -213,10 +252,12 @@
 </cffunction>
 
 <cffunction name="get_rpt_fym_report_final_model" >
+	<cfargument name="givenScenario_cd" required="false" default="0">
 	<cfargument name="givenChart" required="false" default="ALL">
 		<cfquery name="aggregatedFymData" datasource="#application.datasource#">
 		SELECT * FROM fee_user.rpt_fym_report_final_model(
-			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">
+			givenScenario_cd => <cfqueryparam cfsqltype="cf_sql_numeric" value="#givenScenario_cd#">,
+			givenChart => <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">
 		)
 	</cfquery>
 	<cfreturn aggregatedFymData>
@@ -245,10 +286,12 @@
 </cffunction>
 
 <cffunction name="getFYMdataByFnd">
+	<cfargument name="givenScenario" required="false" default="ALL">
 	<cfargument name="givenChart" required="false" default="ALL">
 	<cfargument name="givenGrp1" required="false" default="ALL">
 	<cfquery name="fymDataByFnd" datasource="#application.datasource#">
 		SELECT * FROM fee_user.rpt_fym_report_final_model_byfnd(
+			<cfqueryparam cfsqltype="cf_sql_numeric" value="#givenScenario#">,
 			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">,
 			<cfqueryparam cfsqltype="cf_sql_numeric" value="#givenGrp1#">
 		)
@@ -270,53 +313,28 @@
 	<cfreturn FYMdataByGrps />
 </cffunction>
 	
-<cffunction name="getFymSums" >
+<cffunction name="getFymSummary" >  <!--- used to calculate summary table  --->
+	<cfargument name="givenScenario" required="true" />
+	<cfargument name="givenChart" required="true" />
+	<cfquery name="fymSummaryTable" datasource="#application.datasource#" >
+		SELECT * from fee_user.calc_fym_data_sum(
+			<cfqueryparam cfsqltype="cf_sql_numeric" value="#givenScenario#">,
+			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">)
+	</cfquery>
+	<cfreturn fymSummaryTable />
+</cffunction>
+	
+<cffunction name="getFymSums" >  <!--- used to calculate campus sub-totals  --->
+	<cfargument name="givenScenario" required="false" type="numeric" default=0 />
 	<cfargument name="givenChart" required="true" />
 	<cfargument name="givenFundGrpCd" required="true" />
 	<cfquery name="fymSums" datasource="#application.datasource#" >
 		SELECT * from fee_user.calc_fym_subtotal_grp1(
+			<cfqueryparam cfsqltype="cf_sql_numeric" value="#givenScenario#">,
 			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">,
 			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenFundGrpCd#">)
 	</cfquery>
 	<cfreturn fymSums />
-</cffunction>
-
-<cffunction name="getFymRevSums" >
-	<cfargument name="givenChart" required="true" />
-	<cfquery name="fymRevSums" datasource="#application.datasource#">
-		SELECT pr_total, cy_old_sum, cy_total, yr1_old_sum, yr1_total, yr2_old_sum, yr2_total,
-	yr3_old_sum, yr3_total, yr4_old_sum, yr4_total, yr5_old_sum, yr5_total
-		FROM fee_user.calc_fym_subtotal_chart_rev_exp_tot('#givenChart#',1)
-	</cfquery> 
-	<cfreturn fymRevSums />
-</cffunction>
-
-<cffunction name="getFymRevDelta">
-	<cfargument name="givenChart" type="string" required="false" default="currentUser.fym_inst">
-	<cfquery name="fymRevDelta"  datasource="#application.datasource#">
-		SELECT * FROM fee_user.calc_fym_subtotals(
-			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#givenChart#" />)
-	</cfquery>
-	<cfreturn fymRevDelta />
-</cffunction>
-
-<cffunction name="getFymExpSums">
-	<cfargument name="givenChart" type="string" required="false" default="currentUser.fym_inst">
-	<cfquery name="fymExpSums" datasource="#application.datasource#">
-		SELECT pr_total, cy_old_sum, cy_total, yr1_old_sum, yr1_total, yr2_old_sum, yr2_total,
-	yr3_old_sum, yr3_total, yr4_old_sum, yr4_total, yr5_old_sum, yr5_total
-		FROM fee_user.calc_fym_subtotal_chart_rev_exp_tot('#givenChart#',2)
-	</cfquery> 
-	<cfreturn fymExpSums />
-</cffunction>
-
-<cffunction name="getFymExpDelta">
-	<cfargument name="givenChart" type="string" required="false" default="currentUser.fym_inst">
-	<cfquery name="fymExpDelta" datasource="#application.datasource#">
-		SELECT * FROM fee_user.calc_fym_subtotals(
-			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">)
-	</cfquery>
-	<cfreturn fymExpDelta />
 </cffunction>
 
 <cffunction name="getFymSurplus">
@@ -356,19 +374,19 @@
 </cffunction>
 
 <cffunction name="getFYM_CrHrdata" >
+	<cfargument name="givenScen_cd" required="false" default="ALL">
 	<cfargument name="givenChart" required="false" default="ALL">
 		<cfquery name="crHrData" datasource="#application.datasource#">
-			<cfif givenChart eq 'ALL'>	
-				select * from fee_user.rpt_fym_report_credit_hours()
-		<cfelse>
-			select * from fee_user.rpt_fym_report_credit_hours(<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">)
-		</cfif>
-		ORDER BY sort ASC
+			select * from fee_user.rpt_fym_report_credit_hours(
+				<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenScen_cd#">,
+				<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">)
+			ORDER BY sort ASC
 	</cfquery>
 	<cfreturn crHrData>
 </cffunction>
 
 <cffunction name="getCrHrSums"> 
+	<cfargument name="givenScenario_cd" type="numeric" required="false" default=0>
 	<cfargument name="givenChart" required="true">
 	<cfquery name="crHrSums" datasource="#application.datasource#">
 		SELECT sum_cd, sum_desc,
@@ -378,7 +396,10 @@
 		  yr3_new_sum,
 		  yr4_new_sum,
 		  yr5_new_sum
-		FROM calc_fym_crhr_sum(<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">)
+		FROM calc_fym_crhr_sum(
+			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenScenario_cd#">,
+			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">
+		)
 	</cfquery>
 	<cfreturn crHrSums />
 </cffunction>
@@ -407,13 +428,6 @@
 	<cfargument name="givenLineFyear" type="string" required="true" />
 	<cfquery name="uniqueLine">
 	</cfquery>
-</cffunction>
-
-<cffunction name="getCurYear">
-	<cfquery name="maxYr" datasource="#application.datasource#">
-		SELECT MAX(fym_data.cur_fis_yr) as cur_fis_yr FROM fee_user.fym_data
-	</cfquery>
-	<cfreturn maxYr />
 </cffunction>
 
 <cffunction name="convertQueryToStruct" >
@@ -496,4 +510,34 @@
 	<cfquery name="fetchCYRevenue">
 
 	</cfquery>
+</cffunction>
+
+<cffunction name="updateFYMscenario">
+	<cfargument name="givenoid" required="true" type="any">
+	<cfargument name="givencolumn" required="true" type="string">
+	<cfargument name="givenvalue" required="true" type="numeric">
+	<cfquery name="call_update_fym_data_scenario" datasource="#application.datasource#">
+		SELECT fee_user.update_fym_data_scenario(
+			givenoid => <cfqueryparam cfsqltype="cf_sql_integer" value="#givenoid#">,
+			givencolumn => <cfqueryparam cfsqltype="cf_sql_varchar" value="#LCase(givencolumn)#">,
+			givenvalue => <cfqueryparam cfsqltype="cf_sql_numeric" scale="2" value="#givenvalue#">						
+			)
+	</cfquery>
+	<cfreturn call_update_fym_data_scenario />
+</cffunction>
+
+<cffunction name="compareFYMscenario">
+	<cfargument name="givenchart" required="false" type="string" default="ALL">
+	<cfargument name="scenario_cd_0" required="true" type="numeric">
+	<cfargument name="scenario_cd_1" required="true" type="numeric">
+	<cfargument name="scenario_cd_2" required="true" type="numeric">
+	<cfquery name="compare_scenario" datasource="#application.datasource#">
+		SELECT * from fee_user.rpt_fym_report_final_model_data_scenario_compare_sum(
+			givenchart => <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenchart#">,
+			givenscenario_cd_0 => <cfqueryparam cfsqltype="cf_sql_numeric" value="#scenario_cd_0#">,
+			givenscenario_cd_1 => <cfqueryparam cfsqltype="cf_sql_numeric" value="#scenario_cd_1#">,
+			givenscenario_cd_2 => <cfqueryparam cfsqltype="cf_sql_numeric" value="#scenario_cd_2#">
+			)
+	</cfquery>
+	<cfreturn compare_scenario />
 </cffunction>

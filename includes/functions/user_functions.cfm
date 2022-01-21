@@ -12,12 +12,21 @@
   <cffunction name="getFYMUser" output="true">
   	<cfargument name="username" required="true">
   	<cfquery datasource="#application.datasource#" name="authUserData">
-  		SELECT USERNAME, FIRST_LAST_NAME,EMAIL,DESCRIPTION,ACCESS_LEVEL,CHART,PROJECTOR_RC,ALLFEES_RCS, PHONE,ACTIVE,CREATED_ON, fym_inst,focus
+  		SELECT USERNAME, FIRST_LAST_NAME,EMAIL,DESCRIPTION,ACCESS_LEVEL,CHART,PROJECTOR_RC,ALLFEES_RCS, PHONE,ACTIVE,CREATED_ON, fym_inst,focus, fym_scenario_focus
   		FROM FEE_USER.USERS
   		WHERE ACTIVE = 'Y' AND USERNAME = <cfqueryparam value="#username#" cfsqltype="cf_sql_varchar">
   	</cfquery>
   	<cfreturn authUserData>
   </cffunction>
+
+<cffunction name="updateFYMscenarioFocus">
+	<cfargument name="given_focus" required="true" />
+	<cfargument name="given_user" required="true" />
+	<cfquery name="setFYMscenFocus" datasource="#application.datasource#" >
+		update fee_user.users set fym_scenario_focus = <cfqueryparam cfsqltype="numeric" value="#given_focus#">
+		where username = <cfqueryparam cfsqltype="cf_sql_varchar" value="#given_user#">
+	</cfquery>
+</cffunction>
 
   <cffunction name="handleUser">  <!--- username,first_last_name,email,phone,description,chart,access_level,projector_rc,active,new  --->
   	<cfargument name="givenUser" required="true">

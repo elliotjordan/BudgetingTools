@@ -1,6 +1,21 @@
 <cfinclude template="../functions/user_functions.cfm" runonce="true" />
+<cfinclude template="../functions/fym_functions.cfm" runonce="true" />
 <cfset currentUser = getFYMUser(REQUEST.authUser) />
 <cfset current_inst = getFocus(currentUser.username).focus /> 
+<cfset current_scenario = currentUser.fym_scenario_focus />
+<cfset scenario_details = getCurrentScenario(current_scenario) />
+
+<cfif true>  <!--- ListFindNoCase('XY',current_inst) or REQUEST.authUser eq 'sbadams'> --->  
+	<cfset openModel = true />
+<cfelse>
+	<cfset openModel = false />
+</cfif>
+<cfif ListFindNoCase('ZZTop',current_inst) or ListFindNoCase('jopadams,sbadams,jburgoon,nschrode,ellijord,pyebei',REQUEST.authUser)>
+	<cfset showScenarios = true />
+<cfelse>
+	<cfset showScenarios = false />
+</cfif>
+
 <!--- 5YM HEADER  --->
 <!DOCTYPE html>
 <html lang="en">
@@ -59,8 +74,9 @@
 							</cfif>
 						</span>
 						<span class="link_hilight"><a id="crHrLink" href="CrHrProjections.cfm">Credit Hours</a></span>
-					<cfif listFindNoCase(REQUEST.adminUsernames, currentUser.username) OR ListFindNoCase(REQUEST.regionalUsernames, currentUser.username)>
-						<span class="link_hilight"><a id="scenLink" href="scenarios.cfm">Scenarios</a></span> 
+					<cfif showScenarios AND (listFindNoCase(REQUEST.adminUsernames, currentUser.username) OR ListFindNoCase(REQUEST.regionalUsernames, currentUser.username))>
+						<span class="link_hilight"><a id="scenLink" href="scenarios.cfm">Scenarios (#current_scenario#)</a></span> 
+						<span class="link_hilight"><a id="scenCompLink" href="fym_comparison.cfm">Comparisons (#current_scenario#)</a></span> 
 					</cfif>
 						<span class="link_hilight"><a id="paramLink" href="params.cfm">Parameters</a></span>
 						<span class="link_hilight"><a id="dataLink" href="fym_excel.cfm">FYM Data (#current_inst#)</a></span>

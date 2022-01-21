@@ -12,6 +12,9 @@
 			<td>
 				<span  id="origOID#OID#" name="origOID#OID#_#grp2_cd#">$#NumberFormat(cy_orig_budget_amt,'999,999,999')#</span><br />
 				<input id="origOID#OID#" type="hidden" value="#NumberFormat(cy_orig_budget_amt,'999,999,999')#" />
+				<!---<cfif showScenarios>
+					<br>Pick scen type here
+				</cfif>--->
 			</td>
 			<td><!--- Current year col --->
 				<cfset cd0 = -1 /><cfset cd_base = -1 />
@@ -26,10 +29,14 @@
 						<span id="cd0#OID#" class="sm-blue">Prior yr comp adj: $ #NumberFormat(cd_base,'999,999,999')#</span><br>
 					</cfif>
 					$ <input id="cur_yr_newOID#OID#" name="cur_yr_newOID#OID#_#grp2_cd#" type="text" size="10" value="#trim(NumberFormat(ci.cur_yr_new,'999,999,999'))#" /><br />
+					
 					<input id="cur_yr_newOID#OID#DELTA" name="cur_yr_newOID#OID#_#grp2_cd#DELTA" type="hidden" value="false">
 				<cfelse>
 					<span  id="cur_yr_newOID#OID#" name="cur_yr_newOID#OID#_#grp2_cd#">$ #NumberFormat(cur_yr_new,'999,999,999')#</span>
 				</cfif>
+				<!---<cfif showScenarios>
+					<br/><input type="text" value="user update" />
+				</cfif>--->
 			</td>
 			<td><!--- Yr1 col --->
 				<cfset cd1 = -1 />
@@ -47,6 +54,9 @@
 				<cfelse>
 					<span  id="yr1_newOID#OID#" name="yr1_newOID#OID#_#grp2_cd#">$ #NumberFormat(yr1_new,'999,999,999')#</span>
 				</cfif>
+				<!---<cfif showScenarios>
+					<br/><input type="text" value="user update" />
+				</cfif>--->
 			</td>
 			<td><!--- Yr2 col --->
 				<cfset cd2 = -1 />
@@ -64,6 +74,9 @@
 				<cfelse>
 					<span id="yr2_newOID#OID#" name="yr2_newOID#OID#_#grp2_cd#">$ #NumberFormat(yr2_new,'999,999,999')#</span>
 				</cfif>
+				<!---<cfif showScenarios>
+					<br/><input type="text" value="user update" />
+				</cfif>--->
 			</td>
 			<td><!--- Yr3 col --->
 				<cfset cd3 = -1 />
@@ -81,6 +94,9 @@
 				<cfelse>
 					<span id="yr3_newOID#OID#"  name="yr3_newOID#OID#_#grp2_cd#">$ #NumberFormat(yr3_new,'999,999,999')#</span>
 				</cfif>
+				<!---<cfif showScenarios>
+					<br/><input type="text" value="user update" />
+				</cfif>--->
 			</td>
 			<td><!--- Yr4 col --->
 				<cfset cd4 = -1 />
@@ -98,6 +114,9 @@
 				<cfelse>
 					<span id="yr4_newOID#OID#"  name="yr4_newOID#OID#_#grp2_cd#">$ #NumberFormat(yr4_new,'999,999,999')#</span>
 				</cfif>
+				<!---<cfif showScenarios>
+					<br/><input type="text" value="user update" />
+				</cfif>--->
 			</td>
 			<td><!--- Yr5 col --->
 				<cfset cd5 = -1 />
@@ -115,6 +134,9 @@
 				<cfelse>
 					<span id="yr5_newOID#OID#" name="yr5_newOID#OID#_#grp2_cd#">$ #NumberFormat(yr5_new,'999,999,999')#</span>
 				</cfif>
+				<!---<cfif showScenarios>
+					<br/><input type="text" value="user update" />
+				</cfif>--->
 			</td> 
 			<td><!--- Comment --->
 				<!---<span class="sm-green">#OID#</span>--->

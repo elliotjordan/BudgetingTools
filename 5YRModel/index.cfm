@@ -2,63 +2,42 @@
 <cfinclude template="../includes/functions/fym_functions.cfm" runonce="true" />
 
 <cfset fundTypes = getFundTypes() />  
-
-<cfset fymRevSums = getFymRevSums(current_inst,1) />
-
-<cfset fymRevDelta = getFymRevDelta(current_inst) />
-
-<cfset fymExpSums = getFymExpSums(current_inst) />
-<!---<cfset fymExpSums = getFymExpSums(2022, 'KO') />--->
-
-<cfset fymExpDelta = getFymExpDelta(current_inst) />
-
+<cfset fymSummaryTable = getFymSummary(current_scenario,current_inst) />   
 <cfset fymSurplus = getFymSurplus(current_inst) />
-
-<cfset crHrTotals = getCrHrSums(current_inst) />
-
+<cfset crHrTotals = getCrHrSums(current_scenario,current_inst) />
 <cfset compDetails = getCompDetails(current_inst) />
+<cfset commentBucket = convertQueryToStruct(getFYMcomments()) />  
 
-<cfset commentBucket = convertQueryToStruct(getFYMcomments()) />
 <cfoutput>
 <div class="full_content">
 <cfif FindNoCase("rohan",application.baseurl) OR FindNoCase("8443",application.baseurl)>
 	<cfinclude template="test_banner.cfm">
 </cfif>
-<cfif ListFindNoCase('XY',current_inst) or REQUEST.authUser eq 'sbadams'> 
-	<!--- The above commented section allows for specific campuses to get in and insures that Sam always has edit access  --->
+<cfif openModel> 
 	<cfset editcy = true /><cfset edityr1 = true /><cfset edityr2 = true /><cfset edityr3 = true /><cfset edityr4 = true /><cfset edityr5 = true />
 <cfelse>
 	<cfset editcy = false /><cfset edityr1 = false /><cfset edityr2 = false /><cfset edityr3 = false /><cfset edityr4 = false /><cfset edityr5 = false />
-	<cfinclude template="prod_banner.cfm" runonce="true" />
 </cfif>
-
-<h2>5-Year Model for #getDistinctChartDesc(current_inst)# FY#application.shortfiscalyear#</h2>
+<cfinclude template="prod_banner.cfm" runonce="true" />
+<h2>5-Year Model for #getDistinctChartDesc(current_inst)# FY#application.shortfiscalyear# <cfif showScenarios>- Scenario: #scenario_details.scenario_nm#</cfif></h2>
 <form id="fymForm" action="fym_submit.cfm" method="post" >
 <!---<input name="fymCrHrCompareBtn" type="submit" value="Compare to CrHr Projector" />--->
-<cfif fymRevSums.recordCount neq 0>
+<cfif fymSummaryTable.recordCount neq 0>
 	<h3>Summary</h3>
 	<!--- Begin summary table  --->
-		<table id="fymSummaryTable" class="summaryTable">
-		  <tr>
-		  	<th>Item</th>
-			<th>FY#application.shortfiscalyear# Adj Base Budget</th>
-			<th>FY#application.shortfiscalyear# Projection</th>
-			<th>FY#application.shortfiscalyear + 1# Projection</th>
-			<th>FY#application.shortfiscalyear + 2# Projection</th>
-			<th>FY#application.shortfiscalyear + 3# Projection</th>
-			<th>FY#application.shortfiscalyear + 4# Projection</th>
-			<th>FY#application.shortfiscalyear + 5# Projection</th>
-		  </tr>
-		  <cfinclude template="5yrmodel_summary_rows.cfm" runonce="true" />
-		</table>  <!--- End summary table  --->
+	  <cfinclude template="5yrmodel_summary_rows.cfm" runonce="true" />
+    <!--- End summary table  --->
+<cfelse>
+	<h3>Summary</h3>
+	<p>We're sorry, but no summary records exist. Please contact us.</p>
 </cfif>
 <!--- ************************************************ --->
 <hr />
 
 <cfloop query="fundTypes" >
 	<cfif grp1_cd gt 0>
-	<cfset ci = getFYMdataByFnd(current_inst, grp1_cd) />
-	<cfset campusSubTotal = getFymSums(current_inst, grp1_cd) />
+	<cfset ci = getFYMdataByFnd(current_scenario, current_inst, grp1_cd) />
+	<cfset campusSubTotal = getFymSums(current_scenario,current_inst, grp1_cd) /> 
 	<cfset revSubTotals = getFymSubTotals(current_inst,grp1_cd,1) />
 	<cfset expSubTotals = getFymSubTotals(current_inst,grp1_cd,2) />
 	<h3>#grp1_desc#</h3>

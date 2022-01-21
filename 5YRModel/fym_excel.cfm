@@ -1,6 +1,7 @@
+<cfinclude template="../includes/header_footer/fym_header.cfm" runonce="true" />
 <cfinclude template="../includes/functions/fym_functions.cfm" runonce="true" />
 <!---<cfset fymDataDump = getExcelDataDump() />--->
-<cfset fymDataDump = getExcelFnDump() />
+<cfset fymDataDump = getExcelFnDump(#current_scenario#,#current_inst#) />
 
 <!---
 	Create and store the simple HTML data that you want

@@ -1,6 +1,6 @@
 <cfinclude template="../includes/header_footer/fym_header.cfm" runonce="true" />
 <cfinclude template="../includes/functions/fym_functions.cfm" runonce="true" />
-<cfset modelTotals = getModelExcelDownload(#current_inst#) />  
+<!---<cfset modelTotals = getModelExcelDownload(#current_inst#) />  --->
 <cfset campusInfo = getFYMdataExcel() /> <!---<cfdump var="#campusInfo#" ><cfabort>--->
 <cfset fymCommentList = getFYMcomments() />  <!---<cfdump var="#modelTotals#" ><cfabort>--->
 <cfset aggregatedFymData = get_rpt_fym_report_final_model(#current_inst#) />

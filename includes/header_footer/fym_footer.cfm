@@ -19,6 +19,21 @@
 <script>
 $(document).ready(function(){
 	//console.log('doc ready \n');
+	$('input[name=table_preference]').on('change', function(){
+    var n = $(this).val();
+    console.log('radio button: ' + n + ' \n');
+    /*switch(n)
+    {
+            case 'model':
+                  $('#scenModelTable').show();
+                  $('#scenCrHrTable#').hide();
+                  break;
+            case 'crhr':
+                  $('#scenModelTable').hide();
+                  $('#scenCrHrTable#').show();
+                  break;
+        }  */
+    });
 	//console.log('HEY '+$('#rtc248').text().replace(/[^0-9\-.]/g,''));
 	$(function() {
         // get the full URL at the address bar

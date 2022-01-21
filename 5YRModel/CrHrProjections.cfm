@@ -1,8 +1,8 @@
 <cfinclude template="../includes/header_footer/fym_header.cfm" runonce="true" />
 <cfinclude template="../includes/functions/fym_functions.cfm" runonce="true" />
 <cfset userDetails = getFeeUser(REQUEST.authUser) />
-<cfset crHrInfo = getFYM_CrHrdata(current_inst) />
-<cfset crHrSums = getCrHrSums(current_inst) /> 
+<cfset crHrInfo = getFYM_CrHrdata(current_scenario, current_inst) />
+<cfset crHrSums = getCrHrSums(current_scenario,current_inst) /> 
 <cfset campusStruct = convertQueryToStruct(crHrInfo) />
 <cfset userDetails = getFeeUser(REQUEST.authUser) />
 <cfset campusRateEditors = "aheeter,freemanr,kcwalsh,garobe,coback" />
@@ -12,14 +12,13 @@
 	<cfinclude template="test_banner.cfm">
 </cfif>
 
-<cfif ListFindNoCase('blork',current_inst) or REQUEST.authUser eq 'sbadams'>
+<cfif openModel eq true>
 	<cfset editcy = true /><cfset edityr1 = true /><cfset edityr2 = true /><cfset edityr3 = true /><cfset edityr4 = true /><cfset edityr5 = true />
 <cfelse>
 	<cfset editcy = false /><cfset edityr1 = false /><cfset edityr2 = false /><cfset edityr3 = false /><cfset edityr4 = false /><cfset edityr5 = false />
-	<cfinclude template="prod_banner.cfm" runonce="true" />
 </cfif>
-
-<h2>#getDistinctChartDesc(current_inst)# Credit Hours - FY#application.shortfiscalyear# - Campus Submission</h2>
+<cfinclude template="prod_banner.cfm" runonce="true" />
+<h2>#getDistinctChartDesc(current_inst)# Credit Hours - FY#application.shortfiscalyear#<cfif showScenarios eq true> - Scenario #scenario_details.scenario_nm#</cfif></h2>
 <form id="fymCrHrBtn" name="fymCrHrBtn" action="CrHrDownload.cfm"><input type="submit" value="Download 5Yr Model Cr Hrs" /></form>
 <h3>Credit Hour Summary</h3>
 	<table class="summaryTable">
@@ -81,8 +80,11 @@
 	  	<tr>
 	  		<td>#acad_career#<br>
 	  			<input type="hidden" value="#OID#"></td>
-	  		<td>#res# <br>
+	  		<td>#res# 
+	  		<cfif showScenarios eq true>
+	  			<br>
 	  			<span class="sm-blue"><a href="scenarios.cfm?row=#OID#">Add row to Scenario</a></span>
+	  		</cfif>
 	  		</td>
 	  		<!--- *** --->
 			<td class="math">
