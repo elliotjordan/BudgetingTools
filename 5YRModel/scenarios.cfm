@@ -8,7 +8,6 @@
 	<cfif ListFindNoCase(REQUEST.adminUsernames,currentUser.username)><cfset editor = "YES"><cfelse><cfset editor = "NO"></cfif>
 	<div class="full_content">
 	    <cfinclude template="test_banner.cfm" runonce="true" />
-	<h2>Scenario Details for Scenario #scenario_details.scenario_nm# - FY#application.shortfiscalyear#</h2>
 	<form name="fymFocusForm" action="fym_focus.cfm" method="post">
 		<label for="scenarios">Choose a scenario:</label>
 		<select name="scenarios">

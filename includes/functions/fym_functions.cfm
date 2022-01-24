@@ -147,13 +147,14 @@
 	<cfargument name="givenscenario_cd" required="false" default=0>
 	<cfargument name="givenfisyr" required="false" default=#application.fiscalyear#>
 	<cfquery name="getScenCrHr" datasource="#application.datasource#">
-		select scenario_cd, scenario_owner, scenario_nm, scenario_access, scenario_fis_yr, cur_fis_yr, inst_cd, chart_cd, acad_career, res, 
+		select oid,scenario_cd, scenario_owner, scenario_nm, scenario_access, scenario_fis_yr, cur_fis_yr, inst_cd, chart_cd, acad_career, res, 
 		cur_yr_hrs_new, yr1_hrs_new, yr2_hrs_new, yr3_hrs_new, yr4_hrs_new, yr5_hrs_new,
 		scenario_type_cd
 		from fee_user.fetch_fym_crhr_scenario(
 			<cfqueryparam cfsqltype="numeric" value="#givenscenario_cd#">,
 			<cfqueryparam cfsqltype="numeric" value="#givenfisyr#"> 
 		)
+		ORDER BY chart_cd asc, acad_career asc, res asc
 	</cfquery>
 	<cfreturn getScenCrHr>
 </cffunction>
@@ -465,18 +466,18 @@
 	<cfreturn true />
 </cffunction>
 
-<cffunction name="changeCrHrRates">
-	<cfargument name="givenColumn" required="true" type="string">
+<cffunction name="changeScenarioCrHrs">
 	<cfargument name="givenOID" required="true" type="numeric">
+	<cfargument name="givenColumn" required="true" type="string">
 	<cfargument name="givenValue" required="true" type="numeric">
-	<cfquery name="doAllTheMath" datasource="#application.datasource#">
+	<cfquery name="updateCrHrScenarioData" datasource="#application.datasource#">
 		SELECT fee_user.change_crhr_rates(
-			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenColumn#">,
 			<cfqueryparam cfsqltype="cf_sql_integer" value="#givenOID#">,
+			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenColumn#">,
 			<cfqueryparam cfsqltype="cf_sql_decimal" scale="2" value="#givenValue#">
 		)
 	</cfquery>
-	<cfreturn doAllTheMath />
+	<cfreturn updateCrHrScenarioData />
 </cffunction>
 
 <cffunction name="updateCrHrRates">
@@ -505,19 +506,26 @@
 	</cfif>
 </cffunction>
 
-<cffunction name="calculateFutureTuitionDollars">
-	<cfargument name="givenInst" required="true" type="string" hint="inst_cd">
-	<cfquery name="fetchCYRevenue">
-
-	</cfquery>
-</cffunction>
-
-<cffunction name="updateFYMscenario">
+<cffunction name="updateFYMdataScenario">
 	<cfargument name="givenoid" required="true" type="any">
 	<cfargument name="givencolumn" required="true" type="string">
 	<cfargument name="givenvalue" required="true" type="numeric">
 	<cfquery name="call_update_fym_data_scenario" datasource="#application.datasource#">
 		SELECT fee_user.update_fym_data_scenario(
+			givenoid => <cfqueryparam cfsqltype="cf_sql_integer" value="#givenoid#">,
+			givencolumn => <cfqueryparam cfsqltype="cf_sql_varchar" value="#LCase(givencolumn)#">,
+			givenvalue => <cfqueryparam cfsqltype="cf_sql_numeric" scale="2" value="#givenvalue#">						
+			)
+	</cfquery>
+	<cfreturn call_update_fym_data_scenario />
+</cffunction>
+
+<cffunction name="updateFYMCrHrScenario">
+	<cfargument name="givenoid" required="true" type="any">
+	<cfargument name="givencolumn" required="true" type="string">
+	<cfargument name="givenvalue" required="true" type="numeric">
+	<cfquery name="call_update_fym_data_scenario" datasource="#application.datasource#">
+		SELECT fee_user.update_fym_crhr_scenario(
 			givenoid => <cfqueryparam cfsqltype="cf_sql_integer" value="#givenoid#">,
 			givencolumn => <cfqueryparam cfsqltype="cf_sql_varchar" value="#LCase(givencolumn)#">,
 			givenvalue => <cfqueryparam cfsqltype="cf_sql_numeric" scale="2" value="#givenvalue#">						
