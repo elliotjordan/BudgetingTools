@@ -9,12 +9,12 @@
 				<th>Academic<br>Career</th>
 				<th>Residency</th>
 				<th>Override Type</th>
-				<th>>FY#application.shortfiscalyear#</th>
-				<th>>FY#application.shortfiscalyear + 1#</th>
-				<th>>FY#application.shortfiscalyear + 2#</th>
-				<th>>FY#application.shortfiscalyear + 3#</th>
-				<th>>FY#application.shortfiscalyear + 4#</th>
-				<th>>FY#application.shortfiscalyear + 5#</th>
+				<th>FY#application.shortfiscalyear#</th>
+				<th>FY#application.shortfiscalyear + 1#</th>
+				<th>FY#application.shortfiscalyear + 2#</th>
+				<th>FY#application.shortfiscalyear + 3#</th>
+				<th>FY#application.shortfiscalyear + 4#</th>
+				<th>FY#application.shortfiscalyear + 5#</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -29,7 +29,7 @@
 							</td>
 							<td>#acad_career#</td>
 							<td>#res#</td>
-							<td>#scen_type_cd#</td>
+							<td>#scenario_type_nm#</td>
 							<td><input name="cur_yr_hrs_newOID#OID#" value="#cur_yr_hrs_new#" /><input name="cur_yr_hrs_newOID#OID#DELTA" type="hidden" value="false"></td>		
 							<td><input name="yr1_hrs_newOID#OID#" value="#yr1_hrs_new#" /><input name="yr1_hrs_newOID#OID#DELTA" type="hidden" value="false" /></td>
 							<td><input name="yr2_hrs_newOID#OID#" value="#yr2_hrs_new#" /><input name="yr2_hrs_newOID#OID#DELTA" type="hidden" value="false" /></td>
