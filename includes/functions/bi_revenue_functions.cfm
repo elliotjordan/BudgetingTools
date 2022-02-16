@@ -1,3 +1,24 @@
+  <cffunction name="testDB" >
+  	<cfquery name="testQuery" datasource="#application.datasource#">
+  		select now() as current_time from dual
+  	</cfquery>
+  	<cfreturn testQuery>
+  </cffunction>
+  
+  <cffunction name="updateHTPdata">
+  	<cfargument name="givenoid" >
+  	<cfargument name="givencolumn" >
+  	<cfargument name="givenvalue" >
+  	<cfquery name="updateHTP" datasource="#application.datasource#">
+  		SELECT update_htp_data(
+  			<cfqueryparam value="#givenoid#">,
+  			<cfqueryparam value="#givencolumn#">,
+  			<cfqueryparam value="#givenvalue#">
+  		)
+  	</cfquery> 
+  	<cfreturn updateHTP />
+  </cffunction>
+  
   <cffunction name="getNoFCPRows">
   	<cfargument name="selectedCampus" required="true" />
 	<cfargument name="clearingRC" />
@@ -6,7 +27,7 @@
 		<cfif application.budget_year eq "YR1">
 			h.b1_RC, h.b1_TERM as TERM,h.SESN as TRMLABEL,
 			h.FEECODE, h.FEEDESCR, h.note, h.SELGROUP, TRIM(h.ACAD_CAREER) as ACAD_CAREER, h.RES, h.ACCOUNT, h.ACCOUNT_NM,
-			h.b1_OBJCD as OBJCD, h.b1_FIN_OBJ_CD_NM as FIN_OBJ_CD_NM, '' as spacer1, h.b1_headcount as HEADCOUNT, h.b1_hours as HOURS, h.b1_adj_rate as ADJ_RATE,
+			h.b1_OBJCD as OBJCD, h.gl_obj_cd_orig, h.b1_FIN_OBJ_CD_NM as FIN_OBJ_CD_NM, '' as spacer1, h.b1_headcount as HEADCOUNT, h.b1_hours as HOURS, h.b1_adj_rate as ADJ_RATE,
 			CASE h.b1_MACHHRS_YR1
 	    		WHEN 0 THEN '0'
 	    		ELSE TO_CHAR(h.b1_MACHHRS_YR1,'9999999.9')
@@ -31,7 +52,7 @@
 			h.b2_RC, h.b2_TERM as TERM,
 			h.SESN as TRMLABEL,
 	    	h.FEECODE, h.FEEDESCR, h.note, h.SELGROUP, TRIM(h.ACAD_CAREER) as ACAD_CAREER, h.RES, h.ACCOUNT, h.ACCOUNT_NM,
-			h.b2_OBJCD as OBJCD, h.b2_FIN_OBJ_CD_NM as FIN_OBJ_CD_NM, '' as spacer1, h.b2_headcount as HEADCOUNT, h.b2_hours as HOURS, h.b1_adj_escl_rate_yr1 as ADJ_RATE,
+			h.b2_OBJCD as OBJCD, h.gl_obj_cd_orig, h.b2_FIN_OBJ_CD_NM as FIN_OBJ_CD_NM, '' as spacer1, h.b2_headcount as HEADCOUNT, h.b2_hours as HOURS, h.b1_adj_escl_rate_yr1 as ADJ_RATE,
 			CASE h.b1_MACHHRS_YR1
 	    		WHEN 0 THEN '0'
 	    		ELSE TO_CHAR(h.b1_MACHHRS_YR1,'9999999.9')
@@ -58,7 +79,7 @@
 		    h.fee_current, h.fee_lowyear, h.fee_highyear, h.RES, h.b1_projhrs_yr2, h.b1_RC, s.gl_sub_acct_cd
 	FROM #application.hours_to_project# h LEFT JOIN ch_user.htp_subaccount s
     ON h.inst = s.bursar_bsns_unit_cd and h.b2_term = s.sf_trm_cd and h.feecode = s.sf_trm_fee_cd and h.selgroup = s.sf_tuit_grp_ind and h.account = s.gl_acct_nbr 
-		where selgroup = 'NO FCP'
+		where h.biennium = '#application.biennium#' and selgroup = 'NO FCP' and h.b2_hours > 0
 		  and inst = <cfqueryparam cfsqltype="cf_sql_varchar" value="#selectedCampus#" />
 		  <cfif application.budget_year eq 'YR1'>AND h.b1_RC
 		  <cfelse>AND h.b2_RC
@@ -175,12 +196,12 @@
 	<cfset userLandingPage = "revenue_RC.cfm?message=We did not find you in the database">
 	<cfquery name="userProjector_RC" datasource="#application.datasource#">
 		SELECT PROJECTOR_RC
-		FROM USERS
+		FROM fee_user.users
 		WHERE username = <cfqueryparam value="#REQUEST.authuser#" cfsqltype="cf_sql_varchar">
 	</cfquery>
 	<cfquery name="userChart" datasource="#application.datasource#">
 		SELECT chart
-		FROM USERS
+		FROM fee_user.users
 		WHERE username = <cfqueryparam value="#REQUEST.authuser#" cfsqltype="cf_sql_varchar">
 	</cfquery>
 	<cfif userProjector_RC.PROJECTOR_RC eq "ALL">  <!--- Campus level Fiscal Officers --->
@@ -192,6 +213,13 @@
 		<cfset campus = user["CHART"][1]>
 		<cfset userLandingPage = "revenue_RC.cfm?Campus="&userChart.chart&"&RC="&userProjector_RC.PROJECTOR_RC>
 	</cfif>
+	<cfreturn userLandingPage>
+</cffunction>
+
+<cffunction name="getUserLandingPage2" returntype="Any">
+	<cfset userLandingPage = "revenue_RC.cfm?message=We did not find you in the database">
+
+	<!--- TODO re-write logic to set a nice clean URL in userLandingPage --->
 	<cfreturn userLandingPage>
 </cffunction>
 
@@ -351,7 +379,7 @@
 			  WHEN h.SELGROUP = ' ' THEN '--s'
 			  ELSE h.SELGROUP END,
 			TRIM(h.ACAD_CAREER) as ACAD_CAREER, h.RES, h.ACCOUNT, h.ACCOUNT_NM,
-			h.b1_OBJCD as OBJCD, h.b1_FIN_OBJ_CD_NM as FIN_OBJ_CD_NM, '' as spacer1, h.b1_headcount as HEADCOUNT, h.b1_hours as HOURS, h.b1_adj_rate as ADJ_RATE,
+			h.b1_OBJCD as OBJCD, h.gl_obj_cd_orig, h.b1_FIN_OBJ_CD_NM as FIN_OBJ_CD_NM, h.b1_headcount as HEADCOUNT, h.b1_hours as HOURS, h.b1_adj_rate as ADJ_RATE,
 			CASE h.b1_MACHHRS_YR1
 	    		WHEN 0 THEN '0'
 	    		ELSE TO_CHAR(h.b1_MACHHRS_YR1,'9999999.9')
@@ -388,7 +416,7 @@
 			h.b2_RC, h.b2_TERM as TERM,
 			h.SESN as TRMLABEL,
 	    	h.FEECODE, h.FEEDESCR, h.note, h.SELGROUP, TRIM(h.ACAD_CAREER) as ACAD_CAREER, h.RES, h.ACCOUNT, h.ACCOUNT_NM,
-			h.b2_OBJCD as OBJCD, h.b2_FIN_OBJ_CD_NM as FIN_OBJ_CD_NM, '' as spacer1, h.b2_headcount as HEADCOUNT, h.b2_hours as HOURS, h.b1_adj_escl_rate_yr1 as ADJ_RATE,
+			h.b2_OBJCD as OBJCD, h.gl_obj_cd_orig, h.b2_FIN_OBJ_CD_NM as FIN_OBJ_CD_NM, h.b2_headcount as HEADCOUNT, h.b2_hours as HOURS, h.b1_adj_escl_rate_yr1 as ADJ_RATE,
 			CASE h.b1_MACHHRS_YR1
 	    		WHEN 0 THEN '0'
 	    		ELSE TO_CHAR(h.b1_MACHHRS_YR1,'9999999.9')
@@ -418,7 +446,7 @@
 	FROM #application.hours_to_project# h LEFT JOIN ch_user.htp_subaccount s
     ON h.inst = s.bursar_bsns_unit_cd and h.b2_term = s.sf_trm_cd and h.feecode = s.sf_trm_fee_cd and h.selgroup = s.sf_tuit_grp_ind and h.account = s.gl_acct_nbr
 	WHERE h.biennium = '#application.biennium#'
-	  AND h.INST = '#selectedCampus#'
+	  AND h.INST = '#selectedCampus#' and not (h.selgroup = 'NO FCP' and h.b2_hours = 0)
 	  <cfif selectedRC neq "NONE">
 		  <cfif application.budget_year eq 'YR1'>AND h.b1_RC = '#selectedRC#'
 		  <cfelse>AND h.b2_RC = '#selectedRC#'
@@ -670,7 +698,8 @@ GROUP BY sesn) t
 		  clearingSummary.FEE_LOWYEAR, clearingSummary.ACAD_CAREER,
 		  clearingSummary.RES as RESIDENCY
 		FROM #application.hours_to_project# clearingSummary
-		WHERE clearingSummary.CHART = <cfqueryparam cfsqltype="cf_sql_char" value="#selectedCampus#">
+		WHERE biennium = 'B22-23' and not(selgroup = 'NO FCP' and clearingSummary.b2_hours = 0) 
+			and clearingSummary.CHART = <cfqueryparam cfsqltype="cf_sql_char" value="#selectedCampus#">
 		<cfif application.budget_year eq "YR1">
 		  AND clearingSummary.b1_RC = <cfqueryparam cfsqltype="cf_sql_char" value="#clearingRC#">
 		GROUP BY clearingSummary.OID, clearingSummary.INST, clearingSummary.CHART, clearingSummary.b1_RC, clearingSummary.FEECODE, clearingSummary.b1_TERM, clearingSummary.ACCOUNT, clearingSummary.ACCOUNT_NM, clearingSummary.b1_OBJCD, clearingSummary.b1_FIN_OBJ_CD_NM, clearingSummary.FEEDESCR, clearingSummary.SESN,clearingSummary.SELGROUP, clearingSummary.b1_FEE_ID, clearingSummary.FEE_LOWYEAR, clearingSummary.RES,clearingSummary.b1_ADJ_RATE, clearingSummary.b1_ADJ_ESCL_RATE_YR1, clearingSummary.b1_ADJ_ESCL_RATE_YR2,clearingSummary.ACAD_CAREER
@@ -730,30 +759,30 @@ GROUP BY sesn) t
 <!--- Generic Excel sheet without any data - this empty template is the only one we need for this application --->
 <cffunction name="setupRevenueTemplate" hint="Setup details for Revenue Projector Excel template" >
 	<!--- Spreadsheet name is set here, workbook name is set in application.cfc --->
-	<cfset sheet = SpreadSheetNew("FY21 Cr Hr Rev Projection")>
+	<cfset sheet = SpreadSheetNew("FY23 Cr Hr Rev Projection")>
 	<!--- Add Excel title row 1 --->
 	<cfif application.rateStatus eq "Vc">
-		<cfset SpreadsheetAddRow(sheet,"Indiana University Budget Office - Credit Hour Revenue Projector FY21 - Constant Effective Rate Estimated Revenue")>
+		<cfset SpreadsheetAddRow(sheet,"Indiana University Budget Office - Credit Hour Revenue Projector FY23 - Constant Effective Rate Estimated Revenue")>
 	<cfelseif application.rateStatus eq "V1">
-		<cfset SpreadsheetAddRow(sheet,"Indiana University Budget Office - Credit Hour Revenue Projector FY21 - Escalated Rate Estimated Revenue")>
+		<cfset SpreadsheetAddRow(sheet,"Indiana University Budget Office - Credit Hour Revenue Projector FY23 - Escalated Rate Estimated Revenue")>
 	<cfelse>
-		<cfset SpreadsheetAddRow(sheet,"Indiana University Budget Office - Credit Hour Revenue Projector FY21")>
+		<cfset SpreadsheetAddRow(sheet,"Indiana University Budget Office - Credit Hour Revenue Projector FY23")>
 	</cfif>
 
 	<!---<cfset SpreadsheetFormatRow(sheet, setExcelTitleFormatting(),1)>--->
 	<cfset SpreadsheetMergeCells(sheet,1,1,1,29)>
 	<cfset SpreadsheetSetRowHeight(sheet,1,40)>
 	<!--- Add Excel title row 2 --->
-	<cfset SpreadsheetAddRow(sheet,"Projecting Fiscal Year 2021 - this spreadsheet was downloaded #DateTimeFormat(Now())#")>
+	<cfset SpreadsheetAddRow(sheet,"Projecting Fiscal Year 2023 - this spreadsheet was downloaded #DateTimeFormat(Now())#")>
 	<!---<cfset SpreadsheetFormatRow(sheet, setExcelSubTitleFormatting(),2)>--->
 	<cfset SpreadsheetMergeCells(sheet,2,2,1,29)>
 	<!--- Add Excel title row 3 --->
 	<cfset SpreadsheetAddRow(sheet, "NOTE: To match the the University Fiscal Analysis remove these fee codes from the Fee Codes filter in column F: ACPR$ G901N$ G901R$ LWARN$ MUSX OTHER OVST OVSTN$ OVSTR$")>
 	<cfset SpreadsheetMergeCells(sheet,3,3,1,29)>
 	<cfif application.rateStatus eq "Vc">
-		<cfset SpreadsheetAddRow(sheet, "ID,Campus,Chart,RC,Term,Semester,Fee Code,Fee Code Descr,Note,Tuition Group,Academic Career,Residency,Account,Account Name,Object Code,Object Code Name,Spacer1,Headcount,Actual Credit Hours,Current Rate,#application.firstyear# Enrollment Study Hours,#application.secondyear# Enrollment Study Hours,Spacer2,#application.firstyear# Effective Rate, #application.firstyear# Campus Projected Hours, #application.firstyear# Estimated Revenue,Spacer3,#application.secondyear# Effective Rate,#application.secondyear# Campus Projected Hours, #application.secondyear# Estimated Revenue, SESN,FEEKEY, FEE_ID, b1_ADJ_ESCL_RATE_YR1, b1_ADJ_ESCL_RATE_YR2, b1_fee_residency, b1_ADJ_RATE, b2_fee_id, b2_objcd, b2_fin_obj_cd_nm, b2_projhrs_yr2, b2_hours, b2_adj_rate, b2_adj_escl_rate_yr2, fee_current, fee_lowyear, fee_highyear, RES,b1_projhrs_yr2,b1_rc")>
+		<cfset SpreadsheetAddRow(sheet, "ID,Campus,Chart,RC,Term,Semester,Fee Code,Fee Code Descr,Note,Tuition Group,Academic Career,Residency,Account,Account Name,Object Code,Alt Obj Cd,Object Code Name,Headcount,Actual Credit Hours,Current Rate,#application.firstyear# Enrollment Study Hours,#application.secondyear# Enrollment Study Hours,Spacer2,#application.firstyear# Effective Rate, #application.firstyear# Campus Projected Hours, #application.firstyear# Estimated Revenue,Spacer3,#application.secondyear# Effective Rate,#application.secondyear# Campus Projected Hours, #application.secondyear# Estimated Revenue, SESN,FEEKEY, FEE_ID, b1_ADJ_ESCL_RATE_YR1, b1_ADJ_ESCL_RATE_YR2, b1_fee_residency, b1_ADJ_RATE, b2_fee_id, b2_objcd, b2_fin_obj_cd_nm, b2_projhrs_yr2, b2_hours, b2_adj_rate, b2_adj_escl_rate_yr2, fee_current, fee_lowyear, fee_highyear, RES,b1_projhrs_yr2,b1_rc")>
 	<cfelse>  <!--- V1 version --->
-		<cfset SpreadsheetAddRow(sheet, "ID,Campus,Chart,RC,Term,Semester,Fee Code,Fee Code Descr,Note,Tuition Group,Academic Career,Residency,Account,Account Name,Object Code,Object Code Name,Spacer1,#application.firstyear# Headcount,#application.firstyear# Actual Credit Hours,Current #application.firstyear# Rate,#application.firstyear# Enrollment Study Hours,#application.secondyear# Enrollment Study Hours,Spacer2,#application.firstyear# Escalated Rate, #application.firstyear# Campus Projected Hours, #application.firstyear# Estimated Revenue,Spacer3,#application.secondyear# Escalated Rate,#application.secondyear# Campus Projected Hours, #application.secondyear# Estimated Revenue, SESN,FEEKEY, FEE_ID, b1_ADJ_ESCL_RATE_YR1, b1_ADJ_ESCL_RATE_YR2, b1_fee_residency, b1_ADJ_RATE, b2_fee_id, b2_objcd, b2_fin_obj_cd_nm, b2_projhrs_yr2, b2_hours, b2_adj_rate, b2_adj_escl_rate_yr2, fee_current, fee_lowyear, fee_highyear, RES,b1_projhrs_yr2,b1_rc")>
+		<cfset SpreadsheetAddRow(sheet, "ID,Campus,Chart,RC,Term,Semester,Fee Code,Fee Code Descr,Note,Tuition Group,Academic Career,Residency,Account,Account Name,Object Code,Alt Obj Cd,Object Code Name,#application.firstyear# Headcount,#application.firstyear# Actual Credit Hours,Current #application.firstyear# Rate,#application.firstyear# Enrollment Study Hours,#application.secondyear# Enrollment Study Hours,Spacer2,#application.firstyear# Escalated Rate, #application.firstyear# Campus Projected Hours, #application.firstyear# Estimated Revenue,Spacer3,#application.secondyear# Escalated Rate,#application.secondyear# Campus Projected Hours, #application.secondyear# Estimated Revenue, SESN,FEEKEY, FEE_ID, b1_ADJ_ESCL_RATE_YR1, b1_ADJ_ESCL_RATE_YR2, b1_fee_residency, b1_ADJ_RATE, b2_fee_id, b2_objcd, b2_fin_obj_cd_nm, b2_projhrs_yr2, b2_hours, b2_adj_rate, b2_adj_escl_rate_yr2, fee_current, fee_lowyear, fee_highyear, RES,b1_projhrs_yr2,b1_rc")>
 	</cfif>
 	<!---<cfset SpreadsheetFormatRow(sheet, setExcelTitleFormatting(),3)>--->
 	<cfset SpreadsheetSetRowHeight(sheet,1,30)>
@@ -773,9 +802,9 @@ GROUP BY sesn) t
 	<cfset SpreadsheetSetColumnWidth(sheet,12,12)>  <!--- L Residency --->
 	<cfset SpreadsheetSetColumnWidth(sheet,13,10)>  <!--- M Account --->
 	<cfset SpreadsheetSetColumnWidth(sheet,14,30)>  <!--- N Account Name --->
-	<cfset SpreadsheetSetColumnWidth(sheet,15,14)>  <!--- O Object Code --->
-	<cfset SpreadsheetSetColumnWidth(sheet,16,33)>  <!--- P Obj Cd Name --->
-	<cfset SpreadsheetSetColumnWidth(sheet,17,10)>  <!--- Q spacer1 --->
+	<cfset SpreadsheetSetColumnWidth(sheet,15,15)>  <!--- O Object Code --->
+	<cfset SpreadsheetSetColumnWidth(sheet,16,15)>  <!--- P Orig Obj cd --->
+	<cfset SpreadsheetSetColumnWidth(sheet,17,33)>  <!--- Q Obj Cd Name  --->
 
 	<cfset SpreadsheetSetColumnWidth(sheet,18,18)>  <!--- R firstyear Headcount --->
 	<cfset SpreadsheetSetColumnWidth(sheet,19,25)>  <!--- S firstyear Actual CrHrs --->
@@ -784,7 +813,7 @@ GROUP BY sesn) t
 	<cfif application.budget_year eq "YR2">
 		<cfset SpreadsheetFormatColumn(sheet,{hidden=true},21)>    <!--- HIDE FIRSTYEAR MACHHRS IN 2ND YR, NO ONE CARES --->
 	</cfif>
-	<cfset SpreadsheetSetColumnWidth(sheet,22,30)>  <!--- V FY21 ES CrHrs --->
+	<cfset SpreadsheetSetColumnWidth(sheet,22,30)>  <!--- V FY23 ES CrHrs --->
 	<cfset SpreadsheetSetColumnWidth(sheet,23,10)>  <!--- W Spacer2 --->
 	<cfset SpreadsheetSetColumnWidth(sheet,24,22)>  <!--- X FY20 Escalated Rate --->
 	<cfset SpreadsheetSetColumnWidth(sheet,25,30)>  <!--- Y FY20 Campus Projected Hours --->
@@ -797,9 +826,9 @@ GROUP BY sesn) t
 		<cfset SpreadsheetFormatColumns(sheet,{hidden=true},27)>
 	</cfif>
 
-	<cfset SpreadsheetSetColumnWidth(sheet,28,22)>  <!--- AB FY21 Rate --->
-	<cfset SpreadsheetSetColumnWidth(sheet,29,30)>  <!--- AC FY21 Campus Proj CrHrs --->
-	<cfset SpreadsheetSetColumnWidth(sheet,30,26)>  <!--- AD FY21 Estimated Revenue --->
+	<cfset SpreadsheetSetColumnWidth(sheet,28,22)>  <!--- AB FY23 Rate --->
+	<cfset SpreadsheetSetColumnWidth(sheet,29,30)>  <!--- AC FY23 Campus Proj CrHrs --->
+	<cfset SpreadsheetSetColumnWidth(sheet,30,26)>  <!--- AD FY23 Estimated Revenue --->
     <!--- Past this point, all is hidden from the download --->
    	<cfset SpreadsheetSetColumnWidth(sheet,31,10)>  <!--- AE SESN --->
 		<cfset SpreadsheetFormatColumn(sheet,{hidden=true},31)>    <!--- HIDE BUDGET OFFICE INFO, NO ONE CARES --->
