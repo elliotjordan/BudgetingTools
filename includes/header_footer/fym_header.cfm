@@ -62,7 +62,7 @@
 	                    </a>
 	                   <cfif ListFindNoCase(REQUEST.adminUsernames,REQUEST.authUser)> 
 	                    <span class="headerUBO">
-		                	<a href="../RevenueEstimator/UBO_controls.cfm" target="_blank"><input id="cockpitBtn" class="gangnamStyle" type="submit" name="cockpitBtn" value="Go To UBO Controls" /></a>
+		                	<a href="../5YRModel/FYM_controls.cfm" target="_blank"><input id="cockpitBtn" class="gangnamStyle" type="submit" name="cockpitBtn" value="Go To FYM Controls" /></a>
 	                	</span>
 	                	</cfif>
 						<span class="link_hilight"><a id="instrxnLink" href="instructions.cfm">Instructions</a></span>
