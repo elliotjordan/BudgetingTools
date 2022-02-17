@@ -1384,7 +1384,7 @@ FROM #application.hours_to_project# h
 	<cfreturn true />
 </cffunction>
 
-<cffunction name="getDataRefreshHistory" >
+<cffunction name="getCrHrDataRefreshHistory" >
 	<cfquery name="refreshList" datasource="#application.datasource#">
 		SELECT * FROM ch_user.metadata
 		WHERE action_id = '3'

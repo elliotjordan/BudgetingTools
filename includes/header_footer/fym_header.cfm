@@ -60,6 +60,11 @@
 	                    	<img src="../_iu-brand/img/trident-tab.gif" height="73" width="64" alt="IU Trident logo" />
 	                        <span class="line-break">INDIANA UNIVERSITY BUDGET OFFICE - 5YR MODEL PORTAL</span>
 	                    </a>
+	                   <cfif ListFindNoCase(REQUEST.adminUsernames,REQUEST.authUser)> 
+	                    <span class="headerUBO">
+		                	<a href="../RevenueEstimator/UBO_controls.cfm" target="_blank"><input id="cockpitBtn" class="gangnamStyle" type="submit" name="cockpitBtn" value="Go To UBO Controls" /></a>
+	                	</span>
+	                	</cfif>
 						<span class="link_hilight"><a id="instrxnLink" href="instructions.cfm">Instructions</a></span>
 						
 						<span class="link_hilight targetLink"> 

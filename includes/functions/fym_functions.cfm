@@ -1,3 +1,4 @@
+
 <cffunction name="trackFYMAction" output="false">
 	<cfargument name="loginId" required="true" default="#REQUEST.AuthUser#" />
 	<cfargument name="campusId" required="false" default="--" />

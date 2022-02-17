@@ -1,6 +1,7 @@
 <cfinclude template="../includes/header_footer/header.cfm">
 <cfinclude template="../includes/functions/bi_revenue_functions.cfm">
-<cfset refreshList = getDataRefreshHistory() />
+<cfinclude template="../includes/functions/refresh_functions.cfm">
+<cfset refreshList = getCrHrDataRefreshHistory() />
 
 <cfoutput>
 <div class="full_content">
@@ -22,6 +23,9 @@
 	<cfelseif IsDefined("form") and StructKeyExists(form,"rolloverBtn") >
 		<cfset actionEntry = trackProjectinatorAction(#REQUEST.AuthUser#,"UA",2,"#REQUEST.AuthUser# restarted the #application.currentState# Projectinator from at #DateTimeFormat(Now(),'hh:nn tt mmm-dd-yyyy')#") />
 		<cfset applicationStop() />
+	<cfelseif IsDefined("form") and StructKeyExists(form,"fymBtn") >
+		<cfset fym_updated = updateBudu001Fym() /><!---<cfdump var="#fym_updated.update_budu001_fym#" /><cfabort>--->
+		<cfset actionEntry = trackProjectinatorAction(#REQUEST.AuthUser#,"UA",33,"#fym_updated.update_budu001_fym# #REQUEST.AuthUser# refreshed the BUDU001 5YrModel tables at #DateTimeFormat(Now(),'hh:nn tt mmm-dd-yyyy')#") />
 	<cfelseif IsDefined("form") and StructKeyExists(form,"refreshBtn") >
 		<cfif FindNoCase("gondor",application.baseurl)>
 			<cfset resetSource = 'PROD' />
@@ -64,6 +68,13 @@
 		<input id="UBOSwitch" name="UBOSwitchBtn" type="submit" value="Make It So" disabled />
 	</form>
 	
+		<hr>
+		<h2>5YM Refresh</h2>
+		<form name="siteRollover" action="UBO_controls.cfm" method="post">
+			<input id="fymBtn" name="fymBtn" type="submit" value="Refresh BUDU001 5YM Tables" />
+			<label for="rolloverBtn">Refresh the Five-Year Model tables in BUDU001</label>		
+		</form>
+		
 		<hr>
 			
 		<h2>Site Refresh</h2>
