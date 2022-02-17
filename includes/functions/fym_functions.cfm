@@ -1,4 +1,3 @@
-
 <cffunction name="trackFYMAction" output="false">
 	<cfargument name="loginId" required="true" default="#REQUEST.AuthUser#" />
 	<cfargument name="campusId" required="false" default="--" />
@@ -10,6 +9,15 @@
 		VALUES
 		('#loginId#','#campusId#','#actionId#','#description#')
 	</cfquery>
+</cffunction>
+
+<cffunction name="getFYMRefreshHistory" >
+	<cfquery name="refreshList" datasource="#application.datasource#">
+		SELECT * FROM fee_user.metadata
+		WHERE action_id = '33'
+		ORDER BY created_on DESC limit 5;
+	</cfquery>
+	<cfreturn refreshList />
 </cffunction>
 
 <cffunction name="compareFymCrHrs">
@@ -150,7 +158,7 @@
 	<cfquery name="getScenCrHr" datasource="#application.datasource#">
 		select oid,scenario_cd, scenario_owner, scenario_nm, scenario_access, scenario_fis_yr, cur_fis_yr, inst_cd, chart_cd, acad_career, res, 
 		cur_yr_hrs_new, yr1_hrs_new, yr2_hrs_new, yr3_hrs_new, yr4_hrs_new, yr5_hrs_new,
-		scenario_type_cd
+		scenario_type_cd, scenario_type_nm
 		from fee_user.fetch_fym_crhr_scenario(
 			<cfqueryparam cfsqltype="numeric" value="#givenscenario_cd#">,
 			<cfqueryparam cfsqltype="numeric" value="#givenfisyr#"> 
@@ -363,14 +371,16 @@
 </cffunction>
 
 <cffunction name="getFymSubTotals" >
+	<cfargument name="givenScenarioCd" required="true" />
 	<cfargument name="givenChart" required="true" />
 	<cfargument name="givenGrp1Cd" required="true" />
 	<cfargument name="givenGrp2Cd" required="true" />
 	<cfquery name="fundGrpSubTotal" datasource="#application.datasource#">
 		SELECT * from fee_user.calc_fym_subtotal_grp2(
-		<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">,
-		<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenGrp1Cd#">,
-		<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenGrp2Cd#">)
+		givenscenario_cd => <cfqueryparam cfsqltype="cf_sql_numeric" value="#givenScenarioCd#">,
+		givenchart => <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenChart#">,
+		givengrp1cd => <cfqueryparam cfsqltype="cf_sql_numeric" value="#givenGrp1Cd#">,
+		givengrp2cd => <cfqueryparam cfsqltype="cf_sql_numeric" value="#givenGrp2Cd#">)
 	</cfquery>
 	<cfreturn fundGrpSubTotal />
 </cffunction>
@@ -481,7 +491,22 @@
 	<cfreturn updateCrHrScenarioData />
 </cffunction>
 
-<cffunction name="updateCrHrRates">
+<cffunction name="changeCrHrRates">     <!--- actually enters user data into a specific column and row in the fym_crhr table--->
+	<cfargument name="givenColumn" required="true" type="string">
+	<cfargument name="givenOID" required="true" type="numeric">
+	<cfargument name="givenValue" required="true" type="numeric">
+	<cfquery name="insertCrHrValue" datasource="#application.datasource#">
+		SELECT fee_user.change_crhr_rates(
+			<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenColumn#">,
+			<cfqueryparam cfsqltype="cf_sql_integer" value="#givenOID#">,
+			<cfqueryparam cfsqltype="cf_sql_decimal" scale="2" value="#givenValue#">
+		)
+	</cfquery>
+	<cfreturn insertCrHrValue />
+</cffunction>
+
+<!--- Does not actually enter new data into system, just sets off a chain event of UPDATES within the data set!! --->
+<cffunction name="updateCrHrRates">  <!--- uses parameter settings to propagate the 1st year rate setting forward to later years in 5YM --->
 	<cfargument name="givenChart" required="true" type="string">
 	<cfquery name="callCrHrFunc" datasource="#application.datasource#">
 		SELECT fee_user.update_crhr_rates(

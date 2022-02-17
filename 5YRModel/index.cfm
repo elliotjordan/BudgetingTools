@@ -13,7 +13,7 @@
 <cfif FindNoCase("rohan",application.baseurl) OR FindNoCase("8443",application.baseurl)>
 	<cfinclude template="test_banner.cfm">
 </cfif>
-<cfif openModel> 
+<cfif openModel and current_scenario eq 0> 
 	<cfset editcy = true /><cfset edityr1 = true /><cfset edityr2 = true /><cfset edityr3 = true /><cfset edityr4 = true /><cfset edityr5 = true />
 <cfelse>
 	<cfset editcy = false /><cfset edityr1 = false /><cfset edityr2 = false /><cfset edityr3 = false /><cfset edityr4 = false /><cfset edityr5 = false />
@@ -38,8 +38,8 @@
 	<cfif grp1_cd gt 0>
 	<cfset ci = getFYMdataByFnd(current_scenario, current_inst, grp1_cd) />
 	<cfset campusSubTotal = getFymSums(current_scenario,current_inst, grp1_cd) /> 
-	<cfset revSubTotals = getFymSubTotals(current_inst,grp1_cd,1) />
-	<cfset expSubTotals = getFymSubTotals(current_inst,grp1_cd,2) />
+	<cfset revSubTotals = getFymSubTotals(current_scenario,current_inst,grp1_cd,1) />
+	<cfset expSubTotals = getFymSubTotals(current_scenario,current_inst,grp1_cd,2) />
 	<h3>#grp1_desc#</h3>
   	<input name="fymExcelBtn" type="submit" value="Export to Excel" />
   	<input name="fymSubmitBtn" type="submit" value="Update 5YR Model" />

@@ -1,7 +1,7 @@
 <cfinclude template="../includes/header_footer/fym_header.cfm">
 <cfinclude template="../includes/functions/refresh_functions.cfm">
-<cfset fym_updated = false />
-<cfset fymRefreshList = getCrHrDataRefreshHistory() />
+<cfset fymRefreshList = getFYMRefreshHistory() />
+<cfset fym_updated = QueryNew("test")>  
 
 <cfoutput>
 <div class="full_content">
@@ -17,14 +17,17 @@
 		<form name="fymRefresher" action="FYM_controls.cfm" method="post">
 			<input id="fymBtn" name="fymBtn" type="submit" value="Refresh BUDU001 5YM Tables" />
 			<label for="rolloverBtn">Refresh the Five-Year Model tables in BUDU001</label>
-			<cfif fym_updated>
+			<cfif StructKeyExists(fym_updated,"update_budu001_fym") and fym_updated.update_budu001_fym>
 				<p class="sm-red"> You have successfully refreshed BUDU001 5YrModel tables</p>
 			</cfif>
-		<cfloop query="#fymRefreshList#">
-			<p style="sm_blue">#parameter_cd# - #description#<p>
-		</cfloop>
+			<cfif fymRefreshList.recordCount gt 0>
+				<h3>Recent BUDU001 5YM Refresh History</h3>
+				<cfloop query="#fymRefreshList#">
+					<p style="sm_blue">#parameter_cd# - #description#<p>
+				</cfloop>
+			</cfif>
 		</form>
 </div>  <!-- End div class full_content -->
 
 </cfoutput>
-<cfinclude template="../includes/fym_footer/footer.cfm">
+<cfinclude template="../includes/header_footer/fym_footer.cfm">
