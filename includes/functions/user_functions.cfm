@@ -28,6 +28,17 @@
 	</cfquery>
 </cffunction>
 
+<cffunction name="updateUser">
+	<cfargument name="givenColumn" required="true" type="string">
+	<cfargument name="givenOID" required="true" type="string">
+	<cfargument name="givenValue" required="true" type="string">
+	<cfquery name="messWithUser" datasource="#application.datasource#">
+		UPDATE fee_user.USERS SET #givenColumn# = <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenValue#"> 
+		WHERE ID = <cfqueryparam cfsqltype="cf_sql_numeric" value="#givenOID#">
+	</cfquery>
+	<cfreturn messWithUser />
+</cffunction>
+
   <cffunction name="handleUser">  <!--- username,first_last_name,email,phone,description,chart,access_level,projector_rc,active,new  --->
   	<cfargument name="givenUser" required="true">
   	<cfargument name="givenFLName" required="true">
@@ -87,20 +98,7 @@
 	</cfswitch>
   	<cfreturn userRole>
   </cffunction>
-<!---
-<cfset role = '#session.role#'>
-	<cfif REQUEST.authUser neq imposter AND FindNoCase("campus_controls",cgi.SCRIPT_NAME)>
-		<cfset role = 'campus'>
-	<cfelseif REQUEST.authUser neq imposter AND FindNoCase("regional_controls",cgi.SCRIPT_NAME)>
-		<cfset role = 'regional'>
-	<cfelseif REQUEST.authUser neq imposter AND FindNoCase("bursar_controls",cgi.SCRIPT_NAME)>
-		<cfset role = 'bursar'>
-	<cfelseif REQUEST.authUser neq imposter AND FindNoCase("fee_controls",cgi.SCRIPT_NAME)>
-		<cfset role = 'ubo'>
-	<cfelseif REQUEST.authUser neq imposter AND FindNoCase("cfo_controls",cgi.SCRIPT_NAME)>
-		<cfset role = 'cfo'>
-	</cfif>
---->
+
  <cffunction name="emulateUser" output="true">
    <cfargument name="givenUsername" required="false" default="#REQUEST.authUser#">
    <cfswitch expression="#givenUsername#">

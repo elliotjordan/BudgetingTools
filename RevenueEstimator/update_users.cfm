@@ -1,6 +1,7 @@
+<cfinclude template="../includes/header_footer/header.cfm"><cfdump var="#form#" ><cfabort>
 <cfinclude template="../includes/functions/bi_revenue_functions.cfm">
 <cfinclude template="../includes/functions/user_functions.cfm">
-<cfoutput>	<cfdump var="#form#" >
+<cfoutput>	
 <cfif IsDefined("form") and StructKeyExists(form,'newUserBtn')>
 	<!--- username,first_last_name,email,phone,description,chart,access_level,projector_rc,active  --->
   <cfscript>
@@ -13,32 +14,26 @@
   	<h2><cfdump var="#foundUser#"> was processed.</h2>
   </cfoutput>
 <cfelseif IsDefined("form") and StructKeyExists(form,'userUpdateBtn')>
-<!--- These lists must all be the same length, otherwise we cannot align the data points properly  --->
-	#ListLen(Form.username)# #ListLen(Form.accesslevel)#  #ListLen(Form.active)#  #ListLen(Form.campus)#  #ListLen(Form.projector_rc)#
-
-		<cfset line_count = 1>
-		<cfloop list="#Form.username#" index="i">
-			<cfset thisUser = ListGetAt(Form.username,line_count)>#thisUser# <br>
-	<!---		<cfset Fee_projhrs_Yr1 = ListGetAt(Form.PROJHRS_YR1,line_count)>
-			<cfset Fee_projhrs_Yr2 = ListGetAt(Form.PROJHRS_YR2,line_count)>
-			<cfset currentFeeCode = ListGetAt(Form.FEECODE,line_count)>
-			<cfset currentRC = Form["urlRC"]/>
-			<cfset currentChart = Form["urlCAMPUS"] />
-			<cfset currentOID = ListGetAt(Form.OID,line_count)>
-			<cfset thisFee = getFeeInfo(currentOID)>
-			<cfif application.budget_year eq 'YR1'> 
-				<cfif trim(thisFee.b1_projhrs_yr1) neq trim(Fee_projhrs_Yr1)>
-					<cfset updateFeeInfo(currentOID,Fee_projhrs_Yr1,Fee_projhrs_Yr2) /> 
-					<cfset actionEntry = trackProjectinatorAction(#REQUEST.AuthUser#,#currentChart#,7,"#REQUEST.AuthUser# at #currentChart# RC #currentRC# updated b1_projhours_Yr1 FC #currentFeeCode# for term #fee_term# to #Fee_projhrs_Yr1# CrHrs, b1_projhrs_Yr2 FC #currentFeeCode# for term #fee_term# to #Fee_projhrs_Yr2# CrHrs") />
-				</cfif>
-			</cfif>
-			<cfif trim(thisFee.b2_projhrs_Yr2) neq trim(Fee_projhrs_Yr2)>
-				<cfset updateFeeInfo(currentOID,Fee_projhrs_Yr1,Fee_projhrs_Yr2) /> 
-				<cfset actionEntry = trackProjectinatorAction(#REQUEST.AuthUser#,#currentChart#,7,"#REQUEST.AuthUser# at #currentChart# RC #currentRC# updated b2_projhrs_Yr2 FC #currentFeeCode# for term #fee_term# to #Fee_projhrs_Yr2# CrHrs") />
-			</cfif>--->
-			
-			<cfset line_count++ >		
-		</cfloop>
-
+    <cfset current_inst = "IU"&getFeeUser(REQUEST.authUser).chart&"A" />
+	<cfloop index="i" list="#Form.FieldNames#" delimiters=",">
+		<cfif Form[i] eq true>
+			Form[i] #Form[i]# <br />
+			<cfset rootID = REPLACE(i,"DELTA","") />  
+			<!---<cfif RIGHT(rootId,1) eq 'C'><cfset rootId = LEFT(rootId, len(rootId)-1)></cfif> ---><!--- comments are encoded as %CDELTA  --->
+   			<cfset cutParam = rootID.split("OID")  />
+   			<cfset activeColumn = cutParam[1] />
+   			<cfset activeOID = cutParam[2].split("_") />
+  			<!---<cfset scrubbedValue =  REREPLACE(Form[rootID],"[^0-9.\-]","","ALL") />  --->
+  			REGULAR FIELD #rootId# () - Form[i] #form[i]# - activeColumn #activeColumn# - #Form[rootID]#<br>
+	   		<cfset task = updateUser(activeColumn, activeOID[1], Form[rootID]) />
+	   		<br>Updating metadata now...<br>
+	   		<cfset actionEntry = trackUserAction(#REQUEST.AuthUser#,#current_inst#,6,"USER update by #REQUEST.authUser# - #activeColumn# OID#activeOID[1]# changed to #Form[rootID]# - #DateTimeFormat(Now(),"EEE dd-mmm-yyyy hh:nn:ss tt")#") />
+	   </cfif>
+	</cfloop> 
+<cfelse>
+	<h2>No changes or updates were detected</h2>
+	<p>Click your back button and try again. Thanks!</p>
+	<cfabort>
 </cfif>
 </cfoutput>
+<cflocation url="projector_users.cfm" addtoken="false" />

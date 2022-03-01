@@ -8,8 +8,7 @@
 
 <cfif ListFindNoCase(REQUEST.adminUsernames,REQUEST.authuser)>
 	<cfset honorOfGrayskull = true />    <!--- If you are as cool as She-Ra, you get to see the whole list  --->
-	<!---<cfset userList = getUsersByCampus("She-Ra") />--->
-	<cfset userList = getUsersByCampus("aheeter") />
+	<cfset userList = getUsersByCampus("She-Ra") />
 <cfelse>
 	<cfset honorOfGrayskull = false />
 	<cfset userList = getUsersByCampus(REQUEST.authuser) />
@@ -81,7 +80,7 @@
 		<h2>Current Users</h2>
 		<p>These are the users who have access for your campus.  You can control who has access by changing these records. We never really "delete" anyone, we just make "active" equal "N".  Handle with care!</p>
 		<cfform action = "update_users.cfm" format = "html" id = "updateUser" method = "POST" name = "userUpdateForm" preloader = "no" preserveData = "yes" timeout = "1200" width = "800" wMode = "opaque" > 
-			<p><cfinput type="submit" name="userUpdateBtn" value="Update Users"  /></p>
+			<p><cfinput type="submit" name="userUpdateBtn" value="Update Users"  /><span class="change_warning">You have unsaved changes!</span></p>
 	    	<table id="usersTable" class="feeCodeTable">	
 				<thead>
 					<tr>
@@ -102,36 +101,44 @@
 				<cfloop query="userList">
 					<cfif NOT ListFindNoCase(REQUEST.adminUsernames, userList.USERNAME)>
 			    		<tr>
-			    			<input name="username" type="hidden" value="#userList.USERNAME#" />
-							<td>#id#</td>
+			    			
+							<td id="ID#userList.id#" name="ID#userList.id#">#userList.id#</td>
+			  				<td>#userList.USERNAME#</td>
 			  				<td>
-			  					<span class="anchor"></span><a id="anchor" name="#userList.id#"></a>#userList.USERNAME#   
-							</td>
-			  				<td>
-								<cfif honorOfGrayskull><cfinput size="32" name="FIRST_LAST_NAME" maxlength="64" value="#userList.FIRST_LAST_NAME#" message="Full name" />
+								<cfif honorOfGrayskull>
+									<cfinput id="FIRST_LAST_NAMEOID#userList.id#" name="FIRST_LAST_NAMEOID#userList.id#" maxlength="64" size="32" value="#userList.FIRST_LAST_NAME#" message="Full name" />
+			  						<input id="FIRST_LAST_NAMEOID#userList.id#DELTA"name="FIRST_LAST_NAMEOID#userList.id#DELTA" type="hidden" value="false" />
 								<cfelse>#userList.FIRST_LAST_NAME#</cfif>
 							</td>
 			  				<td>
-								<cfinput size="32" name="Email" maxlength="64" value="#userList.Email#" message="Email" />
-							</td>
-			  				<td>
-								<cfinput size="16" name="Phone" maxlength="16" value="#userList.Phone#" message="Phone" />
-							</td>
-			  				<td>
-								<cfinput size="32" name="Description" maxlength="64" value="#userList.Description#" message="Description" />
+								<cfinput id="EMAIL#userList.id#" size="32" name="EMAIL#userList.id#" maxlength="64" value="#userList.Email#" message="Email" />
+								<input id="EMAIL#userList.id#DELTA"name="EMAIL#userList.id#DELTA" type="hidden" value="false" />
 							</td>
 							<td>
-								<cfif honorOfGrayskull><cfinput size="6" name="Campus" maxlength="2" value="#userList.chart#" message="Campus" />
+								<cfinput size="16" name="PHONE#userList.id#" maxlength="16" value="#userList.Phone#" message="Phone" />
+								<input id="PHONE#userList.id#DELTA"name="PHONE#userList.id#DELTA" type="hidden" value="false" />
+							</td>
+			  				<td>
+								<cfinput size="32" name="DESCRIPTION#userList.id#" maxlength="64" value="#userList.Description#" message="Description" />
+								<input id="DESCRIPTION#userList.id#DELTA"name="DESCRIPTION#userList.id#DELTA" type="hidden" value="false" />
+							</td>
+							<td>
+								<cfif honorOfGrayskull>
+									<cfinput size="6" name="CHART#userlist.id#" maxlength="2" value="#userList.chart#" message="Chart" />
+									<input id="CHART#userList.id#DELTA"name="CHART#userList.id#DELTA" type="hidden" value="false" />
 								<cfelse>#userList.chart#</cfif>								
 							</td>
 							<td>
-								<cfinput size="6" name="PROJECTOR_RC" maxlength="2" value="#PROJECTOR_RC#"/>
+								<cfinput size="6" name="PROJECTOR_RC#userList.id#" maxlength="2" value="#PROJECTOR_RC#"/>
+								<input id="PROJECTOR_RC#userList.id#DELTA"name="PROJECTOR_RC#userList.id#DELTA" type="hidden" value="false" />
 							</td>
 							<td>
-								<cfinput size="12" name="Accesslevel" maxlength="8" value="#userList.Access_level#" message="Access level" />
+								<cfinput size="12" name="ACCESS_LEVEL#userList.id#" maxlength="8" value="#userList.Access_level#" message="Access level" />
+								<input id="ACCESS_LEVEL#userList.id#DELTA"name="ACCESS_LEVEL#userList.id#DELTA" type="hidden" value="false" />
 							</td>
 							<td>
-								<cfinput size="12" name="ACTIVE" maxlength="8" value="#userList.ACTIVE#" message="Active" />
+								<cfinput size="12" name="ACTIVE#userList.id#" maxlength="8" value="#userList.ACTIVE#" message="Active" />
+								<input id="ACTIVE#userList.id#DELTA"name="ACTIVE#userList.id#DELTA" type="hidden" value="false" />
 							</td>
 				        	<td>#DateTimeFormat(userList.Created_on, "EEE, d MMM yyyy HH:nn:ss Z")#</td>
 			    		</tr>
