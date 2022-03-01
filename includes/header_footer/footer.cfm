@@ -21,7 +21,34 @@
 <script>
 
 $(document).ready(function(){
- 
+	$('.change_warning').hide();
+  //update the delta hidden element if the user changes a field in the params form
+  // onchange() in any field, take the name of the field and change the <name>DELTA value to true
+	$("form :input").change(function() {
+		//console.log('form inpout changed for ' + this.name + '\n')
+		var $handle = $(this);
+		//console.log('Keypress has changed ' + this.name + '\n');
+		if (this.name != 'fundRad' &&  $handle.is("input")) { 
+	  		$(this).closest('form').data('changed', true);
+	  		var change_element = this.name+'DELTA'; 
+	  		//console.log('change_element: ' + change_element+'\n');
+			$('[name="'+ change_element+ '"]' ).val('true');
+			if (this.name != 'fundRad') {
+				$('.change_warning').show();
+			}
+			$.fn.colTotal();
+		}
+		if ($handle.is("textarea")) {
+			//console.log('Textarea input changed\n');
+	        
+			//console.log('Changed comment field ' + this.name + '\n');
+	  		$(this).closest('form').data('changed', true);
+	  		var change_element = this.name+'CDELTA'; 
+	  		//console.log('comment change_element: ' + change_element+'\n');
+			$('[name="'+ change_element+ '"]' ).val('COMMENT');
+			$('.change_warning').show();
+		}
+	});
 //
 //	calcVisibleSubTotal();
 	//var stepCounter = 1;
