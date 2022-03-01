@@ -39,7 +39,7 @@
         <script src="../js/dataTables.buttons.min.js"></script>
         <script src="../js/revenue.js"></script>
         <script src="../js/all_fees.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script> <!-- added Oct 2021 - not for us in PROD -->
+        <!---<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>---> <!-- added Oct 2021 - not for us in PROD -->
 	</head>
 
 	<body>
