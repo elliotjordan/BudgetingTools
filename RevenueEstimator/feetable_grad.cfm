@@ -165,11 +165,11 @@
 										<cfset feeAmount = 0 />  <!--- We do this so we can catch bad data - set to 0, then check for numeric --->
 										<cfif application.rateStatus eq "Vc">
 											<cfif IsNumeric(ADJ_RATE)>
-												<cfset feeAmount = b1_ADJ_RATE />
+												<cfset feeAmount = b2_ADJ_RATE />
 											</cfif>
 										<cfelseif application.rateStatus eq "V1">
 											<cfif IsNumeric(b1_ADJ_ESCL_RATE_YR2)>
-												<cfset feeAmount = b1_ADJ_ESCL_RATE_YR2 />
+												<cfset feeAmount = b2_ADJ_ESCL_RATE_YR2 />
 											</cfif>
 										</cfif>
 										<input name="projHrs_Yr2" id="projHrsYr2#CurrentRow#" size="10" value="#projhours_yr2#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')">
@@ -177,11 +177,11 @@
 									</td>
 									<cfif application.rateStatus eq "Vc">	
 										<td name="feeHY" id="feeHY#CurrentRow#">
-											#DollarFormat(b1_ADJ_RATE)#
+											#DollarFormat(b2_ADJ_RATE)#
 										</td>
 									<cfelseif application.rateStatus eq "V1">
 										<td name="feeHY" id="feeHY#CurrentRow#">
-											#DollarFormat(b1_ADJ_ESCL_RATE_YR2)#
+											#DollarFormat(b2_ADJ_ESCL_RATE_YR2)#
 										</td>
 									</cfif>
 									<td id="gradFeeRevYr2#CurrentRow#" name="gradEstRev_Yr2">#DollarFormat(EstRev_YR2)#</td>
