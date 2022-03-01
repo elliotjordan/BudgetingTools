@@ -21,7 +21,7 @@ $(document).ready(function(){
 	//console.log('doc ready \n');
 	$('input[name=table_preference]').on('change', function(){
     var n = $(this).val();
-    console.log('radio button: ' + n + ' \n');
+    //console.log('radio button: ' + n + ' \n');
     /*switch(n)
     {
             case 'model':
