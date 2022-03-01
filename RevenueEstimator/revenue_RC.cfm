@@ -96,19 +96,8 @@
 									<a href="https://kb.iu.edu/d/alkh"><i>Available only when IUIE is open</i></a>
 								  </span>
 					</cfif>
-					</div>
-					<!-- End div controlBinTC -->
-<!---					<div class="controlBar">
-						<div class="controlBinTRC">
-							<cfif ListFindNoCase(ninjaList,request.authuser) OR ListFind(ninjaList,"OPEN")> <!--- OPENS, or allow specific users access while site is closed --->
-								<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
-							<cfelse>
-								<input  disabled="disabled" id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
-							</cfif>
-					</div>--->
-
-				</div>
-				<!-- End of div controlBar -->
+					</div>	<!-- End div controlBinTC -->
+				</div>	<!-- End of div controlBar -->
 
 				<!---  Unique key for this data set is Campus, RC, Term, Account, and FeeCode  --->
 				<!---<cfif len(trim(urlCampus)) neq 0 & len(trim(urlRC)) neq 0>--->
@@ -120,100 +109,50 @@
 					<cfif Len(getCampus.recordCount) eq 0>		<!--- Placeholder for empty query results  --->
 						Campus RecordCount is 0.
 				</cfif>
-					<cfif 1>
-						<h2>Graduate Credit Hours</h2>
-						<p>We have set this table to contain what we believe are your "main" graduates.  All others are in a table at the bottom of the page.  We can change this setting for you if you wish.</p>
-						<cfinclude template="feetable_grad.cfm" >
-					</cfif>
+				<h2>Graduate Credit Hours</h2>
+				<p>We have set this table to contain what we believe are your "main" graduates.  All others are in a table at the bottom of the page.  We can change this setting for you if you wish.</p>
+				<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />	
+				<cfinclude template="feetable_grad.cfm" >
+								
+				<h2>Undergraduate Credit Hours</h2>
+				<p>We have set this table to contain only your summer undergraduate enrollments.  All others are in a clearing account table for your campus fiscal officer.</p>
+				<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
+				<cfinclude template="feetable_undergrad.cfm" >
 
-					<cfif 1>
-						<div class="controlBinTRC">
-							<cfif ListFindNoCase(ninjaList,request.authuser) OR ListFindNoCase(ninjaList,"OPEN")> 
-								<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
-							<cfelse>
-								<input disabled="disabled"  id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
-							</cfif>
-						</div>
-						<!-- End div controlBinTR -->						
-						<h2>Undergraduate Credit Hours</h2>
-						<p>We have set this table to contain only your summer undergraduate enrollments.  All others are in a clearing account table for your campus fiscal officer.</p>
-						<cfinclude template="feetable_undergrad.cfm" >
-					</cfif>
 
-					<!--- Jump through some hoops to see if there are any non-GRAD, non-UGRD academic career lines left in the data --->
-					<cfset careerList = ValueList(enrllmtCount.ACAD_CAREER) />
-					<cfif ListLen(careerList) gt 0>
-						<div class="controlBinTRC">
-							<cfif ListFindNoCase(ninjaList,request.authuser) OR ListFindNoCase(ninjaList,"OPEN")> 
-								<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
-							<cfelse>
-								<input disabled="disabled"  id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
-							</cfif>
-						</div>
-						<!-- End div controlBinTR -->					
-						<h2>Other Enrollments</h2>
-						<p>We have set this table to contain miscellaneous graduate enrollments.  If there are any you prefer to appear in the table at the top of the page, we will be happy to change that for you.</p>
-						<cfinclude template="feetable_special.cfm" >
-					</cfif>
-					<div class="controlBar">
-						<div class="controlBinTRC">
-							<cfif ListFindNoCase(ninjaList,request.authuser) OR ListFind(ninjaList,"OPEN")> <!--- OPENS, or allow specific users access while site is closed --->
-								<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
-							<cfelse>
-								<input  disabled="disabled" id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
-							</cfif>
-					</div>
+				<!--- Jump through some hoops to see if there are any non-GRAD, non-UGRD academic career lines left in the data --->
+				<cfset careerList = ValueList(enrllmtCount.ACAD_CAREER) />
+				<cfif ListLen(careerList) gt 0>
+					<h2>Other Enrollments</h2>
+					<p>We have set this table to contain miscellaneous graduate enrollments.  If there are any you prefer to appear in the table at the top of the page, we will be happy to change that for you.</p>
+					<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
+					<cfinclude template="feetable_special.cfm" >
+				</cfif>
 
+				<!--- Special OCC table for IN Fiscal Officer --->
 					<cfif urlCampus eq "IN" AND urlRC eq "80">
 						<h2>OCC Enrollments</h2>
 						<p>We have set this table to contain OCC enrollments.</p>
+						<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
 						<cfinclude template="feetable_OCC.cfm" >
 
-						<div class="controlBar">
-							<div class="controlBinTRC">
-								<cfif ListFindNoCase(ninjaList,request.authuser) OR ListFindNoCase(ninjaList,"OPEN")> <!--- OPENS, or allow specific users access while site is closed --->
-									<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
-								<cfelse>
-									<input  disabled="disabled" id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
-								</cfif>
-							</div>
-						</div>
-
+				<!--- Special Banded enrollments table for IN Fiscal Officer  --->
 						<h2>Banded Enrollments</h2>
 						<p>We have set this table to contain only Banded enrollments.</p>
+						<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
 						<cfinclude template="feetable_banded.cfm" >					
 					</cfif>
-					
-					<div class="controlBar">
-						<div class="controlBinTRC">
-							<cfif ListFindNoCase(ninjaList,request.authuser) OR ListFindNoCase(ninjaList,"OPEN")> 
-								<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
-							<cfelse>
-								<input disabled="disabled"  id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
-							</cfif>
-						</div>
-					</div>
-					
+
 					<!--- No FCP conditional include --->
 					<cfif ListFindNocase("77,80,81",urlRc)>
+						<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
 						<cfinclude template="no_fcp.cfm" >
-						<div class="controlBar">
-							<div class="controlBinTRC">
-								<cfif ListFindNoCase(ninjaList,request.authuser) OR ListFindNoCase(ninjaList,"OPEN")> 
-									<input id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
-								<cfelse>
-									<input disabled="disabled"  id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
-								</cfif>
-							</div>
-						</div>
 					</cfif>
 					<!--- end No FCP section --->
 				<cfelse>
-					<!--- TODO: Set this so it fails gracefully back to the RC selection dropdown --->
-					<!---<cfdump var="#DataSelect#" ><cfabort>--->
-
 					<cflocation url="#userLanding#" addtoken="false">
 				</cfif>
+
 				<cfif isDefined("Url") AND StructKeyExists(Url, "Campus") AND StructKeyExists(Url, "RC")>
 					<input hidden="hidden" value="#urlCampus#" name="urlCAMPUS" />
 					<input hidden="hidden" value="#urlRC#" name="urlRC" />
