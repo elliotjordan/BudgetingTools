@@ -5,7 +5,8 @@
 <cfset current_scenario = currentUser.fym_scenario_focus />
 <cfset scenario_details = getCurrentScenario(current_scenario) />
 
-<cfif ListFindNoCase('XY',current_inst) or REQUEST.authUser eq 'sbadams'> 
+<cfif ListFindNoCase('XY',current_inst) or ListFindNoCase('sbadams,jburgoon',REQUEST.authUser)> 
+
 	<cfset openModel = true />
 <cfelse>
 	<cfset openModel = false />
