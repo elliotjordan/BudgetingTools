@@ -700,7 +700,6 @@ tr:hover {background-color: #a9a9a9}
 
 /* ***** feecode table ***** */
 .feeCodeTable {
-	width: 100%;
 	border-collapse:collapse;
 }
 
@@ -719,7 +718,6 @@ tr:hover {background-color: #a9a9a9}
 	color:#000;
 	padding:7px; 
 	border:#44697D 1px solid;
-	width: auto;
 }
 
 .feeCodeTable tr {  /* Provide some minimal information for silly IE versions */
