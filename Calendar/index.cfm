@@ -8,6 +8,7 @@
 	<p>Calendar stuff goes here</p>
 	<p>We have a few goals here:
 		<ul>
+			<li>Just a test line - DELETE after John sees it</li>
 			<li>Put budget calender items in a database table</li>
 			<li>Centalize editing, printing, and publishing to PDF</li>
 			<li>Provide infrastructure for simple task management</li>
