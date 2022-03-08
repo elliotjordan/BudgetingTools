@@ -18,7 +18,6 @@
 	</cftry>
 </cftransaction>
 
-<cfdump var="#session#" />
 <cfinclude template="projects.cfm" />
 
 <cfinclude template="../includes/header_footer/pm_footer.cfm" />
