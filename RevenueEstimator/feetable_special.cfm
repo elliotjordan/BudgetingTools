@@ -1,4 +1,5 @@
 <cfoutput>
+				<div id="othFeesDiv">
 					<div class="workSaver">
 						<input  disabled="disabled" id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" 
 <cfif !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif> />
@@ -132,10 +133,10 @@
 										</cfif>
 									</cfif>
 			<cfif application.budget_year eq "YR1"> 
-				<input name="projHrs_Yr1" id="projHrsYr1#CurrentRow#" size="10" value="#projhours_yr1#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" />
+				<input name="projHrs_Yr1OID#OID#" id="projHrs_Yr1OID#OID#" size="10" value="#projhours_yr1#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" />
+				<input name="projHrs_Yr1#OID#DELTA" type="hidden" value="false" />
 			<cfelse>
-				<input name="projHrs_Yr1" id="projHrsYr1#CurrentRow#" size="10" value="#projhours_yr1#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" disabled />
-				<input name="projHrs_Yr1" type="hidden" value="#projhours_yr1#" />
+				<input name="projHrs_Yr1OID#OID#" id="projHrs_Yr1OID#OID#" size="10" value="#projhours_yr1#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" disabled />
 			</cfif>
 									</td>
 								<cfif application.rateStatus eq "Vc">
@@ -170,23 +171,24 @@
 										<cfset feeAmount = 0 />  <!--- We do this so we can catch bad data - set to 0, then check for numeric --->
 								<cfif application.rateStatus eq "Vc">
 										<cfif IsNumeric(ADJ_RATE)>
-											<cfset feeAmount = b1_ADJ_RATE />
+											<cfset feeAmount = b2_ADJ_RATE />
 										</cfif>
 								<cfelseif application.rateStatus eq "V1">
-										<cfif IsNumeric(b1_ADJ_ESCL_RATE_YR2)>
-											<cfset feeAmount = b1_ADJ_ESCL_RATE_YR2 />
+										<cfif IsNumeric(b2_ADJ_ESCL_RATE_YR2)>
+											<cfset feeAmount = b2_ADJ_ESCL_RATE_YR2 />
 										</cfif>
 								</cfif>
-										<input name="projHrs_Yr2" id="projHrsYr2#CurrentRow#" size="10" value="#PROJHOURS_YR2#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')">
+										<input name="projHrs_Yr2OID#OID#" id="projHrs_Yr2OID#OID#" size="10" value="#PROJHOURS_YR2#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')">
+										<input name="projHrs_Yr2#OID#DELTA" type="hidden" value="false" />
 										<span class="sm-red">#note#</span>
 									</td>
 								<cfif application.rateStatus eq "Vc">
 									<td name="feeHY" id="feeHY#CurrentRow#">
-										#DollarFormat(b1_ADJ_RATE)#
+										#DollarFormat(b2_ADJ_RATE)#
 									</td>
 								<cfelseif application.rateStatus eq "V1">
 									<td name="feeHY" id="feeHY#CurrentRow#">
-										#DollarFormat(b1_ADJ_ESCL_RATE_YR2)#
+										#DollarFormat(b2_ADJ_ESCL_RATE_YR2)#
 									</td>
 								</cfif>
 									<td id="otherFeeRevYr2#CurrentRow#" name="otherEstRev_Yr2">
@@ -201,12 +203,5 @@
 						<input hidden="hidden" value="#Url.Campus#" name="CAMPUS" />
 						<input hidden="hidden" value="#Url.RC#" name="RC" />
 					</cfif>
-					<!---<span class="SubTotal" id="otherSubTotalYr1">
-						SUB-TOTAL YR1 (only what is showing): 
-						#DollarFormat(0000.00)#
-					</span><br>
-					<span class="SubTotal" id="otherSubTotalYr2">
-						SUB-TOTAL YR2 (only what is showing): 
-						#DollarFormat(0000.00)#
-					</span>--->
+				</div>  <!-- End othFeesDiv -->
 </cfoutput>

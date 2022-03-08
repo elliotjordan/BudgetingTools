@@ -617,23 +617,19 @@ GROUP BY sesn) t
 </cffunction>
 
 <cffunction name="updateFeeInfo" output="false">
-	<cfargument name="thisOID" type="string" default="">
-	<cfargument name="PROJHRS_YR1" type="numeric">
-	<cfargument name="PROJHRS_YR2" type="numeric">
+	<cfargument name="thisOID" type="numeric" required="true" />
+	<cfargument name="thisColumn" type="string" required="true" />
+	<cfargument name="thisValue" type="numeric" required="true" />
 	<cftransaction>
 		<cfquery datasource="#application.datasource2#" name="setFee">
-			UPDATE #application.hours_to_project#
-			<cfif application.budget_year eq 'YR1'>
-				SET B1_PROJHRS_YR1 = <cfqueryparam cfsqltype="cf_sql_numeric" value="#PROJHRS_YR1#" />,
-			    B1_PROJHRS_YR2 = <cfqueryparam cfsqltype="cf_sql_numeric" value="#PROJHRS_YR2#" />,
-			    b1_U_VERSION = b1_U_VERSION + 1
-			<cfelse>
-				SET b2_PROJHRS_YR2 = <cfqueryparam cfsqltype="cf_sql_numeric" value="#PROJHRS_YR2#" />,
-			    b2_U_VERSION = b2_U_VERSION + 1
-			</cfif>
-				WHERE OID = <cfqueryparam cfsqltype="cf_sql_integer" value="#thisOID#">
+			SELECT ch_user.update_htp_data(
+				givenoid => <cfqueryparam cfsqltype="cf_sql_integer" value="#thisOID#">, 
+				givencolumn => <cfqueryparam cfsqltype="cf_sql_varchar" value="#thisColumn#">, 
+				givenvalue => <cfqueryparam cfsqltype="cf_sql_integer" value="#thisValue#">
+			)
 		</cfquery>
 	</cftransaction>
+	<cfreturn true>
 </cffunction>
 
 <cffunction name="getProjCount" output="true">

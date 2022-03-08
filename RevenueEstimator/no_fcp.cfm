@@ -1,6 +1,5 @@
 <cfoutput>
-	<h2>No FCP Hours (formerly "Unlinked")</h2>
-	<p>These are the unlinked credit hours to match the Official Census count. "NO FCP" rows occur when we have fee-paying credit hours of enrollment from Official Census, but we do not find a matching course in FCP to retrieve financial data. We provide those rows here so that the credit hours can be properly tied back from the Projector to the Official Census.</p>	
+	<div id="fcpFeesDiv">
 	<!--- UNLINKED/NO FCP TABLE --->
 		<table id="csTable2" class="feeCodeTable">
 		<thead>
@@ -73,4 +72,5 @@
 		</cfif>
 		</tbody>
 	</table>
+	</div>  <!-- end fcpFeesDiv  -->
 </cfoutput>

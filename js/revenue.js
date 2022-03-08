@@ -79,8 +79,10 @@ function calcRCTotal(revElement,totalElement,givenLabel) {
         if(parseInt( estPennies ))
             tot += parseInt( estPennies );
     }
-    document.getElementById(totalElement).innerHTML = givenLabel + formatDollars(tot/100,0);  //formerly "rcTotal"
+    if ( typeof(document.getElementById(totalElement)) != "undefined" ) {
+    	document.getElementById(totalElement).innerHTML = givenLabel + formatDollars(tot/100,0);  //formerly "rcTotal"
     //console.log("calcRCTotal says arrlength is: " + arr.length + " and tot is: " + tot);
+    } else {console.log("BLORK")}
     return tot;
 }
 

@@ -1,38 +1,24 @@
 <cfinclude template="../includes/functions/bi_revenue_functions.cfm" />
-	<!--- Loop through Form - check for changes and perform updates --->
-	<!--- Remember the form has a comma-delimited list of values which must align - NO NULLS IN DATA! NO NULLS! NONE! THIS MEANS YOU! CHECK IT NOW! --->
-	<!--- DEFAULT BEHAVIOR IS TO LOOP THROUGH THE FORM, FIND ANY PROJHOURS THAT ARE DIFFERENT, AND UPDATE THE DATABASE WITH THOSE NEW VALUES --->
 <cfif getUserActiveSetting(REQUEST.authuser) eq 'N'>
 	<cflocation url="no_access.cfm" addtoken="false" >
 </cfif>
-<cfoutput><!---<cfdump var="#form#" >#ListLen(Form.TERM)# #ListLen(Form.PROJHRS_YR1)#  #ListLen(Form.PROJHRS_YR2)#  #ListLen(Form.FEECODE)#  #ListLen(Form.OID)#--->  <!---<cfabort >--->
-	<cfset line_count = 1>
-	<!---<cfdump var="#form#" >    YR1: <cfdump var="#ListLen(form.projhrs_yr1)#" > YR2:  <cfdump var="#ListLen(form.projhrs_yr2)#" >--->
-	<cfif (application.budget_year eq 'YR1' and (ListLen(Form.OID) neq ListLen(Form.PROJHRS_YR1)))
-	   OR (application.budget_year eq 'YR2' and (ListLen(Form.OID) neq ListLen(Form.PROJHRS_YR2)))
-	>
-		<cflocation url="hmmm.cfm?chart=#Form['urlCAMPUS']#&rc=#Form['urlRC']#" addtoken="false" />
-	</cfif>
-	
+<cfoutput>
 	<!--- User has asked for the Excel download. --->
 	<cfif IsDefined("form") AND StructKeyExists(form,"dwnldBtn")>
-		<!---<cfset ExcelSelect = getExcelDownloadData(urlCampus, urlRC,application.rateStatus)>--->
 		<cfset ExcelSelect = getProjectinatorData(urlCampus, urlRC,application.rateStatus,"excel")>  
 		<cfinclude template="export_to_excel.cfm" runonce="true" />
 		<cfabort>
 	
 	<!--- User has asked for a Vc/V1 report. --->
 	<cfelseif IsDefined("form") AND StructKeyExists(form,"reportBtn")>
-		<cfsetting enablecfoutputonly="Yes">  <!--- <cfdump var="#form#" >--->
-		<!---<cfset reportLevel = "_" & urlCampus & "_RC" & currentRC />--->    
+		<cfsetting enablecfoutputonly="Yes">  
 		<cfset reportLevel = "_" & urlCampus & "_RC" & form.urlrc />
 		 <cfif application.rateStatus eq "Vc">
 		  	<cfset reportSelect = getB325_Vc_Campus_data(urlCampus, urlRC, true)> 
 		  <cfelse>
 		    <cfset reportSelect = getB325_V1_Campus_data(urlCampus, urlRC, true)> 
 		  </cfif>
-		 
-		<!---<cfdump var="#reportSelect#"><cfabort>--->
+
 	   	<cfif IsDefined("reportSelect") AND reportSelect.recordcount GT 0>
 			<cfinclude template="V1_creation.cfm" runonce="true" />
 		<cfelse>
@@ -41,41 +27,38 @@
 	<cfelseif IsDefined("form") AND StructKeyExists(form,"vtype")>
 		<cfset application.rateStatus = form.vtype >
 	</cfif>	
-	<!--- If Saving suddenly doesn't work, it's probably due to NULLS or some other garbage data. Check here. --->
-	<!---<cfdump var="#ListLen(Form.TERM)#" ><cfdump var="#ListLen(Form.SESN)#" ><cfdump var="#ListLen(Form.PROJHRS_YR1)#" >
-	<cfdump var="#ListLen(Form.PROJHRS_YR2)#" ><cfdump var="#ListLen(Form.FEECODE)#" ><cfdump var="#ListLen(Form.SELGROUP)#" >
-	<cfdump var="#ListLen(Form.OID)#" >
-	<cfabort>--->
+	<!--- Prepend the projHours_yrX column name wiht the appropriate b1 or b2 value  --->
+	<cfif application.budget_year eq 'YR1'>
+		<cfset columnLeadValue = 'b1_'>
+	<cfelse>
+		<cfset columnLeadValue = 'b2_'>
+	</cfif>
 	
-	<cfloop list="#Form.FEECODE#" index="i">  
-		<cfset Fee_term = ListGetAt(Form.TERM,line_count)>
-		<cfset currSESN = ListGetAt(Form.SESN,line_count)>
-		<cfset Fee_projhrs_Yr1 = ListGetAt(Form.PROJHRS_YR1,line_count)>
-		<cfset Fee_projhrs_Yr2 = ListGetAt(Form.PROJHRS_YR2,line_count)>
-		<cfset currentFeeCode = ListGetAt(Form.FEECODE,line_count)>
-		<cfset currentRC = Form["urlRC"]/>
-		<cfset currentChart = Form["urlCAMPUS"] />
-		<cfset currentSelgroup = ListGetAt(Form.SELGROUP,line_count)>
-		<cfset currentOID = ListGetAt(Form.OID,line_count)>
-		<cfset thisFee = getFeeInfo(currentOID)>
-		<cfif application.budget_year eq 'YR1'> 
-			<cfif !IsNull(thisFee.b1_projhrs_yr1) and trim(thisFee.b1_projhrs_yr1) neq trim(Fee_projhrs_Yr1)>
-				<cfset updateFeeInfo(currentOID,Fee_projhrs_Yr1,Fee_projhrs_Yr2) /> <!--- TODO --->
-				<cfset actionEntry = trackProjectinatorAction(#REQUEST.AuthUser#,#currentChart#,7,"#REQUEST.AuthUser# at #currentChart# RC #currentRC# updated b1_projhours_Yr1 FC #currentFeeCode# #currentSelgroup# for term #fee_term# to #Fee_projhrs_Yr1# CrHrs, b1_projhrs_Yr2 FC #currentFeeCode# OID #currentOID# for term #fee_term# sesn #currSESN# to #Fee_projhrs_Yr2# CrHrs") />
-			</cfif>
-		</cfif>
-		<cfif !IsNull(thisFee.b1_projhrs_Yr2) and trim(thisFee.b1_projhrs_Yr2) neq trim(Fee_projhrs_Yr2)>
-			<cfset updateFeeInfo(currentOID,Fee_projhrs_Yr1,Fee_projhrs_Yr2) /> 
-			<cfset actionEntry = trackProjectinatorAction(#REQUEST.AuthUser#,#currentChart#,7,"#REQUEST.AuthUser# at #currentChart# RC #currentRC# updated b2_projhrs_Yr2 FC #currentFeeCode# #currentSelgroup# OID #currentOID# for term #fee_term# sesn #currSESN# to #Fee_projhrs_Yr2# CrHrs") />
-		</cfif>
-		<!---<cfif trim(thisFee.b2_projhrs_Yr2) neq trim(Fee_projhrs_Yr2)>
-			<cfset updateFeeInfo(currentOID,Fee_projhrs_Yr1,Fee_projhrs_Yr2) /> 
-			<cfset actionEntry = trackProjectinatorAction(#REQUEST.AuthUser#,#currentChart#,7,"#REQUEST.AuthUser# at #currentChart# RC #currentRC# updated b2_projhrs_Yr2 FC #currentFeeCode# #currentSelgroup# OID #currentOID# for term #fee_term# sesn #currSESN# to #Fee_projhrs_Yr2# CrHrs") />
-		</cfif>--->
-		<cfset line_count++ >		
-	</cfloop>
-
-
-</cfoutput>
+<h2>Projectinator Update</h2>
+<cfif IsDefined("form") and StructKeyExists(form,"submitBtn")> 
+	<cfloop index="i" list="#Form.FieldNames#" delimiters=",">
+		<cfif Form[i] eq true>
+			<cfdump var="#form#" >
+			Form[i]: #Form[i]# <br />
+			<cfset rootID = REPLACE(i,"DELTA","") />  
+			rootID: #rootID#  <br />
+   			<cfset cutParam = rootID.split("OID")  />
+   			cutParam: #cutParam# <br/>
+   			<cfset activeColumn = LCase(columnLeadValue & cutParam[1]) />
+   			activeColumn: #activeColumn# <br /> 
+			<cfset activeOID = cutParam[2] /> 
+			activeOID: #activeOID# <br />   
+  			<cfset scrubbedValue =  REREPLACE(Form[rootID],"[^0-9.\-]","","ALL") />  
+  			REGULAR FIELD #rootId# Form[i] #form[i]# - activeColumn #activeColumn# - scrubbedValue #scrubbedValue#<br>    
+			<cfset updateFeeInfo(activeOID,activeColumn,scrubbedValue) /> 
+	   		<br>Updating metadata now...<br>
+			<!---<cfset actionEntry = trackProjectinatorAction(#REQUEST.AuthUser#,#currentChart#,7,"#REQUEST.AuthUser# at #Form['urlCampus']'# RC #Form['urlRC']# updated b2_projhrs_Yr2 FC #currentFeeCode# #currentSelgroup# OID #currentOID# for term #fee_term# sesn #currSESN# to #Fee_projhrs_Yr2# CrHrs") />
+--->	   </cfif>
+	</cfloop>  <cfabort>
+<cfelse>
+	<p>Error. Please contact us and explain that you got the "Projectinator Update error". Sorry for the trouble! Thanks</p> <cfabort>
+</cfif>
+ 
 	<cfset returnString = "revenue_RC.cfm?Campus=" & #Form['urlCampus']# & "&RC=" & #Form['urlRc']# />
 	<cflocation url= #returnString# addToken="false" />
+</cfoutput>

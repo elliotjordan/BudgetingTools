@@ -1,6 +1,5 @@
 <cfoutput>
-				<div id="gradFeesDiv">
-					<table id="gradFeesTable" class="feeCodeTable" >
+					<table id="gradFeesTable" class="feeCodeTable">
 						<thead>
 							<tr>
 								<th>Fee Code
@@ -53,6 +52,10 @@
 								<tr>
 									<td>
 										<cfif ListFindNoCase(REQUEST.adminUsernames,trim(REQUEST.AuthUser))><span class="sm-blue">#FEE_ID#</span></cfif>
+										<input hidden="hidden" value="#FEE_ID#" name="FEE_ID">
+										<input hidden="hidden" value="#OID#" name="OID">
+										<input hidden="hidden" value="#FEECODE#" name="FEECODE">
+										<br>
 										<div class="tooltip">#FEECODE#
 											<span class="tooltiptext">#FEEDESCR#</span>
 										</div> 
@@ -62,6 +65,8 @@
 										</span>
 									</td>
 									<td>
+										<input hidden="hidden" value="#TERM#" name="TERM">
+										<input hidden="hidden" value="#SESN#" name="SESN">
 										#SESN#
 										<br>
 										<span class="sm-blue">
@@ -69,6 +74,7 @@
 										</span>
 									</td>
 									<td>
+										<input hidden="hidden" value="#SELGROUP#" name="SELGROUP">
 										#SELGROUP#
 									</td>
 									<td>
@@ -78,6 +84,7 @@
 										</cfif>
 									</td>
 									<td>
+										<input hidden="hidden" value="#RES#" name="RES">
 										#RES#
 									</td>
 									<td>
@@ -88,9 +95,10 @@
 										</span>
 									</td>
 									<td>
+										<input hidden="hidden" value="#ACCOUNT#" name="ACCOUNT">
 										#ACCOUNT#
 										<br>
-										<cfif LEN(gl_sub_acct_cd) gt 0>	<span class="sm-red">#gl_sub_acct_cd#</span><br></cfif>
+<cfif LEN(gl_sub_acct_cd) gt 0>	<span class="sm-red">#gl_sub_acct_cd#</span><br></cfif>
 										<span class="sm-blue">
 											#ACCOUNT_NM#
 										</span>
@@ -122,10 +130,10 @@
 											</cfif>
 										</cfif>
 			<cfif application.budget_year eq "YR1"> 
-				<input name="projHrs_Yr1" id="projHrsYr1#OID#" size="10" value="#projhours_yr1#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" />
+				<input name="projHrs_Yr1" id="projHrsYr1#CurrentRow#" size="10" value="#projhours_yr1#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" />
 			<cfelse>
-				<input name="projHrs_Yr1#OID#" id="projHrsYr1#OID#" size="10" value="#projhours_yr1#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" disabled />
-				<input name="projHrs_Yr1#OID#DELTA" type="hidden" value="false" />
+				<input name="projHrs_Yr1" id="projHrsYr1#CurrentRow#" size="10" value="#projhours_yr1#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" disabled />
+				<input name="projHrs_Yr1" type="hidden" value="#projhours_yr1#" />
 			</cfif>
 									</td>
 								<cfif application.rateStatus eq "Vc">	
@@ -164,8 +172,7 @@
 												<cfset feeAmount = b2_ADJ_ESCL_RATE_YR2 />
 											</cfif>
 										</cfif>
-										<input name="projHrs_Yr2OID#OID#" id="projHrsYr2#OID#" size="10" value="#projhours_yr2#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')">
-										<input name="projHrs_Yr2OID#OID#DELTA" id="projHrs_Yr2#OID#DELTA" value="false" hidden="hidden" />
+										<input name="projHrs_Yr2" id="projHrsYr2#CurrentRow#" size="10" value="#projhours_yr2#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')">
 										<span class="sm-red">#note#</span>
 									</td>
 									<cfif application.rateStatus eq "Vc">	
@@ -188,5 +195,4 @@
 						<input hidden="hidden" value="#Url.Campus#" name="CAMPUS" />
 						<input hidden="hidden" value="#Url.RC#" name="RC" />
 					</cfif>
-				</div>  <!-- edn gradFeesDiv -->
 </cfoutput>

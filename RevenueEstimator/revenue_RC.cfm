@@ -11,11 +11,6 @@
 <cfset userLanding = getUserLandingPage() />
 <cfset userAccessList = getUserAccessList() />
 <cfset dssIsOpen = checkDSSavailability() />
-<!--- ********** OPEN/CLOSE ********** --->
-<cfset projStatus = "closed" />  <!--- valid settings are "open" and "closed" - button logic checks ninjaList for "OPEN" --->
-<cfset ninjaList = "nschrode,jburgoon,nichodan,bjmoelle" /> 
-<!---<cfset ninjaList = "" />---> 
-<cfset ninjaList =ListAppend(ninjaList,projStatus) />
 
 <cfif isDefined("Url") AND StructKeyExists(Url, "Campus") AND StructKeyExists(Url, "RC")>
 	<cfset urlCampus = url.Campus>
@@ -32,10 +27,18 @@
 		<cflocation url="#userLanding#" addtoken="false">
 	</cfif>
 </cfif>
+
+<!--- ********** OPEN/CLOSE ********** --->
+<cfset projStatus = "open" />  <!--- valid settings are "open" and "closed" - button logic checks ninjaList for "OPEN" --->
+<cfset ninjaList = "nschrode,jburgoon,nichodan,bjmoelle" /> 
 <!--- Turn off SAVE button for specific campuses   --->
-<cfif ListFindNoCase('IN',urlCampus)>
+<cfif ListFindNoCase('KO',urlCampus)>
 	<cfset projstatus = "closed" />
 </cfif>
+<cfset disabledBtn = "" />
+<cfif projStatus eq "closed"><cfset disabledBtn = "disabled"></cfif>
+<cfset ninjaList =ListAppend(ninjaList,projStatus) />
+
 
 <cfif getUserActiveSetting(REQUEST.authuser) eq 'N'>
 	<cflocation url="no_access.cfm" addtoken="false" >
@@ -43,21 +46,16 @@
 
 <cfoutput>
 	<div class="full_content">
-		<!---<cfinclude template="prod_banner.cfm" runonce="true">--->
 			<h2><a href="revenue_RC.cfm">Credit Hour Revenue Projector</a> </h2>
 			Currently set to <b>
 							<cfif application.rateStatus eq "Vc">constant effective rates.
 							<cfelseif application.rateStatus eq "V1">adjusted escalated rates.
 							</cfif></b>
-				<!---Now: #TimeFormat(Now(),"HH")# DSSOPEN: #DateFormat(Now(),'ddd')# #dssIsOpen#--->
 				<span class="sm-blue"> <i>v3 - #application.budget_year# of the #application.biennium# Biennium</i></span>
 			<cfif ListFindNoCase(REQUEST.adminUsernames, REQUEST.AuthUser ) OR ListFindNoCase(REQUEST.campusFOusernames, REQUEST.AuthUser) OR ListFindNoCase(REQUEST.regionalUsernames, REQUEST.authUser)>
 				<p><a href="revenue_Campus.cfm">Campus Page</a><span> -- </span><a href="revenue_University.cfm">University Page</a></p>
 			</cfif>
-	   <!---<div class="controlBinTR_notNowPlease">
-				<cfinclude template="statusBar.cfm">
-			</div>--->
-			<!-- End div controlBinTR -->
+
 			<cfform action="insert_web_submission.cfm?campus=#url.campus#&rc=#url.RC#">
 				<div class="controlBar">
 					<div class="controlBinTL">
@@ -66,9 +64,6 @@
 								--Campus/RC--
 							</option>
 							<cfloop query="getCampus">
-								<!---<cfif getCampus.rc_cd eq '52' and getCampus.fin_coa_cd eq 'IN'>  <!--- omg what a hack, please don't look at me like that --->
-									<option value="IN - 46 - IUPU COLUMBUS" <cfif urlCampus eq "IN" AND NOT IsNull(urlRC) AND  urlRC eq "46">selected</cfif>>IN - 46 - IUPU COLUMBUS</option>
-								</cfif>--->
 								<cfif NOT IsNull(urlRC) AND urlCampus eq Mid(dropdown,1,2) AND urlRC eq Mid(dropdown,6,2)>
 									<cfset selectedStatus = "selected">
 								<cfelse>
@@ -100,7 +95,6 @@
 				</div>	<!-- End of div controlBar -->
 
 				<!---  Unique key for this data set is Campus, RC, Term, Account, and FeeCode  --->
-				<!---<cfif len(trim(urlCampus)) neq 0 & len(trim(urlRC)) neq 0>--->
 				<cfif trim(urlRC) eq '81'>
 					<cfset clearingSummarySelect = getClearingSummary(urlCampus,urlRC)>
 					<cfinclude template="clearing_account.cfm">
@@ -109,12 +103,12 @@
 					<cfif Len(getCampus.recordCount) eq 0>		<!--- Placeholder for empty query results  --->
 						Campus RecordCount is 0.
 				</cfif>
-				<h2>Graduate Credit Hours</h2>
+				<h2>Graduate Credit Hours</h2><span id="gradClicker" class="sm-green">Show/Hide Grad table</span>
 				<p>We have set this table to contain what we believe are your "main" graduates.  All others are in a table at the bottom of the page.  We can change this setting for you if you wish.</p>
 				<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />	
 				<cfinclude template="feetable_grad.cfm" >
 								
-				<h2>Undergraduate Credit Hours</h2>
+				<h2>Undergraduate Credit Hours</h2><span id="ugClicker" class="sm-green">Show/Hide Undergrad table</span>
 				<p>We have set this table to contain only your summer undergraduate enrollments.  All others are in a clearing account table for your campus fiscal officer.</p>
 				<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
 				<cfinclude template="feetable_undergrad.cfm" >
@@ -123,7 +117,7 @@
 				<!--- Jump through some hoops to see if there are any non-GRAD, non-UGRD academic career lines left in the data --->
 				<cfset careerList = ValueList(enrllmtCount.ACAD_CAREER) />
 				<cfif ListLen(careerList) gt 0>
-					<h2>Other Enrollments</h2>
+					<h2>Other Enrollments</h2><span id="othClicker" class="sm-green">Show/Hide Other Enrollments table</span>
 					<p>We have set this table to contain miscellaneous graduate enrollments.  If there are any you prefer to appear in the table at the top of the page, we will be happy to change that for you.</p>
 					<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
 					<cfinclude template="feetable_special.cfm" >
@@ -131,13 +125,13 @@
 
 				<!--- Special OCC table for IN Fiscal Officer --->
 					<cfif urlCampus eq "IN" AND urlRC eq "80">
-						<h2>OCC Enrollments</h2>
+						<h2>OCC Enrollments</h2><span id="occClicker" class="sm-green">Show/Hide OCC table</span>
 						<p>We have set this table to contain OCC enrollments.</p>
 						<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
 						<cfinclude template="feetable_OCC.cfm" >
 
 				<!--- Special Banded enrollments table for IN Fiscal Officer  --->
-						<h2>Banded Enrollments</h2>
+						<h2>Banded Enrollments</h2><span id="bandClicker" class="sm-green">Show/Hide Banded table</span>
 						<p>We have set this table to contain only Banded enrollments.</p>
 						<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
 						<cfinclude template="feetable_banded.cfm" >					
@@ -145,6 +139,8 @@
 
 					<!--- No FCP conditional include --->
 					<cfif ListFindNocase("77,80,81",urlRc)>
+						<h2>No FCP Hours (formerly "Unlinked")</h2><span id="fcpClicker" class="sm-green">Show/Hide Unlinked table</span>
+						<p>These are the unlinked credit hours to match the Official Census count. "NO FCP" rows occur when we have fee-paying credit hours of enrollment from Official Census, but we do not find a matching course in FCP to retrieve financial data. We provide those rows here so that the credit hours can be properly tied back from the Projector to the Official Census.</p>	
 						<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
 						<cfinclude template="no_fcp.cfm" >
 					</cfif>

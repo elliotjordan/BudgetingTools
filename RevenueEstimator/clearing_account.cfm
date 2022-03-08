@@ -1,3 +1,4 @@
+<div id="clrFeesDiv" />
 <h5>Clearing Account Page</h5>
 <!---<cfdump var="#clearingSummarySelect#" ><cfabort>--->
 <!--- Four major states determine which rates to use  --->
@@ -97,10 +98,10 @@
 						<cfset feeAmount = 0 />
 						<cfif IsNumeric(0)><cfset feeAmount = 0 /></cfif>  <!--- UNLINKED/NO FCP IS ALWAYS 0 by DEFINITION --->
 			<cfif application.budget_year eq "YR1"> 
-				<input name="projHrs_Yr1" id="projHrsYr1#CurrentRow#" size="10" value="#projhours_yr1#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" />
+				<input name="projHrs_Yr1OID#OID#" id="projHrs_Yr1OID#OID#" size="10" value="#projhours_yr1#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" />
+				<input name="projHrs_Yr1#OID#DELTA" type="hidden" value="false" />
 			<cfelse>
 				<input name="projHrs_Yr1" id="projHrsYr1#CurrentRow#" size="10" value="#projhours_yr1#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" disabled />
-				<input name="projHrs_Yr1" type="hidden" value="#projhours_yr1#" />
 			</cfif>
 					</td>
 					<td name="feeLY" id="feeLY#CurrentRow#">#DollarFormat(B1_ADJ_ESCL_RATE_YR1)#</td>
@@ -112,16 +113,17 @@
 					</td>
 				</cfif>
 					<td>#NumberFormat(MACHHRS_YR2,'999,999.9')#</td>
-					<td><span class="sm-blue">Starting value: #b1_projhrs_yr2#</span>
+					<td><span class="sm-blue">Starting value: #b2_projhrs_yr2#</span>
 						<!---<span class="sm-red">SAMPLE DATA</span>--->
 										<br>
 						<cfset currentTarget = 'otherFeeRevYr2' & #CurrentRow# />
 						<cfset feeAmount = 0 />
 						<cfif IsNumeric(0)><cfset feeAmount = 0 /></cfif>
-						<input name="projHrs_Yr2" id="projHrsYR2#CurrentRow#" size="10" value="#PROJHOURS_YR2#" onblur="calcEstRev(this.value, #feeAmount#, '#currentTarget#')"/>
+						<input name="projHrs_Yr2OID#OID#" id="projHrs_YR2OID#OID#" size="10" value="#PROJHOURS_YR2#" onblur="calcEstRev(this.value, #feeAmount#, '#currentTarget#')"/>
+						<input name="projHrs_Yr2#OID#DELTA" type="hidden" value="false" />
 					</td>
 					<!---<td name="feeLY" id="feeLY#CurrentRow#">#DollarFormat(b1_adj_rate)#</td>--->
-					<td name="feeLY" id="feeLY#CurrentRow#">#DollarFormat(B1_ADJ_ESCL_RATE_YR2)#</td>
+					<td name="feeLY" id="feeLY#CurrentRow#">#DollarFormat(B2_ADJ_ESCL_RATE_YR2)#</td>
 					<td id="otherFeeRevYr2#CurrentRow#" name="estRevYr2">#DollarFormat(EstRev_YR2)#</td>
 				</tr>
 				</cfif>
@@ -199,4 +201,5 @@
 			</cfloop>
 		</tbody>
 	</table>
+</div>  <!-- end div clrFees  -->
 </cfoutput>

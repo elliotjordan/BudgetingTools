@@ -22,6 +22,14 @@
 
 $(document).ready(function(){
 	$('.change_warning').hide();
+	
+	$( "#gradClicker" ).click(function() { $("#gradFeesDiv").toggle(); });
+	$( "#ugClicker" ).click(function() { $("#ugFeesDiv").toggle(); });
+	$( "#occClicker" ).click(function() { $("#occFeesDiv").toggle(); });
+	$( "#othClicker" ).click(function() { $("#othFeesDiv").toggle(); });
+	$( "#bandClicker" ).click(function() { $("#bandFeesDiv").toggle(); });
+	$( "#fcpClicker" ).click(function() { $("#fcpFeesDiv").toggle(); });
+	
   //update the delta hidden element if the user changes a field in the params form
   // onchange() in any field, take the name of the field and change the <name>DELTA value to true
 	$("form :input").change(function() {
@@ -36,7 +44,7 @@ $(document).ready(function(){
 			if (this.name != 'fundRad') {
 				$('.change_warning').show();
 			}
-			$.fn.colTotal();
+			//$.fn.colTotal();
 		}
 		if ($handle.is("textarea")) {
 			//console.log('Textarea input changed\n');
@@ -150,6 +158,7 @@ $(document).ready(function(){
 	    {
 	    	dom: "Bfrtip",
 	    	iDisplayLength:-1,
+	    	bAutoWidth: false,
 	        aoColumnDefs: [  
 	        	{ "bSearchable": false, "sTitle":"Line No.", "sType":"numeric", "bSortable":false },
 	        	{ "bSearchable": true, "sTitle":"Fee Code", "sType":"string", "bSortable":true },
@@ -183,6 +192,7 @@ $(document).ready(function(){
 	    {
 	    	dom: "Bfrtip",
 	    	iDisplayLength:-1,
+	    	bAutoWidth: false,
 	        aoColumnDefs: [  
 	        	{ "bSearchable": false, "sTitle":"Line No.", "sType":"numeric", "bSortable":false },
 	        	{ "bSearchable": true, "sTitle":"Fee Code", "sType":"string", "bSortable":true },
@@ -216,6 +226,7 @@ $(document).ready(function(){
 	    {
 	    	dom: "Bfrtip",
 	    	iDisplayLength:-1,
+	    	bAutoWidth: false,
 	        aoColumnDefs: [  
 	        	{ "bSearchable": false, "sTitle":"Line No.", "sType":"numeric", "bSortable":false },
 	        	{ "bSearchable": true, "sTitle":"Fee Code", "sType":"string", "bSortable":true },
@@ -249,6 +260,7 @@ $(document).ready(function(){
 	    {
 	    	dom: "Bfrtip",
 	    	iDisplayLength:-1,
+	    	bAutoWidth: false,
 	        aoColumnDefs: [  
 	        	{ "bSearchable": true, "sTitle":"Fee Code", "sType":"string", "bSortable":true },
 	        	{ "bSearchable": true, "sTitle":"Fee Description", "sType":"string", "bSortable":true }, 
@@ -279,6 +291,7 @@ $(document).ready(function(){
 	    {
 	    	dom: "Bfrtip",
 	    	iDisplayLength:-1,
+	    	bAutoWidth: false,
 	        aoColumnDefs: [  
 	        	{ "bSearchable": true, "sTitle":"Fee Code", "sType":"string", "bSortable":true },
 	        	{ "bSearchable": true, "sTitle":"Fee Description", "sType":"string", "bSortable":true }, 
