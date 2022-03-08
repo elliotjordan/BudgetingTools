@@ -1,9 +1,5 @@
 <cfoutput>
 				<div id="othFeesDiv">
-					<div class="workSaver">
-						<input  disabled="disabled" id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" 
-<cfif !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser)>#application.disabled#</cfif> />
-					</div>					
 					<table id="otherFeesTable" class="feeCodeTable">
 						<thead>
 							<tr>
@@ -179,7 +175,7 @@
 										</cfif>
 								</cfif>
 										<input name="projHrs_Yr2OID#OID#" id="projHrs_Yr2OID#OID#" size="10" value="#PROJHOURS_YR2#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')">
-										<input name="projHrs_Yr2#OID#DELTA" type="hidden" value="false" />
+										<input name="projHrs_Yr2OID#OID#DELTA" type="hidden" value="false" />
 										<span class="sm-red">#note#</span>
 									</td>
 								<cfif application.rateStatus eq "Vc">
