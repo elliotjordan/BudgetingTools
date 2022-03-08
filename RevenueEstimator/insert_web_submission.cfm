@@ -38,7 +38,6 @@
 <cfif IsDefined("form") and StructKeyExists(form,"submitBtn")> 
 	<cfloop index="i" list="#Form.FieldNames#" delimiters=",">
 		<cfif Form[i] eq true>
-			<cfdump var="#form#" >
 			Form[i]: #Form[i]# <br />
 			<cfset rootID = REPLACE(i,"DELTA","") />  
 			rootID: #rootID#  <br />
@@ -51,10 +50,10 @@
   			<cfset scrubbedValue =  REREPLACE(Form[rootID],"[^0-9.\-]","","ALL") />  
   			REGULAR FIELD #rootId# Form[i] #form[i]# - activeColumn #activeColumn# - scrubbedValue #scrubbedValue#<br>    
 			<cfset updateFeeInfo(activeOID,activeColumn,scrubbedValue) /> 
-	   		<br>Updating metadata now...<br>
-			<!---<cfset actionEntry = trackProjectinatorAction(#REQUEST.AuthUser#,#currentChart#,7,"#REQUEST.AuthUser# at #Form['urlCampus']'# RC #Form['urlRC']# updated b2_projhrs_Yr2 FC #currentFeeCode# #currentSelgroup# OID #currentOID# for term #fee_term# sesn #currSESN# to #Fee_projhrs_Yr2# CrHrs") />
---->	   </cfif>
-	</cfloop>  <cfabort>
+	   		<br>Updating metadata now...<br> 
+			<cfset actionEntry = trackProjectinatorAction(#REQUEST.AuthUser#,#url.Campus#,7,"#REQUEST.AuthUser# at #url.Campus# RC #url.RC# updated #activeColumn# OID #activeOID# to #scrubbedValue# CrHrs") />
+	   </cfif>
+	</cfloop> 
 <cfelse>
 	<p>Error. Please contact us and explain that you got the "Projectinator Update error". Sorry for the trouble! Thanks</p> <cfabort>
 </cfif>
