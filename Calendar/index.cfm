@@ -52,22 +52,22 @@
 					</td>
 				</tr>
 				<cfloop query="#calItems#">
-					<cfif cal_sub_item eq 0>
+					<!---<cfif cal_sub_item eq 0>--->
 					<tr>
 						<td>#cal_date#</td>
 						<td>
 							#id# - #cal_item#
-							<cfset current_CI = id />
+							<!---<cfset current_CI = id />
 							<br>
 							<cfloop query="#calItems#">
 								<cfif cal_sub_item eq current_CI> -- #cal_item#<br></cfif>
-							</cfloop>
+							</cfloop>--->
 						</td>
 						<td>#cal_responsible#</td>
 						<td>#cal_note#</td>
 						<td><input name="calEdit" type="button" value="Edit"></td>
 					</tr>
-					</cfif>	
+					<!---</cfif>	--->
 				</cfloop>
 			</tbody>
 		</table>
