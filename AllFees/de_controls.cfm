@@ -1,7 +1,7 @@
 <cfset fee_params = getFeeParamData() />
 <cfset afm_de_asso = getAFM_DE_asso() />
 <cfset afm_params = getAFMparams() />
-<cfset delta = getDEchangeReport() />
+<cfset delta = getDEchangeReport() />  <!--- Get to work! --->
 <cfoutput>
 	<div class="full_content">
 		<!---<cfdump var="#delta#" >--->
