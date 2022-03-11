@@ -103,12 +103,12 @@
 					<cfif Len(getCampus.recordCount) eq 0>		<!--- Placeholder for empty query results  --->
 						Campus RecordCount is 0.
 				</cfif>
-				<h2>Graduate Credit Hours</h2><span id="gradClicker" class="sm-green">Show/Hide Grad table</span>
+				<h2>Graduate Credit Hours</h2><button id="gradClicker" type="button" class="sm-green">Show/Hide Grad table</button>
 				<p>We have set this table to contain what we believe are your "main" graduates.  All others are in a table at the bottom of the page.  We can change this setting for you if you wish.</p>
 				<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />	
 				<cfinclude template="feetable_grad.cfm" >
 								
-				<h2>Undergraduate Credit Hours</h2><span id="ugClicker" class="sm-green">Show/Hide Undergrad table</span>
+				<h2>Undergraduate Credit Hours</h2><button id="ugClicker" type="button" class="sm-green">Show/Hide Undergrad table</button>
 				<p>We have set this table to contain only your summer undergraduate enrollments.  All others are in a clearing account table for your campus fiscal officer.</p>
 				<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
 				<cfinclude template="feetable_undergrad.cfm" >
@@ -117,7 +117,7 @@
 				<!--- Jump through some hoops to see if there are any non-GRAD, non-UGRD academic career lines left in the data --->
 				<cfset careerList = ValueList(enrllmtCount.ACAD_CAREER) />
 				<cfif ListLen(careerList) gt 0>
-					<h2>Other Enrollments</h2><span id="othClicker" class="sm-green">Show/Hide Other Enrollments table</span>
+					<h2>Other Enrollments</h2><button id="othClicker" type="button" class="sm-green">Show/Hide Other Enrollments table</button>
 					<p>We have set this table to contain miscellaneous graduate enrollments.  If there are any you prefer to appear in the table at the top of the page, we will be happy to change that for you.</p>
 					<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
 					<cfinclude template="feetable_special.cfm" >
@@ -125,13 +125,13 @@
 
 				<!--- Special OCC table for IN Fiscal Officer --->
 					<cfif urlCampus eq "IN" AND urlRC eq "80">
-						<h2>OCC Enrollments</h2><span id="occClicker" class="sm-green">Show/Hide OCC table</span>
+						<h2>OCC Enrollments</h2><button id="occClicker" type="button" class="sm-green">Show/Hide OCC table</button>
 						<p>We have set this table to contain OCC enrollments.</p>
 						<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
 						<cfinclude template="feetable_OCC.cfm" >
 
 				<!--- Special Banded enrollments table for IN Fiscal Officer  --->
-						<h2>Banded Enrollments</h2><span id="bandClicker" class="sm-green">Show/Hide Banded table</span>
+						<h2>Banded Enrollments</h2><button id="bandClicker" type="button" class="sm-green">Show/Hide Banded table</button>
 						<p>We have set this table to contain only Banded enrollments.</p>
 						<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
 						<cfinclude template="feetable_banded.cfm" >					
@@ -139,7 +139,7 @@
 
 					<!--- No FCP conditional include --->
 					<cfif ListFindNocase("77,80,81",urlRc)>
-						<h2>No FCP Hours (formerly "Unlinked")</h2><span id="fcpClicker" class="sm-green">Show/Hide Unlinked table</span>
+						<h2>No FCP Hours (formerly "Unlinked")</h2><button id="fcpClicker" type="button" class="sm-green">Show/Hide Unlinked table</button>
 						<p>These are the unlinked credit hours to match the Official Census count. "NO FCP" rows occur when we have fee-paying credit hours of enrollment from Official Census, but we do not find a matching course in FCP to retrieve financial data. We provide those rows here so that the credit hours can be properly tied back from the Projector to the Official Census.</p>	
 						<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
 						<cfinclude template="no_fcp.cfm" >
