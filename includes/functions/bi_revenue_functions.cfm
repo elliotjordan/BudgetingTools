@@ -362,6 +362,13 @@
 	<cfreturn clearingData[selectedCampus]>
 </cffunction>
 
+<cffunction name="getProjectinatorData2" output="true">
+	<cfquery datasource="#application.datasource2#" name="DataSelect2">
+		select * from b2_rpt_chp_report_v1_v
+	</cfquery>
+	<cfreturn  DataSelect2 />
+</cffunction>
+
 <cffunction name="getProjectinatorData" output="true">
 	<cfargument name="selectedCampus" required="true">
 	<cfargument name="selectedRC" default="NONE">
