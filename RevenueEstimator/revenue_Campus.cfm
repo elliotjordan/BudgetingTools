@@ -108,8 +108,8 @@
 								<th>SP CrHrs</th>
 								<th>SS1 CrHrs</th>
 								<th>SS2 CrHrs</th>
-								<th>Total RC Projected Credit Hours #application.firstyear#</th>
-								<th>Total #application.firstyear# Estimated Revenue</th>
+								<th>Total RC Projected Credit Hours #application.secondyear#</th>
+								<th>Total #application.secondyear# Estimated Revenue</th>
 							</tr>
 						</thead>
 						<tbody>
