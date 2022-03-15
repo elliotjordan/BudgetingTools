@@ -7,7 +7,7 @@
 		<cfset reportSelect = getB325_Vc_Campus_data()> 
 	<cfelse>
 	    <!---<cfset reportSelect = getB325_V1_Campus_data()> --->
-	    <cfset reportSelect = getProjectinatorData2()> 
+	    <cfset reportSelect = getProjectinatorData()> 
 	 </cfif>
 <cfif IsDefined("form") AND StructKeyExists(form,"reportBtn")>
 	<cfsetting enablecfoutputonly="Yes"> 
@@ -21,8 +21,7 @@
 	<cfset reportSelectSQL = reportSelect.getMetadata().getExtendedMetaData().sql />
 	<p>#reportSelectSQL#</p>
 <cfelseif IsDefined("form") AND StructKeyExists(form,"dwnldBtn")>
-	<!---<cfset ExcelSelect = getProjectinatorData("NONE","NONE",application.rateStatus)>--->
-	<cfset ExcelSelect = getProjectinatorData2("NONE","NONE",application.rateStatus)>
+	<cfset ExcelSelect = getProjectinatorData("NONE","NONE",application.rateStatus)>
 	<cfinclude template="export_to_excel.cfm" runonce="true" />
 </cfif>
 	<div class="full_content">
