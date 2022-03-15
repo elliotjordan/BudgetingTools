@@ -106,15 +106,6 @@
 		</cfloop>
 	</form>
 	</cfif>
-<!--- jwb sandbox  --->
-	<cfif REQUEST.authUSer eq 'jburgoon'>
-		<cfset queryString = "SELECT DISTINCT inst FROM htp" />
-		<cfset callSQLProc = updateCrHrEst(queryString) />
-		<h2>Stored Proc test</h2>
-		<p> Query string is: <i>#queryString#</i>
-		<p>The procedure returns the number of lines in the result:  #callSQLProc.upd_crhrest_pr#</p>
-	</cfif>
-<!--- end jwb sandbox --->
 </cfoutput>
 </div>  <!-- End div class full_content -->
 <cfinclude template="../includes/header_footer/footer.cfm">
