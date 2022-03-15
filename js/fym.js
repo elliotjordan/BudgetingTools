@@ -206,7 +206,7 @@ $("form :input").change(function() {
 		if (this.name != 'fundRad') {
 			$('.change_warning').show();
 		}
-		$.fn.colTotal();
+		//$.fn.colTotal();
 	}
 	if ($handle.is("textarea")) {
 		//console.log('Textarea input changed\n');

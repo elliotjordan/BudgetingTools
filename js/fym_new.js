@@ -196,7 +196,7 @@ $.fn.rTotal = function (e) {
 		$('[name="'+ change_element+ '"]' ).val('true');
 		$('.change_warning').show();
 		//if ($('#fymForm') == "") {
-			$.fn.colTotal();
+			//$.fn.colTotal();  //BLORK
 		//}
 	});
 
@@ -204,10 +204,10 @@ $.fn.prepComm = function (e) {
 	//update the CDELTA hidden element if the user changes a COMMENT field in the params form
 	// onchange() in any COMMENT field, take the name of the field and change the <name>DELTA value to COMMENT
 	$("form :input[id^='comm_']").change(function() {
-		console.log('Keypress has changed ' + this.name + '\n');
+		//console.log('Keypress has changed ' + this.name + '\n');
   		$(this).closest('form').data('changed', true);
   		var change_element = this.name+'CDELTA'; 
-  		console.log('change_element: ' + change_element+'\n');
+  		//console.log('change_element: ' + change_element+'\n');
 		$('[name="'+ change_element+ '"]' ).val('COMMENT');
 		$('.change_warning').show();
 		//if ($('#fymForm') == "") {
