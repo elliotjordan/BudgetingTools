@@ -49,6 +49,10 @@
 			activeOID: #activeOID# <br />   
   			<cfset scrubbedValue =  REREPLACE(Form[rootID],"[^0-9.\-]","","ALL") />  
   			REGULAR FIELD #rootId# Form[i] #form[i]# - activeColumn #activeColumn# - scrubbedValue #scrubbedValue#<br>    
+  			<h2>NOTE: IF YOU SEE THIS ERROR PAGE!</h2>
+  			<p>On the lines above, there is a reference to a "scrubbedValue". If there is no number there, it means you tried to save an empty space. 
+  			We don't add in a zero by default because we worry that you accidentally deleted a real number. Hit the back button and re-enter your numbers, 
+  			being careful not to submit or save any empty credit hour figures. Sorry for the trouble!</p>
 			<cfset updateFeeInfo(activeOID,activeColumn,scrubbedValue) /> 
 	   		<br>Updating metadata now...<br> 
 			<cfset actionEntry = trackProjectinatorAction(#REQUEST.AuthUser#,#url.Campus#,7,"#REQUEST.AuthUser# at #url.Campus# RC #url.RC# updated #activeColumn# OID #activeOID# to #scrubbedValue# CrHrs") />
