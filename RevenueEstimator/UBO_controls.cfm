@@ -24,7 +24,7 @@
 		<cfset actionEntry = trackProjectinatorAction(#REQUEST.AuthUser#,"UA",2,"#REQUEST.AuthUser# restarted the #application.currentState# Projectinator from at #DateTimeFormat(Now(),'hh:nn tt mmm-dd-yyyy')#") />
 		<cfset applicationStop() />
 	<cfelseif IsDefined("form") and StructKeyExists(form,"fymBtn") >
-		<cfset fym_updated = updateBudu001Fym() /><!---<cfdump var="#fym_updated.update_budu001_fym#" /><cfabort>--->
+		<cfset fym_updated = updateBudu001Fym() />
 		<cfset actionEntry = trackProjectinatorAction(#REQUEST.AuthUser#,"UA",33,"#fym_updated.update_budu001_fym# #REQUEST.AuthUser# refreshed the BUDU001 5YrModel tables at #DateTimeFormat(Now(),'hh:nn tt mmm-dd-yyyy')#") />
 	<cfelseif IsDefined("form") and StructKeyExists(form,"refreshBtn") >
 		<cfif FindNoCase("gondor",application.baseurl)>
@@ -76,18 +76,17 @@
 		</form>
 		
 		<hr>
-			
+
 		<h2>Site Refresh</h2>
 	<cfif IsDefined("form") and StructKeyExists(form,"rolloverBtn") >
 		<span class="warning">Application Re-set<p>The Projectinator has stopped.  The next request from any place on the site will re-start it automatically.</p></span>
 	</cfif>
 
-		
 		<p>This control calls applicationStop(), which causes the site to reload all its settings.  The very next request which comes in automatically re-starts the system, which means the new settings should take effect without having to completely blow the system away.</p>
 	<form name="siteRollover" action="UBO_controls.cfm" method="post">
 		<input id="rolloverBtn" name="rolloverBtn" type="submit" value="Kick Me" />
 		<input id="disabledState" name="disabledState" value="#application.disabled#" type="hidden" />
-		<label for="rolloverBtn">Restart the Credit Hour Projector</label>		
+		<label for="rolloverBtn">Restart the Credit Hour Projector</label>
 	</form>
 
 		<hr>
