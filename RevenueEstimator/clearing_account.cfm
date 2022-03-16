@@ -151,7 +151,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<cfloop query="clearingSummarySelect">
+			<cfloop query="noFCPSelect">
 				<cfif SELGROUP eq "NO FCP">
 				<tr>
 					<td>

@@ -1,5 +1,4 @@
 <cfoutput>
-	<div id="fcpFeesDiv">
 	<!--- UNLINKED/NO FCP TABLE --->
 		<table id="csTable2" class="feeCodeTable">
 		<thead>
@@ -10,11 +9,11 @@
 				<th>Academic Career</th>
 				<th>Residency</th>
 				<th>Actual<br><span class="sm-black">as of<br>Census</span></th>
-				<th>Campus Projected Hours YR1</th>
-				<th>FY19 Constant Effective Rate</th>
-				<th>Estimated Revenue YR1<br><span class="sm-blue">(YR1 CrHrs * Const Eff YR1 Rate)</span></th>
-				<th>Campus Projected Hours YR2</th>
-				<th>Estimated Revenue YR2<br><span class="sm-blue">(YR2 CrHrs * Const Eff YR2 Rate)</span></th>
+				<th>Campus Projected Hours #application.firstyear#</th>
+				<th>#application.firstyear# Constant Effective Rate</th>
+				<th>Estimated Revenue #application.firstyear#<br><span class="sm-blue">(#application.firstyear# CrHrs * Const Eff #application.firstyear# Rate)</span></th>
+				<th>Campus Projected Hours #application.secondyear#</th>
+				<th>Estimated Revenue #application.secondyear#<br><span class="sm-blue">(#application.secondyear# CrHrs * Const Eff #application.secondyear# Rate)</span></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -22,14 +21,18 @@
 			<tr><td rowspan="11">No data found.</td></tr>	
 		<cfelse>
 			<cfloop query="noFCPSelect">
-				<cfif SELGROUP eq "NO FCP">
+				<cfif SELGROUP eq "NO FCP" and HOURS neq 0>
 				<tr>
 					<td>
 						<input hidden="hidden" value="#FEE_ID#" name="FEE_ID">
 						<input hidden="hidden" value="#oid#" name="OID">
 						<input hidden="hidden" value="#FEECODE#" name="FEECODE">
-						#FEECODE#
-					</td>
+						<div class="tooltip">
+							#FEECODE#<span class="tooltiptext">#FEEDESCR#</span>
+						</div> 
+						<br>
+						<span class="sm-blue">#CHART#</span>
+					</td>	
 					<td>#FEEDESCR#</td>
 					<td><input hidden="hidden" value="#SESN#" name="SESN">
 						<input hidden="hidden" value="#TERM#" name="TERM" />#TRMLABEL#
@@ -72,5 +75,4 @@
 		</cfif>
 		</tbody>
 	</table>
-	</div>  <!-- end fcpFeesDiv  -->
 </cfoutput>

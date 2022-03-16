@@ -52,7 +52,7 @@
 							<cfelseif application.rateStatus eq "V1">adjusted escalated rates.
 							</cfif></b>
 				<span class="sm-blue"> <i>v3 - #application.budget_year# of the #application.biennium# Biennium</i></span>
-			<cfif ListFindNoCase(REQUEST.adminUsernames, REQUEST.AuthUser ) OR ListFindNoCase(REQUEST.campusFOusernames, REQUEST.AuthUser) OR ListFindNoCase(REQUEST.regionalUsernames, REQUEST.authUser)>
+			<cfif REQUEST.AuthUser eq 'rstrouse' or ListFindNoCase(REQUEST.adminUsernames, REQUEST.AuthUser ) OR ListFindNoCase(REQUEST.campusFOusernames, REQUEST.AuthUser) OR ListFindNoCase(REQUEST.regionalUsernames, REQUEST.authUser)>
 				<p><a href="revenue_Campus.cfm">Campus Page</a><span> -- </span><a href="revenue_University.cfm">University Page</a></p>
 			</cfif>
 
