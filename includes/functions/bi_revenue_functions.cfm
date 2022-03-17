@@ -1425,7 +1425,8 @@ FROM #application.hours_to_project# h
 		FROM ch_user.getE0175data_fn(<cfqueryparam cfsqltype="cf_sql_varchar" value="#givenInst#">)
 	</cfquery>--->
 	<cfquery name="e0175data" datasource="#application.datasource#">
-		select inst, acad_career, sem, res, acp_count, occ_count, ovst_count, dual_count, total_count, budgeted_for_fy from ch_user.rpt_hours_used_in_budget('#givenInst#')
+		select inst, acad_career, sem, res, acp_count, occ_count, ovst_count, dual_count, total_count, budgeted_for_fy 
+		from ch_user.rpt_hours_used_in_budget('#givenInst#')
 	</cfquery>
 	<cfreturn e0175data />
 </cffunction>
