@@ -24,8 +24,8 @@
 				jwb = SpreadSheetRead(V1Template)
 			}
 		    SpreadSheetSetActiveSheet(jwb,"RawData");
-		    SpreadsheetDeleteRows(jwb,"4-4100");
-		    SpreadsheetAddRows(jwb, reportSelect,4,1,true);
+		    SpreadsheetDeleteRows(jwb,"3-4100");
+		    SpreadsheetAddRows(jwb, reportSelect,3,1,true);
 		    SpreadSheetSetActiveSheet(jwb,"Title");
 		} catch (any e) {
 			dismantleError(e);
