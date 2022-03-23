@@ -1,0 +1,1371 @@
+/***************************************** 
+ * Author: IU Office of Creative Services
+ *
+ * CSS for screen delivery
+ * 
+ * The function of this stylesheet is to 
+ * control the layout and formatting of 
+ * the branding bar and footer.
+ * 
+ * Except for the exceptions stated in 
+ * the README.txt document, none of the 
+ * styles in this document should be 
+ * modified.
+ * 
+ * At the end of this document are 
+ * commented (i.e.: optional) styles that
+ * you can enable to further control the
+ * appearance of the IU branding bar and
+ * footer.
+ ****************************************/
+ 
+/****************************************
+ * Dev Helpers
+ ****************************************/
+ .goCubs {
+ 	border: 1px solid #CC3433;  /* Official Cubs Red  Go, Cubbies! */
+	color:#0E3386;  /* Official Cubs blue */
+	font-size: 75%;
+	display: block;
+	padding: 2px 2px 2px 2px;
+	margin: 2px 2px 2px 2px;
+	/* visibility: hidden; */
+ }
+ 
+/****************************************
+ * General Formatting
+ ****************************************/
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	background: #fff;
+	font-size: 84.5%;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+img {
+	display: block;
+	border: 0;
+}
+
+div.content {
+    margin-left: 190px;
+    margin-right: 100px;
+    text-align: left;
+    padding: 1em;
+	min-height: 400px;
+}
+
+div.full_content {		/* To use when the sidelink bar is not included. */
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: left;
+    padding: 1em;
+	min-height: 400px;	
+}
+
+.noshow {
+	display:none; 
+}
+
+.SubTotal {	/* Used to display a sub-total at the bottom of a revenue estimation table  */
+	border: 0px solid blue;
+	position: relative;
+	left: 70%;
+	color: #A00;
+	font-size: 150%;
+	background-color: white !important;
+}
+
+.warning, .change_warning {
+	color: #A00;
+}
+
+.right-justify {
+	text-align:right !important;
+}
+
+/********************************************* 
+ * Basic link styling                        *
+ *********************************************/
+.link_hilight {
+    background-color: #7d120c;
+    color: white !important;
+    font-size: small;
+    padding: 0px 0px;
+    text-align: center;
+    border: 0px solid #FFFFF0;  /* Ivory  */
+    border-collapse: separate;
+    border-spacing: 1px;
+    margin: 2px 2px 2px 2px;
+}
+
+/* highlight the current page, see fym_footer for js */
+#branding-bar span.active a, .link_highlight span a:hover {
+	text-decoration:none;
+	background-color: #aa1100 ;
+    color: #fff;
+}
+
+ /* internal-only link */
+.link_internal a:link {
+    color: #F9FC1C !important;
+    height: 1.1em !important;
+    text-decoration: none;
+}
+
+ /* internal-only link */
+.link_internal a:visited {
+    color: #F9FC1C !important;
+    height: 1.1em !important;
+    text-decoration: none;
+}
+ /* unvisited link */
+.link_hilight a:link {
+    color: white;
+    height: 1.1em !important;
+    text-decoration: none;
+}
+
+/* visited link */
+.link_hilight a:visited {
+    color: OldLace;
+    height: 1.1em !important;
+    text-decoration: none;
+}
+
+/* mouse over link */
+.link_hilight a:hover {
+    color: aqua;
+    height: 1.1em !important;
+    text-decoration: none;
+}
+
+/* selected link */
+.link_hilight a:active {
+    color: cornsilk;
+    height: 1.1em !important;
+    text-decoration: none;
+} 
+
+/* highlighted select option */
+.hiliter {
+	color: #800000;
+	background-color: #ffe6ff;
+}
+
+/****************************************
+ * Skip Navigation Container
+ ****************************************/
+
+#skipnav {
+	position: absolute;
+	top: -9999em;
+	left: -9999em;
+}
+#skipnav hr {
+	display: none;
+}
+
+/****************************************
+ * Branding Bar
+ ****************************************/
+.targetLink, .targetLink a, .targetLink text {
+	padding: 0 !important;
+}
+#identity {
+	background-color: #7d120c;
+	width: auto;
+	height: 44px;
+}
+#identity hr {
+	display: none;
+}
+#identity #signature {
+	width: 760px;
+	margin: 0 auto;
+	text-align: left;
+}
+#identity #signature a {
+	display: block;
+	width: 250px;
+	height: 44px;
+	background: url(../img/iu_crimson.gif) no-repeat 20px 0;
+	position: relative;
+	left: -20px;
+}
+#identity #signature a img {
+	display: none;
+}
+
+/****************************************
+ * Sub-bar header
+*****************************************/
+#header-wrap-outer {
+    background: none repeat scroll 0% 0% #4A3C31;
+}
+
+#staff-header-wrap-outer {
+    background: none repeat scroll 0% 0% #E1D8B7;
+}
+
+#header-wrap-inner {
+    border: 0px none;
+    font-family: inherit;
+    font-style: inherit;
+    font-variant: inherit;
+    line-height: inherit;
+    font-size-adjust: inherit;
+    font-stretch: inherit;
+    -moz-font-feature-settings: inherit;
+    -moz-font-language-override: inherit;
+    font-size: 100%;
+    font-weight: normal;
+    margin: 0px;
+    padding: 0px;
+    vertical-align: baseline;
+}
+
+#header {
+    margin: 0px 200px;
+    max-width: 960px;
+    overflow: hidden;
+    position: relative;
+}
+
+#header h1 a {
+    color: #FFF;
+	display: table-cell;
+	height: 60px;
+	padding: 0px;
+	vertical-align: middle;
+}
+
+#header h1 {
+	color: #FFF;
+    float: left;
+    font-size: 1.75em;
+    line-height: 1.071em;
+    margin: 0px;
+    padding: 30px 0px 10px;
+    width: 100%;
+}
+
+#header p {
+	color: #EEE;
+}
+
+#header.staff h1 a {
+	color: #82786F;	
+}
+.gray {
+	color: #CCCCCC;
+	font-weight: bold;
+	font-size: 125%;
+}
+.sm-gray {
+	color: #CCCCCC;
+	font-size: 75%;
+}
+.sm-black {
+	color: #000000;
+	font-size: 75%;
+	font-style: italic;
+}
+
+.med-black-inline {
+	display:inline-block;
+	border: 0px solid black;
+	width: 400px;
+	color: #000000;
+	font-style: italic;
+}
+
+.tiny-black {
+	color: #000000;
+	font-size: 75%;
+}
+.sm-blue {
+	color:#1E90FF;  /* DodgerBlue  hi out there, fans! */
+	font-size: 85%;
+}
+.sm-green {
+	color:#006400;  /* DarkGreen */
+	font-size: 85%;
+}
+.med-green {
+	color:#006400;  /* DarkGreen */
+	font-size: 90%;
+}
+.lg-green {
+	color:#006400;  /* DarkGreen */
+	font-size: 110%;
+}
+.sm-red {
+	color:#FF0000;
+	font-size: 85%;
+}
+.med-red {
+	color:#FF0000;
+	font-size: 90%;
+}
+.lg-red {
+	color:#FF0000;
+	font-size: 110%;
+}
+.headerRight {
+	margin-left: 400px; 
+	font-style: italic;	
+}
+
+.headerFarRight {
+	position: absolute;
+	margin: 2px 2px 2px 2px;
+	padding: 1px 2px 1px 1px;
+	right: 70px;
+	width: 120px;
+	height: auto;
+	border: 1px solid white !important; 
+	z-index: 1000;
+}
+
+.emu {
+	padding: 1px 1px 1px 1px !important;
+	margin: 1px 1px 1px 1px !important;
+}
+
+.headerUBO {
+	position: absolute;
+	margin: 2px 2px 2px 2px;
+	padding: 1px 2px 1px 1px;
+	right: 240px;
+	width: 150px;
+	height: 60px;
+	border: 0px solid white !important; 
+	z-index: 1000;
+}
+/********************************************
+ * Various specific custom elements
+ ********************************************/
+#fee_select_inputs {   /* All Fees New Request Form */
+	display:none;	
+}
+
+.alignedDropdowns {
+	border:1px solid gray;
+	display:inline-block !important;
+    width: 640px;
+}
+
+.alignedDropdowns select {
+	margin: 2px 2px 2px 2px;
+}
+
+img.add {
+	margin: 2px 2px 2px 2px;
+	display:inline-block;
+	float:right;
+}
+
+/********************************************
+ * Nav-bar for multiple Excel button controls
+ *   Thanks to vanseodesign for the idea
+*********************************************/
+#nav-wrapper {
+max-width:960px;
+border: 0px solid black;
+margin:0;
+padding:2px 0;
+background: #FFFFFF;  /* #3D3331; */
+}
+
+ul#nav {
+font-family: Verdana;
+font-size:14px;
+list-style:none;
+margin:0 auto;
+padding:0;
+width:960px;
+overflow: auto;
+}
+
+ul#nav li {
+text-decoration:none;
+display: block;
+padding:3px 7px;
+margin: 2px;
+background:#E9F6FC;  	/* IU Branding "Info" color */
+color:#83786F;			/* IU Branding "Dark Limestone" */
+float:left;
+text-align:center;
+border-top:1px solid #777777;
+border-right:1px solid #333333;
+border-bottom:1px solid #444444;
+border-left:1px solid #777777;
+}
+
+.left-margin-large {
+	float: right !important;
+}
+
+ul#nav li a:hover {
+background:#a37666;
+color:#000;
+border-top:2px solid #815444;
+border-right:2px solid #c59888;
+border-bottom:2px solid #c59888;
+border-left:2px solid #815444;
+}
+
+ul#nav h3 {
+	color: #000;
+	text-align: left;
+	font-family: Arial, Helvetica, sans-serif;
+	display: inline;
+}
+
+ul#nav .special {
+	padding: 0px;
+	margin: 0px;
+	background: #FFF;
+	border: 0px;
+	display: inline;
+}
+
+
+/**********************************************************************************
+* Status Bar -  method to position a number of status fields at the top of a page *
+**********************************************************************************/
+div.statusBar {
+	position: relative;
+	border: 0px solid black;
+	width: 1112px;
+	height: 42px;
+	margin: 2px 0px 4px 0px;
+}
+
+div.statusBinTFL, div.statusBinTFR, div.statusBinTCL, div.statusBinTCR {
+	position: absolute;
+	width: 280px;
+	height: 40px;
+	border: 1px solid #CCCCCC;
+	font-size: 10px;
+	text-align: center;
+}
+
+div.statusBinTFL { top: 2px; left:   2px; background-color: #EEFFEE;}  		/* TFL Top Far Left  */
+div.statusBinTCL { top: 2px; left: 292px; background-color: #EEFFEE;}  		/* TFR Top Far Right */
+div.statusBinTCR { top: 2px; left: 582px; background-color: #EEFFEE;}		/* TCR Top Ctr Right */
+div.statusBinTFR { top: 2px; left: 872px; background-color: #EEFFEE;}		/* TCL Top Ctr Left  */
+
+div.statusBinTFL img {position:absolute; width: 16px; height: 16px; top: 22px; left: 40px; border: 0px solid black;}
+div.statusBinTCL img {position:absolute; width: 16px; height: 16px; top: 22px; left: 40px; border: 0px solid black;}
+div.statusBinTCR img {position:absolute; width: 16px; height: 16px; top: 22px; left: 40px; border: 0px solid black;}
+div.statusBinTFR img {position:absolute; width: 16px; height: 16px; top: 22px; left: 40px; border: 0px solid black;}
+
+div.statusBinTFL h3 {border:0px solid black; position:absolute; left: 8px; top: -6px;}
+div.statusBinTCL h3 {border:0px solid black; position:absolute; left: 8px; top: -6px;}
+div.statusBinTCR h3 {border:0px solid black; position:absolute; left: 8px; top: -6px;}
+div.statusBinTFR h3 {border:0px solid black; position:absolute; left: 8px; top: -6px;}
+
+/*********************************************************************
+* Control Bar - method to position a number of controls across a page
+*********************************************************************/
+div.controlBar {
+	position: relative;
+	border: 0px solid black;
+	width:100%; height:34px;
+	background-color: #FFF;
+	margin: 2px 0px 2px 0px;
+}
+
+div.controlBinTL, div.controlBinTLC, div.controlBinTC, div.controlBinTRC, div.controlBinTR, div.controlBinTFR {
+	position: absolute;
+	width: 280px;
+	height: 30px;
+	border: 0px solid #F00;
+}
+
+div.controlBinTL { top: 2px; left: 2px;}	/* Top Left */
+div.controlBinTLC { top: 2px; left: 292px;border: 0px solid red} /* Top Left Center */
+div.controlBinTC { top: 2px; left: 582px; border: 0px solid red}  /* Top Center */
+div.controlBinTRC { top: 2px; left: 872px;} /* Top Right Center */
+div.controlBinTR { top: 2px; left: 1124px;} /* Top Right */
+div.controlBinTFR { top: 2px; left: 1402px;} /* Top Far Right*/
+
+div.controlBinTL select {
+	width: 282px;
+	background-color: #EEE;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+}
+
+.formBtn {
+	border: 0px solid #040;
+	width: 282px; height: 24px;
+	background-color: #252;
+	color: #FFF; font-size: 16px; font-weight: bolder;
+}
+
+
+/****************************************
+ * Banners
+*****************************************/
+.banner {
+	border: 1px solid #040;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 20px;
+	width: 80%; 
+	height: 108px;
+	background-color: #0F0 !important;
+	color: #000; font-size: 16px;  vertical-align: middle;
+}
+
+.sm_banner {
+	border: 1px solid #040;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 20px;
+	width: 80%; 
+	height: 24px;
+	background-color: #0F0 !important;
+	color: #000; font-size: 16px;
+}
+.prod_banner {
+	border: 1px solid #040;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 10px 10px;
+	width: 95%; 
+	height: 60px;
+	background-color: #FDF7E7 !important;
+	color: #000; font-size: 16px;
+}
+
+/****************************************
+ * Tables and Related Controls
+*****************************************/
+.sticky {position:fixed; top: 2;}
+.separator {background: #EEEDEB;}
+.highlight {border: 4px solid #0066FF;}
+.pres_green {background:#80FFAA;}  /* Presentation color used in Excel  **/
+.expense_red{background:#FFCCCC; border:2px solid #99BB99; margin: 2px; padding: 2px;}
+.admin_burden_pink {background:#FFE6FF; border:2px solid #99BB99; margin: 2px; padding: 2px;}
+.admin_burden_purple {background:#E6E6FF; border:2px solid #99BB99; margin: 2px; padding: 2px;}
+.admin_burden_orange {background:#FFF0E6; border:2px solid #99BB99; margin: 2px; padding: 2px;}
+.admin_burden_tangerine {background:#FFE0CC; border:2px solid #99BB99; margin: 2px; padding: 2px;}
+.admin_burden_red {background:#FFE6E6; border:2px solid #99BB99; margin: 2px; padding: 2px;}
+.admin_burden_scarlet {background:#FFCCCC; border:2px solid #99BB99; margin: 2px; padding: 2px;}
+.admin_burden_indigo {background:#EEEEEE; border:2px solid #0066FF; margin: 2px; padding: 2px;}
+.admin_burden_purple {background:#E6E6FF; border:2px solid #99BB99; margin: 2px; padding: 2px;}
+.code_group{
+	position:relative; 
+	float:left;
+	clear:both;
+	border:1px solid black;
+	margin: 2px;
+	padding: 6px;
+}
+.code-group a {display: inline-block;}
+/*.toggle_vis{}  Exists primarily as a hook for javascript */
+.toggled_gray {background:#999999; border:2px solid #99BB99; margin: 2px; padding: 2px;}
+.expense_codes{background:#FFCCCC; width:auto; border:2px solid #99BB99; margin: 2px; padding: 2px;}
+.revenue_green {background:#CCFFCC; border:2px solid #99BB99; margin: 2px; padding: 2px;}
+.revenue_codes {background:#CCFFCC; width:auto;}
+.rc_bgcolor {background: #EDEBEB;  border:2px solid #99BB99; margin: 2px; padding: 2px;}
+.support_blue {background:  #D6EAF8; border:2px solid #99BB99; margin: 2px; padding: 2px;}
+.subTotal_white {
+	background-color:	#EEE !important; 
+	font-weight: bold;
+	color: #000;
+	 border:2px solid #99BB99; margin: 2px; padding: 2px;
+}
+.subTotal_gray {
+	background-color:	#E6E6E6 !important; 
+	font-weight: bold;
+	color: #000;
+	 border:2px solid #99BB99; margin: 2px; padding: 2px;
+}
+.subTotal_bold {
+	font-weight: 600;
+}
+.percent_purple {background: #E6F2FF;  border:2px solid #99BB99; margin: 2px; padding: 2px;}
+.inactive {
+	opacity:0.5;
+}
+
+.math, .math input {
+	align: right;
+	text-align: left;
+	clear: both;
+}
+textarea#just_text_input {
+	display:none;
+	width: 98%;
+	height: 120px;
+	border: 1px solid #cccccc;
+	padding: 5px;
+}
+
+tr:hover {background-color: #a9a9a9}
+
+/* ***** summary table  ***** 
+  IU Branding - Mahogany and Cream 
+*/
+
+.summaryTable.dataTable {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+}
+
+.summaryTable {
+	table-layout: fixed;
+	width: 100%;
+	border-collapse:collapse;
+	margin: 0px 0px 0px 0px;
+	border: 0px solid red;
+	text-align: left;
+
+}
+.summaryTable thead{
+	white-space: pre;
+}
+
+.summaryTable th {
+	font-size: 10pt;
+	font-weight:bold;
+	color:#FFF;
+	padding:1px !important; 
+	border:#4A3C31 1px solid;
+	background: #888;
+	/* background: #4A3C31; */
+    -webkit-column-width: 10px; 
+    -moz-column-width: 10px;
+	height: 60px;
+	vertical-align: middle;
+	word-break:normal;
+    -moz-box-sizing: content-box;
+	white-space:pre-wrap;
+}
+
+.summaryTable tr {  
+	border: 1px solid black;
+}
+
+.summaryTable tr:nth-child(even) {
+	background: #EDEBEB;
+}
+
+.summaryTable tr:hover { /* Be sure this follows the nth-child lines above so that hover will take precedence */
+	background: #FDF7E7;
+}
+
+.summaryTable td{ 
+	overflow: visible;
+	padding: 2px !important; 
+	border:#44697D 1px solid;
+	height: 10px;
+	font-size: 10pt;
+	vertical-align: top;
+	-webkit-box-sizing: content-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box !important;
+}
+
+.summaryTable .subTotal {
+	color: #007711;
+	font-weight: bolder;
+}
+
+.summaryTable .span {display: inline-block;}
+.summaryTable .narrow {width: 30px;}
+.summaryTable th.petite {width: 50px !important; }
+.summaryTable .medium {width: 80px;}
+.summaryTable .wide {
+	width: 120px;
+	word-wrap:auto;
+}
+.summaryTable .wider {
+	width: 160px;
+	word-wrap:auto;
+}
+
+/* ***** presentation table sub-class ***** */
+.pres_rows {outline-style: solid; outline-width: thin; outline-color: 1px solid black}
+.pres_rows th {background: #B3FFCC; color: #000000; border:0px solid red;}
+.pres_rows td {border:0px solid blue;}
+.pres_rows  tr:nth-child(even) {background: #FFFFFF;}
+.pres_rows .sub {background: #B3FFCC !important;border-bottom: 1px solid black;}
+
+/* ***** feecode table ***** */
+.feeCodeTable {
+	border-collapse:collapse;
+}
+
+.feeCodeTable thead {
+	/*display: block;*/
+	overflow: auto;	
+}
+.feeCodeTable tbody {
+	/*display: block;*/
+	overflow: auto;	
+	height: 200px;
+}
+
+.feeCodeTable th {
+	font-weight:bold;
+	color:#000;
+	padding:7px; 
+	border:#44697D 1px solid;
+}
+
+.feeCodeTable tr {  /* Provide some minimal information for silly IE versions */
+	background: #b8d1f3;
+}
+
+.feeCodeTable tr:nth-child(odd) { /* ODD numbered rows */ 
+	background: #EEE;
+}
+
+.feeCodeTable tr:nth-child(even) {
+	background:#E1D8B7;
+}
+
+.feeCodeTable tr.new_entry {
+	background:#eeddcc;
+}
+
+.feeCodeTable td{ 
+	padding:4px; 
+	border:#44697D 1px solid;
+}
+
+.feeCodeTable .subTotal {
+	color: red;
+}
+
+/* *****  allfees table ***** */
+.allFeesTable {
+	/* width: 100% !important; */
+	width: 100%;
+	border-collapse:collapse;
+}
+
+.allFeesTable th {
+	font-weight:bold;
+	color: #990000 !important;		/* IU Crimson #990000 */
+	padding:7px; 
+	border:#44697D 1px solid;
+	background: #EEEDEB !important;	/* IU Cream #EEEDEB, only darkened a bit to emphasize the header over the rows */
+}
+
+.allFeesTable tr { 
+	width: 100%;
+	background: #b8d1f3;
+}
+
+/*  These two classes are defined in the dataTables call in footer.cfm  */
+.odd-row {background: #FDF7E7  !important;}		/* IU Message #FDF7E7 */
+.even-row {background: #EEEDEB  !important;}	/* IU Cream #EEEDEB */   /* old IU palette color  #E1D8B7 */
+
+.allFeesTable tr:nth-child(odd) {  
+	background: #EEF;
+}
+
+.allFeesTable tr:nth-child(even) {
+	background:#FFF;
+}
+
+.allFeesTable td{ 
+	width: 80px;
+	padding:4px; 
+	border:#44697D 1px solid;
+}
+
+#masterTable_info {
+    clear: none;
+}
+/* *****  status table ***** */
+.statusTable {
+	width: 100% !important;
+	border-collapse:collapse;
+	/* table-layout: fixed; */
+}
+
+.statusTable th {
+	font-weight:bold;
+	color: #990000 !important;		/* IU Crimson #990000 */
+	padding:7px; 
+	border:#44697D 1px solid;
+	background: #EEEDEB !important;	/* IU Cream #EEEDEB, only darkened a bit to emphasize the header over the rows */
+}
+
+.statusTable tr {  /* Provide some minimal information for silly IE versions */
+	width: 100%;
+	background: #b8d1f3;
+}
+
+.statusTable td { 
+	padding:4px; 
+	background: #EEEDFF;
+	border:#44697D 1px solid;
+}
+
+.statusTable input {
+	width: 95%;
+}
+
+/* *****  recent settings table ***** */
+.recentSettingsTable {
+    border: 1px solid black;
+    text-align: left;
+    width: 100%;
+}
+
+.recentSettingsTable th {
+	background-color: #4CAF50;
+	font-weight:bold;
+	color:#000;
+	padding:7px; 
+}
+
+.recentSettingsTable tr {
+	border-bottom: 1px solid #ddd;
+}
+
+.recentSettingsTable td {
+	border: 1px solid #ddd;
+	vertical-align:top;
+}
+
+/* ***** datamap table ***** */
+.datamapTable {
+	padding: 2px 2px 2px 2px;
+	margin: 0px 10px 2px 10px;
+    border: 1px solid black;
+    text-align: left;	
+}
+
+.datamapTable th {
+	background-color: #4CAF50;
+	font-weight:bold;
+	color:#000;
+	padding:7px;	
+}
+
+.datamapTable tr {
+	/* border-bottom: 1px solid #ddd; */	
+}
+
+.datamapTable td {
+    border: 1px solid black;
+    padding: 1px 3px 1px 0px;
+	color:#003388;
+	font-size: 75%;
+}
+
+/* *****  edit check table ***** */
+.editCheckTable {
+	width: 100%;
+	padding: 2px 2px 2px 2px;
+	margin: 0px 10px 2px 10px;
+    border: 1px solid #DDD;
+    text-align: left;	
+}
+
+.editCheckLabel th {
+	text-align: center;
+		font-size: 24px !important;
+		font-weight: bold !important;
+}
+
+.editCheckIndent {
+	text-align: right;	
+}
+
+.editCheckGray {
+	background-color: #DDD;
+}
+
+.positionMark td {
+	border-top: 1px solid #DDD !important;	
+}
+
+.editCheckTable th {
+	background-color: #D4E8EC;  /*trying to match the gray in the original PDF - your results may vary */
+	font-weight: normal;
+	font-size: 18px;
+	color:#777;
+	padding:7px;	
+}
+
+.editCheckTable tr {
+	/* border-bottom: 1px solid #ddd; */	
+}
+
+.editCheckTable td {
+    border: 0px solid black;
+    padding: 1px 3px 1px 0px;
+	color:#000;
+}
+
+/***** Approval Table  *****/
+
+.approvalTable {
+	/*table-layout: fixed;*/
+	width: 100%;
+	border-collapse:collapse;
+}
+
+.approvalTable th {
+	font-weight:bold;
+	font-size: 12pt;
+	color:#FFF;
+	padding:7px; 
+	border:#44697D 1px solid;
+	background: #EEEDEB;
+}
+
+.approvalTable tr {  /* Provide some minimal information for silly IE versions */
+	background: #b8d1f3; 
+}
+
+.approvalTable tr:nth-child(odd) { /* ODD numbered rows */ 
+	background: #EEF;
+}
+.approvalTable .overage {color: #FF0000 !important}
+
+.approvalTable tr:nth-child(even) {
+	background:#FFF;
+}
+
+.approvalTable td{ 
+	padding:4px; 
+	border:#44697D 1px solid;
+	height: 10px;
+	font-size: 11pt;
+}
+
+/**********************************************************************************
+* Cockpit stuff
+**********************************************************************************/
+.gangnamStyle {
+	box-shadow:inset 0px 1px 0px 0px #cf866c;
+	background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+	background-color:#d0451b;
+	border-radius:3px;
+	border:1px solid #942911;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Courier New;
+	font-size:13px;
+	padding:6px 24px;
+	margin: 4px 4px 4px 4px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #854629;	
+}
+
+.gangnamStyle:hover {
+	background:linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
+	background-color:#bc3315;
+}
+
+.gangnamStyle:active {
+	position:relative;
+	top:1px;
+}
+/**********************************************************************************
+* Buttons for Approval table
+**********************************************************************************/
+.filterBox {
+	border: 0px solid black;
+	display: inline-block;
+    width: 284px;
+    height: 36px;
+    padding: 5px;
+    background-color: #EFEFEF; 
+}
+
+.filterBtn {
+	border: 1px solid black;
+	height: 36px;
+	width: 140px;
+    background-color: #DDD; 
+}
+
+.twopctOn, .newFeeOn {
+	border:1px solid red;
+	background-color: #EEDDDD;
+}
+
+.twopctOff, .newFeeOff {
+	border: 1px solid green;
+}
+
+.workSaver {
+	display: block; margin: 0 auto;
+	text-align: center;
+}
+/**********************************************************************************
+* Form Fields
+**********************************************************************************/
+.fieldset {  
+    display: block;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 2px groove;	
+}
+
+.fieldset.narrow {
+	margin-top: 2px;
+	text-align: left;
+	width: 30%;
+}
+.fielditem { 
+    display: block;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+}
+
+.fielditem.wide {
+	width: 90%;
+}
+
+.anchor {
+  display: inline;
+  height: 1px; 
+  margin-top: -115px; 
+  visibility: hidden;
+}
+.request {
+	color: blue;	
+}
+
+/**********************************************************************************
+* Tooltips - thansk W3C
+**********************************************************************************/
+.tooltip, .tooltip2 {
+    position: relative;
+   /* border: 0px dotted black !important; /* If you want dots under the hoverable text */
+}
+
+.tooltip3 {
+    position: relative;
+	overflow: visible;
+} 
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    float: right;
+    margin: 1px 1px 1px 1px;
+    /* Position the tooltip text - see examples below! */
+   /* position: absolute; */
+    z-index: 1;
+}
+
+/* Tooltip2 text */
+.tooltip2 .tooltiptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #8dd0f7;
+    border: 1px solid #014269;
+    color: #014269;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    display:inline-block;
+    top: 27px;
+    left: 0px;
+    z-index: 1;
+}
+
+/* Tooltip3 text */
+.tooltip3 .tooltiptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #777;
+    color: #eee;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+ 	overflow: visible;
+    /* Position the tooltip text - see examples below! */
+ 	position: relative;
+    display:inline-block;
+    top: 27px;
+    left: 0px;
+    z-index: 1;
+}
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext,.tooltip2:hover .tooltiptext,.tooltip3:hover .tooltiptext   {
+    visibility: visible;
+}
+
+/***************************************************************
+ * Modal windows - first used in AllFees, added later to UATax *
+ ***************************************************************/
+.modal-header {
+  padding: 2px 16px;
+  background-color: #aaa;
+  color: black;
+}
+
+.modal-body {padding: 2px 16px;}
+
+/* The Modal (background) from W3C tutorial */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+	/* position: relative; */
+	font-size: 16px;
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+/* The Close Button */
+.closeX {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.closeX:hover,
+.closeX:focus {
+    color: black;
+    text-decoration: underline;
+    cursor: pointer;
+} 
+
+/* The Shazam Button */
+.shazam {
+    color: #aaa;
+    float: right;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.closeX:hover,
+.closeX:focus {
+    color: black;
+    text-decoration: underline;
+    cursor: pointer;
+} 
+
+
+/* Add Modal Animation */
+@-webkit-keyframes slideIn {
+  from {bottom: -300px; opacity: 0} 
+  to {bottom: 0; opacity: 1}
+}
+
+@keyframes slideIn {
+  from {bottom: -300px; opacity: 0}
+  to {bottom: 0; opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+  from {opacity: 0} 
+  to {opacity: 1}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0} 
+  to {opacity: 1}
+}
+
+/****************************************
+ * SideLink
+*****************************************/
+div.sideLink {
+	position: absolute;
+	left: 0px;
+	top: 180px;
+	width: 160px;
+	height: auto;
+    border-right:1px solid gray;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 100px;
+	padding-left: 10px;
+	color: #7d120c;
+	font-size: 85%;
+	line-height: 0.90
+}
+
+/****************************************
+ * Footer
+ ****************************************/
+
+#footer {
+	width: auto;
+	margin: 15px 0 0 0;
+}
+#footer hr {
+	display: none;
+}
+#footer #copyright {
+	width: 508px;
+	margin: 0 auto;
+	text-align: left;
+}
+#footer #copyright a {
+	color: #990000;
+	text-decoration: none;
+}
+#footer #copyright a:hover {
+	text-decoration: underline;
+}
+#footer #copyright #blockiu {
+	width: 22px;
+	height: 28px;
+	float: left;
+}
+#footer #copyright #blockiu a {
+	display: block;
+	width: 22px;
+	height: 28px;
+	background: url(../img/blockiu_white.gif) no-repeat;
+}
+#footer #copyright #blockiu a img {
+	display: none;
+}
+#footer #copyright #statement {
+	margin: 0 0 0 30px;
+	font-size: 85%;
+	line-height: 250%;
+}
+
+
+/* Display the noscript date inline with 
+the rest of the copyright statement. 
+Keep to validate XHTML Strict */
+
+.inline {
+	display: inline;
+}
+
+
+/****************************************
+ * Commented (Optional) Styles
+ ****************************************/
+
+
+
+
+/****************************************
+ * Alternate White Branding Bar
+ *
+ * Uncomment this section to switch to a
+ * multicolor (crimson and black) signature 
+ * with a white background and bar.
+ ****************************************
+
+#identity {
+	background-color: #fff;
+}
+#identity #signature a {
+	background: none;
+	position: static;
+}
+#identity #signature a img {
+	display: block;
+}
+
+*/
+
+
+/****************************************
+ * Alternate White Footer
+ *
+ * Uncomment this section to switch to a
+ * white block IU, text, and links in the
+ * IU footer. This should only be used 
+ * on pages with a black background 
+ * color (HEX: #000000). 
+ *
+ * If your background color is IU crimson 
+ * (HEX: #7d110c), change the image
+ * referenced below 
+ * to ../img/blockiu_crimson.gif.
+ *
+ * Otherwise, you should create a new
+ * Web-optimized Block IU graphic from the 
+ * Photoshop file (../img/blockiu.psd).
+ ****************************************
+ 
+#footer #copyright a {
+	color: #fff;
+	text-decoration: underline;
+}
+#footer #copyright #blockiu a {
+	background: url(../img/blockiu_black.gif) no-repeat;
+}
+#footer #copyright #statement {
+	color: #fff;
+}
+
+*/
+
+
+ /****************************************
+ * Fluid Format
+ *
+ * Uncomment this section to give the 
+ * Web site a fluid width.
+ ****************************************
+ 
+body {
+	text-align: left;
+}
+#identity #signature {
+	width: auto;
+	padding: 0 0 0 15px;
+}
+#content {
+	width: auto;
+	padding: 0 0 0 15px;
+}
+#footer #copyright {
+	width: auto;
+	padding: 7px 0 7px 15px;
+}
+
+*/
