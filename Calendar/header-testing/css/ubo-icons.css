@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'kelley-icons';
+  src:  url('fonts/kelley-icons/kelley-icons.eot?f6s0s1');
+  src:  url('fonts/kelley-icons/kelley-icons.eot?f6s0s1#iefix') format('embedded-opentype'),
+    url('fonts/kelley-icons/kelley-icons.ttf?f6s0s1') format('truetype'),
+    url('fonts/kelley-icons/kelley-icons.woff?f6s0s1') format('woff'),
+    url('fonts/kelley-icons/kelley-icons.svg?f6s0s1#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="kelleyicon-"], [class*=" kelleyicon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'kelley-icons' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-iu-trident:before {
+  content: "\e900";
+  color: #fff;
+}
