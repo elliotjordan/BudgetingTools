@@ -129,7 +129,7 @@
 									</cfif>
 			<cfif application.budget_year eq "YR1"> 
 				<input name="projHrs_Yr1OID#OID#" id="projHrs_Yr1OID#OID#" size="10" value="#projhours_yr1#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" />
-				<input name="projHrs_Yr1#OID#DELTA" type="hidden" value="false" />
+				<input name="projHrs_Yr1OID#OID#DELTA" type="hidden" value="false" />
 			<cfelse>
 				<input name="projHrs_Yr1" id="projHrsYr1#CurrentRow#" size="10" value="#projhours_yr1#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" disabled />
 			</cfif>
@@ -176,7 +176,7 @@
 										</cfif>
 									</cfif>
 					<input name="projHrs_Yr2OID#OID#" id="projHrs_Yr2OID#OID#" size="10" value="#PROJHOURS_YR2#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" />
-					<input name="projHrs_Yr2#OID#DELTA" type="hidden" value="false" />
+					<input name="projHrs_Yr2OID#OID#DELTA" type="hidden" value="false" />
 										<span class="sm-red">#note#</span>									
 									</td>
 								<cfif application.rateStatus eq "Vc">
