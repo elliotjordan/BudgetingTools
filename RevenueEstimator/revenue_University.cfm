@@ -7,7 +7,7 @@
 		<cfset reportSelect = getB325_Vc_Campus_data()> 
 	<cfelse>
 	    <!---<cfset reportSelect = getB325_V1_Campus_data()> --->
-	    <cfset reportSelect = getProjectinatorData()> 
+	    <cfset reportSelect = getProjectinatorData('ALL')> 
 	 </cfif>
 <cfif IsDefined("form") AND StructKeyExists(form,"reportBtn")>
 	<cfsetting enablecfoutputonly="Yes"> 
