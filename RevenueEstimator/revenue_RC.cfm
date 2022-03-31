@@ -97,8 +97,10 @@
 
 				<!---  Unique key for this data set is Campus, RC, Term, Account, and FeeCode  --->
 				<cfif trim(urlRC) eq '81'>
+					<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
 					<cfset clearingSummarySelect = getClearingSummary(urlCampus,urlRC)>
 					<cfinclude template="clearing_account.cfm">
+					<input #disabledBtn# id="submitBtn" type="submit" name="submitBtn" class="submitBtn" value="Save Your Work" />
 				<cfelseif DataSelect.recordCount gt 0>
 					<cfset enrllmtCount = getQueryResultCount(DataSelect)>
 					<cfif Len(getCampus.recordCount) eq 0>		<!--- Placeholder for empty query results  --->

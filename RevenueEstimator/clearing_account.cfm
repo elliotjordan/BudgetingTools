@@ -99,7 +99,7 @@
 						<cfif IsNumeric(0)><cfset feeAmount = 0 /></cfif>  <!--- UNLINKED/NO FCP IS ALWAYS 0 by DEFINITION --->
 			<cfif application.budget_year eq "YR1"> 
 				<input name="projHrs_Yr1OID#OID#" id="projHrs_Yr1OID#OID#" size="10" value="#projhours_yr1#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" />
-				<input name="projHrs_Yr1#OID#DELTA" type="hidden" value="false" />
+				<input name="projHrs_Yr1OID#OID#DELTA" type="hidden" value="false" />
 			<cfelse>
 				<input name="projHrs_Yr1" id="projHrsYr1#CurrentRow#" size="10" value="#projhours_yr1#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" disabled />
 			</cfif>
@@ -120,7 +120,7 @@
 						<cfset feeAmount = 0 />
 						<cfif IsNumeric(0)><cfset feeAmount = 0 /></cfif>
 						<input name="projHrs_Yr2OID#OID#" id="projHrs_YR2OID#OID#" size="10" value="#PROJHOURS_YR2#" onblur="calcEstRev(this.value, #feeAmount#, '#currentTarget#')"/>
-						<input name="projHrs_Yr2#OID#DELTA" type="hidden" value="false" />
+						<input name="projHrs_Yr2OID#OID#DELTA" type="hidden" value="false" />
 					</td>
 					<!---<td name="feeLY" id="feeLY#CurrentRow#">#DollarFormat(b1_adj_rate)#</td>--->
 					<td name="feeLY" id="feeLY#CurrentRow#">#DollarFormat(B2_ADJ_ESCL_RATE_YR2)#</td>
@@ -181,8 +181,8 @@
 			<cfif application.budget_year eq "YR1"> 
 				<input name="projHrs_Yr1" id="projHrsYr1#CurrentRow#" size="10" value="#projhours_yr1#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" />
 			<cfelse>
-				<input name="projHrs_Yr1" id="projHrsYr1#CurrentRow#" size="10" value="#projhours_yr1#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" disabled />
-				<input name="projHrs_Yr1" type="hidden" value="#projhours_yr1#" />
+				<input name="projHrs_Yr1OID#OID#" id="projHrsYr1OID#OID#" size="10" value="#projhours_yr1#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" disabled />
+				<input name="projHrs_Yr1OID#OID#DELTA" type="hidden" value="false" />
 			</cfif>
 					</td>
 					<td name="feeLY" id="feeLY#CurrentRow#">#DollarFormat(ADJ_RATE)#</td>
@@ -192,7 +192,8 @@
 						<cfset currentTarget = 'otherFeeRevYr2' & #CurrentRow# />
 						<cfset feeAmount = 0 />
 						<cfif IsNumeric(ADJ_RATE)><cfset feeAmount = ADJ_RATE /></cfif>
-						<input name="projHrs_Yr2" id="projHrsYR2#CurrentRow#" size="10" value="#PROJHOURS_YR2#" onblur="calcEstRev(this.value, #feeAmount#, '#currentTarget#')"/>
+						<input name="projHrs_Yr2OID#OID#" id="projHrsYR2OID#OID#" size="10" value="#PROJHOURS_YR2#" onblur="calcEstRev(this.value, #feeAmount#, '#currentTarget#')"/>
+						<input name="projHrs_Yr2OID#OID#DELTA" type="hidden" value="false" />
 							<span class="sm-red">#note#</span>
 					</td>
 					<td id="otherFeeRevYr2#CurrentRow#" name="estRevYr2">#DollarFormat(EstRev_YR2)#</td>
