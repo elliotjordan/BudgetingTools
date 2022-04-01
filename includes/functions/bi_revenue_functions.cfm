@@ -362,31 +362,9 @@
 	<cfreturn clearingData[selectedCampus]>
 </cffunction>
 
-<cffunction name="getProjectinatorData2" output="true">
-	<cfargument name="selectedCampus" type="string" default="ALL">
-	<cfargument name="selectedRC" type="string" default="ALL">
-	<cfargument name="QueryPurpose" type="string" default="Excel">
+<cffunction name="getProjectinatorDataV1" output="true">
 	<cfquery datasource="#application.datasource2#" name="DataSelect2">
-		select OID, INST, CHART, b2_RC, TERM,
-			h.SESN as TRMLABEL,
-	    	FEECODE, FEEDESCR, note, SELGROUP, TRIM(ACAD_CAREER) as ACAD_CAREER, RES, ACCOUNT, ACCOUNT_NM,
-			OBJCD, gl_obj_cd_orig, FIN_OBJ_CD_NM, HEADCOUNT, HOURS, ADJ_RATE,
-			MACHHRS_YR1, MACHHRS_YR2, spacer2, b1_ADJ_RATE, PROJHOURS_YR1,
-		   	ESTREV_YR1,spacer3, b2_adj_escl_rate_yr2, PROJHOURS_YR2,
-    	    ESTREV_YR2, SESN, FEEKEY, FEE_ID
-	    <cfif queryPurpose eq "interface">
-	 	    , b1_ADJ_ESCL_RATE_YR1, b1_ADJ_ESCL_RATE_YR2, b1_fee_residency, b1_ADJ_RATE,
-		    b2_fee_id, b2_objcd, b2_fin_obj_cd_nm, b2_projhrs_yr2, b2_hours, b2_adj_rate, b2_adj_escl_rate_yr2,
-		    fee_current, fee_lowyear, fee_highyear, RES, b1_projhrs_yr2, b1_RC, gl_sub_acct_cd
-	    </cfif>
-		from b2_rpt_chp_report_v1_v
-		WHERE 1=1
-		<cfif selectedCampus neq 'ALL'>
-			and inst = selectedCampus
-			<cfif selectedRC neq 'ALL'>
-				and b2_rc = selectedRC
-			</cfif>
-		</cfif>
+		select * from ch_user.b2_rpt_chp_report_v1()
 	</cfquery>
 	<cfreturn  DataSelect2 />
 </cffunction>
@@ -394,7 +372,7 @@
 <cffunction name="getProjectinatorData" output="true">
 	<cfargument name="selectedCampus" required="true">
 	<cfargument name="selectedRC" default="NONE">
-	<cfargument name="selectedVersion" required="true">
+	<!---<cfargument name="selectedVersion" required="true">--->
 	<cfargument name="queryPurpose" required="false" default="interface">
 	<cfset selectedCampus = 'IU'&#selectedCampus#&'A'>
 	<cfquery datasource="#application.datasource2#" name="DataSelect">
@@ -408,7 +386,7 @@
 			  WHEN h.SELGROUP = ' ' THEN '--s'
 			  ELSE h.SELGROUP END,
 			TRIM(h.ACAD_CAREER) as ACAD_CAREER, h.RES, h.ACCOUNT, h.ACCOUNT_NM,
-			h.b1_OBJCD as OBJCD, h.gl_obj_cd_orig, h.b1_FIN_OBJ_CD_NM as FIN_OBJ_CD_NM, h.b1_headcount as HEADCOUNT, h.b1_hours as HOURS, h.b1_adj_rate as ADJ_RATE,
+			h.b1_OBJCD as OBJCD, h.b1_FIN_OBJ_CD_NM as FIN_OBJ_CD_NM, '' as spacer1, h.b1_headcount as HEADCOUNT, h.b1_hours as HOURS, h.b1_adj_rate as ADJ_RATE,
 			CASE h.b1_MACHHRS_YR1
 	    		WHEN 0 THEN '0'
 	    		ELSE TO_CHAR(h.b1_MACHHRS_YR1,'9999999.9')
@@ -445,7 +423,7 @@
 			h.b2_RC, h.b2_TERM as TERM,
 			h.SESN as TRMLABEL,
 	    	h.FEECODE, h.FEEDESCR, h.note, h.SELGROUP, TRIM(h.ACAD_CAREER) as ACAD_CAREER, h.RES, h.ACCOUNT, h.ACCOUNT_NM,
-			h.b2_OBJCD as OBJCD, h.gl_obj_cd_orig, h.b2_FIN_OBJ_CD_NM as FIN_OBJ_CD_NM, h.b2_headcount as HEADCOUNT, h.b2_hours as HOURS, h.b1_adj_escl_rate_yr1 as ADJ_RATE,
+			h.b2_OBJCD as OBJCD, h.b2_FIN_OBJ_CD_NM as FIN_OBJ_CD_NM, '' as spacer1, h.b2_headcount as HEADCOUNT, h.b2_hours as HOURS, h.b1_adj_escl_rate_yr1 as ADJ_RATE,
 			CASE h.b1_MACHHRS_YR1
 	    		WHEN 0 THEN '0'
 	    		ELSE TO_CHAR(h.b1_MACHHRS_YR1,'9999999.9')
@@ -475,7 +453,7 @@
 	FROM #application.hours_to_project# h LEFT JOIN ch_user.htp_subaccount s
     ON h.inst = s.bursar_bsns_unit_cd and h.b2_term = s.sf_trm_cd and h.feecode = s.sf_trm_fee_cd and h.selgroup = s.sf_tuit_grp_ind and h.account = s.gl_acct_nbr
 	WHERE h.biennium = '#application.biennium#'
-	  AND h.INST = '#selectedCampus#' and not (h.selgroup = 'NO FCP' and h.b2_hours = 0)
+	  AND h.INST = '#selectedCampus#'
 	  <cfif selectedRC neq "NONE">
 		  <cfif application.budget_year eq 'YR1'>AND h.b1_RC = '#selectedRC#'
 		  <cfelse>AND h.b2_RC = '#selectedRC#'
@@ -489,6 +467,36 @@
 	</cfquery>
 	<cfreturn DataSelect>
 </cffunction>
+
+
+<!---<cffunction name="getProjectinatorData_fancy" output="true">
+	<cfargument name="selectedCampus" type="string" default="ALL">
+	<cfargument name="selectedRC" type="string" default="ALL">
+	<cfargument name="QueryPurpose" type="string" default="Excel">
+	<cfquery datasource="#application.datasource2#" name="DataSelect2">
+		select OID, INST, CHART, b2_RC, TERM,
+			h.SESN as TRMLABEL,
+	    	FEECODE, FEEDESCR, note, SELGROUP, TRIM(ACAD_CAREER) as ACAD_CAREER, RES, ACCOUNT, ACCOUNT_NM,
+			OBJCD, gl_obj_cd_orig, FIN_OBJ_CD_NM, HEADCOUNT, HOURS, ADJ_RATE,
+			MACHHRS_YR1, MACHHRS_YR2, spacer2, b1_ADJ_RATE, PROJHOURS_YR1,
+		   	ESTREV_YR1,spacer3, b2_adj_escl_rate_yr2, PROJHOURS_YR2,
+    	    ESTREV_YR2, SESN, FEEKEY, FEE_ID
+	    <cfif queryPurpose eq "interface">
+	 	    , b1_ADJ_ESCL_RATE_YR1, b1_ADJ_ESCL_RATE_YR2, b1_fee_residency, b1_ADJ_RATE,
+		    b2_fee_id, b2_objcd, b2_fin_obj_cd_nm, b2_projhrs_yr2, b2_hours, b2_adj_rate, b2_adj_escl_rate_yr2,
+		    fee_current, fee_lowyear, fee_highyear, RES, b1_projhrs_yr2, b1_RC, gl_sub_acct_cd
+	    </cfif>
+		from b2_rpt_chp_report_v1
+		WHERE 1=1
+		<cfif selectedCampus neq 'ALL'>
+			and inst = selectedCampus
+			<cfif selectedRC neq 'ALL'>
+				and b2_rc = selectedRC
+			</cfif>
+		</cfif>
+	</cfquery>
+	<cfreturn  DataSelect2 />
+</cffunction>--->
 
 <cffunction name="getAllRC_EstRev">
 	<cfargument name="selectedCampus" type="string" default="">

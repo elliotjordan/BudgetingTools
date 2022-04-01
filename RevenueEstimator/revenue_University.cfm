@@ -6,8 +6,7 @@
 	<cfif application.rateStatus eq "Vc">
 		<cfset reportSelect = getB325_Vc_Campus_data()> 
 	<cfelse>
-	    <!---<cfset reportSelect = getB325_V1_Campus_data()> --->
-	    <cfset reportSelect = getProjectinatorData('ALL')> 
+	    <cfset reportSelect = getProjectinatorDataV1()> 
 	 </cfif>
 <cfif IsDefined("form") AND StructKeyExists(form,"reportBtn")>
 	<cfsetting enablecfoutputonly="Yes"> 

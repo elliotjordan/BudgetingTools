@@ -18,7 +18,6 @@
 		  <cfelse>
 		    <cfset reportSelect = getB325_V1_Campus_data(urlCampus, urlRC, true)> 
 		  </cfif>
-
 	   	<cfif IsDefined("reportSelect") AND reportSelect.recordcount GT 0>
 			<cfinclude template="V1_creation.cfm" runonce="true" />
 		<cfelse>
