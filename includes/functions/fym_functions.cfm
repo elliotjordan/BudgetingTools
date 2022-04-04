@@ -560,11 +560,24 @@
 	<cfreturn call_update_fym_data_scenario />
 </cffunction>
 
+<cffunction name="getUserScenarioList" >
+	<cfargument name="givenUser" required="true" type="string">
+	<cfquery name="userScenarioList" datasource="#application.datasource#">
+		select * from fee_user.fym_scenario f
+		inner join (select * from fee_user.proj_parameter WHERE project_cd = 'FYM') p on p.fiscal_year = f.scenario_fis_yr
+		where (scenario_owner = <cfqueryparam cfsqltype="cf_sql_varchar" value="#LCase(givenUser)#">
+				OR 
+			   scenario_access LIKE '%<cfqueryparam cfsqltype="cf_sql_varchar" value="#LCase(givencolumn)#">%'
+			   )
+			</cfquery>
+</cffunction>
+
 <cffunction name="compareFYMscenario">
 	<cfargument name="givenchart" required="false" type="string" default="ALL">
 	<cfargument name="scenario_cd_0" required="true" type="numeric">
 	<cfargument name="scenario_cd_1" required="true" type="numeric">
 	<cfargument name="scenario_cd_2" required="true" type="numeric">
+	<!---<cfargument name="scenario_cd_3" required="false" type="numeric" default="9999">--->
 	<cfquery name="compare_scenario" datasource="#application.datasource#">
 		SELECT * from fee_user.rpt_fym_report_final_model_data_scenario_compare_sum(
 			givenchart => <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenchart#">,

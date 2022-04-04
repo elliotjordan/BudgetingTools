@@ -3,7 +3,8 @@
 <!---<cfset modelTotals = getModelExcelDownload(#current_inst#) />  --->
 <cfset campusInfo = getFYMdataExcel() /> <!---<cfdump var="#campusInfo#" ><cfabort>--->
 <cfset fymCommentList = getFYMcomments() />  <!---<cfdump var="#modelTotals#" ><cfabort>--->
-<cfset aggregatedFymData = get_rpt_fym_report_final_model(#current_inst#) />
+<cfset aggregatedFymData = get_rpt_fym_report_final_model(#current_scenario#,#current_inst#) />
+
 <!---<cfdump var="#campusInfo#" ><cfabort>--->
 <!---
 	Create and store the simple HTML data that you want
@@ -102,11 +103,11 @@
 	will do this. We are also suggesting that the browser
 	use the name "phrases.xls" when prompting for save.
 --->
-<cfheader
-	name="Content-Disposition"
-	value="attachment; filename=5YRModel_fym_data.xls"
-	/>
-
+<cfif current_scenario neq 0>
+	<cfheader name="Content-Disposition" value="attachment; filename=5YRModel_fym_data_scenario#current_scenario#.xls" />
+<cfelse>
+	<cfheader name="Content-Disposition" value="attachment; filename=5YRModel_fym_data.xls" />
+</cfif>
 
 <!---
 	There are several ways in which we can stream the file

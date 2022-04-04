@@ -1,12 +1,13 @@
 <cfinclude template="../includes/header_footer/fym_header.cfm" runonce="true" />
 <cfinclude template="../includes/functions/fym_functions.cfm" runonce="true" />
 
-<cfset dataScenarioComparison = compareFYMscenario(current_inst,0,10,11) />
+<cfset dataScenarioComparison = compareFYMscenario(current_inst,0,20,21) />
 
 <!---<cfdump var="#dataScenarioComparison#" >--->
 <cfoutput>
 <div class="full_content">
-<h2>Comparisons for Scenario #current_scenario#</h2>
+<!---<h2>Comparisons for Scenario #current_scenario#</h2>--->
+<h2>Comparisons for Scenarios 20 and 21</h2>
 <form name="compDownload">
 	<input type="submit" value="Download Model Comparisons to Excel" />
 	<input type="submit" value="Download CrHr Comparisons to Excel" />
@@ -26,7 +27,7 @@
 	<cfloop query="dataScenarioComparison">
 	  	<tr>
 	  		<td>#item#</td>
-	  		<td><span class="sm-blue">#inst_cd# #chart_cd# #sort#</span>#scenario_cd# - #scenario_nm#</td>
+	  		<td><span class="sm-blue">#inst_cd# #chart_cd# #sort#</span><br>#scenario_cd# - #scenario_nm#</td>
 	  		<td><span id="rs_pr">$ #NumberFormat(pr_total,'999,999,999')#</span></td>
 	  		<td><span id="rs_cy">$ #NumberFormat(cy_total,'999,999,999')#</span></td>
 	  		<td><span id="rs_yr1">$ #NumberFormat(yr1_total,'999,999,999')#</span></td>
