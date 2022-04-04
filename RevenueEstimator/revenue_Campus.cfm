@@ -37,7 +37,7 @@
 		<cfif application.rateStatus eq "Vc">
 			<cfset reportSelect = getB325_Vc_Campus_data(urlCampus, 'ALL', true)> 
 		<cfelse>
-		    <cfset reportSelect = getB325_V1_Campus_data(urlCampus, 'ALL', true)> 
+		    <cfset reportSelect = getProjectinatorDataV1('IU'&urlCampus&'A')> 
 		 </cfif>
    	<cfif IsDefined("reportSelect") AND reportSelect.recordcount GT 0>
 		<cfinclude template="V1_creation.cfm" runonce="true" />
@@ -80,8 +80,7 @@
 					
 					<div class="controlBinTC">
 						<cfif application.reportBtnEnabled>
-						<!---temporarily disabled button per nschrode on 031022--->
-							<input disabled id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate #application.rateStatus# Report" <cfif !dssIsOpen >disabled</cfif> /> 
+							<input id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate #application.rateStatus# Report" <cfif !dssIsOpen >disabled</cfif> /> 
 							<!---<br><span class="sm-blue"><i>Available only when IUIE is open</i></span>--->
 						<cfelse>
 							<input id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate #application.rateStatus# Report" />

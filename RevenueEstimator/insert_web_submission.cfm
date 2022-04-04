@@ -16,7 +16,7 @@
 		 <cfif application.rateStatus eq "Vc">
 		  	<cfset reportSelect = getB325_Vc_Campus_data(urlCampus, urlRC, true)> 
 		  <cfelse>
-		    <cfset reportSelect = getB325_V1_Campus_data(urlCampus, urlRC, true)> 
+		    <cfset reportSelect = getProjectinatorDataV1('IU'&urlCampus&'A', urlRC)> 
 		  </cfif>
 	   	<cfif IsDefined("reportSelect") AND reportSelect.recordcount GT 0>
 			<cfinclude template="V1_creation.cfm" runonce="true" />

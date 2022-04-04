@@ -15,7 +15,7 @@
 <cfif isDefined("Url") AND StructKeyExists(Url, "Campus") AND StructKeyExists(Url, "RC")>
 	<cfset urlCampus = url.Campus>
 	<cfset urlRC = url.RC>
-	<cfset DataSelect = getProjectinatorData(urlCampus, urlRC,application.rateStatus)>
+	<cfset DataSelect = getProjectinatorData(urlCampus, urlRC,'interface','excel')>
 	<cfif ListFindNocase("77,80,81",urlRc)> <cfset noFCPSelect = getNoFCPRows("IU"&urlCampus&"A",urlRC)> </cfif>
 	<cfset getCampus = getCampusAndRC(urlcampus)>
 	<cfset totProjCount = getProjCount()>
@@ -85,8 +85,8 @@
 					<div class="controlBinTC">
 						<input id="dwnldBtn" type="submit" name="dwnldBtn" class="dwnldBtn" value="Export All To Excel">
 						<cfif urlCampus neq 'BL'>
-						<!---temporarily disabled button per nschrode on 031022--->
-							<input disabled id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate #application.rateStatus# Report for your RC"
+						
+							<input id="reportBtn" type="submit" name="reportBtn" class="reportBtn" value="Generate #application.rateStatus# Report for your RC"
 					<cfif !ListFindNoCase(REQUEST.specialAccess, REQUEST.authuser) OR !dssIsOpen >
 						#application.disabled#</cfif> /><br><span class="sm-blue">
 									<a href="https://kb.iu.edu/d/alkh"><i>Available only when IUIE is open</i></a>
