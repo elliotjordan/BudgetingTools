@@ -575,9 +575,17 @@
 </cffunction>
 
 <cffunction name="compareFYMscenario">
-	<cfargument name="scenarioRequest" required="true">
+	<cfargument name="scenarioRequest" required="true" type="string" >
+	<cfset queryString = "SELECT * from fee_user.rpt_fym_report_final_model_data_scenario_compare_sum(" />
+	<cfloop index="i" from="1" to="#ListLen(scenarioRequest)#">
+		<cfif i lt ListLen(scenarioRequest)>
+			<cfset queryString = queryString & "givenscenario_cd_#i# => #ListGetAt(scenarioRequest,i)#," />
+		<cfelse>
+			<cfset queryString = queryString & "givenscenario_cd_#i# => #ListGetAt(scenarioRequest,i)#)" />
+		</cfif> 
+	</cfloop>
 	<cfquery name="compare_scenario" datasource="#application.datasource#">
-		SELECT * from fee_user.rpt_fym_report_final_model_data_scenario_compare_sum(20,21,22)
+		#queryString#
 	</cfquery>
 	<cfreturn compare_scenario />
 </cffunction>
