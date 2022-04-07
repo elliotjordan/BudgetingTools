@@ -104,7 +104,7 @@
 				<input name="projHrs_Yr1" id="projHrsYr1#CurrentRow#" size="10" value="#projhours_yr1#" onblur="calcEstRev(this.value, #feeAmount#,'#currentTarget#')" disabled />
 			</cfif>
 					</td>
-					<td name="feeLY" id="feeLY#CurrentRow#">#DollarFormat(B1_ADJ_ESCL_RATE_YR1)#</td>
+					<td name="feeLY" id="feeLY#CurrentRow#">#DollarFormat(B1_ADJ_RATE)#</td>
 					<!---<td name="feeLY" id="feeLY#CurrentRow#">#DollarFormat(b1_adj_rate)#</td>--->
 					<td id="otherFeeRevYr1#CurrentRow#" name="estRevYr1">#DollarFormat(EstRev_YR1)#</td>
 				<cfif application.budget_year eq "YR2">
@@ -113,7 +113,7 @@
 					</td>
 				</cfif>
 					<td>#NumberFormat(MACHHRS_YR2,'999,999.9')#</td>
-					<td><span class="sm-blue">Starting value: #b2_projhrs_yr2#</span>
+					<td><span class="sm-blue">Starting value: #PROJHOURS_YR2#</span>
 						<!---<span class="sm-red">SAMPLE DATA</span>--->
 										<br>
 						<cfset currentTarget = 'otherFeeRevYr2' & #CurrentRow# />
