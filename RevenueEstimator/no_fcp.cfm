@@ -1,5 +1,6 @@
 <cfoutput>
 	<!--- UNLINKED/NO FCP TABLE --->
+	<div id="fcpFeesDiv">
 		<table id="csTable2" class="feeCodeTable">
 		<thead>
 			<tr>
@@ -73,6 +74,7 @@
 				</cfif>
 			</cfloop>
 		</cfif>
-		</tbody>
-	</table>
+			</tbody>
+		</table>
+	</div>  <!-- End fcpFeesDiv div  -->
 </cfoutput>
