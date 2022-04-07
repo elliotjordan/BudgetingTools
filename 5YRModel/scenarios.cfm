@@ -7,7 +7,9 @@
 	<cfset allScenarios = getScenarios() />  
 	<cfif ListFindNoCase(REQUEST.adminUsernames,currentUser.username)><cfset editor = "YES"><cfelse><cfset editor = "NO"></cfif>
 	<div class="full_content">
-	    <cfinclude template="test_banner.cfm" runonce="true" />
+	    <cfif FindNoCase("rohan",application.baseurl) OR FindNoCase("8443",application.baseurl)>
+			<cfinclude template="test_banner.cfm">
+		</cfif>
 	<form name="fymFocusForm" action="fym_focus.cfm" method="post">
 		<label for="scenarios">Choose a scenario:</label>
 		<select name="scenarios">

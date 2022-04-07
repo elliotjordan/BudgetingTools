@@ -567,24 +567,17 @@
 		inner join (select * from fee_user.proj_parameter WHERE project_cd = 'FYM') p on p.fiscal_year = f.scenario_fis_yr
 		where (scenario_owner = <cfqueryparam cfsqltype="cf_sql_varchar" value="#LCase(givenUser)#">
 				OR 
-			   scenario_access LIKE '%<cfqueryparam cfsqltype="cf_sql_varchar" value="#LCase(givencolumn)#">%'
+			   scenario_access LIKE <cfqueryparam cfsqltype="cf_sql_varchar" value="%#LCase(givenUser)#%">
 			   )
-			</cfquery>
+		ORDER BY f.scenario_cd ASC
+	</cfquery>
+	<cfreturn userScenarioList />
 </cffunction>
 
 <cffunction name="compareFYMscenario">
-	<cfargument name="givenchart" required="false" type="string" default="ALL">
-	<cfargument name="scenario_cd_0" required="true" type="numeric">
-	<cfargument name="scenario_cd_1" required="true" type="numeric">
-	<cfargument name="scenario_cd_2" required="true" type="numeric">
-	<!---<cfargument name="scenario_cd_3" required="false" type="numeric" default="9999">--->
+	<cfargument name="scenarioRequest" required="true">
 	<cfquery name="compare_scenario" datasource="#application.datasource#">
-		SELECT * from fee_user.rpt_fym_report_final_model_data_scenario_compare_sum(
-			givenchart => <cfqueryparam cfsqltype="cf_sql_varchar" value="#givenchart#">,
-			givenscenario_cd_0 => <cfqueryparam cfsqltype="cf_sql_numeric" value="#scenario_cd_0#">,
-			givenscenario_cd_1 => <cfqueryparam cfsqltype="cf_sql_numeric" value="#scenario_cd_1#">,
-			givenscenario_cd_2 => <cfqueryparam cfsqltype="cf_sql_numeric" value="#scenario_cd_2#">
-			)
+		SELECT * from fee_user.rpt_fym_report_final_model_data_scenario_compare_sum(20,21,22)
 	</cfquery>
 	<cfreturn compare_scenario />
 </cffunction>

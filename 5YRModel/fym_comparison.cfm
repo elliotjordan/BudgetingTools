@@ -1,17 +1,28 @@
 <cfinclude template="../includes/header_footer/fym_header.cfm" runonce="true" />
 <cfinclude template="../includes/functions/fym_functions.cfm" runonce="true" />
-
-<cfset dataScenarioComparison = compareFYMscenario(current_inst,0,20,21) />
+<cfset scenario_list = getUserScenarioList(currentUser.username) />
+<!---<cfdump var="#scenario_list#" > <cfabort>--->
+<cfset dataScenarioComparison = compareFYMscenario(20,21) />
 
 <!---<cfdump var="#dataScenarioComparison#" >--->
 <cfoutput>
 <div class="full_content">
 <!---<h2>Comparisons for Scenario #current_scenario#</h2>--->
 <h2>Comparisons for Scenarios 20 and 21</h2>
-<form name="compDownload">
-	<input type="submit" value="Download Model Comparisons to Excel" />
-	<input type="submit" value="Download CrHr Comparisons to Excel" />
+
+<form name="compDownload" action="fym_comp_submit.cfm" method="post">
+	<h3>CTRL-CLICK to select up to 9 Scenarios</h3>
+	<select id="scenarioSelector" name="scenarioSelector" multiple="multiple" size="#scenario_list.recordcount#">
+		 <cfloop query="#scenario_list#">
+		 	<option value="#scenario_cd#">Scenario #scenario_cd# - #scenario_nm# (#scenario_owner#)</option>
+		 </cfloop>
+	</select><br>
+	<input name="compSelectorBtn" type="submit" value="Get Scenarios" disabled /><i>Not quite ready yet...</i>
+	<br><br>
+	<input name="modelExcelDownBtn" type="submit" value="Download Model Comparisons to Excel" />
+	<input name="crHrExcelDownBtn" type="submit" value="Download CrHr Comparisons to Excel" />
 </form><br/>
+
 <table id="fymSummaryTable" class="summaryTable">
 	  <tr>
 	  	<th>Item</th>

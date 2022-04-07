@@ -6,12 +6,11 @@
 <cfset scenario_details = getCurrentScenario(current_scenario) />
 
 <cfif ListFindNoCase('XY',current_inst) or ListFindNoCase('sbadams,jburgoon',REQUEST.authUser)> 
-
 	<cfset openModel = true />
 <cfelse>
 	<cfset openModel = false />
 </cfif>
-<cfif ListFindNoCase('ZZTop',current_inst) or ListFindNoCase('jopadams,sbadams,jburgoon,nschrode,ellijord,pyebei',REQUEST.authUser)>
+<cfif ListFindNoCase('ZZTop',current_inst) or ListFindNoCase('jopadams,sbadams,jburgoon,nschrode,ellijord,pyebei,nichodan,bjmoelle',REQUEST.authUser)>
 	<cfset showScenarios = true />
 <cfelse>
 	<cfset showScenarios = false />
@@ -35,9 +34,7 @@
 		<meta name="audiences" content="default" >
 		<meta name="owner-group" content="budu" >
 		<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- insure page width and zoom on any device -->
-
 		<link href="https://www.iu.edu/favicon.ico" rel="icon" />
-	    
 	    <link href="../js/datatables.min.css" rel="stylesheet" type="text/css" media="screen">
 	    <link href="../css/print.css" rel="stylesheet" type="text/css" media="print">
         <link href="../_iu-brand/css/base.css" rel="stylesheet" type="text/css" />
@@ -61,11 +58,7 @@
 	                    	<img src="../_iu-brand/img/trident-tab.gif" height="73" width="64" alt="IU Trident logo" />
 	                        <span class="line-break">INDIANA UNIVERSITY BUDGET OFFICE - 5YR MODEL PORTAL</span>
 	                    </a>
-	                   <cfif ListFindNoCase(REQUEST.adminUsernames,REQUEST.authUser)> 
-	                    <span class="headerUBO">
-		                	<a href="../5YRModel/FYM_controls.cfm" target="_blank"><input id="cockpitBtn" class="gangnamStyle" type="submit" name="cockpitBtn" value="Go To FYM Controls" /></a>
-	                	</span>
-	                	</cfif>
+
 						<span class="link_hilight"><a id="instrxnLink" href="instructions.cfm">Instructions</a></span>
 						
 						<span class="link_hilight targetLink"> 
@@ -80,13 +73,18 @@
 							</cfif>
 						</span>
 						<span class="link_hilight"><a id="crHrLink" href="CrHrProjections.cfm">Credit Hours</a></span>
-					<cfif showScenarios AND (listFindNoCase(REQUEST.adminUsernames, currentUser.username) OR ListFindNoCase(REQUEST.regionalUsernames, currentUser.username))>
+			<cfif showScenarios AND (listFindNoCase(REQUEST.adminUsernames, currentUser.username) OR ListFindNoCase(REQUEST.regionalUsernames, currentUser.username))>
 						<span class="link_hilight"><a id="scenLink" href="scenarios.cfm">Scenarios (#current_scenario#)</a></span> 
 						<span class="link_hilight"><a id="scenCompLink" href="fym_comparison.cfm">Comparisons (#current_scenario#)</a></span> 
-					</cfif>
+			</cfif>
 						<span class="link_hilight"><a id="paramLink" href="params.cfm">Parameters</a></span>
 						<span class="link_hilight"><a id="dataLink" href="fym_excel.cfm">FYM Data (#current_inst#)</a></span>
 						<span class="link_hilight"><a id="uploadLink" href="uploads.cfm">Uploads</a></span>
+	        <cfif ListFindNoCase(REQUEST.adminUsernames,REQUEST.authUser)> 
+	                    <span class="link_hilight">
+		                	<a href="../5YRModel/FYM_controls.cfm" target="_blank"><input id="cockpitBtn" class="" type="submit" name="cockpitBtn" value="Go To FYM Controls" /></a>
+	                	</span>
+	        </cfif>
 	                </p>
 	            </div>
 	        </div>
