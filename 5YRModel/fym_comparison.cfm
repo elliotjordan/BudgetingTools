@@ -2,7 +2,7 @@
 <cfinclude template="../includes/functions/fym_functions.cfm" runonce="true" />
 <cfset scenario_list = getUserScenarioList(currentUser.username) />
 <cfset dataScenarioComparison = QueryNew("") />
-<cfif isDefined("form") and StructKeyExists(form,"compSelectorBtn")>
+<cfif isDefined("form") and StructKeyExists(form,"scenarioselector")>
 	<!---<cfdump var="#form#" >--->
 	<cfset arg_list = "" />
 	<cfloop list="#form.scenarioselector#" index="s">
