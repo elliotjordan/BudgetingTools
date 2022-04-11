@@ -568,6 +568,8 @@
 		where (scenario_owner = <cfqueryparam cfsqltype="cf_sql_varchar" value="#LCase(givenUser)#">
 				OR 
 			   scenario_access LIKE <cfqueryparam cfsqltype="cf_sql_varchar" value="%#LCase(givenUser)#%">
+			   OR 
+			   scenario_access = 'ALL'
 			   )
 		ORDER BY f.scenario_cd ASC
 	</cfquery>

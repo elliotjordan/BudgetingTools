@@ -10,9 +10,8 @@
 	</cfloop>
 	<!---<cfdump var="#arg_list#" >  <cfabort>--->
 	<cfset dataScenarioComparison = compareFYMscenario(arg_list)>
-	<!---<cfdump var="#dataScenarioComparison#" />
-	
-	<cfabort>--->
+
+	<!---<cfabort>--->
 <cfelseif isDefined("form") and StructKeyExists(form,"modelExcelDownBtn")>
 	<h2>modelExcelDown Button Results</h2>
 	<cfdump var="#form#" ><cfabort>
@@ -24,7 +23,7 @@
 <cfoutput>
 <div class="full_content">
 <!---<h2>Comparisons for Scenario #current_scenario#</h2>--->
-<h2>Comparisons for Scenarios 20 and 21</h2>
+<h2>Model Comparisons</h2>
 
 <form name="compDownload" action="fym_comparison.cfm" method="post">
 	<h3>CTRL-CLICK to select up to 9 Scenarios</h3>
@@ -35,47 +34,108 @@
 	</select><br>
 	<input name="compSelectorBtn" type="submit" value="Get Scenarios" />
 	<br><br>
-	<input name="modelExcelDownBtn" type="submit" value="Download Model Comparisons to Excel" disabled />
-	<input name="crHrExcelDownBtn" type="submit" value="Download CrHr Comparisons to Excel" disabled />
+	<!---<input name="modelExcelDownBtn" type="submit" value="Download Model Comparisons to Excel" disabled />
+	<input name="crHrExcelDownBtn" type="submit" value="Download CrHr Comparisons to Excel" disabled />--->
 </form><br/>
 
+<cfif dataScenarioComparison.recordcount gt 0>  
+<cfsavecontent variable="strExcelData">
+	<style type="text/css">
+		td {
+			font-family: "times new roman", verdana ;
+			font-size: 11pt ;
+			border: 0.5pt solid black;
+			}
+		td.header {
+			background-color: ##96DED1;
+			border-bottom: 0.5pt solid black ;
+			font-weight: bold ;
+			}
+	</style>
+<cfoutput>
+<!---<cfdump var="#dataScenarioComparison#" ><cfabort>--->
 <table id="fymSummaryTable" class="summaryTable">
 	  <tr>
-	  	<th>Item</th>
-	  	<th>Scenario</th>
-		<th>FY#application.shortfiscalyear# Adj Base Budget</th>
-		<th>FY#application.shortfiscalyear# Projection</th>
-		<th>FY#application.shortfiscalyear + 1# Projection</th>
-		<th>FY#application.shortfiscalyear + 2# Projection</th>
-		<th>FY#application.shortfiscalyear + 3# Projection</th>
-		<th>FY#application.shortfiscalyear + 4# Projection</th>
-		<th>FY#application.shortfiscalyear + 5# Projection</th>
+	  	<th class="header">Item</th>
+	  	<th class="header">Campus</th>
+	  	<th class="header">Chart</th>
+	  	<th class="header">Scenario_Cd</th>
+	  	<th class="header">Scenario_Nm</th>
+		<th class="header">FY#application.shortfiscalyear# Adj Base Budget</th>
+		<th class="header">FY#application.shortfiscalyear# Projection</th>
+		<th class="header">FY#application.shortfiscalyear + 1# Projection</th>
+		<th class="header">FY#application.shortfiscalyear + 2# Projection</th>
+		<th class="header">FY#application.shortfiscalyear + 3# Projection</th>
+		<th class="header">FY#application.shortfiscalyear + 4# Projection</th>
+		<th class="header">FY#application.shortfiscalyear + 5# Projection</th>
 	  </tr>
-<cfif dataScenarioComparison.recordcount gt 0>
-	<cfloop query="dataScenarioComparison">
-	  	<tr>
-	  		<td>#item#</td>
-	  		<td><span class="sm-blue">#inst_cd# #chart_cd# #sort#</span><br>#scenario_cd# - #scenario_nm#</td>
-	  		<td><span id="rs_pr">$ #NumberFormat(pr_total,'999,999,999')#</span></td>
-	  		<td><span id="rs_cy">$ #NumberFormat(cy_total,'999,999,999')#</span></td>
-	  		<td><span id="rs_yr1">$ #NumberFormat(yr1_total,'999,999,999')#</span></td>
-	  		<td><span id="rs_yr2">$ #NumberFormat(yr2_total,'999,999,999')#</span></td>
-	  		<td><span id="rs_yr3">$ #NumberFormat(yr3_total,'999,999,999')#</span></td>
-	  		<td><span id="rs_yr4">$ #NumberFormat(yr4_total,'999,999,999')#</span></td>
-	  		<td><span id="rs_yr5">$ #NumberFormat(yr5_total,'999,999,999')#</span></td>
-	  	</tr>
-	</cfloop>
+		<cfloop query="dataScenarioComparison">
+			<tr>
+				<td>#item#</td>
+				<td>#inst_cd#</td>
+				<td>#chart_cd#</td>
+				<td>#scenario_cd#</td>
+				<td>#scenario_nm#</td>
+				<td>#pr_total#</td>
+				<td>#cy_total#</td>
+				<td>#yr1_total#</td>
+				<td>#yr2_total#</td>
+				<td>#yr3_total#</td>
+				<td>#yr4_total#</td>
+				<td>#yr5_total#</td>
+			</tr>
+		</cfloop>
+	</table>
+</cfoutput>
+</cfsavecontent>
+
+<cfif StructKeyExists( URL, "preview" )>
+	<html>
+	<head>
+		<title>Excel Data Preview</title>
+	</head>
+	<body>
+		<cfset WriteOutput( strExcelData ) />
+	</body>
+	</html>
+	<cfexit />
+</cfif>
+
+<cfheader
+	name="Content-Disposition"
+	value="attachment; filename=5YRModel_fym_data.xls"
+	/>
+
+<cfif StructKeyExists( URL, "text" )>
+	<cfcontent type="application/msexcel" reset="true" />
+	<cfset WriteOutput( strExcelData.Trim() ) />
+<cfelseif StructKeyExists( URL, "file" )>
+	<cfset strFilePath = GetTempFile(
+		GetTempDirectory(),
+		"excel_"
+		) />
+	<cffile
+		action="WRITE"
+		file="#strFilePath#"
+		output="#strExcelData.Trim()#"
+		/>
+
+	<cfcontent
+		type="application/msexcel"
+		file="#strFilePath#"
+		deletefile="true"
+		/>
+<cfelse>
+	<cfcontent
+		type="application/msexcel"
+		variable="#ToBinary( ToBase64( strExcelData.Trim() ) )#"
+		/>
+</cfif>
+	
 <cfelse>
 	<tr><td colspan="9"><b>Please CTRL-CLICK above to choose two or more scenarios for comparison.</b></td></tr>
 </cfif>
 	</table>  <!--- End of fymSummaryTable  --->
-<!---<cfloop query="#dataScenarioComparison#">
-	<cfif current_inst eq chart_cd>
-	#oid# #scenario_cd# - #scenario_nm# #cur_fis_yr# #inst_cd# #inst_desc# #chart_cd# #chart_desc# #grp1_cd# #grp1_desc#
-	#grp2_desc# #grp2_cd# #ln1_cd# #ln1_desc# #ln2_cd# #ln2_desc# #ln_sort# #cy_orig_budget_amt# #cur_yr_old# #cur_yr_new# #yr1_old#
-	#yr1_new# #yr2_old# #yr2_new# #yr3_old# #yr3_new# #yr4_old# #yr4_new# #yr5_old# #yr5_new# #param_type_cd# #bus_logic# #details_disp# 
-	#recalc_ind# #fym_comment#<br/><br/>
-	</cfif>
-</cfloop>--->
+
 </cfoutput>
 <cfinclude template="../includes/header_footer/fym_footer.cfm" runonce="true" />
