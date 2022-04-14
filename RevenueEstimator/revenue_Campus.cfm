@@ -48,6 +48,7 @@
 
     <!--- Main page  --->
 	<div class="full_content">
+		<cfinclude template="prod_banner.cfm" runonce="true" />
 		<h2><a href="revenue_RC.cfm">Credit Hour Revenue Projector</a> 
 			<span class="sm-blue"> 
 				<i>Currently set to <b>

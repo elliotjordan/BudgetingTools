@@ -46,6 +46,7 @@
 
 <cfoutput>
 	<div class="full_content">
+		<cfinclude template="prod_banner.cfm" runonce="true" />
 			<h2><a href="revenue_RC.cfm">Credit Hour Revenue Projector</a> </h2>
 			Currently set to <b>
 							<cfif application.rateStatus eq "Vc">constant effective rates.
