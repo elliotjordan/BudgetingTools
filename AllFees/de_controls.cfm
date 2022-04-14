@@ -118,7 +118,7 @@
 		</form>
 	
 	<hr>
-	<pre>
+<!---	<pre>
 		select a.allfee_id as "DE_Rate", a.inst_cd, a.fee_desc_billing, a.unit_basis, a.fee_current,a.fee_lowyear,
 	      round((to_number(a.fee_lowyear)-to_number(a.fee_current))/to_number(a.fee_current),3)*100 as delta_percent,
 		  b.base_afid as "Base_Rate", b.asso_desc, b.fn_name, c.param_desc
@@ -132,6 +132,6 @@
 		
 		<h5>afm_params</h5>
 		<cfdump var="#afm_params#" />
-		
+		--->
 	</div>  <!-- End div class="full_content"  -->
 </cfoutput>
