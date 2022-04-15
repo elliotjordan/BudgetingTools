@@ -449,7 +449,7 @@ FROM ch_user.b2_rpt_chp_report_v1(giveninst => '#selectedCampus#', givenrc => '#
 			  WHEN h.SELGROUP = ' ' THEN '--s'
 			  ELSE h.SELGROUP END,
 			TRIM(h.ACAD_CAREER) as ACAD_CAREER, h.RES, h.ACCOUNT, h.ACCOUNT_NM,
-			h.b1_OBJCD as OBJCD, h.b1_FIN_OBJ_CD_NM as FIN_OBJ_CD_NM, '' as spacer1, h.b1_headcount as HEADCOUNT, h.b1_hours as HOURS, h.b1_adj_rate as ADJ_RATE,
+			h.b1_OBJCD as OBJCD, h.b1_FIN_OBJ_CD_NM as FIN_OBJ_CD_NM, gl_obj_cd_orig, h.b1_headcount as HEADCOUNT, h.b1_hours as HOURS, h.b1_adj_rate as ADJ_RATE,
 			CASE h.b1_MACHHRS_YR1
 	    		WHEN 0 THEN '0'
 	    		ELSE TO_CHAR(h.b1_MACHHRS_YR1,'9999999.9')
@@ -486,7 +486,7 @@ FROM ch_user.b2_rpt_chp_report_v1(giveninst => '#selectedCampus#', givenrc => '#
 			h.b2_RC, h.b2_TERM as TERM,
 			h.SESN as TRMLABEL,
 	    	h.FEECODE, h.FEEDESCR, h.note, h.SELGROUP, TRIM(h.ACAD_CAREER) as ACAD_CAREER, h.RES, h.ACCOUNT, h.ACCOUNT_NM,
-			h.b2_OBJCD as OBJCD, h.b2_FIN_OBJ_CD_NM as FIN_OBJ_CD_NM, '' as spacer1, h.b2_headcount as HEADCOUNT, h.b2_hours as HOURS, h.b1_adj_escl_rate_yr1 as ADJ_RATE,
+			h.b2_OBJCD as OBJCD, h.b2_FIN_OBJ_CD_NM as FIN_OBJ_CD_NM, gl_obj_cd_orig, h.b2_headcount as HEADCOUNT, h.b2_hours as HOURS, h.b1_adj_escl_rate_yr1 as ADJ_RATE,
 			CASE h.b1_MACHHRS_YR1
 	    		WHEN 0 THEN '0'
 	    		ELSE TO_CHAR(h.b1_MACHHRS_YR1,'9999999.9')
@@ -876,9 +876,9 @@ GROUP BY sesn) t
 	<cfset SpreadsheetAddRow(sheet, "NOTE: To match the the University Fiscal Analysis remove these fee codes from the Fee Codes filter in column F: ACPR$ G901N$ G901R$ LWARN$ MUSX OTHER OVST OVSTN$ OVSTR$")>
 	<cfset SpreadsheetMergeCells(sheet,3,3,1,29)>
 	<cfif application.rateStatus eq "Vc">
-		<cfset SpreadsheetAddRow(sheet, "ID,Campus,Chart,RC,Term,Semester,Fee Code,Fee Code Descr,Note,Tuition Group,Academic Career,Residency,Account,Account Name,Object Code,Alt Obj Cd,Object Code Name,Headcount,Actual Credit Hours,Current Rate,#application.firstyear# Enrollment Study Hours,#application.secondyear# Enrollment Study Hours,Spacer2,#application.firstyear# Effective Rate, #application.firstyear# Campus Projected Hours, #application.firstyear# Estimated Revenue,Spacer3,#application.secondyear# Effective Rate,#application.secondyear# Campus Projected Hours, #application.secondyear# Estimated Revenue, SESN,FEEKEY, FEE_ID, b1_ADJ_ESCL_RATE_YR1, b1_ADJ_ESCL_RATE_YR2, b1_fee_residency, b1_ADJ_RATE, b2_fee_id, b2_objcd, b2_fin_obj_cd_nm, b2_projhrs_yr2, b2_hours, b2_adj_rate, b2_adj_escl_rate_yr2, fee_current, fee_lowyear, fee_highyear, RES,b1_projhrs_yr2,b1_rc")>
+		<cfset SpreadsheetAddRow(sheet, "ID,Campus,Chart,RC,Term,Semester,Fee Code,Fee Code Descr,Note,Tuition Group,Academic Career,Residency,Account,Account Name,Object Code,Object Code Name,Alt Obj Cd,Headcount,Actual Credit Hours,Current Rate,#application.firstyear# Enrollment Study Hours,#application.secondyear# Enrollment Study Hours,Spacer2,#application.firstyear# Effective Rate, #application.firstyear# Campus Projected Hours, #application.firstyear# Estimated Revenue,Spacer3,#application.secondyear# Effective Rate,#application.secondyear# Campus Projected Hours, #application.secondyear# Estimated Revenue, SESN,FEEKEY, FEE_ID, b1_ADJ_ESCL_RATE_YR1, b1_ADJ_ESCL_RATE_YR2, b1_fee_residency, b1_ADJ_RATE, b2_fee_id, b2_objcd, b2_fin_obj_cd_nm, b2_projhrs_yr2, b2_hours, b2_adj_rate, b2_adj_escl_rate_yr2, fee_current, fee_lowyear, fee_highyear, RES,b1_projhrs_yr2,b1_rc")>
 	<cfelse>  <!--- V1 version --->
-		<cfset SpreadsheetAddRow(sheet, "ID,Campus,Chart,RC,Term,Semester,Fee Code,Fee Code Descr,Note,Tuition Group,Academic Career,Residency,Account,Account Name,Object Code,Alt Obj Cd,Object Code Name,#application.firstyear# Headcount,#application.firstyear# Actual Credit Hours,Current #application.firstyear# Rate,#application.firstyear# Enrollment Study Hours,#application.secondyear# Enrollment Study Hours,Spacer2,#application.firstyear# Escalated Rate, #application.firstyear# Campus Projected Hours, #application.firstyear# Estimated Revenue,Spacer3,#application.secondyear# Escalated Rate,#application.secondyear# Campus Projected Hours, #application.secondyear# Estimated Revenue, SESN,FEEKEY, FEE_ID, b1_ADJ_ESCL_RATE_YR1, b1_ADJ_ESCL_RATE_YR2, b1_fee_residency, b1_ADJ_RATE, b2_fee_id, b2_objcd, b2_fin_obj_cd_nm, b2_projhrs_yr2, b2_hours, b2_adj_rate, b2_adj_escl_rate_yr2, fee_current, fee_lowyear, fee_highyear, RES,b1_projhrs_yr2,b1_rc")>
+		<cfset SpreadsheetAddRow(sheet, "ID,Campus,Chart,RC,Term,Semester,Fee Code,Fee Code Descr,Note,Tuition Group,Academic Career,Residency,Account,Account Name,Object Code,Object Code Name,Alt Obj Cd,#application.firstyear# Headcount,#application.firstyear# Actual Credit Hours,Current #application.firstyear# Rate,#application.firstyear# Enrollment Study Hours,#application.secondyear# Enrollment Study Hours,Spacer2,#application.firstyear# Escalated Rate, #application.firstyear# Campus Projected Hours, #application.firstyear# Estimated Revenue,Spacer3,#application.secondyear# Escalated Rate,#application.secondyear# Campus Projected Hours, #application.secondyear# Estimated Revenue, SESN,FEEKEY, FEE_ID, b1_ADJ_ESCL_RATE_YR1, b1_ADJ_ESCL_RATE_YR2, b1_fee_residency, b1_ADJ_RATE, b2_fee_id, b2_objcd, b2_fin_obj_cd_nm, b2_projhrs_yr2, b2_hours, b2_adj_rate, b2_adj_escl_rate_yr2, fee_current, fee_lowyear, fee_highyear, RES,b1_projhrs_yr2,b1_rc")>
 	</cfif>
 	<!---<cfset SpreadsheetFormatRow(sheet, setExcelTitleFormatting(),3)>--->
 	<cfset SpreadsheetSetRowHeight(sheet,1,30)>
@@ -899,8 +899,8 @@ GROUP BY sesn) t
 	<cfset SpreadsheetSetColumnWidth(sheet,13,10)>  <!--- M Account --->
 	<cfset SpreadsheetSetColumnWidth(sheet,14,30)>  <!--- N Account Name --->
 	<cfset SpreadsheetSetColumnWidth(sheet,15,15)>  <!--- O Object Code --->
-	<cfset SpreadsheetSetColumnWidth(sheet,16,15)>  <!--- P Orig Obj cd --->
-	<cfset SpreadsheetSetColumnWidth(sheet,17,33)>  <!--- Q Obj Cd Name  --->
+	<cfset SpreadsheetSetColumnWidth(sheet,16,33)>  <!--- P Obj Cd Name  --->
+	<cfset SpreadsheetSetColumnWidth(sheet,17,15)>  <!--- Q Orig Obj cd   gl_obj_cd_orig   fin_obj_cd_nm_orig  --->
 
 	<cfset SpreadsheetSetColumnWidth(sheet,18,18)>  <!--- R firstyear Headcount --->
 	<cfset SpreadsheetSetColumnWidth(sheet,19,25)>  <!--- S firstyear Actual CrHrs --->
