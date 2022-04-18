@@ -53,7 +53,7 @@
 <hr>
 </div>
                
-<div id="branding-bar" class="iu" itemscope="itemscope" itemtype="http://schema.org/CollegeOrUniversity">
+<div id="branding-bar" style="width: 100%; position: fixed; top: 0px; z-index: auto;" class="iu" itemscope="itemscope" itemtype="http://schema.org/CollegeOrUniversity">
 	<div class="row pad">
 			<img src="https://assets.iu.edu/brand/3.2.x/trident-large.png" alt="" />
 			<p id="iu-campus">
@@ -68,7 +68,6 @@
                   
     <div id="toggles">
     <div class="row pad">
-        <!--<a class="button search-toggle" href="/search/" aria-controls="search" aria-expanded="false"><img src="//assets.iu.edu/search/3.2.x/search.png" alt="Open Search" /></a>-->
     </div>
 </div>
       
@@ -148,54 +147,9 @@
         </div>
     </div>
 </div>
-<nav aria-label="Main" id="nav-main" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement" class="main show-for-large dropdown">
-<ul class="row pad" id="menubar2">
-
-<li class="show-on-sticky home"><a href="" aria-label="Home">STICKYMSG</a></li>
-
-<li class="first"><a href="" itemprop="url" class="nav-bar"><span itemprop="name">LONGLINK1</span></a>
-<ul class="children">
-<li><a href="" itemprop="url" class="nav-bar"><span itemprop="name">LINK1-SUB1</span></a></li>
-
-</ul></li>
-
-<li><a href="" itemprop="url" class="nav-bar"><span itemprop="name">LONGLINK2</span></a>
-<ul class="children">
-<li><a href="" itemprop="url" class="nav-bar"><span itemprop="name">LINK2-SUB1</span></a></li>
-<li><a href="" itemprop="url" class="nav-bar"><span itemprop="name">LINK2-SUB2</span></a></li>
-<li><a href="" itemprop="url" class="nav-bar"><span itemprop="name">LINK2-SUB3</span></a></li>
-
-</ul></li>
-
-<li><a href="" itemprop="url" class="nav-bar"><span itemprop="name">LONGLINK3</span></a>
-<ul class="children">
-<li><a href="" itemprop="url" class="nav-bar"><span itemprop="name">LINK3-SUB1</span></a></li>
-<li><a href="" itemprop="url" class="nav-bar"><span itemprop="name">LINK3-SUB2</span></a></li>
-
-</ul></li>
-
-<li><a href="" itemprop="url" class="nav-bar"><span itemprop="name">LONGLINK4</span></a>
-<ul class="children">
-<li><a href="" itemprop="url" class="nav-bar"><span itemprop="name">LINK4-SUB1</span></a></li>
-<li><a href="" itemprop="url" class="nav-bar"><span itemprop="name">LINK4-SUB2</span></a></li>
-
-</ul></li>
-
-<li><a href="" itemprop="url" class="nav-bar"><span itemprop="name">LONGLINK5</span></a>
-<ul class="children">
-<li><a href="" itemprop="url" class="nav-bar"><span itemprop="name">LINK5-SUB1</span></a></li>
-<li><a href="" itemprop="url" class="nav-bar"><span itemprop="name">LINK5-SUB2</span></a></li>
-
-</ul></li>
-
-<li><a href="" itemprop="url" class="nav-bar"><span itemprop="name">LONGLINK6</span></a></li>
 
 
 
-<!--<li><a href="" itemprop="url" class="nav-bar"><span itemprop="name" class="pageHeaderButton">BIGBUTTON1</span></a></li>
-<li class="last"><a href="" itemprop="url" class="nav-bar"><span itemprop="name" class="pageHeaderButton">BIGBUTTON2</span></a></li>-->
-
-</ul></nav>
 
 
 <nav aria-label="CTA" id="nav-cta" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement" class="cta-nav" style="">
@@ -331,7 +285,7 @@ SELECT * FROM fee_user.pm_calendar
     
 </main>
 						
-<footer style=" background-color: #7d110c;" id="footer" itemscope="itemscope">
+<footer style="background-color: #7d110c;" id="footer" itemscope="itemscope">
 <div class="row pad">
 <div class="invert border">
 <div class="footer-social">
