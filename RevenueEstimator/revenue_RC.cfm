@@ -32,7 +32,7 @@
 <cfset projStatus = "open" />  <!--- valid settings are "open" and "closed" - button logic checks ninjaList for "OPEN" --->
 <cfset ninjaList = "nschrode,nichodan,bjmoelle" /> 
 <!--- Turn off SAVE button for specific campuses   --->
-<cfif !ListFindNoCase('NW',urlCampus)>
+<cfif !ListFindNoCase('XX',urlCampus)>
 	<cfset projstatus = "closed" />
 </cfif>
 <cfset disabledBtn = "" />
