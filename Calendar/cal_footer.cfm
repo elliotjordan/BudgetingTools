@@ -16,11 +16,11 @@
         </div>
         <!-- END INDIANA UNIVERSITY FOOTER -->
 
-<script>
+<!---<script>
 	$(document).ready(function(){
 
 	});
-</script>
+</script>--->
 
 	</body>
 </html>

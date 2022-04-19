@@ -1,29 +1,51 @@
+<!--- CRUD unctions for calendar  --->
+<!---  CREATE  --->
+<cffunction name="createCalendarItem" >
+	<cfquery name="createCalItem">
+		select * from fee_user.insert_into_pm_calendar(
+			givenfiscal_year character varying, 
+			givenstart_desc_main character varying, 
+			givenstart_desc_sub character varying, 
+			givendeadline_date timestamp without time zone, 
+			givendeadline_desc_main character varying, 
+			givendeadline_desc_sub character varying,
+			givenresponsible character varying, 
+			givenhyperlink character varying,
+			givennote character varying, 
+			givencompleted_flag character varying,
+			givencal_layer character varying, 
+			givenpublish_flag character varying, 
+			givenusername character varying, 
+			giventag character varying)
+               <!---  This gives all the non-auto columns. Arrow operators (=>) very much required here.  ---> 
+	</cfquery>
+</cffunction>
+
+<!--- READ  --->
 <cffunction name="getCalendarItems">
 	<cfquery name="getCalItems" datasource="#application.datasource#">
-		SELECT * FROM fee_user.pm_calendar 
+		SELECT * FROM fee_user.pm_calendar where fiscal_year = '#application.fiscalyear#'
 	</cfquery>
 	<cfreturn getCalItems>
 </cffunction>
 
-<cffunction name="getTestQuery">
-	<cfargument name="sockItToMe" required="false" default="NEVERMIND">
-	<cfif sockItToMe eq 'NEVERMIND'>
-		<cfquery name="hotAir" datasource="#application.datasource#">
-			SELECT 'blork' as BLORK from dual
-		</cfquery>
-		<cfreturn hotAir />
-	<cfelse>
-		<cfquery name="smoke" datasource="#application.datasource#">
-			SELECT '999999' as OID, '#sockItToMe#' as GIVEN_INPUT, 'blork' as BLORK, 'swampwater' as BILGE, 'tosh' as DRIVEL, '7' as YRS_TO_RETIRE
-			from dual
-		</cfquery>
-		<cfreturn smoke />
-	</cfif>
+
+<!---  UPDATE  --->
+<cffunction name="updateCalendarItem" >
+	<cfquery name="updateCalitem" datasource="#application.datasource#">
+		select * from fee_user.update_pm_calendar(
+			givencalid integer, 
+			givencolumn character varying, 
+			givenvalue character varying
+		)
+	</cfquery>
 </cffunction>
 
-<cffunction name="getCalendarItems2">
-	<cfquery name="getCalItems" datasource="#application.datasource#">
-		SELECT * FROM fee_user.pm_calendar order by 1
+<!---  DELETE  --->
+<cffunction name="deleteCalendarItem" >
+	<cfquery name="deleteCalitem" datasource="#application.datasource#">
+		select * from fee_user.delete_from_pm_calendar(
+			givencalid integer
+		)
 	</cfquery>
-	<cfreturn getCalItems>
 </cffunction>
